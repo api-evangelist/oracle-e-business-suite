@@ -1,0 +1,117 @@
+name: Oracle E-Business Suite APIs
+description: A collection of APIs for Oracle E-Business Suite (EBS), Oracle's comprehensive suite of integrated, global business applications
+image: https://www.oracle.com/a/ocom/img/oracle-logo.svg
+tags:
+- ERP
+- Enterprise
+- Business Applications
+- Oracle
+- E-Business Suite
+created: '2024'
+modified: '2024'
+url: https://www.oracle.com/applications/ebusiness/
+apis:
+- name: Oracle EBS REST API
+  description: RESTful web services for Oracle E-Business Suite modules
+  image: https://www.oracle.com/a/ocom/img/oracle-logo.svg
+  baseURL: https://{instance}.oracle.com/fscmRestApi/resources/
+  humanURL: https://docs.oracle.com/en/cloud/saas/applications/
+  tags:
+  - REST
+  - ERP
+  - Finance
+  - Supply Chain
+  properties:
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E26401_01/doc.122/e20927/toc.htm
+  - type: OpenAPI
+    url: https://docs.oracle.com/en/cloud/saas/applications/
+  contact:
+  - FN: Oracle Support
+    email: support@oracle.com
+    url: https://support.oracle.com
+- name: Oracle EBS Financial Services API
+  description: APIs for financial management including General Ledger, Accounts Payable, Accounts Receivable
+  baseURL: https://{instance}.oracle.com/financials/
+  humanURL: https://docs.oracle.com/cd/E26401_01/
+  tags:
+  - Financials
+  - Accounting
+  - GL
+  - AR
+  - AP
+  properties:
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E26401_01/doc.122/e22547/toc.htm
+  - type: Integration Guide
+    url: https://docs.oracle.com/cd/E26401_01/doc.122/e20927/T511473T634470.htm
+- name: Oracle EBS Supply Chain Management API
+  description: APIs for inventory, purchasing, order management, and logistics
+  baseURL: https://{instance}.oracle.com/scm/
+  humanURL: https://docs.oracle.com/cd/E26401_01/
+  tags:
+  - Supply Chain
+  - Inventory
+  - Purchasing
+  - Order Management
+  properties:
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E26401_01/doc.122/e20927/toc.htm
+  - type: API Reference
+    url: https://docs.oracle.com/en/applications/
+- name: Oracle EBS Human Resources API
+  description: APIs for HR management, payroll, and workforce administration
+  baseURL: https://{instance}.oracle.com/hcm/
+  humanURL: https://docs.oracle.com/cd/E26401_01/
+  tags:
+  - HR
+  - Human Resources
+  - Payroll
+  - Workforce
+  properties:
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E26401_01/doc.122/e22545/toc.htm
+  - type: Integration Guide
+    url: https://docs.oracle.com/cd/E26401_01/index.htm
+- name: Oracle EBS Manufacturing API
+  description: APIs for discrete and process manufacturing operations
+  baseURL: https://{instance}.oracle.com/manufacturing/
+  humanURL: https://docs.oracle.com/cd/E26401_01/
+  tags:
+  - Manufacturing
+  - Production
+  - BOM
+  - Work Orders
+  properties:
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E26401_01/doc.122/e20927/toc.htm
+- name: Oracle EBS SOAP Web Services
+  description: SOAP-based web services for legacy integrations
+  baseURL: https://{instance}.oracle.com/webservices/
+  humanURL: https://docs.oracle.com/cd/E26401_01/
+  tags:
+  - SOAP
+  - Web Services
+  - Legacy
+  - Integration
+  properties:
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E26401_01/doc.122/e20927/T511473T634472.htm
+  - type: WSDL
+    url: https://{instance}.oracle.com/webservices/
+common:
+- type: Authentication
+  url: https://docs.oracle.com/cd/E26401_01/doc.122/e20927/T511473T634471.htm
+- type: Developer Portal
+  url: https://developer.oracle.com/
+- type: Support
+  url: https://support.oracle.com
+- type: Terms of Service
+  url: https://www.oracle.com/legal/terms.html
+- type: Privacy Policy
+  url: https://www.oracle.com/legal/privacy/
+maintainers:
+- FN: Oracle Corporation
+  email: info@oracle.com
+  url: https://www.oracle.com
+include: []
