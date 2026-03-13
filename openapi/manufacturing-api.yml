@@ -1,0 +1,899 @@
+openapi: 3.1.0
+info:
+  title: Oracle EBS Manufacturing API
+  description: >-
+    RESTful APIs for Oracle E-Business Suite manufacturing modules including
+    Bills of Material (BOM), Work in Process (WIP), and Work Orders. Provides
+    programmatic access to manufacturing execution and planning functions
+    deployed as REST services through the Integrated SOA Gateway.
+  version: 12.2.0
+  contact:
+    name: Oracle Support
+    email: support@oracle.com
+    url: https://support.oracle.com
+  license:
+    name: Oracle Proprietary
+    url: https://www.oracle.com/legal/terms/
+  x-logo:
+    url: https://www.oracle.com/a/ocom/img/oracle-logo.svg
+servers:
+  - url: https://{instance}.oracle.com/webservices/rest
+    description: Oracle EBS ISG REST endpoint
+    variables:
+      instance:
+        default: ebs-host
+        description: The Oracle EBS instance hostname
+paths:
+  /bom/billsOfMaterial:
+    get:
+      operationId: getBillsOfMaterial
+      summary: Retrieve bills of material
+      description: >-
+        Retrieves Bill of Material (BOM) header and component records. Maps to
+        the BOM_STRUCTURES_B and BOM_COMPONENTS_B tables through the
+        BOM_BO_PUB PL/SQL API.
+      tags:
+        - Bills of Material
+      security:
+        - tokenAuth: []
+        - basicAuth: []
+      parameters:
+        - name: billSequenceId
+          in: query
+          description: Bill sequence identifier
+          schema:
+            type: integer
+        - name: assemblyItemId
+          in: query
+          description: Assembly item identifier
+          schema:
+            type: integer
+        - name: organizationId
+          in: query
+          description: Organization identifier
+          schema:
+            type: integer
+        - name: alternateDesignator
+          in: query
+          description: Alternate BOM designator
+          schema:
+            type: string
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Offset'
+      responses:
+        '200':
+          description: List of bills of material
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/BillOfMaterial'
+                  totalCount:
+                    type: integer
+                  hasMore:
+                    type: boolean
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /bom/billsOfMaterial/{billSequenceId}:
+    get:
+      operationId: getBillOfMaterialById
+      summary: Retrieve a specific bill of material
+      description: Retrieves a bill of material with all its components.
+      tags:
+        - Bills of Material
+      security:
+        - tokenAuth: []
+        - basicAuth: []
+      parameters:
+        - name: billSequenceId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Bill of material details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BillOfMaterial'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /bom/routings:
+    get:
+      operationId: getRoutings
+      summary: Retrieve manufacturing routings
+      description: >-
+        Retrieves manufacturing routing records. Maps to the
+        BOM_OPERATIONAL_ROUTINGS, BOM_OPERATION_SEQUENCES, and
+        BOM_OPERATION_RESOURCES tables.
+      tags:
+        - Bills of Material
+      security:
+        - tokenAuth: []
+        - basicAuth: []
+      parameters:
+        - name: routingSequenceId
+          in: query
+          description: Routing sequence identifier
+          schema:
+            type: integer
+        - name: assemblyItemId
+          in: query
+          description: Assembly item identifier
+          schema:
+            type: integer
+        - name: organizationId
+          in: query
+          description: Organization identifier
+          schema:
+            type: integer
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Offset'
+      responses:
+        '200':
+          description: List of routings
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Routing'
+                  totalCount:
+                    type: integer
+                  hasMore:
+                    type: boolean
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /wip/discreteJobs:
+    get:
+      operationId: getDiscreteJobs
+      summary: Retrieve WIP discrete jobs
+      description: >-
+        Retrieves Work in Process discrete manufacturing job records. Maps to
+        the WIP_DISCRETE_JOBS table through the WIP_DISCRETE_JOBS_PUB API.
+      tags:
+        - Work in Process
+      security:
+        - tokenAuth: []
+        - basicAuth: []
+      parameters:
+        - name: wipEntityId
+          in: query
+          description: WIP entity identifier
+          schema:
+            type: integer
+        - name: wipEntityName
+          in: query
+          description: Job name/number
+          schema:
+            type: string
+        - name: primaryItemId
+          in: query
+          description: Primary assembly item identifier
+          schema:
+            type: integer
+        - name: organizationId
+          in: query
+          description: Organization identifier
+          schema:
+            type: integer
+        - name: statusType
+          in: query
+          description: Job status
+          schema:
+            type: integer
+            enum:
+              - 1
+              - 3
+              - 4
+              - 5
+              - 6
+              - 7
+              - 12
+              - 14
+              - 15
+        - name: scheduledStartDateFrom
+          in: query
+          description: Scheduled start date range (YYYY-MM-DD)
+          schema:
+            type: string
+            format: date
+        - name: scheduledStartDateTo
+          in: query
+          description: Scheduled start date range end (YYYY-MM-DD)
+          schema:
+            type: string
+            format: date
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Offset'
+      responses:
+        '200':
+          description: List of discrete jobs
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/DiscreteJob'
+                  totalCount:
+                    type: integer
+                  hasMore:
+                    type: boolean
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createDiscreteJob
+      summary: Create a WIP discrete job
+      description: >-
+        Creates a new WIP discrete manufacturing job using the
+        WIP_JOB_SCHEDULE_INTERFACE table and WIP Mass Load concurrent program.
+      tags:
+        - Work in Process
+      security:
+        - tokenAuth: []
+        - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DiscreteJobCreate'
+      responses:
+        '201':
+          description: Discrete job created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscreteJob'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /wip/discreteJobs/{wipEntityId}:
+    get:
+      operationId: getDiscreteJobById
+      summary: Retrieve a specific discrete job
+      description: Retrieves a WIP discrete job by its entity identifier.
+      tags:
+        - Work in Process
+      security:
+        - tokenAuth: []
+        - basicAuth: []
+      parameters:
+        - name: wipEntityId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Discrete job details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscreteJob'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /wip/operations:
+    get:
+      operationId: getWipOperations
+      summary: Retrieve WIP operations
+      description: >-
+        Retrieves work order operation records. Maps to the
+        WIP_OPERATIONS table for tracking operation-level progress.
+      tags:
+        - Work in Process
+      security:
+        - tokenAuth: []
+        - basicAuth: []
+      parameters:
+        - name: wipEntityId
+          in: query
+          description: WIP entity identifier
+          schema:
+            type: integer
+        - name: operationSeqNum
+          in: query
+          description: Operation sequence number
+          schema:
+            type: integer
+        - name: organizationId
+          in: query
+          description: Organization identifier
+          schema:
+            type: integer
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Offset'
+      responses:
+        '200':
+          description: List of WIP operations
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/WipOperation'
+                  totalCount:
+                    type: integer
+                  hasMore:
+                    type: boolean
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /wip/completions:
+    post:
+      operationId: completeAssembly
+      summary: Complete WIP assembly
+      description: >-
+        Records WIP assembly completion transactions. Uses the
+        WIP_COMPLETION PL/SQL API to move completed assemblies from
+        WIP into inventory.
+      tags:
+        - Work in Process
+      security:
+        - tokenAuth: []
+        - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CompletionTransaction'
+      responses:
+        '201':
+          description: Completion transaction recorded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  transactionId:
+                    type: integer
+                  status:
+                    type: string
+                  message:
+                    type: string
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /wip/materialTransactions:
+    post:
+      operationId: issueMaterial
+      summary: Issue material to WIP
+      description: >-
+        Records material issue/return transactions for WIP jobs. Uses the
+        WIP material transaction interface (WIP_MOVE_TXN_INTERFACE).
+      tags:
+        - Work in Process
+      security:
+        - tokenAuth: []
+        - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MaterialTransaction'
+      responses:
+        '201':
+          description: Material transaction recorded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  transactionId:
+                    type: integer
+                  status:
+                    type: string
+                  message:
+                    type: string
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication with Oracle EBS username and password
+    tokenAuth:
+      type: apiKey
+      in: cookie
+      name: accessToken
+      description: Token-based authentication using the ISG login access token
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      description: Maximum number of records to return
+      schema:
+        type: integer
+        default: 25
+        maximum: 500
+    Offset:
+      name: offset
+      in: query
+      description: Number of records to skip for pagination
+      schema:
+        type: integer
+        default: 0
+  responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required or token expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    BillOfMaterial:
+      type: object
+      properties:
+        billSequenceId:
+          type: integer
+          description: Bill sequence identifier
+        assemblyItemId:
+          type: integer
+          description: Assembly item identifier
+        assemblyItemNumber:
+          type: string
+          description: Assembly item number
+        organizationId:
+          type: integer
+          description: Organization identifier
+        alternateDesignator:
+          type: string
+          description: Alternate BOM designator
+        assemblyType:
+          type: integer
+          description: Assembly type (1=Manufacturing, 2=Engineering)
+        commonBillSequenceId:
+          type: integer
+          description: Common bill sequence identifier
+        specificAssemblyComment:
+          type: string
+          description: Assembly comment
+        components:
+          type: array
+          items:
+            $ref: '#/components/schemas/BomComponent'
+        creationDate:
+          type: string
+          format: date-time
+        lastUpdateDate:
+          type: string
+          format: date-time
+    BomComponent:
+      type: object
+      properties:
+        componentSequenceId:
+          type: integer
+          description: Component sequence identifier
+        componentItemId:
+          type: integer
+          description: Component item identifier
+        componentItemNumber:
+          type: string
+          description: Component item number
+        itemDescription:
+          type: string
+          description: Component item description
+        operationSeqNum:
+          type: integer
+          description: Operation sequence number where component is consumed
+        componentQuantity:
+          type: number
+          format: double
+          description: Component quantity per assembly
+        componentYieldFactor:
+          type: number
+          format: double
+          description: Component yield factor
+        effectivityDate:
+          type: string
+          format: date
+          description: Effective date
+        disableDate:
+          type: string
+          format: date
+          description: Disable date
+        wipSupplyType:
+          type: integer
+          description: >-
+            WIP supply type (1=Push, 2=Assembly Pull, 3=Operation Pull,
+            4=Bulk, 5=Supplier, 6=Phantom)
+        optional:
+          type: integer
+          description: Optional flag (1=Yes, 2=No)
+        quantityRelated:
+          type: integer
+          description: Quantity related flag
+    Routing:
+      type: object
+      properties:
+        routingSequenceId:
+          type: integer
+          description: Routing sequence identifier
+        assemblyItemId:
+          type: integer
+          description: Assembly item identifier
+        assemblyItemNumber:
+          type: string
+          description: Assembly item number
+        organizationId:
+          type: integer
+          description: Organization identifier
+        alternateDesignator:
+          type: string
+          description: Alternate routing designator
+        routingType:
+          type: integer
+          description: Routing type (1=Manufacturing, 2=Engineering)
+        operations:
+          type: array
+          items:
+            $ref: '#/components/schemas/RoutingOperation'
+        creationDate:
+          type: string
+          format: date-time
+        lastUpdateDate:
+          type: string
+          format: date-time
+    RoutingOperation:
+      type: object
+      properties:
+        operationSequenceId:
+          type: integer
+          description: Operation sequence identifier
+        operationSeqNum:
+          type: integer
+          description: Operation sequence number
+        operationDescription:
+          type: string
+          description: Operation description
+        operationCode:
+          type: string
+          description: Standard operation code
+        departmentId:
+          type: integer
+          description: Department identifier
+        departmentCode:
+          type: string
+          description: Department code
+        effectivityDate:
+          type: string
+          format: date
+        disableDate:
+          type: string
+          format: date
+        minimumTransferQuantity:
+          type: number
+          format: double
+        countPointType:
+          type: integer
+          description: Count point type (1=Yes, 2=No, 3=Auto-charge)
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/OperationResource'
+    OperationResource:
+      type: object
+      properties:
+        resourceSeqNum:
+          type: integer
+          description: Resource sequence number
+        resourceId:
+          type: integer
+          description: Resource identifier
+        resourceCode:
+          type: string
+          description: Resource code
+        usageRateOrAmount:
+          type: number
+          format: double
+          description: Resource usage rate or amount
+        basisType:
+          type: integer
+          description: Basis type (1=Item, 2=Lot, 3=Resource Units, 4=Resource Value)
+        scheduleFlag:
+          type: integer
+          description: Schedule flag
+        autochargeType:
+          type: integer
+          description: Auto-charge type
+    DiscreteJob:
+      type: object
+      properties:
+        wipEntityId:
+          type: integer
+          description: WIP entity identifier
+        wipEntityName:
+          type: string
+          description: Job name/number
+        organizationId:
+          type: integer
+          description: Organization identifier
+        primaryItemId:
+          type: integer
+          description: Primary assembly item identifier
+        primaryItemNumber:
+          type: string
+          description: Primary assembly item number
+        statusType:
+          type: integer
+          description: >-
+            Job status (1=Unreleased, 3=Released, 4=Complete, 5=Complete-No Charges,
+            6=On Hold, 7=Cancelled, 12=Closed, 14=Pending Close, 15=Failed Close)
+        jobType:
+          type: integer
+          description: Job type (1=Standard, 3=Non-Standard)
+        startQuantity:
+          type: number
+          format: double
+          description: Start quantity
+        quantityCompleted:
+          type: number
+          format: double
+          description: Quantity completed
+        quantityScrapped:
+          type: number
+          format: double
+          description: Quantity scrapped
+        netQuantity:
+          type: number
+          format: double
+          description: Net quantity remaining
+        scheduledStartDate:
+          type: string
+          format: date-time
+          description: Scheduled start date
+        scheduledCompletionDate:
+          type: string
+          format: date-time
+          description: Scheduled completion date
+        dateReleased:
+          type: string
+          format: date-time
+          description: Date released
+        dateCompleted:
+          type: string
+          format: date-time
+          description: Date completed
+        dateClosed:
+          type: string
+          format: date-time
+          description: Date closed
+        classCode:
+          type: string
+          description: Accounting class code
+        bomRevision:
+          type: string
+          description: BOM revision
+        routingRevision:
+          type: string
+          description: Routing revision
+        description:
+          type: string
+          description: Job description
+        firmPlannedFlag:
+          type: integer
+          description: Firm planned flag (1=Firm, 2=Not Firm)
+        creationDate:
+          type: string
+          format: date-time
+        lastUpdateDate:
+          type: string
+          format: date-time
+    DiscreteJobCreate:
+      type: object
+      required:
+        - primaryItemId
+        - organizationId
+        - startQuantity
+        - scheduledStartDate
+        - scheduledCompletionDate
+        - classCode
+      properties:
+        wipEntityName:
+          type: string
+        primaryItemId:
+          type: integer
+        organizationId:
+          type: integer
+        statusType:
+          type: integer
+          default: 1
+        jobType:
+          type: integer
+          default: 1
+        startQuantity:
+          type: number
+          format: double
+        scheduledStartDate:
+          type: string
+          format: date-time
+        scheduledCompletionDate:
+          type: string
+          format: date-time
+        classCode:
+          type: string
+        bomRevision:
+          type: string
+        routingRevision:
+          type: string
+        description:
+          type: string
+        firmPlannedFlag:
+          type: integer
+          default: 2
+    WipOperation:
+      type: object
+      properties:
+        wipEntityId:
+          type: integer
+          description: WIP entity identifier
+        operationSeqNum:
+          type: integer
+          description: Operation sequence number
+        organizationId:
+          type: integer
+          description: Organization identifier
+        departmentId:
+          type: integer
+          description: Department identifier
+        departmentCode:
+          type: string
+        operationDescription:
+          type: string
+          description: Operation description
+        scheduledQuantity:
+          type: number
+          format: double
+        quantityInQueue:
+          type: number
+          format: double
+          description: Quantity in queue
+        quantityRunning:
+          type: number
+          format: double
+          description: Quantity running
+        quantityCompleted:
+          type: number
+          format: double
+          description: Quantity completed
+        quantityScrapped:
+          type: number
+          format: double
+          description: Quantity scrapped
+        firstUnitStartDate:
+          type: string
+          format: date-time
+        lastUnitCompletionDate:
+          type: string
+          format: date-time
+        countPointType:
+          type: integer
+        backflushFlag:
+          type: integer
+    CompletionTransaction:
+      type: object
+      required:
+        - wipEntityId
+        - organizationId
+        - transactionQuantity
+      properties:
+        wipEntityId:
+          type: integer
+          description: WIP entity identifier
+        organizationId:
+          type: integer
+          description: Organization identifier
+        transactionQuantity:
+          type: number
+          format: double
+          description: Completion quantity
+        transactionUom:
+          type: string
+          description: Transaction unit of measure
+        subinventoryCode:
+          type: string
+          description: Completion subinventory
+        locatorId:
+          type: integer
+          description: Completion locator
+        transactionDate:
+          type: string
+          format: date-time
+          description: Transaction date
+    MaterialTransaction:
+      type: object
+      required:
+        - wipEntityId
+        - organizationId
+        - inventoryItemId
+        - transactionQuantity
+        - transactionType
+      properties:
+        wipEntityId:
+          type: integer
+          description: WIP entity identifier
+        organizationId:
+          type: integer
+          description: Organization identifier
+        operationSeqNum:
+          type: integer
+          description: Operation sequence number
+        inventoryItemId:
+          type: integer
+          description: Inventory item identifier
+        transactionQuantity:
+          type: number
+          format: double
+          description: Transaction quantity (positive=issue, negative=return)
+        transactionUom:
+          type: string
+          description: Transaction unit of measure
+        transactionType:
+          type: string
+          description: Transaction type
+          enum:
+            - WIP_ISSUE
+            - WIP_RETURN
+        subinventoryCode:
+          type: string
+          description: Source/destination subinventory
+        locatorId:
+          type: integer
+          description: Locator identifier
+        transactionDate:
+          type: string
+          format: date-time
+          description: Transaction date
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            detail:
+              type: string
+tags:
+  - name: Bills of Material
+    description: BOM and routing management
+  - name: Work in Process
+    description: WIP job, operation, and transaction management

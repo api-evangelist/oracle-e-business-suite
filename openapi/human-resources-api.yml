@@ -1,0 +1,1034 @@
+openapi: 3.1.0
+info:
+  title: Oracle EBS Human Resources API
+  description: >-
+    RESTful APIs for Oracle E-Business Suite Human Resources Management System
+    (HRMS) including employee management, payroll processing, workforce
+    administration, compensation, and benefits. These PL/SQL APIs are deployed
+    as REST services through the Integrated SOA Gateway.
+  version: 12.2.0
+  contact:
+    name: Oracle Support
+    email: support@oracle.com
+    url: https://support.oracle.com
+  license:
+    name: Oracle Proprietary
+    url: https://www.oracle.com/legal/terms/
+  x-logo:
+    url: https://www.oracle.com/a/ocom/img/oracle-logo.svg
+servers:
+  - url: https://{instance}.oracle.com/webservices/rest
+    description: Oracle EBS ISG REST endpoint
+    variables:
+      instance:
+        default: ebs-host
+        description: The Oracle EBS instance hostname
+paths:
+  /hr/employees:
+    get:
+      operationId: getEmployees
+      summary: Retrieve employee records
+      description: >-
+        Retrieves employee records from Oracle HRMS. Maps to the PER_ALL_PEOPLE_F
+        and PER_ALL_ASSIGNMENTS_F tables through the HR_EMPLOYEE_API PL/SQL
+        package.
+      tags:
+        - Employee Management
+      security:
+        - tokenAuth: []
+        - basicAuth: []
+      parameters:
+        - name: personId
+          in: query
+          description: Person identifier
+          schema:
+            type: integer
+        - name: employeeNumber
+          in: query
+          description: Employee number
+          schema:
+            type: string
+        - name: fullName
+          in: query
+          description: Full name (supports wildcards)
+          schema:
+            type: string
+        - name: businessGroupId
+          in: query
+          description: Business group identifier
+          schema:
+            type: integer
+        - name: effectiveDate
+          in: query
+          description: Effective date for date-tracked records (YYYY-MM-DD)
+          schema:
+            type: string
+            format: date
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Offset'
+      responses:
+        '200':
+          description: List of employees
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Employee'
+                  totalCount:
+                    type: integer
+                  hasMore:
+                    type: boolean
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createEmployee
+      summary: Create an employee record
+      description: >-
+        Creates a new employee record using the HR_EMPLOYEE_API.CREATE_EMPLOYEE
+        PL/SQL procedure. This creates entries in PER_ALL_PEOPLE_F,
+        PER_ALL_ASSIGNMENTS_F, and related tables.
+      tags:
+        - Employee Management
+      security:
+        - tokenAuth: []
+        - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmployeeCreate'
+      responses:
+        '201':
+          description: Employee created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /hr/employees/{personId}:
+    get:
+      operationId: getEmployeeById
+      summary: Retrieve an employee by person ID
+      description: Retrieves a specific employee record by person identifier.
+      tags:
+        - Employee Management
+      security:
+        - tokenAuth: []
+        - basicAuth: []
+      parameters:
+        - name: personId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: effectiveDate
+          in: query
+          description: Effective date for date-tracked records (YYYY-MM-DD)
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Employee details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateEmployee
+      summary: Update an employee record
+      description: >-
+        Updates an existing employee record using the
+        HR_PERSON_API.UPDATE_PERSON PL/SQL procedure with date-track support.
+      tags:
+        - Employee Management
+      security:
+        - tokenAuth: []
+        - basicAuth: []
+      parameters:
+        - name: personId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmployeeUpdate'
+      responses:
+        '200':
+          description: Employee updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /hr/assignments:
+    get:
+      operationId: getAssignments
+      summary: Retrieve employee assignments
+      description: >-
+        Retrieves employee assignment records. Maps to the
+        PER_ALL_ASSIGNMENTS_F table through the HR_ASSIGNMENT_API package.
+      tags:
+        - Employee Management
+      security:
+        - tokenAuth: []
+        - basicAuth: []
+      parameters:
+        - name: assignmentId
+          in: query
+          description: Assignment identifier
+          schema:
+            type: integer
+        - name: personId
+          in: query
+          description: Person identifier
+          schema:
+            type: integer
+        - name: organizationId
+          in: query
+          description: HR organization identifier
+          schema:
+            type: integer
+        - name: effectiveDate
+          in: query
+          description: Effective date (YYYY-MM-DD)
+          schema:
+            type: string
+            format: date
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Offset'
+      responses:
+        '200':
+          description: List of assignments
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Assignment'
+                  totalCount:
+                    type: integer
+                  hasMore:
+                    type: boolean
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /hr/organizations:
+    get:
+      operationId: getOrganizations
+      summary: Retrieve HR organizations
+      description: >-
+        Retrieves HR organization records. Maps to the HR_ALL_ORGANIZATION_UNITS
+        and HR_ORGANIZATION_INFORMATION tables.
+      tags:
+        - Organization
+      security:
+        - tokenAuth: []
+        - basicAuth: []
+      parameters:
+        - name: organizationId
+          in: query
+          description: Organization identifier
+          schema:
+            type: integer
+        - name: name
+          in: query
+          description: Organization name (supports wildcards)
+          schema:
+            type: string
+        - name: businessGroupId
+          in: query
+          description: Business group identifier
+          schema:
+            type: integer
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Offset'
+      responses:
+        '200':
+          description: List of organizations
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Organization'
+                  totalCount:
+                    type: integer
+                  hasMore:
+                    type: boolean
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /hr/positions:
+    get:
+      operationId: getPositions
+      summary: Retrieve HR positions
+      description: >-
+        Retrieves position records. Maps to the HR_ALL_POSITIONS_F table
+        through the HR_POSITION_API package.
+      tags:
+        - Organization
+      security:
+        - tokenAuth: []
+        - basicAuth: []
+      parameters:
+        - name: positionId
+          in: query
+          description: Position identifier
+          schema:
+            type: integer
+        - name: name
+          in: query
+          description: Position name (supports wildcards)
+          schema:
+            type: string
+        - name: organizationId
+          in: query
+          description: Organization identifier
+          schema:
+            type: integer
+        - name: effectiveDate
+          in: query
+          description: Effective date (YYYY-MM-DD)
+          schema:
+            type: string
+            format: date
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Offset'
+      responses:
+        '200':
+          description: List of positions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Position'
+                  totalCount:
+                    type: integer
+                  hasMore:
+                    type: boolean
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /pay/payrolls:
+    get:
+      operationId: getPayrolls
+      summary: Retrieve payroll definitions
+      description: >-
+        Retrieves payroll definitions from Oracle Payroll. Maps to the
+        PAY_ALL_PAYROLLS_F table.
+      tags:
+        - Payroll
+      security:
+        - tokenAuth: []
+        - basicAuth: []
+      parameters:
+        - name: payrollId
+          in: query
+          description: Payroll identifier
+          schema:
+            type: integer
+        - name: payrollName
+          in: query
+          description: Payroll name
+          schema:
+            type: string
+        - name: businessGroupId
+          in: query
+          description: Business group identifier
+          schema:
+            type: integer
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Offset'
+      responses:
+        '200':
+          description: List of payroll definitions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Payroll'
+                  totalCount:
+                    type: integer
+                  hasMore:
+                    type: boolean
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /pay/payrollRuns:
+    get:
+      operationId: getPayrollRuns
+      summary: Retrieve payroll run results
+      description: >-
+        Retrieves payroll run and action results. Maps to the
+        PAY_PAYROLL_ACTIONS, PAY_ASSIGNMENT_ACTIONS, and PAY_RUN_RESULTS tables.
+      tags:
+        - Payroll
+      security:
+        - tokenAuth: []
+        - basicAuth: []
+      parameters:
+        - name: payrollActionId
+          in: query
+          description: Payroll action identifier
+          schema:
+            type: integer
+        - name: payrollId
+          in: query
+          description: Payroll identifier
+          schema:
+            type: integer
+        - name: effectiveDate
+          in: query
+          description: Effective date (YYYY-MM-DD)
+          schema:
+            type: string
+            format: date
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Offset'
+      responses:
+        '200':
+          description: List of payroll runs
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PayrollRun'
+                  totalCount:
+                    type: integer
+                  hasMore:
+                    type: boolean
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /ben/benefits:
+    get:
+      operationId: getBenefitEnrollments
+      summary: Retrieve benefit enrollments
+      description: >-
+        Retrieves employee benefit enrollment records. Maps to the
+        BEN_PRTT_ENRT_RSLT_F table through the Benefits API.
+      tags:
+        - Benefits
+      security:
+        - tokenAuth: []
+        - basicAuth: []
+      parameters:
+        - name: personId
+          in: query
+          description: Person identifier
+          schema:
+            type: integer
+        - name: planId
+          in: query
+          description: Benefit plan identifier
+          schema:
+            type: integer
+        - name: effectiveDate
+          in: query
+          description: Effective date (YYYY-MM-DD)
+          schema:
+            type: string
+            format: date
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Offset'
+      responses:
+        '200':
+          description: List of benefit enrollments
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/BenefitEnrollment'
+                  totalCount:
+                    type: integer
+                  hasMore:
+                    type: boolean
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication with Oracle EBS username and password
+    tokenAuth:
+      type: apiKey
+      in: cookie
+      name: accessToken
+      description: Token-based authentication using the ISG login access token
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      description: Maximum number of records to return
+      schema:
+        type: integer
+        default: 25
+        maximum: 500
+    Offset:
+      name: offset
+      in: query
+      description: Number of records to skip for pagination
+      schema:
+        type: integer
+        default: 0
+  responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required or token expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    Employee:
+      type: object
+      properties:
+        personId:
+          type: integer
+          description: Person identifier
+        employeeNumber:
+          type: string
+          description: Employee number
+        title:
+          type: string
+          description: Title (Mr., Mrs., etc.)
+        firstName:
+          type: string
+          description: First name
+        middleNames:
+          type: string
+          description: Middle name(s)
+        lastName:
+          type: string
+          description: Last name
+        fullName:
+          type: string
+          description: Full name (derived)
+        knownAs:
+          type: string
+          description: Preferred name
+        emailAddress:
+          type: string
+          format: email
+          description: Email address
+        sex:
+          type: string
+          description: Gender
+          enum:
+            - M
+            - F
+        dateOfBirth:
+          type: string
+          format: date
+          description: Date of birth
+        nationalIdentifier:
+          type: string
+          description: National identifier (e.g., SSN)
+        nationality:
+          type: string
+          description: Nationality code
+        maritalStatus:
+          type: string
+          description: Marital status
+        effectiveStartDate:
+          type: string
+          format: date
+          description: Record effective start date (date-tracked)
+        effectiveEndDate:
+          type: string
+          format: date
+          description: Record effective end date (date-tracked)
+        hireDate:
+          type: string
+          format: date
+          description: Original hire date
+        currentEmployeeFlag:
+          type: string
+          enum:
+            - 'Y'
+            - 'N'
+        businessGroupId:
+          type: integer
+          description: Business group identifier
+        assignment:
+          $ref: '#/components/schemas/Assignment'
+        addresses:
+          type: array
+          items:
+            $ref: '#/components/schemas/Address'
+        phones:
+          type: array
+          items:
+            $ref: '#/components/schemas/Phone'
+        creationDate:
+          type: string
+          format: date-time
+        lastUpdateDate:
+          type: string
+          format: date-time
+    EmployeeCreate:
+      type: object
+      required:
+        - firstName
+        - lastName
+        - hireDate
+        - businessGroupId
+      properties:
+        title:
+          type: string
+        firstName:
+          type: string
+        middleNames:
+          type: string
+        lastName:
+          type: string
+        knownAs:
+          type: string
+        emailAddress:
+          type: string
+          format: email
+        sex:
+          type: string
+          enum:
+            - M
+            - F
+        dateOfBirth:
+          type: string
+          format: date
+        nationalIdentifier:
+          type: string
+        nationality:
+          type: string
+        maritalStatus:
+          type: string
+        hireDate:
+          type: string
+          format: date
+        businessGroupId:
+          type: integer
+        jobId:
+          type: integer
+        positionId:
+          type: integer
+        organizationId:
+          type: integer
+        gradeId:
+          type: integer
+        locationId:
+          type: integer
+        payrollId:
+          type: integer
+    EmployeeUpdate:
+      type: object
+      required:
+        - effectiveDate
+      properties:
+        effectiveDate:
+          type: string
+          format: date
+          description: Date-track effective date for the update
+        dateTrackUpdateMode:
+          type: string
+          description: Date-track update mode
+          enum:
+            - CORRECTION
+            - UPDATE
+            - UPDATE_CHANGE_INSERT
+            - UPDATE_OVERRIDE
+          default: CORRECTION
+        title:
+          type: string
+        firstName:
+          type: string
+        middleNames:
+          type: string
+        lastName:
+          type: string
+        knownAs:
+          type: string
+        emailAddress:
+          type: string
+          format: email
+        maritalStatus:
+          type: string
+    Assignment:
+      type: object
+      properties:
+        assignmentId:
+          type: integer
+          description: Assignment identifier
+        assignmentNumber:
+          type: string
+          description: Assignment number
+        assignmentType:
+          type: string
+          description: Assignment type
+          enum:
+            - E
+            - C
+            - A
+        primaryFlag:
+          type: string
+          description: Whether this is the primary assignment
+          enum:
+            - 'Y'
+            - 'N'
+        jobId:
+          type: integer
+          description: Job identifier
+        jobName:
+          type: string
+          description: Job name
+        positionId:
+          type: integer
+          description: Position identifier
+        positionName:
+          type: string
+          description: Position name
+        gradeId:
+          type: integer
+          description: Grade identifier
+        gradeName:
+          type: string
+          description: Grade name
+        organizationId:
+          type: integer
+          description: Organization identifier
+        organizationName:
+          type: string
+          description: Organization name
+        locationId:
+          type: integer
+          description: Location identifier
+        locationCode:
+          type: string
+          description: Location code
+        supervisorId:
+          type: integer
+          description: Supervisor person identifier
+        payrollId:
+          type: integer
+          description: Payroll identifier
+        employmentCategory:
+          type: string
+          description: Employment category
+          enum:
+            - FR
+            - FT
+            - PR
+            - PT
+        normalHours:
+          type: number
+          format: double
+          description: Normal working hours
+        frequency:
+          type: string
+          description: Hours frequency
+          enum:
+            - D
+            - W
+            - M
+            - Y
+        effectiveStartDate:
+          type: string
+          format: date
+        effectiveEndDate:
+          type: string
+          format: date
+    Address:
+      type: object
+      properties:
+        addressId:
+          type: integer
+          description: Address identifier
+        addressType:
+          type: string
+          description: Address type
+        addressLine1:
+          type: string
+        addressLine2:
+          type: string
+        addressLine3:
+          type: string
+        townOrCity:
+          type: string
+        region1:
+          type: string
+          description: County/province
+        region2:
+          type: string
+          description: State
+        postalCode:
+          type: string
+        country:
+          type: string
+          description: Country code
+        primaryFlag:
+          type: string
+          enum:
+            - 'Y'
+            - 'N'
+        dateFrom:
+          type: string
+          format: date
+        dateTo:
+          type: string
+          format: date
+    Phone:
+      type: object
+      properties:
+        phoneId:
+          type: integer
+        phoneType:
+          type: string
+          description: Phone type
+          enum:
+            - W1
+            - H1
+            - M
+            - WF
+            - HF
+        phoneNumber:
+          type: string
+        dateFrom:
+          type: string
+          format: date
+        dateTo:
+          type: string
+          format: date
+    Organization:
+      type: object
+      properties:
+        organizationId:
+          type: integer
+          description: Organization identifier
+        name:
+          type: string
+          description: Organization name
+        businessGroupId:
+          type: integer
+          description: Business group identifier
+        dateFrom:
+          type: string
+          format: date
+          description: Organization start date
+        dateTo:
+          type: string
+          format: date
+          description: Organization end date
+        locationId:
+          type: integer
+          description: Location identifier
+        type:
+          type: string
+          description: Organization type
+        internalExternalFlag:
+          type: string
+          enum:
+            - INT
+            - EXT
+    Position:
+      type: object
+      properties:
+        positionId:
+          type: integer
+          description: Position identifier
+        name:
+          type: string
+          description: Position name
+        jobId:
+          type: integer
+          description: Job identifier
+        organizationId:
+          type: integer
+          description: Organization identifier
+        effectiveStartDate:
+          type: string
+          format: date
+        effectiveEndDate:
+          type: string
+          format: date
+        status:
+          type: string
+          description: Position status
+        availabilityStatusId:
+          type: integer
+        businessGroupId:
+          type: integer
+        locationId:
+          type: integer
+    Payroll:
+      type: object
+      properties:
+        payrollId:
+          type: integer
+          description: Payroll identifier
+        payrollName:
+          type: string
+          description: Payroll name
+        periodType:
+          type: string
+          description: Payroll period type
+          enum:
+            - Calendar Month
+            - Semi-Month
+            - Bi-Week
+            - Week
+            - Lunar Month
+        numberOfYears:
+          type: integer
+          description: Number of years defined
+        firstPeriodEndDate:
+          type: string
+          format: date
+        effectiveStartDate:
+          type: string
+          format: date
+        effectiveEndDate:
+          type: string
+          format: date
+        businessGroupId:
+          type: integer
+    PayrollRun:
+      type: object
+      properties:
+        payrollActionId:
+          type: integer
+          description: Payroll action identifier
+        payrollId:
+          type: integer
+          description: Payroll identifier
+        actionType:
+          type: string
+          description: Action type (R=Run, Q=QuickPay, etc.)
+        actionStatus:
+          type: string
+          description: Action status
+          enum:
+            - C
+            - E
+            - M
+            - P
+            - U
+        effectiveDate:
+          type: string
+          format: date
+        dateEarned:
+          type: string
+          format: date
+        periodOfServiceId:
+          type: integer
+        businessGroupId:
+          type: integer
+    BenefitEnrollment:
+      type: object
+      properties:
+        enrollmentResultId:
+          type: integer
+          description: Enrollment result identifier
+        personId:
+          type: integer
+          description: Person identifier
+        planId:
+          type: integer
+          description: Benefit plan identifier
+        planName:
+          type: string
+          description: Plan name
+        optionId:
+          type: integer
+          description: Option identifier
+        optionName:
+          type: string
+          description: Option name
+        coverageLevelCode:
+          type: string
+          description: Coverage level
+        effectiveStartDate:
+          type: string
+          format: date
+        effectiveEndDate:
+          type: string
+          format: date
+        enrollmentStartDate:
+          type: string
+          format: date
+        enrollmentEndDate:
+          type: string
+          format: date
+        benefitAmount:
+          type: number
+          format: double
+          description: Benefit coverage amount
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            detail:
+              type: string
+tags:
+  - name: Employee Management
+    description: Employee and assignment management operations
+  - name: Organization
+    description: HR organization and position management
+  - name: Payroll
+    description: Payroll processing and run results
+  - name: Benefits
+    description: Benefit enrollment management

@@ -1,0 +1,438 @@
+openapi: 3.1.0
+info:
+  title: Oracle EBS Integrated SOA Gateway REST API
+  description: >-
+    RESTful web services for Oracle E-Business Suite modules exposed through the
+    Integrated SOA Gateway (ISG). PL/SQL APIs, Java Bean Services, Application
+    Module Services, and other interface types from the Integration Repository
+    can be deployed as lightweight REST services. Services are deployed directly
+    to the Oracle E-Business Suite WebLogic environment and described using WADL.
+  version: 12.2.0
+  contact:
+    name: Oracle Support
+    email: support@oracle.com
+    url: https://support.oracle.com
+  license:
+    name: Oracle Proprietary
+    url: https://www.oracle.com/legal/terms/
+  x-logo:
+    url: https://www.oracle.com/a/ocom/img/oracle-logo.svg
+servers:
+  - url: https://{instance}.oracle.com/webservices/rest
+    description: Oracle EBS ISG REST endpoint
+    variables:
+      instance:
+        default: ebs-host
+        description: The Oracle EBS instance hostname
+paths:
+  /login:
+    get:
+      operationId: login
+      summary: Authenticate and obtain access token
+      description: >-
+        Authenticates a user using HTTP Basic Authentication and returns a
+        session access token for subsequent REST service calls. The access token
+        is returned both as a cookie and in the response body.
+      tags:
+        - Authentication
+      security:
+        - basicAuth: []
+      parameters:
+        - $ref: '#/components/parameters/AcceptLanguage'
+        - $ref: '#/components/parameters/ContentType'
+      responses:
+        '200':
+          description: Successful authentication
+          headers:
+            Set-Cookie:
+              description: Session access token cookie
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+        '401':
+          description: Authentication failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /initialize:
+    post:
+      operationId: initialize
+      summary: Initialize application context
+      description: >-
+        Initializes the application context including responsibility, security
+        group, and organization for the authenticated session. Must be called
+        after login and before invoking any custom REST services.
+      tags:
+        - Authentication
+      security:
+        - tokenAuth: []
+      parameters:
+        - $ref: '#/components/parameters/AcceptLanguage'
+        - $ref: '#/components/parameters/ContentType'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InitializeRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/InitializeRequest'
+      responses:
+        '200':
+          description: Context initialized successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InitializeResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/InitializeResponse'
+        '400':
+          description: Invalid initialization parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - invalid or missing token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /logout:
+    get:
+      operationId: logout
+      summary: Terminate session and invalidate token
+      description: >-
+        Logs out the current user and invalidates the session access token.
+        Should be called when the client is finished making REST service calls.
+      tags:
+        - Authentication
+      security:
+        - tokenAuth: []
+      responses:
+        '200':
+          description: Successfully logged out
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogoutResponse'
+        '401':
+          description: Unauthorized - invalid or expired token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /{serviceAlias}:
+    get:
+      operationId: getServiceWADL
+      summary: Retrieve WADL description for a deployed service
+      description: >-
+        Returns the WADL (Web Application Description Language) document
+        describing the available methods, parameters, and data types for the
+        specified deployed REST service.
+      tags:
+        - Service Discovery
+      parameters:
+        - name: serviceAlias
+          in: path
+          required: true
+          description: The alias of the deployed REST service
+          schema:
+            type: string
+          example: approvals
+        - name: WADL
+          in: query
+          required: true
+          description: Flag to request the WADL description
+          schema:
+            type: string
+            enum:
+              - ''
+      responses:
+        '200':
+          description: WADL document for the service
+          content:
+            application/xml:
+              schema:
+                type: string
+                description: WADL XML document
+        '404':
+          description: Service not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /{serviceAlias}/{methodName}:
+    post:
+      operationId: invokeRestMethod
+      summary: Invoke a REST service method
+      description: >-
+        Invokes a specific method on a deployed REST service. The service alias
+        and method name correspond to the PL/SQL API, Java Bean Service,
+        Application Module Service, or other interface type deployed through the
+        Integration Repository. Request and response payloads vary by service.
+      tags:
+        - Service Invocation
+      security:
+        - tokenAuth: []
+        - basicAuth: []
+      parameters:
+        - name: serviceAlias
+          in: path
+          required: true
+          description: The alias of the deployed REST service
+          schema:
+            type: string
+          example: purchaseOrders
+        - name: methodName
+          in: path
+          required: true
+          description: The REST method name to invoke
+          schema:
+            type: string
+          example: createPurchaseOrder
+        - $ref: '#/components/parameters/AcceptLanguage'
+        - $ref: '#/components/parameters/ContentType'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ServiceMethodRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/ServiceMethodRequest'
+      responses:
+        '200':
+          description: Method invoked successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceMethodResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ServiceMethodResponse'
+        '400':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Service or method not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error during method execution
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication with Oracle EBS username and password
+    tokenAuth:
+      type: apiKey
+      in: cookie
+      name: accessToken
+      description: >-
+        Token-based authentication using the access token obtained from the
+        login service. The token is passed as a cookie with each request.
+  parameters:
+    AcceptLanguage:
+      name: Accept-Language
+      in: header
+      description: >-
+        NLS language context in RFC 5646 format. Controls the language for
+        translated messages and data returned by the service.
+      schema:
+        type: string
+        default: en-US
+      example: en-GB,en-US;q=0.8,en;q=0.6
+    ContentType:
+      name: Content-Type
+      in: header
+      description: The format of the request body
+      schema:
+        type: string
+        enum:
+          - application/json
+          - application/xml
+        default: application/json
+  schemas:
+    LoginResponse:
+      type: object
+      properties:
+        response:
+          type: object
+          properties:
+            data:
+              type: object
+              properties:
+                accessToken:
+                  type: string
+                  description: Session access token for subsequent requests
+                accessTokenName:
+                  type: string
+                  description: Name of the access token cookie
+                ebsVersion:
+                  type: string
+                  description: Oracle E-Business Suite version
+                  example: '12.2.0'
+                userName:
+                  type: string
+                  description: Authenticated username
+    InitializeRequest:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            resp:
+              type: object
+              description: Responsibility context
+              properties:
+                id:
+                  type: integer
+                  description: Responsibility ID
+                  example: 20872
+                applId:
+                  type: integer
+                  description: Application ID
+                  example: 178
+                key:
+                  type: string
+                  description: Responsibility key (alternative to ID)
+                  example: SYSTEM_ADMINISTRATION
+                applKey:
+                  type: string
+                  description: Application key (alternative to applId)
+                  example: ICX
+            securityGroup:
+              type: object
+              description: Security group context
+              properties:
+                id:
+                  type: integer
+                  description: Security group ID
+                  example: 0
+                key:
+                  type: string
+                  description: Security group key
+                  example: STANDARD
+            org:
+              type: object
+              description: Organization context
+              properties:
+                id:
+                  type: integer
+                  description: Organization ID
+                  example: 1733
+                key:
+                  type: string
+                  description: Organization key
+                  example: CM1
+    InitializeResponse:
+      type: object
+      properties:
+        response:
+          type: object
+          properties:
+            data:
+              type: string
+              description: Initialization result message with resolved context values
+    LogoutResponse:
+      type: object
+      properties:
+        response:
+          type: object
+          properties:
+            data:
+              type: string
+              description: Logout confirmation message
+    ServiceMethodRequest:
+      type: object
+      description: >-
+        Dynamic request payload whose structure depends on the specific service
+        and method being invoked. Refer to the WADL for the deployed service.
+      properties:
+        RESTHeader:
+          type: object
+          description: >-
+            Optional REST header for overriding application context on a
+            per-request basis. Only required if the context differs from the
+            initialized session.
+          properties:
+            Responsibility:
+              type: string
+              description: Responsibility name
+            RespApplication:
+              type: string
+              description: Responsibility application short name
+            SecurityGroup:
+              type: string
+              description: Security group name
+            NLSLanguage:
+              type: string
+              description: NLS language code
+            Org_Id:
+              type: integer
+              description: Organization ID
+        InputParameters:
+          type: object
+          description: >-
+            Input parameters specific to the service method. Structure varies
+            by service - consult the WADL.
+          additionalProperties: true
+    ServiceMethodResponse:
+      type: object
+      description: >-
+        Dynamic response payload whose structure depends on the specific service
+        and method invoked. Refer to the WADL for the deployed service.
+      properties:
+        OutputParameters:
+          type: object
+          description: Output parameters from the service method
+          additionalProperties: true
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+              description: Error code
+            message:
+              type: string
+              description: Human-readable error message
+            detail:
+              type: string
+              description: Detailed error information
+tags:
+  - name: Authentication
+    description: Login, session initialization, and logout operations
+  - name: Service Discovery
+    description: WADL retrieval and service metadata
+  - name: Service Invocation
+    description: Invoke deployed REST service methods

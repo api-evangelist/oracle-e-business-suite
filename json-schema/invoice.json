@@ -1,0 +1,439 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.oracle.com/ebs/invoice.json",
+  "title": "Oracle EBS Invoice",
+  "description": "Schema representing an Accounts Payable invoice in Oracle E-Business Suite. Maps to AP_INVOICES_ALL and AP_INVOICE_LINES_ALL tables. Covers standard invoices, credit memos, debit memos, and prepayments.",
+  "type": "object",
+  "required": [
+    "invoiceId",
+    "invoiceNum",
+    "vendorId",
+    "invoiceAmount",
+    "invoiceCurrencyCode"
+  ],
+  "properties": {
+    "invoiceId": {
+      "type": "integer",
+      "description": "Unique identifier for the invoice (AP_INVOICES_ALL.INVOICE_ID)"
+    },
+    "invoiceNum": {
+      "type": "string",
+      "description": "Supplier invoice number (AP_INVOICES_ALL.INVOICE_NUM)",
+      "maxLength": 50
+    },
+    "invoiceDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Invoice date"
+    },
+    "invoiceReceivedDate": {
+      "type": ["string", "null"],
+      "format": "date",
+      "description": "Date the invoice was received"
+    },
+    "invoiceType": {
+      "type": "string",
+      "description": "Invoice type lookup code",
+      "enum": [
+        "STANDARD",
+        "CREDIT",
+        "DEBIT",
+        "PREPAYMENT",
+        "MIXED",
+        "EXPENSE REPORT",
+        "RETAINAGE RELEASE"
+      ]
+    },
+    "vendorId": {
+      "type": "integer",
+      "description": "Supplier/vendor identifier (AP_SUPPLIERS.VENDOR_ID)"
+    },
+    "vendorName": {
+      "type": "string",
+      "description": "Supplier/vendor name",
+      "maxLength": 240
+    },
+    "vendorNum": {
+      "type": "string",
+      "description": "Vendor number"
+    },
+    "vendorSiteId": {
+      "type": "integer",
+      "description": "Vendor site identifier (AP_SUPPLIER_SITES_ALL.VENDOR_SITE_ID)"
+    },
+    "vendorSiteCode": {
+      "type": "string",
+      "description": "Vendor site code"
+    },
+    "invoiceAmount": {
+      "type": "number",
+      "description": "Total invoice amount in invoice currency"
+    },
+    "invoiceCurrencyCode": {
+      "type": "string",
+      "description": "Invoice currency code (ISO 4217)",
+      "pattern": "^[A-Z]{3}$",
+      "examples": [
+        "USD",
+        "EUR",
+        "GBP"
+      ]
+    },
+    "paymentCurrencyCode": {
+      "type": "string",
+      "description": "Payment currency code (ISO 4217)",
+      "pattern": "^[A-Z]{3}$"
+    },
+    "exchangeRate": {
+      "type": ["number", "null"],
+      "description": "Currency exchange rate"
+    },
+    "exchangeRateType": {
+      "type": ["string", "null"],
+      "description": "Exchange rate type (Corporate, Spot, User)"
+    },
+    "exchangeDate": {
+      "type": ["string", "null"],
+      "format": "date",
+      "description": "Exchange rate date"
+    },
+    "baseAmount": {
+      "type": ["number", "null"],
+      "description": "Invoice amount in functional/base currency"
+    },
+    "termsId": {
+      "type": "integer",
+      "description": "Payment terms identifier (AP_TERMS.TERM_ID)"
+    },
+    "termsName": {
+      "type": "string",
+      "description": "Payment terms name"
+    },
+    "termsDate": {
+      "type": ["string", "null"],
+      "format": "date",
+      "description": "Payment terms date"
+    },
+    "description": {
+      "type": ["string", "null"],
+      "description": "Invoice description",
+      "maxLength": 240
+    },
+    "source": {
+      "type": "string",
+      "description": "Invoice source (Manual, EDI, ERS, etc.)",
+      "maxLength": 80
+    },
+    "paymentStatusFlag": {
+      "type": "string",
+      "description": "Payment status: Y=Fully Paid, N=Not Paid, P=Partially Paid",
+      "enum": [
+        "Y",
+        "N",
+        "P"
+      ]
+    },
+    "paymentMethodCode": {
+      "type": ["string", "null"],
+      "description": "Payment method lookup code"
+    },
+    "approvalStatus": {
+      "type": "string",
+      "description": "Approval status",
+      "enum": [
+        "APPROVED",
+        "NEEDS_REAPPROVAL",
+        "NEVER_APPROVED",
+        "CANCELLED",
+        "WFAPPROVED",
+        "MANUALLY APPROVED"
+      ]
+    },
+    "wfapprovalStatus": {
+      "type": ["string", "null"],
+      "description": "Workflow approval status",
+      "enum": [
+        "REQUIRED",
+        "NOT REQUIRED",
+        "INITIATED",
+        "WFAPPROVED",
+        "REJECTED",
+        "MANUALLY APPROVED",
+        null
+      ]
+    },
+    "amountPaid": {
+      "type": "number",
+      "description": "Total amount paid against this invoice",
+      "minimum": 0
+    },
+    "discountAmountTaken": {
+      "type": ["number", "null"],
+      "description": "Total discount amount taken"
+    },
+    "amountApplicableToDiscount": {
+      "type": ["number", "null"],
+      "description": "Amount applicable to discount"
+    },
+    "taxAmount": {
+      "type": ["number", "null"],
+      "description": "Total tax amount"
+    },
+    "poHeaderId": {
+      "type": ["integer", "null"],
+      "description": "Matched purchase order header ID"
+    },
+    "goodsReceivedDate": {
+      "type": ["string", "null"],
+      "format": "date",
+      "description": "Date goods were received"
+    },
+    "glDate": {
+      "type": "string",
+      "format": "date",
+      "description": "General Ledger accounting date"
+    },
+    "payGroupLookupCode": {
+      "type": ["string", "null"],
+      "description": "Pay group"
+    },
+    "cancelledDate": {
+      "type": ["string", "null"],
+      "format": "date",
+      "description": "Date the invoice was cancelled"
+    },
+    "cancelledAmount": {
+      "type": ["number", "null"],
+      "description": "Cancelled amount"
+    },
+    "lines": {
+      "type": "array",
+      "description": "Invoice lines",
+      "items": {
+        "$ref": "#/$defs/InvoiceLine"
+      }
+    },
+    "payments": {
+      "type": "array",
+      "description": "Payment records associated with this invoice",
+      "items": {
+        "$ref": "#/$defs/InvoicePayment"
+      }
+    },
+    "holds": {
+      "type": "array",
+      "description": "Active holds on this invoice",
+      "items": {
+        "$ref": "#/$defs/InvoiceHold"
+      }
+    },
+    "orgId": {
+      "type": "integer",
+      "description": "Operating unit identifier"
+    },
+    "createdBy": {
+      "type": "integer",
+      "description": "User who created the record"
+    },
+    "creationDate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Record creation date"
+    },
+    "lastUpdatedBy": {
+      "type": "integer",
+      "description": "User who last updated the record"
+    },
+    "lastUpdateDate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Record last update date"
+    }
+  },
+  "$defs": {
+    "InvoiceLine": {
+      "type": "object",
+      "required": [
+        "invoiceLineId",
+        "lineNumber",
+        "lineTypeCode",
+        "amount"
+      ],
+      "properties": {
+        "invoiceLineId": {
+          "type": "integer",
+          "description": "Invoice line identifier"
+        },
+        "lineNumber": {
+          "type": "integer",
+          "description": "Line number",
+          "minimum": 1
+        },
+        "lineTypeCode": {
+          "type": "string",
+          "description": "Line type",
+          "enum": [
+            "ITEM",
+            "TAX",
+            "FREIGHT",
+            "MISCELLANEOUS",
+            "PREPAY",
+            "AWT",
+            "RETAINAGE"
+          ]
+        },
+        "amount": {
+          "type": "number",
+          "description": "Line amount"
+        },
+        "baseAmount": {
+          "type": ["number", "null"],
+          "description": "Line amount in base currency"
+        },
+        "description": {
+          "type": ["string", "null"],
+          "description": "Line description",
+          "maxLength": 240
+        },
+        "accountingDate": {
+          "type": "string",
+          "format": "date",
+          "description": "GL accounting date"
+        },
+        "distCodeCombinationId": {
+          "type": "integer",
+          "description": "Default distribution account code combination ID"
+        },
+        "itemDescription": {
+          "type": ["string", "null"],
+          "description": "Item description"
+        },
+        "quantity": {
+          "type": ["number", "null"],
+          "description": "Line quantity invoiced"
+        },
+        "unitPrice": {
+          "type": ["number", "null"],
+          "description": "Unit price"
+        },
+        "unitMeasLookupCode": {
+          "type": ["string", "null"],
+          "description": "Unit of measure"
+        },
+        "poHeaderId": {
+          "type": ["integer", "null"],
+          "description": "Matched PO header ID"
+        },
+        "poLineId": {
+          "type": ["integer", "null"],
+          "description": "Matched PO line ID"
+        },
+        "poLineLocationId": {
+          "type": ["integer", "null"],
+          "description": "Matched PO shipment ID"
+        },
+        "poDistributionId": {
+          "type": ["integer", "null"],
+          "description": "Matched PO distribution ID"
+        },
+        "receiptNumber": {
+          "type": ["string", "null"],
+          "description": "Receipt number for 3-way match"
+        },
+        "inventoryItemId": {
+          "type": ["integer", "null"],
+          "description": "Inventory item identifier"
+        },
+        "taxClassificationCode": {
+          "type": ["string", "null"],
+          "description": "Tax classification code"
+        },
+        "deferredAcctgFlag": {
+          "type": "string",
+          "enum": [
+            "Y",
+            "N"
+          ]
+        },
+        "cancelledFlag": {
+          "type": "string",
+          "enum": [
+            "Y",
+            "N"
+          ]
+        },
+        "creationDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "lastUpdateDate": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "InvoicePayment": {
+      "type": "object",
+      "properties": {
+        "invoicePaymentId": {
+          "type": "integer",
+          "description": "Invoice payment identifier"
+        },
+        "checkId": {
+          "type": "integer",
+          "description": "Payment check identifier"
+        },
+        "paymentNum": {
+          "type": "integer",
+          "description": "Payment number"
+        },
+        "amount": {
+          "type": "number",
+          "description": "Payment amount"
+        },
+        "discountTaken": {
+          "type": ["number", "null"],
+          "description": "Discount taken"
+        },
+        "accountingDate": {
+          "type": "string",
+          "format": "date"
+        }
+      }
+    },
+    "InvoiceHold": {
+      "type": "object",
+      "properties": {
+        "holdLookupCode": {
+          "type": "string",
+          "description": "Hold reason lookup code"
+        },
+        "holdReason": {
+          "type": "string",
+          "description": "Hold reason description"
+        },
+        "holdDate": {
+          "type": "string",
+          "format": "date",
+          "description": "Date hold was applied"
+        },
+        "releaseReason": {
+          "type": ["string", "null"],
+          "description": "Hold release reason"
+        },
+        "releaseLookupCode": {
+          "type": ["string", "null"],
+          "description": "Release reason lookup code"
+        },
+        "status": {
+          "type": "string",
+          "description": "Hold status",
+          "enum": [
+            "ACTIVE",
+            "RELEASED"
+          ]
+        }
+      }
+    }
+  }
+}

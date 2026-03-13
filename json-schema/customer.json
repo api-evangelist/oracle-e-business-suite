@@ -1,0 +1,604 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.oracle.com/ebs/customer.json",
+  "title": "Oracle EBS Customer",
+  "description": "Schema representing a customer record in Oracle E-Business Suite Trading Community Architecture (TCA). Maps to HZ_PARTIES, HZ_CUST_ACCOUNTS, HZ_PARTY_SITES, HZ_CUST_ACCT_SITES_ALL, and HZ_CUST_SITE_USES_ALL tables. TCA provides a unified model for managing customer, supplier, and partner data.",
+  "type": "object",
+  "required": [
+    "partyId",
+    "partyName",
+    "partyType"
+  ],
+  "properties": {
+    "partyId": {
+      "type": "integer",
+      "description": "Party identifier (HZ_PARTIES.PARTY_ID)"
+    },
+    "partyNumber": {
+      "type": "string",
+      "description": "Party number (system-generated unique identifier)",
+      "maxLength": 30
+    },
+    "partyName": {
+      "type": "string",
+      "description": "Party name (organization name or person full name)",
+      "maxLength": 360
+    },
+    "partyType": {
+      "type": "string",
+      "description": "Party type",
+      "enum": [
+        "ORGANIZATION",
+        "PERSON",
+        "PARTY_RELATIONSHIP",
+        "GROUP"
+      ]
+    },
+    "category": {
+      "type": ["string", "null"],
+      "description": "Customer category code"
+    },
+    "status": {
+      "type": "string",
+      "description": "Party status",
+      "enum": [
+        "A",
+        "I"
+      ]
+    },
+    "organizationProfile": {
+      "$ref": "#/$defs/OrganizationProfile",
+      "description": "Organization profile (when partyType is ORGANIZATION)"
+    },
+    "personProfile": {
+      "$ref": "#/$defs/PersonProfile",
+      "description": "Person profile (when partyType is PERSON)"
+    },
+    "customerAccounts": {
+      "type": "array",
+      "description": "Customer accounts associated with this party",
+      "items": {
+        "$ref": "#/$defs/CustomerAccount"
+      }
+    },
+    "partySites": {
+      "type": "array",
+      "description": "Party site/address records",
+      "items": {
+        "$ref": "#/$defs/PartySite"
+      }
+    },
+    "contactPoints": {
+      "type": "array",
+      "description": "Contact points (phone, email, web, etc.)",
+      "items": {
+        "$ref": "#/$defs/ContactPoint"
+      }
+    },
+    "relationships": {
+      "type": "array",
+      "description": "Party relationships (contacts, hierarchies)",
+      "items": {
+        "$ref": "#/$defs/PartyRelationship"
+      }
+    },
+    "dunsBNumber": {
+      "type": ["string", "null"],
+      "description": "DUNS number",
+      "maxLength": 30
+    },
+    "taxPayerIdentificationNumber": {
+      "type": ["string", "null"],
+      "description": "Tax identification number"
+    },
+    "jgzzFiscalCode": {
+      "type": ["string", "null"],
+      "description": "Fiscal code (localization)"
+    },
+    "url": {
+      "type": ["string", "null"],
+      "format": "uri",
+      "description": "Website URL"
+    },
+    "emailAddress": {
+      "type": ["string", "null"],
+      "format": "email",
+      "description": "Primary email address"
+    },
+    "primaryPhoneNumber": {
+      "type": ["string", "null"],
+      "description": "Primary phone number"
+    },
+    "createdBy": {
+      "type": "integer"
+    },
+    "creationDate": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "lastUpdatedBy": {
+      "type": "integer"
+    },
+    "lastUpdateDate": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "$defs": {
+    "OrganizationProfile": {
+      "type": "object",
+      "description": "Organization-specific profile data (HZ_ORGANIZATION_PROFILES)",
+      "properties": {
+        "organizationProfileId": {
+          "type": "integer",
+          "description": "Organization profile identifier"
+        },
+        "organizationName": {
+          "type": "string",
+          "description": "Organization legal name",
+          "maxLength": 360
+        },
+        "knownAs": {
+          "type": ["string", "null"],
+          "description": "Organization known-as/trade name"
+        },
+        "duns": {
+          "type": ["string", "null"],
+          "description": "DUNS number"
+        },
+        "sicCode": {
+          "type": ["string", "null"],
+          "description": "Standard Industry Classification code"
+        },
+        "sicCodeType": {
+          "type": ["string", "null"],
+          "description": "SIC code type (SIC, NAICS, etc.)"
+        },
+        "employeesTotal": {
+          "type": ["integer", "null"],
+          "description": "Total number of employees"
+        },
+        "annualRevenue": {
+          "type": ["number", "null"],
+          "description": "Annual revenue"
+        },
+        "currencyCode": {
+          "type": ["string", "null"],
+          "description": "Revenue currency code"
+        },
+        "yearEstablished": {
+          "type": ["integer", "null"],
+          "description": "Year organization was established"
+        },
+        "legalStatus": {
+          "type": ["string", "null"],
+          "description": "Legal status (Corporation, Partnership, etc.)"
+        },
+        "fiscalYearendMonth": {
+          "type": ["string", "null"],
+          "description": "Fiscal year end month"
+        },
+        "lineOfBusiness": {
+          "type": ["string", "null"],
+          "description": "Line of business"
+        }
+      }
+    },
+    "PersonProfile": {
+      "type": "object",
+      "description": "Person-specific profile data (HZ_PERSON_PROFILES)",
+      "properties": {
+        "personProfileId": {
+          "type": "integer"
+        },
+        "personTitle": {
+          "type": ["string", "null"],
+          "description": "Title"
+        },
+        "personFirstName": {
+          "type": "string",
+          "description": "First name"
+        },
+        "personMiddleName": {
+          "type": ["string", "null"],
+          "description": "Middle name"
+        },
+        "personLastName": {
+          "type": "string",
+          "description": "Last name"
+        },
+        "personNameSuffix": {
+          "type": ["string", "null"],
+          "description": "Name suffix"
+        },
+        "gender": {
+          "type": ["string", "null"],
+          "description": "Gender",
+          "enum": [
+            "MALE",
+            "FEMALE",
+            null
+          ]
+        },
+        "dateOfBirth": {
+          "type": ["string", "null"],
+          "format": "date"
+        }
+      }
+    },
+    "CustomerAccount": {
+      "type": "object",
+      "description": "Customer account record (HZ_CUST_ACCOUNTS)",
+      "required": [
+        "custAccountId",
+        "accountNumber"
+      ],
+      "properties": {
+        "custAccountId": {
+          "type": "integer",
+          "description": "Customer account identifier"
+        },
+        "accountNumber": {
+          "type": "string",
+          "description": "Customer account number",
+          "maxLength": 30
+        },
+        "accountName": {
+          "type": ["string", "null"],
+          "description": "Account name",
+          "maxLength": 240
+        },
+        "status": {
+          "type": "string",
+          "description": "Account status",
+          "enum": [
+            "A",
+            "I"
+          ]
+        },
+        "customerType": {
+          "type": ["string", "null"],
+          "description": "Customer type (R=External, I=Internal)"
+        },
+        "customerClassCode": {
+          "type": ["string", "null"],
+          "description": "Customer classification code"
+        },
+        "accountEstablishedDate": {
+          "type": ["string", "null"],
+          "format": "date",
+          "description": "Date the account was established"
+        },
+        "salesChannelCode": {
+          "type": ["string", "null"],
+          "description": "Sales channel code"
+        },
+        "orderTypeId": {
+          "type": ["integer", "null"],
+          "description": "Default order type identifier"
+        },
+        "priceListId": {
+          "type": ["integer", "null"],
+          "description": "Default price list identifier"
+        },
+        "paymentTermId": {
+          "type": ["integer", "null"],
+          "description": "Default payment terms identifier"
+        },
+        "creditHold": {
+          "type": "string",
+          "description": "Whether account is on credit hold",
+          "enum": [
+            "Y",
+            "N"
+          ]
+        },
+        "accountSites": {
+          "type": "array",
+          "description": "Customer account sites",
+          "items": {
+            "$ref": "#/$defs/CustomerAccountSite"
+          }
+        },
+        "creationDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "lastUpdateDate": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "CustomerAccountSite": {
+      "type": "object",
+      "description": "Customer account site (HZ_CUST_ACCT_SITES_ALL)",
+      "properties": {
+        "custAcctSiteId": {
+          "type": "integer",
+          "description": "Customer account site identifier"
+        },
+        "partySiteId": {
+          "type": "integer",
+          "description": "Party site identifier"
+        },
+        "orgId": {
+          "type": "integer",
+          "description": "Operating unit identifier"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "A",
+            "I"
+          ]
+        },
+        "siteUses": {
+          "type": "array",
+          "description": "Site uses (BILL_TO, SHIP_TO, etc.)",
+          "items": {
+            "$ref": "#/$defs/SiteUse"
+          }
+        }
+      }
+    },
+    "SiteUse": {
+      "type": "object",
+      "description": "Customer site use (HZ_CUST_SITE_USES_ALL)",
+      "properties": {
+        "siteUseId": {
+          "type": "integer",
+          "description": "Site use identifier"
+        },
+        "siteUseCode": {
+          "type": "string",
+          "description": "Site use purpose",
+          "enum": [
+            "BILL_TO",
+            "SHIP_TO",
+            "DELIVER_TO",
+            "DRAWEE",
+            "LEGAL",
+            "SOLD_TO",
+            "MARKETING"
+          ]
+        },
+        "primaryFlag": {
+          "type": "string",
+          "enum": [
+            "Y",
+            "N"
+          ]
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "A",
+            "I"
+          ]
+        },
+        "locationId": {
+          "type": "integer",
+          "description": "Location identifier"
+        }
+      }
+    },
+    "PartySite": {
+      "type": "object",
+      "description": "Party site/address record (HZ_PARTY_SITES with HZ_LOCATIONS)",
+      "required": [
+        "partySiteId"
+      ],
+      "properties": {
+        "partySiteId": {
+          "type": "integer",
+          "description": "Party site identifier"
+        },
+        "partySiteNumber": {
+          "type": "string",
+          "description": "Party site number"
+        },
+        "partySiteName": {
+          "type": ["string", "null"],
+          "description": "Party site name"
+        },
+        "identifyingAddressFlag": {
+          "type": "string",
+          "description": "Whether this is the identifying (primary) address",
+          "enum": [
+            "Y",
+            "N"
+          ]
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "A",
+            "I"
+          ]
+        },
+        "location": {
+          "$ref": "#/$defs/Location"
+        }
+      }
+    },
+    "Location": {
+      "type": "object",
+      "description": "Physical location/address (HZ_LOCATIONS)",
+      "properties": {
+        "locationId": {
+          "type": "integer",
+          "description": "Location identifier"
+        },
+        "address1": {
+          "type": "string",
+          "description": "Address line 1",
+          "maxLength": 240
+        },
+        "address2": {
+          "type": ["string", "null"],
+          "description": "Address line 2",
+          "maxLength": 240
+        },
+        "address3": {
+          "type": ["string", "null"],
+          "description": "Address line 3",
+          "maxLength": 240
+        },
+        "address4": {
+          "type": ["string", "null"],
+          "description": "Address line 4",
+          "maxLength": 240
+        },
+        "city": {
+          "type": ["string", "null"],
+          "description": "City",
+          "maxLength": 60
+        },
+        "county": {
+          "type": ["string", "null"],
+          "description": "County",
+          "maxLength": 60
+        },
+        "state": {
+          "type": ["string", "null"],
+          "description": "State/province",
+          "maxLength": 60
+        },
+        "province": {
+          "type": ["string", "null"],
+          "description": "Province"
+        },
+        "postalCode": {
+          "type": ["string", "null"],
+          "description": "Postal/ZIP code",
+          "maxLength": 60
+        },
+        "country": {
+          "type": "string",
+          "description": "Country code (ISO 3166-1 alpha-2)",
+          "maxLength": 60
+        }
+      }
+    },
+    "ContactPoint": {
+      "type": "object",
+      "description": "Contact point record (HZ_CONTACT_POINTS)",
+      "properties": {
+        "contactPointId": {
+          "type": "integer",
+          "description": "Contact point identifier"
+        },
+        "contactPointType": {
+          "type": "string",
+          "description": "Contact point type",
+          "enum": [
+            "PHONE",
+            "EMAIL",
+            "WEB",
+            "EDI",
+            "EFT",
+            "TLX"
+          ]
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "A",
+            "I"
+          ]
+        },
+        "primaryFlag": {
+          "type": "string",
+          "enum": [
+            "Y",
+            "N"
+          ]
+        },
+        "phoneLineType": {
+          "type": ["string", "null"],
+          "description": "Phone line type (GEN, FAX, MOBILE, PAGER)",
+          "enum": [
+            "GEN",
+            "FAX",
+            "MOBILE",
+            "PAGER",
+            null
+          ]
+        },
+        "phoneCountryCode": {
+          "type": ["string", "null"],
+          "description": "Phone country code"
+        },
+        "phoneAreaCode": {
+          "type": ["string", "null"],
+          "description": "Phone area code"
+        },
+        "phoneNumber": {
+          "type": ["string", "null"],
+          "description": "Phone number"
+        },
+        "phoneExtension": {
+          "type": ["string", "null"],
+          "description": "Phone extension"
+        },
+        "emailAddress": {
+          "type": ["string", "null"],
+          "format": "email",
+          "description": "Email address"
+        },
+        "url": {
+          "type": ["string", "null"],
+          "format": "uri",
+          "description": "Web URL"
+        }
+      }
+    },
+    "PartyRelationship": {
+      "type": "object",
+      "description": "Party relationship record (HZ_RELATIONSHIPS)",
+      "properties": {
+        "relationshipId": {
+          "type": "integer"
+        },
+        "relationshipType": {
+          "type": "string",
+          "description": "Relationship type (CONTACT_OF, PARENT_OF, etc.)"
+        },
+        "relationshipCode": {
+          "type": "string",
+          "description": "Relationship code"
+        },
+        "subjectId": {
+          "type": "integer",
+          "description": "Subject party identifier"
+        },
+        "objectId": {
+          "type": "integer",
+          "description": "Object party identifier"
+        },
+        "subjectType": {
+          "type": "string"
+        },
+        "objectType": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "A",
+            "I"
+          ]
+        },
+        "startDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "endDate": {
+          "type": ["string", "null"],
+          "format": "date"
+        }
+      }
+    }
+  }
+}

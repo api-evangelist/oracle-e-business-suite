@@ -1,0 +1,473 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.oracle.com/ebs/supplier.json",
+  "title": "Oracle EBS Supplier",
+  "description": "Schema representing a supplier/vendor record in Oracle E-Business Suite Purchasing and Payables modules. Maps to AP_SUPPLIERS, AP_SUPPLIER_SITES_ALL, AP_SUPPLIER_CONTACTS, and the Trading Community Architecture (TCA) party model (HZ_PARTIES).",
+  "type": "object",
+  "required": [
+    "vendorId",
+    "vendorName"
+  ],
+  "properties": {
+    "vendorId": {
+      "type": "integer",
+      "description": "Vendor identifier (AP_SUPPLIERS.VENDOR_ID)"
+    },
+    "vendorName": {
+      "type": "string",
+      "description": "Vendor name",
+      "maxLength": 240
+    },
+    "segment1": {
+      "type": "string",
+      "description": "Vendor number",
+      "maxLength": 30
+    },
+    "vendorType": {
+      "type": ["string", "null"],
+      "description": "Vendor type lookup code (e.g., CONTRACTOR, EMPLOYEE, VENDOR)"
+    },
+    "partyId": {
+      "type": "integer",
+      "description": "TCA party identifier (HZ_PARTIES.PARTY_ID)"
+    },
+    "taxPayerId": {
+      "type": ["string", "null"],
+      "description": "Tax payer identification number (EIN/SSN/TIN)",
+      "maxLength": 20
+    },
+    "taxRegistrationNumber": {
+      "type": ["string", "null"],
+      "description": "Tax registration number (VAT number)"
+    },
+    "standardIndustryClass": {
+      "type": ["string", "null"],
+      "description": "Standard Industry Classification (SIC) code",
+      "maxLength": 25
+    },
+    "dunsBNumber": {
+      "type": ["string", "null"],
+      "description": "DUNS number",
+      "maxLength": 30
+    },
+    "oneTimeFlag": {
+      "type": "string",
+      "description": "One-time vendor flag",
+      "enum": [
+        "Y",
+        "N"
+      ]
+    },
+    "customerNum": {
+      "type": ["string", "null"],
+      "description": "Our customer number at the vendor"
+    },
+    "minorityGroupLookupCode": {
+      "type": ["string", "null"],
+      "description": "Minority group classification"
+    },
+    "smallBusinessFlag": {
+      "type": "string",
+      "description": "Small business flag",
+      "enum": [
+        "Y",
+        "N"
+      ]
+    },
+    "womenOwnedFlag": {
+      "type": "string",
+      "description": "Women-owned business flag",
+      "enum": [
+        "Y",
+        "N"
+      ]
+    },
+    "paymentCurrencyCode": {
+      "type": ["string", "null"],
+      "description": "Default payment currency code (ISO 4217)",
+      "pattern": "^[A-Z]{3}$"
+    },
+    "invoiceCurrencyCode": {
+      "type": ["string", "null"],
+      "description": "Default invoice currency code (ISO 4217)",
+      "pattern": "^[A-Z]{3}$"
+    },
+    "paymentMethodCode": {
+      "type": ["string", "null"],
+      "description": "Default payment method lookup code"
+    },
+    "payGroupLookupCode": {
+      "type": ["string", "null"],
+      "description": "Pay group lookup code"
+    },
+    "termsId": {
+      "type": ["integer", "null"],
+      "description": "Default payment terms identifier (AP_TERMS.TERM_ID)"
+    },
+    "termsName": {
+      "type": ["string", "null"],
+      "description": "Default payment terms name"
+    },
+    "alwaysTakePrepaymentDiscFlag": {
+      "type": "string",
+      "enum": [
+        "Y",
+        "N"
+      ]
+    },
+    "payDateBasisLookupCode": {
+      "type": ["string", "null"],
+      "description": "Pay date basis (DISCOUNT, DUE)"
+    },
+    "invoiceAmountLimit": {
+      "type": ["number", "null"],
+      "description": "Invoice amount limit"
+    },
+    "holdAllPaymentsFlag": {
+      "type": "string",
+      "description": "Whether all payments are on hold",
+      "enum": [
+        "Y",
+        "N"
+      ]
+    },
+    "holdUnmatchedInvoicesFlag": {
+      "type": "string",
+      "description": "Whether unmatched invoices are on hold",
+      "enum": [
+        "Y",
+        "N"
+      ]
+    },
+    "matchOption": {
+      "type": ["string", "null"],
+      "description": "Invoice match option",
+      "enum": [
+        "P",
+        "R",
+        null
+      ]
+    },
+    "enabled": {
+      "type": "boolean",
+      "description": "Whether the vendor is currently active/enabled"
+    },
+    "startDateActive": {
+      "type": "string",
+      "format": "date",
+      "description": "Date the vendor becomes active"
+    },
+    "endDateActive": {
+      "type": ["string", "null"],
+      "format": "date",
+      "description": "Date the vendor becomes inactive"
+    },
+    "sites": {
+      "type": "array",
+      "description": "Vendor site records",
+      "items": {
+        "$ref": "#/$defs/SupplierSite"
+      }
+    },
+    "contacts": {
+      "type": "array",
+      "description": "Vendor contact records",
+      "items": {
+        "$ref": "#/$defs/SupplierContact"
+      }
+    },
+    "bankAccounts": {
+      "type": "array",
+      "description": "Vendor bank account assignments",
+      "items": {
+        "$ref": "#/$defs/VendorBankAccount"
+      }
+    },
+    "createdBy": {
+      "type": "integer",
+      "description": "User who created the record"
+    },
+    "creationDate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Record creation date"
+    },
+    "lastUpdatedBy": {
+      "type": "integer",
+      "description": "User who last updated the record"
+    },
+    "lastUpdateDate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Record last update date"
+    }
+  },
+  "$defs": {
+    "SupplierSite": {
+      "type": "object",
+      "required": [
+        "vendorSiteId",
+        "vendorSiteCode"
+      ],
+      "description": "Vendor site record (AP_SUPPLIER_SITES_ALL)",
+      "properties": {
+        "vendorSiteId": {
+          "type": "integer",
+          "description": "Vendor site identifier"
+        },
+        "vendorSiteCode": {
+          "type": "string",
+          "description": "Vendor site code (unique within vendor)",
+          "maxLength": 15
+        },
+        "vendorSiteCodeAlt": {
+          "type": ["string", "null"],
+          "description": "Alternate vendor site code"
+        },
+        "addressLine1": {
+          "type": "string",
+          "description": "Address line 1",
+          "maxLength": 240
+        },
+        "addressLine2": {
+          "type": ["string", "null"],
+          "description": "Address line 2",
+          "maxLength": 240
+        },
+        "addressLine3": {
+          "type": ["string", "null"],
+          "description": "Address line 3",
+          "maxLength": 240
+        },
+        "city": {
+          "type": ["string", "null"],
+          "description": "City",
+          "maxLength": 25
+        },
+        "state": {
+          "type": ["string", "null"],
+          "description": "State/province",
+          "maxLength": 150
+        },
+        "zip": {
+          "type": ["string", "null"],
+          "description": "ZIP/postal code",
+          "maxLength": 20
+        },
+        "country": {
+          "type": ["string", "null"],
+          "description": "Country code (ISO 3166-1 alpha-2)",
+          "maxLength": 25
+        },
+        "province": {
+          "type": ["string", "null"],
+          "description": "Province"
+        },
+        "phone": {
+          "type": ["string", "null"],
+          "description": "Phone number"
+        },
+        "fax": {
+          "type": ["string", "null"],
+          "description": "Fax number"
+        },
+        "emailAddress": {
+          "type": ["string", "null"],
+          "format": "email",
+          "description": "Email address"
+        },
+        "purchasingSiteFlag": {
+          "type": "string",
+          "description": "Whether this site is used for purchasing",
+          "enum": [
+            "Y",
+            "N"
+          ]
+        },
+        "rfqOnlySiteFlag": {
+          "type": "string",
+          "description": "Whether this site is only for RFQs",
+          "enum": [
+            "Y",
+            "N"
+          ]
+        },
+        "paymentSiteFlag": {
+          "type": "string",
+          "description": "Whether this site receives payments",
+          "enum": [
+            "Y",
+            "N"
+          ]
+        },
+        "primaryPaymentSiteFlag": {
+          "type": "string",
+          "description": "Whether this is the primary payment site",
+          "enum": [
+            "Y",
+            "N"
+          ]
+        },
+        "paymentMethodCode": {
+          "type": ["string", "null"],
+          "description": "Site-level payment method override"
+        },
+        "termsId": {
+          "type": ["integer", "null"],
+          "description": "Site-level payment terms override"
+        },
+        "paymentCurrencyCode": {
+          "type": ["string", "null"],
+          "description": "Site-level payment currency"
+        },
+        "invoiceCurrencyCode": {
+          "type": ["string", "null"],
+          "description": "Site-level invoice currency"
+        },
+        "shipToLocationId": {
+          "type": ["integer", "null"],
+          "description": "Default ship-to location for this site"
+        },
+        "billToLocationId": {
+          "type": ["integer", "null"],
+          "description": "Default bill-to location for this site"
+        },
+        "orgId": {
+          "type": "integer",
+          "description": "Operating unit identifier"
+        },
+        "inactiveDate": {
+          "type": ["string", "null"],
+          "format": "date",
+          "description": "Date the site becomes inactive"
+        },
+        "creationDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "lastUpdateDate": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "SupplierContact": {
+      "type": "object",
+      "description": "Vendor contact record (AP_SUPPLIER_CONTACTS)",
+      "properties": {
+        "vendorContactId": {
+          "type": "integer",
+          "description": "Vendor contact identifier"
+        },
+        "vendorSiteId": {
+          "type": "integer",
+          "description": "Associated vendor site identifier"
+        },
+        "personFirstName": {
+          "type": "string",
+          "description": "Contact first name",
+          "maxLength": 15
+        },
+        "personMiddleName": {
+          "type": ["string", "null"],
+          "description": "Contact middle name"
+        },
+        "personLastName": {
+          "type": "string",
+          "description": "Contact last name",
+          "maxLength": 15
+        },
+        "personTitle": {
+          "type": ["string", "null"],
+          "description": "Contact title"
+        },
+        "areaCode": {
+          "type": ["string", "null"],
+          "description": "Phone area code"
+        },
+        "phone": {
+          "type": ["string", "null"],
+          "description": "Phone number"
+        },
+        "emailAddress": {
+          "type": ["string", "null"],
+          "format": "email",
+          "description": "Contact email"
+        },
+        "department": {
+          "type": ["string", "null"],
+          "description": "Contact department"
+        },
+        "inactiveDate": {
+          "type": ["string", "null"],
+          "format": "date"
+        }
+      }
+    },
+    "VendorBankAccount": {
+      "type": "object",
+      "description": "Vendor bank account assignment (IBY_EXT_BANK_ACCOUNTS linked via IBY_PMT_INSTR_USES_ALL)",
+      "properties": {
+        "instrumentPaymentUseId": {
+          "type": "integer",
+          "description": "Payment instrument use identifier"
+        },
+        "extBankAccountId": {
+          "type": "integer",
+          "description": "External bank account identifier"
+        },
+        "bankName": {
+          "type": "string",
+          "description": "Bank name"
+        },
+        "bankNumber": {
+          "type": ["string", "null"],
+          "description": "Bank number/routing number"
+        },
+        "branchName": {
+          "type": ["string", "null"],
+          "description": "Bank branch name"
+        },
+        "branchNumber": {
+          "type": ["string", "null"],
+          "description": "Branch number"
+        },
+        "bankAccountNum": {
+          "type": "string",
+          "description": "Bank account number"
+        },
+        "bankAccountName": {
+          "type": "string",
+          "description": "Bank account name"
+        },
+        "iban": {
+          "type": ["string", "null"],
+          "description": "IBAN (International Bank Account Number)"
+        },
+        "currencyCode": {
+          "type": "string",
+          "description": "Account currency code"
+        },
+        "country": {
+          "type": "string",
+          "description": "Bank country code"
+        },
+        "startDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "endDate": {
+          "type": ["string", "null"],
+          "format": "date"
+        },
+        "primaryFlag": {
+          "type": "string",
+          "enum": [
+            "Y",
+            "N"
+          ]
+        }
+      }
+    }
+  }
+}

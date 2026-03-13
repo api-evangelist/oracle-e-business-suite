@@ -1,0 +1,508 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.oracle.com/ebs/employee.json",
+  "title": "Oracle EBS Employee",
+  "description": "Schema representing an employee record in Oracle E-Business Suite Human Resources Management System (HRMS). Maps to PER_ALL_PEOPLE_F, PER_ALL_ASSIGNMENTS_F, PER_ADDRESSES, and PER_PHONES tables. Uses date-track versioning where records have effective start and end dates.",
+  "type": "object",
+  "required": [
+    "personId",
+    "lastName",
+    "effectiveStartDate",
+    "effectiveEndDate"
+  ],
+  "properties": {
+    "personId": {
+      "type": "integer",
+      "description": "Unique person identifier (PER_ALL_PEOPLE_F.PERSON_ID)"
+    },
+    "employeeNumber": {
+      "type": "string",
+      "description": "Employee number (PER_ALL_PEOPLE_F.EMPLOYEE_NUMBER)",
+      "maxLength": 30
+    },
+    "personTypeId": {
+      "type": "integer",
+      "description": "Person type identifier (PER_PERSON_TYPES.PERSON_TYPE_ID)"
+    },
+    "title": {
+      "type": ["string", "null"],
+      "description": "Title (Mr., Mrs., Ms., Dr., etc.)",
+      "maxLength": 30
+    },
+    "firstName": {
+      "type": "string",
+      "description": "First name",
+      "maxLength": 150
+    },
+    "middleNames": {
+      "type": ["string", "null"],
+      "description": "Middle name(s)",
+      "maxLength": 60
+    },
+    "lastName": {
+      "type": "string",
+      "description": "Last name",
+      "maxLength": 150
+    },
+    "suffix": {
+      "type": ["string", "null"],
+      "description": "Name suffix (Jr., Sr., III, etc.)",
+      "maxLength": 30
+    },
+    "fullName": {
+      "type": "string",
+      "description": "Full name (system-derived: LastName, Title FirstName MiddleNames Suffix)",
+      "maxLength": 240
+    },
+    "knownAs": {
+      "type": ["string", "null"],
+      "description": "Preferred/known-as name",
+      "maxLength": 80
+    },
+    "previousLastName": {
+      "type": ["string", "null"],
+      "description": "Previous last name (maiden name)",
+      "maxLength": 150
+    },
+    "emailAddress": {
+      "type": ["string", "null"],
+      "format": "email",
+      "description": "Email address",
+      "maxLength": 240
+    },
+    "sex": {
+      "type": "string",
+      "description": "Gender",
+      "enum": [
+        "M",
+        "F"
+      ]
+    },
+    "dateOfBirth": {
+      "type": ["string", "null"],
+      "format": "date",
+      "description": "Date of birth"
+    },
+    "nationalIdentifier": {
+      "type": ["string", "null"],
+      "description": "National identifier (Social Security Number, National Insurance Number, etc.)",
+      "maxLength": 30
+    },
+    "nationality": {
+      "type": ["string", "null"],
+      "description": "Nationality lookup code"
+    },
+    "maritalStatus": {
+      "type": ["string", "null"],
+      "description": "Marital status lookup code",
+      "enum": [
+        "S",
+        "M",
+        "D",
+        "W",
+        "DP",
+        "L",
+        null
+      ]
+    },
+    "registeredDisabledFlag": {
+      "type": ["string", "null"],
+      "description": "Registered disabled status"
+    },
+    "effectiveStartDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Date-track effective start date"
+    },
+    "effectiveEndDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Date-track effective end date (31-DEC-4712 for current records)"
+    },
+    "hireDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Original hire date (PER_PERIODS_OF_SERVICE.DATE_START)"
+    },
+    "originalDateOfHire": {
+      "type": ["string", "null"],
+      "format": "date",
+      "description": "Original date of hire (may differ from hire date for rehires)"
+    },
+    "adjustedServiceDate": {
+      "type": ["string", "null"],
+      "format": "date",
+      "description": "Adjusted service date"
+    },
+    "terminationDate": {
+      "type": ["string", "null"],
+      "format": "date",
+      "description": "Actual termination date"
+    },
+    "currentEmployeeFlag": {
+      "type": "string",
+      "description": "Whether the person is currently an active employee",
+      "enum": [
+        "Y",
+        "N"
+      ]
+    },
+    "businessGroupId": {
+      "type": "integer",
+      "description": "Business group identifier (HR_ALL_ORGANIZATION_UNITS.ORGANIZATION_ID)"
+    },
+    "assignment": {
+      "$ref": "#/$defs/Assignment",
+      "description": "Primary employee assignment"
+    },
+    "assignments": {
+      "type": "array",
+      "description": "All employee assignments (including secondary)",
+      "items": {
+        "$ref": "#/$defs/Assignment"
+      }
+    },
+    "addresses": {
+      "type": "array",
+      "description": "Employee addresses",
+      "items": {
+        "$ref": "#/$defs/Address"
+      }
+    },
+    "phones": {
+      "type": "array",
+      "description": "Employee phone numbers",
+      "items": {
+        "$ref": "#/$defs/Phone"
+      }
+    },
+    "periodOfService": {
+      "$ref": "#/$defs/PeriodOfService",
+      "description": "Current period of service"
+    },
+    "createdBy": {
+      "type": "integer",
+      "description": "User who created the record"
+    },
+    "creationDate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Record creation date"
+    },
+    "lastUpdatedBy": {
+      "type": "integer",
+      "description": "User who last updated the record"
+    },
+    "lastUpdateDate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Record last update date"
+    },
+    "objectVersionNumber": {
+      "type": "integer",
+      "description": "Object version number for optimistic locking"
+    }
+  },
+  "$defs": {
+    "Assignment": {
+      "type": "object",
+      "required": [
+        "assignmentId"
+      ],
+      "properties": {
+        "assignmentId": {
+          "type": "integer",
+          "description": "Assignment identifier (PER_ALL_ASSIGNMENTS_F.ASSIGNMENT_ID)"
+        },
+        "assignmentNumber": {
+          "type": "string",
+          "description": "Assignment number",
+          "maxLength": 30
+        },
+        "assignmentType": {
+          "type": "string",
+          "description": "Assignment type: E=Employee, C=Contingent Worker, A=Applicant",
+          "enum": [
+            "E",
+            "C",
+            "A"
+          ]
+        },
+        "primaryFlag": {
+          "type": "string",
+          "description": "Whether this is the primary assignment",
+          "enum": [
+            "Y",
+            "N"
+          ]
+        },
+        "assignmentStatusTypeId": {
+          "type": "integer",
+          "description": "Assignment status type identifier"
+        },
+        "assignmentStatusName": {
+          "type": "string",
+          "description": "Assignment status (Active Assignment, Suspend Assignment, etc.)"
+        },
+        "jobId": {
+          "type": ["integer", "null"],
+          "description": "Job identifier (PER_JOBS.JOB_ID)"
+        },
+        "jobName": {
+          "type": ["string", "null"],
+          "description": "Job name"
+        },
+        "positionId": {
+          "type": ["integer", "null"],
+          "description": "Position identifier (HR_ALL_POSITIONS_F.POSITION_ID)"
+        },
+        "positionName": {
+          "type": ["string", "null"],
+          "description": "Position name"
+        },
+        "gradeId": {
+          "type": ["integer", "null"],
+          "description": "Grade identifier (PER_GRADES.GRADE_ID)"
+        },
+        "gradeName": {
+          "type": ["string", "null"],
+          "description": "Grade name"
+        },
+        "organizationId": {
+          "type": "integer",
+          "description": "HR organization identifier"
+        },
+        "organizationName": {
+          "type": "string",
+          "description": "HR organization name"
+        },
+        "locationId": {
+          "type": ["integer", "null"],
+          "description": "Work location identifier (HR_LOCATIONS_ALL.LOCATION_ID)"
+        },
+        "locationCode": {
+          "type": ["string", "null"],
+          "description": "Work location code"
+        },
+        "supervisorId": {
+          "type": ["integer", "null"],
+          "description": "Supervisor person identifier"
+        },
+        "payrollId": {
+          "type": ["integer", "null"],
+          "description": "Payroll identifier (PAY_ALL_PAYROLLS_F.PAYROLL_ID)"
+        },
+        "peopleGroupId": {
+          "type": ["integer", "null"],
+          "description": "People group identifier"
+        },
+        "employmentCategory": {
+          "type": ["string", "null"],
+          "description": "Employment category: FR=Full-Time Regular, FT=Full-Time Temp, PR=Part-Time Regular, PT=Part-Time Temp",
+          "enum": [
+            "FR",
+            "FT",
+            "PR",
+            "PT",
+            null
+          ]
+        },
+        "normalHours": {
+          "type": ["number", "null"],
+          "description": "Normal working hours per period"
+        },
+        "frequency": {
+          "type": ["string", "null"],
+          "description": "Working hours frequency: D=Day, W=Week, M=Month, Y=Year",
+          "enum": [
+            "D",
+            "W",
+            "M",
+            "Y",
+            null
+          ]
+        },
+        "salary": {
+          "type": ["number", "null"],
+          "description": "Salary amount (from PER_PAY_PROPOSALS)"
+        },
+        "salaryBasis": {
+          "type": ["string", "null"],
+          "description": "Salary basis (Annual, Monthly, Hourly)"
+        },
+        "effectiveStartDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "effectiveEndDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "objectVersionNumber": {
+          "type": "integer"
+        }
+      }
+    },
+    "Address": {
+      "type": "object",
+      "required": [
+        "addressId"
+      ],
+      "properties": {
+        "addressId": {
+          "type": "integer",
+          "description": "Address identifier (PER_ADDRESSES.ADDRESS_ID)"
+        },
+        "addressType": {
+          "type": ["string", "null"],
+          "description": "Address type lookup code"
+        },
+        "primaryFlag": {
+          "type": "string",
+          "description": "Whether this is the primary address",
+          "enum": [
+            "Y",
+            "N"
+          ]
+        },
+        "addressLine1": {
+          "type": "string",
+          "description": "Address line 1",
+          "maxLength": 240
+        },
+        "addressLine2": {
+          "type": ["string", "null"],
+          "description": "Address line 2",
+          "maxLength": 240
+        },
+        "addressLine3": {
+          "type": ["string", "null"],
+          "description": "Address line 3",
+          "maxLength": 240
+        },
+        "townOrCity": {
+          "type": ["string", "null"],
+          "description": "City/town",
+          "maxLength": 30
+        },
+        "region1": {
+          "type": ["string", "null"],
+          "description": "County/province",
+          "maxLength": 120
+        },
+        "region2": {
+          "type": ["string", "null"],
+          "description": "State",
+          "maxLength": 120
+        },
+        "postalCode": {
+          "type": ["string", "null"],
+          "description": "Postal/ZIP code",
+          "maxLength": 30
+        },
+        "country": {
+          "type": "string",
+          "description": "Country code (ISO 3166-1 alpha-2)",
+          "maxLength": 60
+        },
+        "telephoneNumber1": {
+          "type": ["string", "null"],
+          "description": "Primary phone at this address"
+        },
+        "telephoneNumber2": {
+          "type": ["string", "null"],
+          "description": "Secondary phone at this address"
+        },
+        "dateFrom": {
+          "type": "string",
+          "format": "date",
+          "description": "Address start date"
+        },
+        "dateTo": {
+          "type": ["string", "null"],
+          "format": "date",
+          "description": "Address end date"
+        }
+      }
+    },
+    "Phone": {
+      "type": "object",
+      "required": [
+        "phoneId"
+      ],
+      "properties": {
+        "phoneId": {
+          "type": "integer",
+          "description": "Phone identifier (PER_PHONES.PHONE_ID)"
+        },
+        "phoneType": {
+          "type": "string",
+          "description": "Phone type: W1=Work, H1=Home, M=Mobile, WF=Work Fax, HF=Home Fax",
+          "enum": [
+            "W1",
+            "H1",
+            "M",
+            "WF",
+            "HF"
+          ]
+        },
+        "phoneNumber": {
+          "type": "string",
+          "description": "Phone number",
+          "maxLength": 60
+        },
+        "dateFrom": {
+          "type": "string",
+          "format": "date"
+        },
+        "dateTo": {
+          "type": ["string", "null"],
+          "format": "date"
+        }
+      }
+    },
+    "PeriodOfService": {
+      "type": "object",
+      "properties": {
+        "periodOfServiceId": {
+          "type": "integer",
+          "description": "Period of service identifier (PER_PERIODS_OF_SERVICE.PERIOD_OF_SERVICE_ID)"
+        },
+        "dateStart": {
+          "type": "string",
+          "format": "date",
+          "description": "Period start date (hire date)"
+        },
+        "actualTerminationDate": {
+          "type": ["string", "null"],
+          "format": "date",
+          "description": "Actual termination date"
+        },
+        "finalProcessDate": {
+          "type": ["string", "null"],
+          "format": "date",
+          "description": "Final payroll process date"
+        },
+        "lastStandardProcessDate": {
+          "type": ["string", "null"],
+          "format": "date",
+          "description": "Last standard payroll process date"
+        },
+        "leavingReason": {
+          "type": ["string", "null"],
+          "description": "Termination reason lookup code"
+        },
+        "notifiedTerminationDate": {
+          "type": ["string", "null"],
+          "format": "date",
+          "description": "Date termination was notified"
+        },
+        "adjustedServiceDate": {
+          "type": ["string", "null"],
+          "format": "date",
+          "description": "Adjusted service date"
+        }
+      }
+    }
+  }
+}

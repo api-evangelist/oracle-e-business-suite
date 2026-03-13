@@ -1,0 +1,712 @@
+openapi: 3.1.0
+info:
+  title: Oracle EBS e-Commerce Gateway API
+  description: >-
+    RESTful APIs for Oracle E-Business Suite e-Commerce Gateway providing EDI
+    (Electronic Data Interchange) transaction support. Enables exchange of
+    standard ASC X12 and EDIFACT documents with trading partners through flat
+    ASCII file integration with third-party EDI translators. Supports inbound
+    and outbound document processing for purchase orders, invoices, ship
+    notices, and other business documents.
+  version: 12.2.0
+  contact:
+    name: Oracle Support
+    email: support@oracle.com
+    url: https://support.oracle.com
+  license:
+    name: Oracle Proprietary
+    url: https://www.oracle.com/legal/terms/
+  x-logo:
+    url: https://www.oracle.com/a/ocom/img/oracle-logo.svg
+servers:
+  - url: https://{instance}.oracle.com/webservices/rest
+    description: Oracle EBS ISG REST endpoint
+    variables:
+      instance:
+        default: ebs-host
+        description: The Oracle EBS instance hostname
+paths:
+  /ece/tradingPartners:
+    get:
+      operationId: getTradingPartners
+      summary: Retrieve trading partners
+      description: >-
+        Retrieves e-Commerce Gateway trading partner definitions including
+        enabled EDI transactions and code conversion mappings.
+      tags:
+        - Trading Partners
+      security:
+        - tokenAuth: []
+        - basicAuth: []
+      parameters:
+        - name: tradingPartnerId
+          in: query
+          description: Trading partner identifier
+          schema:
+            type: integer
+        - name: tradingPartnerName
+          in: query
+          description: Trading partner name (supports wildcards)
+          schema:
+            type: string
+        - name: tradingPartnerType
+          in: query
+          description: Trading partner type
+          schema:
+            type: string
+            enum:
+              - CUSTOMER
+              - SUPPLIER
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Offset'
+      responses:
+        '200':
+          description: List of trading partners
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TradingPartner'
+                  totalCount:
+                    type: integer
+                  hasMore:
+                    type: boolean
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /ece/tradingPartners/{tradingPartnerId}:
+    get:
+      operationId: getTradingPartnerById
+      summary: Retrieve a specific trading partner
+      description: Retrieves a trading partner by identifier with full detail.
+      tags:
+        - Trading Partners
+      security:
+        - tokenAuth: []
+        - basicAuth: []
+      parameters:
+        - name: tradingPartnerId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Trading partner details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TradingPartner'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /ece/transactions/inbound:
+    get:
+      operationId: getInboundTransactions
+      summary: Retrieve inbound EDI transactions
+      description: >-
+        Retrieves inbound EDI transaction records that have been imported
+        through the e-Commerce Gateway. Includes invoice, ship notice, price
+        catalog, and quote response documents.
+      tags:
+        - Inbound Transactions
+      security:
+        - tokenAuth: []
+        - basicAuth: []
+      parameters:
+        - name: transactionType
+          in: query
+          description: EDI transaction type code
+          schema:
+            type: string
+            enum:
+              - INI
+              - CATI
+              - RRQI
+              - ASNI
+              - SBNI
+        - name: tradingPartnerId
+          in: query
+          description: Trading partner identifier
+          schema:
+            type: integer
+        - name: processStatus
+          in: query
+          description: Processing status
+          schema:
+            type: string
+            enum:
+              - PENDING
+              - PROCESSED
+              - ERROR
+        - name: creationDateFrom
+          in: query
+          description: Creation date range start (YYYY-MM-DD)
+          schema:
+            type: string
+            format: date
+        - name: creationDateTo
+          in: query
+          description: Creation date range end (YYYY-MM-DD)
+          schema:
+            type: string
+            format: date
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Offset'
+      responses:
+        '200':
+          description: List of inbound transactions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/InboundTransaction'
+                  totalCount:
+                    type: integer
+                  hasMore:
+                    type: boolean
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: importInboundTransaction
+      summary: Import an inbound EDI transaction
+      description: >-
+        Imports an inbound EDI transaction into Oracle EBS through the
+        e-Commerce Gateway. The transaction data is validated, code conversion
+        is applied, and data is loaded into the appropriate Oracle
+        application open interface tables.
+      tags:
+        - Inbound Transactions
+      security:
+        - tokenAuth: []
+        - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InboundTransactionImport'
+      responses:
+        '201':
+          description: Inbound transaction imported successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  transactionId:
+                    type: integer
+                  status:
+                    type: string
+                  message:
+                    type: string
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /ece/transactions/outbound:
+    get:
+      operationId: getOutboundTransactions
+      summary: Retrieve outbound EDI transactions
+      description: >-
+        Retrieves outbound EDI transaction records that have been extracted
+        from Oracle EBS for transmission to trading partners. Includes
+        purchase orders, invoices, payments, and schedule documents.
+      tags:
+        - Outbound Transactions
+      security:
+        - tokenAuth: []
+        - basicAuth: []
+      parameters:
+        - name: transactionType
+          in: query
+          description: EDI transaction type code
+          schema:
+            type: string
+            enum:
+              - POO
+              - POCO
+              - INO
+              - CDMO
+              - PYO
+              - SPSO
+              - SSSO
+              - ADVO
+              - MVSTO
+        - name: tradingPartnerId
+          in: query
+          description: Trading partner identifier
+          schema:
+            type: integer
+        - name: processStatus
+          in: query
+          description: Processing status
+          schema:
+            type: string
+            enum:
+              - PENDING
+              - EXTRACTED
+              - ERROR
+        - name: creationDateFrom
+          in: query
+          description: Creation date range start (YYYY-MM-DD)
+          schema:
+            type: string
+            format: date
+        - name: creationDateTo
+          in: query
+          description: Creation date range end (YYYY-MM-DD)
+          schema:
+            type: string
+            format: date
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Offset'
+      responses:
+        '200':
+          description: List of outbound transactions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/OutboundTransaction'
+                  totalCount:
+                    type: integer
+                  hasMore:
+                    type: boolean
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: extractOutboundTransaction
+      summary: Extract an outbound EDI transaction
+      description: >-
+        Initiates extraction of outbound EDI transaction data from Oracle EBS
+        application tables. The extracted data is formatted into the standard
+        interface data file format for the specified transaction type and
+        trading partner.
+      tags:
+        - Outbound Transactions
+      security:
+        - tokenAuth: []
+        - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OutboundTransactionExtract'
+      responses:
+        '201':
+          description: Outbound extraction initiated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  requestId:
+                    type: integer
+                    description: Concurrent request ID for the extraction
+                  status:
+                    type: string
+                  message:
+                    type: string
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /ece/codeConversions:
+    get:
+      operationId: getCodeConversions
+      summary: Retrieve code conversion mappings
+      description: >-
+        Retrieves e-Commerce Gateway code conversion mappings that translate
+        between trading partner external codes and Oracle EBS internal codes.
+      tags:
+        - Code Conversions
+      security:
+        - tokenAuth: []
+        - basicAuth: []
+      parameters:
+        - name: tradingPartnerId
+          in: query
+          description: Trading partner identifier
+          schema:
+            type: integer
+        - name: transactionType
+          in: query
+          description: Transaction type code
+          schema:
+            type: string
+        - name: codeCategory
+          in: query
+          description: Code category
+          schema:
+            type: string
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Offset'
+      responses:
+        '200':
+          description: List of code conversion mappings
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CodeConversion'
+                  totalCount:
+                    type: integer
+                  hasMore:
+                    type: boolean
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication with Oracle EBS username and password
+    tokenAuth:
+      type: apiKey
+      in: cookie
+      name: accessToken
+      description: Token-based authentication using the ISG login access token
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      description: Maximum number of records to return
+      schema:
+        type: integer
+        default: 25
+        maximum: 500
+    Offset:
+      name: offset
+      in: query
+      description: Number of records to skip for pagination
+      schema:
+        type: integer
+        default: 0
+  responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required or token expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    TradingPartner:
+      type: object
+      properties:
+        tradingPartnerId:
+          type: integer
+          description: Trading partner identifier
+        tradingPartnerName:
+          type: string
+          description: Trading partner name
+        tradingPartnerType:
+          type: string
+          description: Trading partner type
+          enum:
+            - CUSTOMER
+            - SUPPLIER
+        tradingPartnerSiteId:
+          type: integer
+          description: Trading partner site identifier
+        tradingPartnerSiteName:
+          type: string
+          description: Site name
+        ediLocationCode:
+          type: string
+          description: EDI location code (DUNS, DUNS+4, etc.)
+        ediTranslatorCode:
+          type: string
+          description: EDI translator code
+        documentStandard:
+          type: string
+          description: Document standard
+          enum:
+            - X12
+            - EDIFACT
+        enabledTransactions:
+          type: array
+          description: List of enabled EDI transactions for this partner
+          items:
+            $ref: '#/components/schemas/EnabledTransaction'
+        creationDate:
+          type: string
+          format: date-time
+        lastUpdateDate:
+          type: string
+          format: date-time
+    EnabledTransaction:
+      type: object
+      properties:
+        transactionType:
+          type: string
+          description: Transaction type code
+        transactionDescription:
+          type: string
+          description: Transaction description
+        direction:
+          type: string
+          description: Transaction direction
+          enum:
+            - INBOUND
+            - OUTBOUND
+        documentId:
+          type: string
+          description: ASC X12 or EDIFACT document identifier
+        enabled:
+          type: boolean
+          description: Whether transaction is enabled
+    InboundTransaction:
+      type: object
+      properties:
+        transactionId:
+          type: integer
+          description: Transaction identifier
+        transactionType:
+          type: string
+          description: Inbound transaction type code
+          enum:
+            - INI
+            - CATI
+            - RRQI
+            - ASNI
+            - SBNI
+        transactionDescription:
+          type: string
+          description: Transaction description
+        documentStandard:
+          type: string
+          description: Document standard (X12 or EDIFACT)
+        documentNumber:
+          type: string
+          description: ASC X12 document number (810, 832, 843, 856, 857)
+        tradingPartnerId:
+          type: integer
+          description: Trading partner identifier
+        tradingPartnerName:
+          type: string
+        tradingPartnerSiteId:
+          type: integer
+        processStatus:
+          type: string
+          description: Processing status
+          enum:
+            - PENDING
+            - PROCESSED
+            - ERROR
+        documentDate:
+          type: string
+          format: date
+          description: Document date
+        documentAmount:
+          type: number
+          format: double
+          description: Document total amount
+        currencyCode:
+          type: string
+          description: Currency code
+        errorMessage:
+          type: string
+          description: Error message if processing failed
+        creationDate:
+          type: string
+          format: date-time
+        lastUpdateDate:
+          type: string
+          format: date-time
+    InboundTransactionImport:
+      type: object
+      required:
+        - transactionType
+        - tradingPartnerId
+        - tradingPartnerSiteId
+      properties:
+        transactionType:
+          type: string
+          description: Inbound transaction type
+          enum:
+            - INI
+            - CATI
+            - RRQI
+            - ASNI
+            - SBNI
+        tradingPartnerId:
+          type: integer
+        tradingPartnerSiteId:
+          type: integer
+        documentDate:
+          type: string
+          format: date
+        documentData:
+          type: object
+          description: >-
+            Transaction-specific document data. Structure varies by
+            transaction type (invoice, ship notice, etc.)
+          additionalProperties: true
+    OutboundTransaction:
+      type: object
+      properties:
+        transactionId:
+          type: integer
+          description: Transaction identifier
+        transactionType:
+          type: string
+          description: Outbound transaction type code
+          enum:
+            - POO
+            - POCO
+            - INO
+            - CDMO
+            - PYO
+            - SPSO
+            - SSSO
+            - ADVO
+            - MVSTO
+        transactionDescription:
+          type: string
+          description: Transaction description
+        documentStandard:
+          type: string
+          description: Document standard (X12 or EDIFACT)
+        documentNumber:
+          type: string
+          description: ASC X12/EDIFACT document number
+        tradingPartnerId:
+          type: integer
+        tradingPartnerName:
+          type: string
+        tradingPartnerSiteId:
+          type: integer
+        processStatus:
+          type: string
+          enum:
+            - PENDING
+            - EXTRACTED
+            - ERROR
+        sourceDocumentId:
+          type: integer
+          description: Source document identifier in Oracle EBS
+        sourceDocumentNumber:
+          type: string
+          description: Source document number
+        documentDate:
+          type: string
+          format: date
+        documentAmount:
+          type: number
+          format: double
+        currencyCode:
+          type: string
+        errorMessage:
+          type: string
+        creationDate:
+          type: string
+          format: date-time
+        lastUpdateDate:
+          type: string
+          format: date-time
+    OutboundTransactionExtract:
+      type: object
+      required:
+        - transactionType
+        - tradingPartnerId
+      properties:
+        transactionType:
+          type: string
+          description: Outbound transaction type
+          enum:
+            - POO
+            - POCO
+            - INO
+            - CDMO
+            - PYO
+            - SPSO
+            - SSSO
+            - ADVO
+            - MVSTO
+        tradingPartnerId:
+          type: integer
+        tradingPartnerSiteId:
+          type: integer
+        dateFrom:
+          type: string
+          format: date
+          description: Extract documents from this date
+        dateTo:
+          type: string
+          format: date
+          description: Extract documents to this date
+    CodeConversion:
+      type: object
+      properties:
+        codeConversionId:
+          type: integer
+          description: Code conversion mapping identifier
+        tradingPartnerId:
+          type: integer
+          description: Trading partner identifier
+        transactionType:
+          type: string
+          description: Transaction type
+        codeCategory:
+          type: string
+          description: Code category
+        externalValue:
+          type: string
+          description: External trading partner code value
+        internalValue:
+          type: string
+          description: Internal Oracle EBS code value
+        description:
+          type: string
+          description: Code conversion description
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            detail:
+              type: string
+tags:
+  - name: Trading Partners
+    description: Trading partner configuration and management
+  - name: Inbound Transactions
+    description: Inbound EDI document processing
+  - name: Outbound Transactions
+    description: Outbound EDI document extraction
+  - name: Code Conversions
+    description: EDI code conversion mapping management

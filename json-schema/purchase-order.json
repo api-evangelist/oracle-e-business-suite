@@ -1,0 +1,437 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.oracle.com/ebs/purchase-order.json",
+  "title": "Oracle EBS Purchase Order",
+  "description": "Schema representing a purchase order in Oracle E-Business Suite Purchasing module. Maps to PO_HEADERS_ALL, PO_LINES_ALL, PO_LINE_LOCATIONS_ALL, and PO_DISTRIBUTIONS_ALL tables.",
+  "type": "object",
+  "required": [
+    "poHeaderId",
+    "segment1",
+    "vendorId",
+    "currencyCode"
+  ],
+  "properties": {
+    "poHeaderId": {
+      "type": "integer",
+      "description": "Unique identifier for the purchase order header (PO_HEADERS_ALL.PO_HEADER_ID)"
+    },
+    "segment1": {
+      "type": "string",
+      "description": "Purchase order number (PO_HEADERS_ALL.SEGMENT1)",
+      "maxLength": 20
+    },
+    "typeLookupCode": {
+      "type": "string",
+      "description": "Purchase order type",
+      "enum": [
+        "STANDARD",
+        "BLANKET",
+        "CONTRACT",
+        "PLANNED"
+      ]
+    },
+    "revisionNum": {
+      "type": "integer",
+      "description": "Document revision number",
+      "minimum": 0
+    },
+    "vendorId": {
+      "type": "integer",
+      "description": "Supplier/vendor identifier (AP_SUPPLIERS.VENDOR_ID)"
+    },
+    "vendorName": {
+      "type": "string",
+      "description": "Supplier/vendor name",
+      "maxLength": 240
+    },
+    "vendorSiteId": {
+      "type": "integer",
+      "description": "Vendor site identifier (AP_SUPPLIER_SITES_ALL.VENDOR_SITE_ID)"
+    },
+    "vendorSiteCode": {
+      "type": "string",
+      "description": "Vendor site code",
+      "maxLength": 15
+    },
+    "vendorContactId": {
+      "type": "integer",
+      "description": "Vendor contact identifier"
+    },
+    "currencyCode": {
+      "type": "string",
+      "description": "Document currency code (ISO 4217)",
+      "pattern": "^[A-Z]{3}$",
+      "examples": [
+        "USD",
+        "EUR",
+        "GBP"
+      ]
+    },
+    "rateType": {
+      "type": ["string", "null"],
+      "description": "Currency exchange rate type"
+    },
+    "rate": {
+      "type": ["number", "null"],
+      "description": "Currency exchange rate"
+    },
+    "rateDate": {
+      "type": ["string", "null"],
+      "format": "date",
+      "description": "Exchange rate date"
+    },
+    "agentId": {
+      "type": "integer",
+      "description": "Buyer/agent employee identifier"
+    },
+    "authorizationStatus": {
+      "type": "string",
+      "description": "Authorization/approval status of the purchase order",
+      "enum": [
+        "APPROVED",
+        "IN PROCESS",
+        "INCOMPLETE",
+        "PRE-APPROVED",
+        "REJECTED",
+        "REQUIRES REAPPROVAL"
+      ]
+    },
+    "approvedFlag": {
+      "type": "string",
+      "description": "Whether the PO has been approved",
+      "enum": [
+        "Y",
+        "N"
+      ]
+    },
+    "approvedDate": {
+      "type": ["string", "null"],
+      "format": "date",
+      "description": "Date the purchase order was approved"
+    },
+    "closedCode": {
+      "type": "string",
+      "description": "Close status of the purchase order",
+      "enum": [
+        "OPEN",
+        "CLOSED",
+        "FINALLY CLOSED",
+        "CLOSED FOR RECEIVING",
+        "CLOSED FOR INVOICE"
+      ]
+    },
+    "closedDate": {
+      "type": ["string", "null"],
+      "format": "date",
+      "description": "Date the purchase order was closed"
+    },
+    "shipToLocationId": {
+      "type": "integer",
+      "description": "Default ship-to location identifier (HR_LOCATIONS_ALL.LOCATION_ID)"
+    },
+    "billToLocationId": {
+      "type": "integer",
+      "description": "Default bill-to location identifier"
+    },
+    "termsId": {
+      "type": "integer",
+      "description": "Payment terms identifier (AP_TERMS.TERM_ID)"
+    },
+    "description": {
+      "type": ["string", "null"],
+      "description": "Purchase order description",
+      "maxLength": 240
+    },
+    "comments": {
+      "type": ["string", "null"],
+      "description": "Purchase order comments"
+    },
+    "totalAmount": {
+      "type": "number",
+      "description": "Total purchase order amount",
+      "minimum": 0
+    },
+    "confirmedFlag": {
+      "type": "string",
+      "enum": [
+        "Y",
+        "N"
+      ]
+    },
+    "printCount": {
+      "type": "integer",
+      "description": "Number of times the PO has been printed",
+      "minimum": 0
+    },
+    "lines": {
+      "type": "array",
+      "description": "Purchase order lines",
+      "items": {
+        "$ref": "#/$defs/PurchaseOrderLine"
+      }
+    },
+    "orgId": {
+      "type": "integer",
+      "description": "Operating unit identifier (HR_OPERATING_UNITS.ORGANIZATION_ID)"
+    },
+    "createdBy": {
+      "type": "integer",
+      "description": "User who created the record (FND_USER.USER_ID)"
+    },
+    "creationDate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Record creation date"
+    },
+    "lastUpdatedBy": {
+      "type": "integer",
+      "description": "User who last updated the record"
+    },
+    "lastUpdateDate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Record last update date"
+    }
+  },
+  "$defs": {
+    "PurchaseOrderLine": {
+      "type": "object",
+      "required": [
+        "poLineId",
+        "lineNum"
+      ],
+      "properties": {
+        "poLineId": {
+          "type": "integer",
+          "description": "Purchase order line identifier (PO_LINES_ALL.PO_LINE_ID)"
+        },
+        "lineNum": {
+          "type": "integer",
+          "description": "Line number",
+          "minimum": 1
+        },
+        "lineTypeId": {
+          "type": "integer",
+          "description": "Line type identifier"
+        },
+        "itemId": {
+          "type": ["integer", "null"],
+          "description": "Inventory item identifier (MTL_SYSTEM_ITEMS_B.INVENTORY_ITEM_ID)"
+        },
+        "itemDescription": {
+          "type": "string",
+          "description": "Item description",
+          "maxLength": 240
+        },
+        "itemRevision": {
+          "type": ["string", "null"],
+          "description": "Item revision"
+        },
+        "categoryId": {
+          "type": "integer",
+          "description": "Purchasing category identifier"
+        },
+        "quantity": {
+          "type": "number",
+          "description": "Ordered quantity",
+          "minimum": 0
+        },
+        "unitMeasLookupCode": {
+          "type": "string",
+          "description": "Unit of measure lookup code",
+          "maxLength": 25
+        },
+        "unitPrice": {
+          "type": "number",
+          "description": "Unit price",
+          "minimum": 0
+        },
+        "amount": {
+          "type": "number",
+          "description": "Line amount (quantity * unitPrice)"
+        },
+        "closedCode": {
+          "type": "string",
+          "description": "Line close status",
+          "enum": [
+            "OPEN",
+            "CLOSED",
+            "FINALLY CLOSED",
+            "CLOSED FOR RECEIVING",
+            "CLOSED FOR INVOICE"
+          ]
+        },
+        "cancelFlag": {
+          "type": "string",
+          "description": "Whether the line is cancelled",
+          "enum": [
+            "Y",
+            "N"
+          ]
+        },
+        "vendorProductNum": {
+          "type": ["string", "null"],
+          "description": "Vendor product number",
+          "maxLength": 25
+        },
+        "needByDate": {
+          "type": ["string", "null"],
+          "format": "date",
+          "description": "Need-by date"
+        },
+        "promisedDate": {
+          "type": ["string", "null"],
+          "format": "date",
+          "description": "Promised delivery date"
+        },
+        "noteToVendor": {
+          "type": ["string", "null"],
+          "description": "Note to vendor for this line"
+        },
+        "shipments": {
+          "type": "array",
+          "description": "Line location/shipment records",
+          "items": {
+            "$ref": "#/$defs/PurchaseOrderShipment"
+          }
+        },
+        "creationDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "lastUpdateDate": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "PurchaseOrderShipment": {
+      "type": "object",
+      "required": [
+        "lineLocationId",
+        "shipmentNum"
+      ],
+      "properties": {
+        "lineLocationId": {
+          "type": "integer",
+          "description": "Line location/shipment identifier (PO_LINE_LOCATIONS_ALL.LINE_LOCATION_ID)"
+        },
+        "shipmentNum": {
+          "type": "integer",
+          "description": "Shipment number",
+          "minimum": 1
+        },
+        "quantity": {
+          "type": "number",
+          "description": "Shipment quantity",
+          "minimum": 0
+        },
+        "quantityReceived": {
+          "type": "number",
+          "description": "Quantity received to date",
+          "minimum": 0
+        },
+        "quantityAccepted": {
+          "type": "number",
+          "description": "Quantity accepted",
+          "minimum": 0
+        },
+        "quantityRejected": {
+          "type": "number",
+          "description": "Quantity rejected",
+          "minimum": 0
+        },
+        "quantityBilled": {
+          "type": "number",
+          "description": "Quantity billed/invoiced",
+          "minimum": 0
+        },
+        "quantityCancelled": {
+          "type": "number",
+          "description": "Quantity cancelled",
+          "minimum": 0
+        },
+        "needByDate": {
+          "type": ["string", "null"],
+          "format": "date"
+        },
+        "promisedDate": {
+          "type": ["string", "null"],
+          "format": "date"
+        },
+        "shipToOrganizationId": {
+          "type": "integer",
+          "description": "Ship-to organization identifier"
+        },
+        "shipToLocationId": {
+          "type": "integer",
+          "description": "Ship-to location identifier"
+        },
+        "closedCode": {
+          "type": "string",
+          "enum": [
+            "OPEN",
+            "CLOSED",
+            "FINALLY CLOSED",
+            "CLOSED FOR RECEIVING",
+            "CLOSED FOR INVOICE"
+          ]
+        },
+        "distributions": {
+          "type": "array",
+          "description": "Distribution records",
+          "items": {
+            "$ref": "#/$defs/PurchaseOrderDistribution"
+          }
+        }
+      }
+    },
+    "PurchaseOrderDistribution": {
+      "type": "object",
+      "required": [
+        "poDistributionId",
+        "distributionNum"
+      ],
+      "properties": {
+        "poDistributionId": {
+          "type": "integer",
+          "description": "Distribution identifier (PO_DISTRIBUTIONS_ALL.PO_DISTRIBUTION_ID)"
+        },
+        "distributionNum": {
+          "type": "integer",
+          "description": "Distribution number",
+          "minimum": 1
+        },
+        "quantity": {
+          "type": "number",
+          "description": "Distribution quantity"
+        },
+        "quantityDelivered": {
+          "type": "number",
+          "description": "Quantity delivered"
+        },
+        "quantityBilled": {
+          "type": "number",
+          "description": "Quantity billed"
+        },
+        "codeCombinatonId": {
+          "type": "integer",
+          "description": "Charge account code combination ID (GL_CODE_COMBINATIONS.CODE_COMBINATION_ID)"
+        },
+        "setOfBooksId": {
+          "type": "integer",
+          "description": "Set of books/ledger identifier"
+        },
+        "destinationTypeCode": {
+          "type": "string",
+          "description": "Destination type",
+          "enum": [
+            "INVENTORY",
+            "EXPENSE",
+            "SHOP FLOOR"
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,1194 @@
+openapi: 3.1.0
+info:
+  title: Oracle EBS Financial Services API
+  description: >-
+    RESTful APIs for Oracle E-Business Suite financial management modules
+    including General Ledger, Accounts Payable, Accounts Receivable, Fixed
+    Assets, and Cash Management. These PL/SQL APIs are deployed as REST
+    services through the Integrated SOA Gateway.
+  version: 12.2.0
+  contact:
+    name: Oracle Support
+    email: support@oracle.com
+    url: https://support.oracle.com
+  license:
+    name: Oracle Proprietary
+    url: https://www.oracle.com/legal/terms/
+  x-logo:
+    url: https://www.oracle.com/a/ocom/img/oracle-logo.svg
+servers:
+  - url: https://{instance}.oracle.com/webservices/rest
+    description: Oracle EBS ISG REST endpoint
+    variables:
+      instance:
+        default: ebs-host
+        description: The Oracle EBS instance hostname
+paths:
+  /gl/journals:
+    get:
+      operationId: getJournals
+      summary: Retrieve journal entries
+      description: >-
+        Retrieves General Ledger journal entries based on the provided filter
+        criteria. Maps to the GL_JE_HEADERS and GL_JE_LINES interface tables.
+      tags:
+        - General Ledger
+      security:
+        - tokenAuth: []
+        - basicAuth: []
+      parameters:
+        - name: ledgerId
+          in: query
+          description: Ledger identifier
+          schema:
+            type: integer
+        - name: periodName
+          in: query
+          description: Accounting period name
+          schema:
+            type: string
+            example: JAN-26
+        - name: journalCategory
+          in: query
+          description: Journal category name
+          schema:
+            type: string
+        - name: status
+          in: query
+          description: Journal status
+          schema:
+            type: string
+            enum:
+              - U
+              - A
+              - P
+            description: U=Unposted, A=Approved, P=Posted
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Offset'
+      responses:
+        '200':
+          description: List of journal entries
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/JournalEntry'
+                  totalCount:
+                    type: integer
+                  hasMore:
+                    type: boolean
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createJournal
+      summary: Create a journal entry
+      description: >-
+        Creates a new General Ledger journal entry. Maps to the
+        GL_INTERFACE table and GL_JOURNAL_IMPORT concurrent program.
+      tags:
+        - General Ledger
+      security:
+        - tokenAuth: []
+        - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JournalEntryCreate'
+      responses:
+        '201':
+          description: Journal entry created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JournalEntry'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /ap/invoices:
+    get:
+      operationId: getApInvoices
+      summary: Retrieve AP invoices
+      description: >-
+        Retrieves Accounts Payable invoices. Maps to the AP_INVOICES_ALL and
+        AP_INVOICE_LINES_ALL tables through the AP_INVOICES_PKG PL/SQL API.
+      tags:
+        - Accounts Payable
+      security:
+        - tokenAuth: []
+        - basicAuth: []
+      parameters:
+        - name: invoiceId
+          in: query
+          description: Invoice identifier
+          schema:
+            type: integer
+        - name: invoiceNum
+          in: query
+          description: Invoice number
+          schema:
+            type: string
+        - name: vendorId
+          in: query
+          description: Supplier/vendor identifier
+          schema:
+            type: integer
+        - name: invoiceDateFrom
+          in: query
+          description: Invoice date range start (YYYY-MM-DD)
+          schema:
+            type: string
+            format: date
+        - name: invoiceDateTo
+          in: query
+          description: Invoice date range end (YYYY-MM-DD)
+          schema:
+            type: string
+            format: date
+        - name: invoiceStatus
+          in: query
+          description: Invoice approval status
+          schema:
+            type: string
+            enum:
+              - APPROVED
+              - NEEDS_REAPPROVAL
+              - NEVER_APPROVED
+              - CANCELLED
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Offset'
+      responses:
+        '200':
+          description: List of AP invoices
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ApInvoice'
+                  totalCount:
+                    type: integer
+                  hasMore:
+                    type: boolean
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createApInvoice
+      summary: Create an AP invoice
+      description: >-
+        Creates a new Accounts Payable invoice. Uses the AP_INVOICES_INTERFACE
+        and AP_INVOICE_LINES_INTERFACE tables, then initiates the Payables
+        Open Interface Import program.
+      tags:
+        - Accounts Payable
+      security:
+        - tokenAuth: []
+        - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApInvoiceCreate'
+      responses:
+        '201':
+          description: Invoice created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApInvoice'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /ap/invoices/{invoiceId}:
+    get:
+      operationId: getApInvoiceById
+      summary: Retrieve a specific AP invoice
+      description: Retrieves an Accounts Payable invoice by its identifier.
+      tags:
+        - Accounts Payable
+      security:
+        - tokenAuth: []
+        - basicAuth: []
+      parameters:
+        - name: invoiceId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Invoice details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApInvoice'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /ap/payments:
+    get:
+      operationId: getPayments
+      summary: Retrieve AP payments
+      description: >-
+        Retrieves Accounts Payable payment records. Maps to the
+        AP_CHECKS_ALL and AP_INVOICE_PAYMENTS_ALL tables.
+      tags:
+        - Accounts Payable
+      security:
+        - tokenAuth: []
+        - basicAuth: []
+      parameters:
+        - name: checkId
+          in: query
+          description: Payment check identifier
+          schema:
+            type: integer
+        - name: vendorId
+          in: query
+          description: Supplier/vendor identifier
+          schema:
+            type: integer
+        - name: paymentDateFrom
+          in: query
+          description: Payment date range start (YYYY-MM-DD)
+          schema:
+            type: string
+            format: date
+        - name: paymentDateTo
+          in: query
+          description: Payment date range end (YYYY-MM-DD)
+          schema:
+            type: string
+            format: date
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Offset'
+      responses:
+        '200':
+          description: List of payments
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ApPayment'
+                  totalCount:
+                    type: integer
+                  hasMore:
+                    type: boolean
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /ar/invoices:
+    get:
+      operationId: getArInvoices
+      summary: Retrieve AR invoices
+      description: >-
+        Retrieves Accounts Receivable invoices and transactions. Maps to the
+        RA_CUSTOMER_TRX_ALL and RA_CUSTOMER_TRX_LINES_ALL tables.
+      tags:
+        - Accounts Receivable
+      security:
+        - tokenAuth: []
+        - basicAuth: []
+      parameters:
+        - name: customerTrxId
+          in: query
+          description: Customer transaction identifier
+          schema:
+            type: integer
+        - name: trxNumber
+          in: query
+          description: Transaction number
+          schema:
+            type: string
+        - name: customerId
+          in: query
+          description: Customer identifier
+          schema:
+            type: integer
+        - name: trxDateFrom
+          in: query
+          description: Transaction date range start (YYYY-MM-DD)
+          schema:
+            type: string
+            format: date
+        - name: trxDateTo
+          in: query
+          description: Transaction date range end (YYYY-MM-DD)
+          schema:
+            type: string
+            format: date
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Offset'
+      responses:
+        '200':
+          description: List of AR invoices
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ArInvoice'
+                  totalCount:
+                    type: integer
+                  hasMore:
+                    type: boolean
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createArInvoice
+      summary: Create an AR invoice
+      description: >-
+        Creates a new Accounts Receivable invoice/transaction using the
+        RA_INTERFACE_LINES_ALL interface table and AutoInvoice concurrent
+        program.
+      tags:
+        - Accounts Receivable
+      security:
+        - tokenAuth: []
+        - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArInvoiceCreate'
+      responses:
+        '201':
+          description: AR invoice created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArInvoice'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /ar/receipts:
+    get:
+      operationId: getReceipts
+      summary: Retrieve AR receipts
+      description: >-
+        Retrieves Accounts Receivable cash receipts. Maps to the
+        AR_CASH_RECEIPTS_ALL table through the AR_RECEIPT_API_PUB PL/SQL API.
+      tags:
+        - Accounts Receivable
+      security:
+        - tokenAuth: []
+        - basicAuth: []
+      parameters:
+        - name: cashReceiptId
+          in: query
+          description: Cash receipt identifier
+          schema:
+            type: integer
+        - name: receiptNumber
+          in: query
+          description: Receipt number
+          schema:
+            type: string
+        - name: customerId
+          in: query
+          description: Customer identifier
+          schema:
+            type: integer
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Offset'
+      responses:
+        '200':
+          description: List of receipts
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ArReceipt'
+                  totalCount:
+                    type: integer
+                  hasMore:
+                    type: boolean
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /fa/assets:
+    get:
+      operationId: getAssets
+      summary: Retrieve fixed assets
+      description: >-
+        Retrieves Fixed Assets records. Maps to the FA_ADDITIONS_B and
+        FA_BOOKS tables through the Fixed Assets API.
+      tags:
+        - Fixed Assets
+      security:
+        - tokenAuth: []
+        - basicAuth: []
+      parameters:
+        - name: assetId
+          in: query
+          description: Asset identifier
+          schema:
+            type: integer
+        - name: assetNumber
+          in: query
+          description: Asset number
+          schema:
+            type: string
+        - name: assetCategory
+          in: query
+          description: Asset category
+          schema:
+            type: string
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Offset'
+      responses:
+        '200':
+          description: List of fixed assets
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/FixedAsset'
+                  totalCount:
+                    type: integer
+                  hasMore:
+                    type: boolean
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /ce/bankAccounts:
+    get:
+      operationId: getBankAccounts
+      summary: Retrieve bank accounts
+      description: >-
+        Retrieves Cash Management bank account records. Maps to the
+        CE_BANK_ACCOUNTS table through the Cash Management APIs.
+      tags:
+        - Cash Management
+      security:
+        - tokenAuth: []
+        - basicAuth: []
+      parameters:
+        - name: bankAccountId
+          in: query
+          description: Bank account identifier
+          schema:
+            type: integer
+        - name: bankAccountName
+          in: query
+          description: Bank account name
+          schema:
+            type: string
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Offset'
+      responses:
+        '200':
+          description: List of bank accounts
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/BankAccount'
+                  totalCount:
+                    type: integer
+                  hasMore:
+                    type: boolean
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication with Oracle EBS username and password
+    tokenAuth:
+      type: apiKey
+      in: cookie
+      name: accessToken
+      description: Token-based authentication using the ISG login access token
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      description: Maximum number of records to return
+      schema:
+        type: integer
+        default: 25
+        maximum: 500
+    Offset:
+      name: offset
+      in: query
+      description: Number of records to skip for pagination
+      schema:
+        type: integer
+        default: 0
+  responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required or token expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    JournalEntry:
+      type: object
+      properties:
+        jeHeaderId:
+          type: integer
+          description: Journal entry header identifier
+        jeBatchId:
+          type: integer
+          description: Journal batch identifier
+        ledgerId:
+          type: integer
+          description: Ledger identifier
+        periodName:
+          type: string
+          description: Accounting period name
+        journalName:
+          type: string
+          description: Journal entry name
+        journalCategory:
+          type: string
+          description: Journal category
+        journalSource:
+          type: string
+          description: Journal source
+        currencyCode:
+          type: string
+          description: Currency code (ISO 4217)
+          example: USD
+        status:
+          type: string
+          description: Journal status
+          enum:
+            - U
+            - A
+            - P
+        description:
+          type: string
+          description: Journal description
+        effectiveDate:
+          type: string
+          format: date
+          description: Journal effective date
+        lines:
+          type: array
+          items:
+            $ref: '#/components/schemas/JournalLine'
+        createdBy:
+          type: integer
+        creationDate:
+          type: string
+          format: date-time
+        lastUpdatedBy:
+          type: integer
+        lastUpdateDate:
+          type: string
+          format: date-time
+    JournalLine:
+      type: object
+      properties:
+        jeLineNum:
+          type: integer
+          description: Journal line number
+        codeCombinatonId:
+          type: integer
+          description: Chart of accounts code combination identifier
+        accountedDr:
+          type: number
+          format: double
+          description: Debit amount in functional currency
+        accountedCr:
+          type: number
+          format: double
+          description: Credit amount in functional currency
+        enteredDr:
+          type: number
+          format: double
+          description: Debit amount in entered currency
+        enteredCr:
+          type: number
+          format: double
+          description: Credit amount in entered currency
+        description:
+          type: string
+          description: Line description
+    JournalEntryCreate:
+      type: object
+      required:
+        - ledgerId
+        - periodName
+        - journalName
+        - journalCategory
+        - journalSource
+        - currencyCode
+        - lines
+      properties:
+        ledgerId:
+          type: integer
+        periodName:
+          type: string
+        journalName:
+          type: string
+        journalCategory:
+          type: string
+        journalSource:
+          type: string
+        currencyCode:
+          type: string
+        description:
+          type: string
+        effectiveDate:
+          type: string
+          format: date
+        lines:
+          type: array
+          items:
+            type: object
+            required:
+              - codeCombinatonId
+            properties:
+              codeCombinatonId:
+                type: integer
+              accountedDr:
+                type: number
+                format: double
+              accountedCr:
+                type: number
+                format: double
+              enteredDr:
+                type: number
+                format: double
+              enteredCr:
+                type: number
+                format: double
+              description:
+                type: string
+    ApInvoice:
+      type: object
+      properties:
+        invoiceId:
+          type: integer
+          description: Invoice unique identifier
+        invoiceNum:
+          type: string
+          description: Invoice number
+        invoiceDate:
+          type: string
+          format: date
+          description: Invoice date
+        vendorId:
+          type: integer
+          description: Supplier/vendor identifier
+        vendorName:
+          type: string
+          description: Supplier/vendor name
+        vendorSiteId:
+          type: integer
+          description: Vendor site identifier
+        invoiceAmount:
+          type: number
+          format: double
+          description: Total invoice amount
+        invoiceCurrencyCode:
+          type: string
+          description: Invoice currency code (ISO 4217)
+          example: USD
+        paymentCurrencyCode:
+          type: string
+          description: Payment currency code
+        exchangeRate:
+          type: number
+          format: double
+          description: Currency exchange rate
+        exchangeRateType:
+          type: string
+          description: Exchange rate type
+        exchangeDate:
+          type: string
+          format: date
+          description: Exchange rate date
+        termsId:
+          type: integer
+          description: Payment terms identifier
+        description:
+          type: string
+          description: Invoice description
+        invoiceType:
+          type: string
+          description: Invoice type lookup code
+          enum:
+            - STANDARD
+            - CREDIT
+            - DEBIT
+            - PREPAYMENT
+            - MIXED
+        source:
+          type: string
+          description: Invoice source
+        paymentStatusFlag:
+          type: string
+          description: Payment status
+          enum:
+            - 'Y'
+            - 'N'
+            - P
+        approvalStatus:
+          type: string
+          description: Approval status
+          enum:
+            - APPROVED
+            - NEEDS_REAPPROVAL
+            - NEVER_APPROVED
+            - CANCELLED
+        amountPaid:
+          type: number
+          format: double
+          description: Amount paid
+        lines:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApInvoiceLine'
+        orgId:
+          type: integer
+          description: Operating unit identifier
+        createdBy:
+          type: integer
+        creationDate:
+          type: string
+          format: date-time
+        lastUpdatedBy:
+          type: integer
+        lastUpdateDate:
+          type: string
+          format: date-time
+    ApInvoiceLine:
+      type: object
+      properties:
+        lineNumber:
+          type: integer
+          description: Invoice line number
+        lineType:
+          type: string
+          description: Line type lookup code
+          enum:
+            - ITEM
+            - TAX
+            - FREIGHT
+            - MISCELLANEOUS
+        amount:
+          type: number
+          format: double
+          description: Line amount
+        description:
+          type: string
+          description: Line description
+        accountingDate:
+          type: string
+          format: date
+        distCodeCombinationId:
+          type: integer
+          description: Distribution account code combination ID
+        itemDescription:
+          type: string
+        quantity:
+          type: number
+          format: double
+        unitPrice:
+          type: number
+          format: double
+    ApInvoiceCreate:
+      type: object
+      required:
+        - invoiceNum
+        - vendorId
+        - vendorSiteId
+        - invoiceAmount
+        - invoiceCurrencyCode
+        - invoiceDate
+      properties:
+        invoiceNum:
+          type: string
+        vendorId:
+          type: integer
+        vendorSiteId:
+          type: integer
+        invoiceAmount:
+          type: number
+          format: double
+        invoiceCurrencyCode:
+          type: string
+        invoiceDate:
+          type: string
+          format: date
+        invoiceType:
+          type: string
+          enum:
+            - STANDARD
+            - CREDIT
+            - DEBIT
+            - PREPAYMENT
+        description:
+          type: string
+        termsId:
+          type: integer
+        source:
+          type: string
+        lines:
+          type: array
+          items:
+            type: object
+            properties:
+              lineNumber:
+                type: integer
+              lineType:
+                type: string
+              amount:
+                type: number
+                format: double
+              description:
+                type: string
+              distCodeCombinationId:
+                type: integer
+    ApPayment:
+      type: object
+      properties:
+        checkId:
+          type: integer
+          description: Payment check identifier
+        checkNumber:
+          type: integer
+          description: Check number
+        amount:
+          type: number
+          format: double
+          description: Payment amount
+        currencyCode:
+          type: string
+          description: Payment currency code
+        checkDate:
+          type: string
+          format: date
+          description: Check date
+        vendorId:
+          type: integer
+          description: Vendor identifier
+        vendorName:
+          type: string
+          description: Vendor name
+        bankAccountId:
+          type: integer
+          description: Bank account identifier
+        paymentMethodCode:
+          type: string
+          description: Payment method
+        status:
+          type: string
+          description: Payment status
+        orgId:
+          type: integer
+    ArInvoice:
+      type: object
+      properties:
+        customerTrxId:
+          type: integer
+          description: Customer transaction identifier
+        trxNumber:
+          type: string
+          description: Transaction number
+        trxDate:
+          type: string
+          format: date
+          description: Transaction date
+        customerId:
+          type: integer
+          description: Customer identifier
+        customerName:
+          type: string
+          description: Customer name
+        billToSiteUseId:
+          type: integer
+          description: Bill-to site use identifier
+        shipToSiteUseId:
+          type: integer
+          description: Ship-to site use identifier
+        invoiceCurrencyCode:
+          type: string
+          description: Invoice currency (ISO 4217)
+        trxType:
+          type: string
+          description: Transaction type
+        amount:
+          type: number
+          format: double
+          description: Transaction amount
+        amountDue:
+          type: number
+          format: double
+          description: Remaining amount due
+        status:
+          type: string
+          description: Transaction status
+        termsId:
+          type: integer
+          description: Payment terms identifier
+        lines:
+          type: array
+          items:
+            $ref: '#/components/schemas/ArInvoiceLine'
+        orgId:
+          type: integer
+        creationDate:
+          type: string
+          format: date-time
+        lastUpdateDate:
+          type: string
+          format: date-time
+    ArInvoiceLine:
+      type: object
+      properties:
+        customerTrxLineId:
+          type: integer
+        lineNumber:
+          type: integer
+        lineType:
+          type: string
+          enum:
+            - LINE
+            - TAX
+            - FREIGHT
+        description:
+          type: string
+        quantity:
+          type: number
+          format: double
+        unitSellingPrice:
+          type: number
+          format: double
+        amount:
+          type: number
+          format: double
+        inventoryItemId:
+          type: integer
+    ArInvoiceCreate:
+      type: object
+      required:
+        - customerId
+        - trxDate
+        - invoiceCurrencyCode
+        - batchSourceName
+      properties:
+        customerId:
+          type: integer
+        trxDate:
+          type: string
+          format: date
+        invoiceCurrencyCode:
+          type: string
+        batchSourceName:
+          type: string
+        billToSiteUseId:
+          type: integer
+        shipToSiteUseId:
+          type: integer
+        termsId:
+          type: integer
+        lines:
+          type: array
+          items:
+            type: object
+            properties:
+              lineNumber:
+                type: integer
+              lineType:
+                type: string
+              description:
+                type: string
+              quantity:
+                type: number
+                format: double
+              unitSellingPrice:
+                type: number
+                format: double
+              inventoryItemId:
+                type: integer
+    ArReceipt:
+      type: object
+      properties:
+        cashReceiptId:
+          type: integer
+          description: Cash receipt identifier
+        receiptNumber:
+          type: string
+          description: Receipt number
+        amount:
+          type: number
+          format: double
+          description: Receipt amount
+        currencyCode:
+          type: string
+          description: Receipt currency code
+        receiptDate:
+          type: string
+          format: date
+          description: Receipt date
+        customerId:
+          type: integer
+          description: Customer identifier
+        customerName:
+          type: string
+          description: Customer name
+        receiptMethodId:
+          type: integer
+          description: Receipt method identifier
+        status:
+          type: string
+          description: Receipt status
+        orgId:
+          type: integer
+    FixedAsset:
+      type: object
+      properties:
+        assetId:
+          type: integer
+          description: Asset identifier
+        assetNumber:
+          type: string
+          description: Asset number
+        assetDescription:
+          type: string
+          description: Asset description
+        assetCategoryId:
+          type: integer
+          description: Asset category identifier
+        assetType:
+          type: string
+          description: Asset type
+          enum:
+            - CAPITALIZED
+            - CIP
+            - EXPENSED
+        serialNumber:
+          type: string
+          description: Serial number
+        tagNumber:
+          type: string
+          description: Tag number
+        dateEffective:
+          type: string
+          format: date
+        dateInService:
+          type: string
+          format: date
+          description: Date placed in service
+        cost:
+          type: number
+          format: double
+          description: Asset cost
+        salvageValue:
+          type: number
+          format: double
+          description: Salvage value
+        depreciationMethod:
+          type: string
+          description: Depreciation method
+        lifeInMonths:
+          type: integer
+          description: Useful life in months
+        bookTypeCode:
+          type: string
+          description: Book type code (corporate or tax)
+    BankAccount:
+      type: object
+      properties:
+        bankAccountId:
+          type: integer
+          description: Bank account identifier
+        bankAccountName:
+          type: string
+          description: Bank account name
+        bankAccountNum:
+          type: string
+          description: Bank account number
+        bankId:
+          type: integer
+          description: Bank identifier
+        bankName:
+          type: string
+          description: Bank name
+        branchId:
+          type: integer
+          description: Bank branch identifier
+        branchName:
+          type: string
+          description: Branch name
+        currencyCode:
+          type: string
+          description: Account currency code
+        accountType:
+          type: string
+          description: Account type
+        status:
+          type: string
+          description: Account status
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            detail:
+              type: string
+tags:
+  - name: General Ledger
+    description: General Ledger journal operations
+  - name: Accounts Payable
+    description: Accounts Payable invoice and payment operations
+  - name: Accounts Receivable
+    description: Accounts Receivable invoice and receipt operations
+  - name: Fixed Assets
+    description: Fixed asset management operations
+  - name: Cash Management
+    description: Cash management and bank account operations

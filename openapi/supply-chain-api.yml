@@ -1,0 +1,1349 @@
+openapi: 3.1.0
+info:
+  title: Oracle EBS Supply Chain Management API
+  description: >-
+    RESTful APIs for Oracle E-Business Suite supply chain management modules
+    including Purchasing, Order Management, Inventory, and Logistics. These
+    PL/SQL APIs are deployed as REST services through the Integrated SOA Gateway.
+  version: 12.2.0
+  contact:
+    name: Oracle Support
+    email: support@oracle.com
+    url: https://support.oracle.com
+  license:
+    name: Oracle Proprietary
+    url: https://www.oracle.com/legal/terms/
+  x-logo:
+    url: https://www.oracle.com/a/ocom/img/oracle-logo.svg
+servers:
+  - url: https://{instance}.oracle.com/webservices/rest
+    description: Oracle EBS ISG REST endpoint
+    variables:
+      instance:
+        default: ebs-host
+        description: The Oracle EBS instance hostname
+paths:
+  /po/purchaseOrders:
+    get:
+      operationId: getPurchaseOrders
+      summary: Retrieve purchase orders
+      description: >-
+        Retrieves purchase order records. Maps to the PO_HEADERS_ALL,
+        PO_LINES_ALL, PO_LINE_LOCATIONS_ALL, and PO_DISTRIBUTIONS_ALL tables
+        through the PO_PURCHASE_ORDERS_PKG PL/SQL API.
+      tags:
+        - Purchasing
+      security:
+        - tokenAuth: []
+        - basicAuth: []
+      parameters:
+        - name: poHeaderId
+          in: query
+          description: Purchase order header identifier
+          schema:
+            type: integer
+        - name: segment1
+          in: query
+          description: Purchase order number
+          schema:
+            type: string
+        - name: vendorId
+          in: query
+          description: Supplier/vendor identifier
+          schema:
+            type: integer
+        - name: authorizationStatus
+          in: query
+          description: Authorization status
+          schema:
+            type: string
+            enum:
+              - APPROVED
+              - IN PROCESS
+              - INCOMPLETE
+              - PRE-APPROVED
+              - REJECTED
+              - REQUIRES REAPPROVAL
+        - name: creationDateFrom
+          in: query
+          description: Creation date range start (YYYY-MM-DD)
+          schema:
+            type: string
+            format: date
+        - name: creationDateTo
+          in: query
+          description: Creation date range end (YYYY-MM-DD)
+          schema:
+            type: string
+            format: date
+        - name: typeLookupCode
+          in: query
+          description: Purchase order type
+          schema:
+            type: string
+            enum:
+              - STANDARD
+              - BLANKET
+              - CONTRACT
+              - PLANNED
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Offset'
+      responses:
+        '200':
+          description: List of purchase orders
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PurchaseOrder'
+                  totalCount:
+                    type: integer
+                  hasMore:
+                    type: boolean
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createPurchaseOrder
+      summary: Create a purchase order
+      description: >-
+        Creates a new purchase order. Uses the PO_HEADERS_INTERFACE,
+        PO_LINES_INTERFACE, and PO_DISTRIBUTIONS_INTERFACE tables, then
+        initiates the Import Standard Purchase Orders concurrent program.
+      tags:
+        - Purchasing
+      security:
+        - tokenAuth: []
+        - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PurchaseOrderCreate'
+      responses:
+        '201':
+          description: Purchase order created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PurchaseOrder'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /po/purchaseOrders/{poHeaderId}:
+    get:
+      operationId: getPurchaseOrderById
+      summary: Retrieve a specific purchase order
+      description: Retrieves a purchase order by its header identifier.
+      tags:
+        - Purchasing
+      security:
+        - tokenAuth: []
+        - basicAuth: []
+      parameters:
+        - name: poHeaderId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Purchase order details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PurchaseOrder'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updatePurchaseOrder
+      summary: Update a purchase order
+      description: >-
+        Updates an existing purchase order. Uses the PO_CHANGE_API1_S
+        PL/SQL package for modifications to approved purchase orders.
+      tags:
+        - Purchasing
+      security:
+        - tokenAuth: []
+        - basicAuth: []
+      parameters:
+        - name: poHeaderId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PurchaseOrderUpdate'
+      responses:
+        '200':
+          description: Purchase order updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PurchaseOrder'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /po/requisitions:
+    get:
+      operationId: getRequisitions
+      summary: Retrieve purchase requisitions
+      description: >-
+        Retrieves purchase requisition records. Maps to the
+        PO_REQUISITION_HEADERS_ALL and PO_REQUISITION_LINES_ALL tables.
+      tags:
+        - Purchasing
+      security:
+        - tokenAuth: []
+        - basicAuth: []
+      parameters:
+        - name: requisitionHeaderId
+          in: query
+          description: Requisition header identifier
+          schema:
+            type: integer
+        - name: requisitionNumber
+          in: query
+          description: Requisition number
+          schema:
+            type: string
+        - name: authorizationStatus
+          in: query
+          description: Authorization status
+          schema:
+            type: string
+            enum:
+              - APPROVED
+              - IN PROCESS
+              - INCOMPLETE
+              - REJECTED
+              - RETURNED
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Offset'
+      responses:
+        '200':
+          description: List of requisitions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Requisition'
+                  totalCount:
+                    type: integer
+                  hasMore:
+                    type: boolean
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /po/suppliers:
+    get:
+      operationId: getSuppliers
+      summary: Retrieve suppliers
+      description: >-
+        Retrieves supplier/vendor records. Maps to the AP_SUPPLIERS and
+        AP_SUPPLIER_SITES_ALL tables through the AP_VENDOR_PUB_PKG API.
+      tags:
+        - Purchasing
+      security:
+        - tokenAuth: []
+        - basicAuth: []
+      parameters:
+        - name: vendorId
+          in: query
+          description: Vendor identifier
+          schema:
+            type: integer
+        - name: vendorName
+          in: query
+          description: Vendor name (supports wildcards)
+          schema:
+            type: string
+        - name: segment1
+          in: query
+          description: Vendor number
+          schema:
+            type: string
+        - name: vendorType
+          in: query
+          description: Vendor type
+          schema:
+            type: string
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Offset'
+      responses:
+        '200':
+          description: List of suppliers
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Supplier'
+                  totalCount:
+                    type: integer
+                  hasMore:
+                    type: boolean
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /oe/salesOrders:
+    get:
+      operationId: getSalesOrders
+      summary: Retrieve sales orders
+      description: >-
+        Retrieves Order Management sales order records. Maps to the
+        OE_ORDER_HEADERS_ALL and OE_ORDER_LINES_ALL tables through the
+        OE_ORDER_PUB PL/SQL API.
+      tags:
+        - Order Management
+      security:
+        - tokenAuth: []
+        - basicAuth: []
+      parameters:
+        - name: headerId
+          in: query
+          description: Order header identifier
+          schema:
+            type: integer
+        - name: orderNumber
+          in: query
+          description: Order number
+          schema:
+            type: integer
+        - name: customerId
+          in: query
+          description: Customer identifier (sold-to)
+          schema:
+            type: integer
+        - name: flowStatusCode
+          in: query
+          description: Order flow status
+          schema:
+            type: string
+            enum:
+              - ENTERED
+              - BOOKED
+              - CLOSED
+              - CANCELLED
+        - name: orderedDateFrom
+          in: query
+          description: Order date range start (YYYY-MM-DD)
+          schema:
+            type: string
+            format: date
+        - name: orderedDateTo
+          in: query
+          description: Order date range end (YYYY-MM-DD)
+          schema:
+            type: string
+            format: date
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Offset'
+      responses:
+        '200':
+          description: List of sales orders
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SalesOrder'
+                  totalCount:
+                    type: integer
+                  hasMore:
+                    type: boolean
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createSalesOrder
+      summary: Create a sales order
+      description: >-
+        Creates a new sales order using the OE_ORDER_PUB.PROCESS_ORDER
+        PL/SQL API or the Order Import open interface.
+      tags:
+        - Order Management
+      security:
+        - tokenAuth: []
+        - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SalesOrderCreate'
+      responses:
+        '201':
+          description: Sales order created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SalesOrder'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /inv/items:
+    get:
+      operationId: getInventoryItems
+      summary: Retrieve inventory items
+      description: >-
+        Retrieves Inventory item master records. Maps to the
+        MTL_SYSTEM_ITEMS_B table through the Inventory Items API.
+      tags:
+        - Inventory
+      security:
+        - tokenAuth: []
+        - basicAuth: []
+      parameters:
+        - name: inventoryItemId
+          in: query
+          description: Inventory item identifier
+          schema:
+            type: integer
+        - name: segment1
+          in: query
+          description: Item number
+          schema:
+            type: string
+        - name: organizationId
+          in: query
+          description: Inventory organization identifier
+          schema:
+            type: integer
+        - name: itemType
+          in: query
+          description: Item type
+          schema:
+            type: string
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Offset'
+      responses:
+        '200':
+          description: List of inventory items
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/InventoryItem'
+                  totalCount:
+                    type: integer
+                  hasMore:
+                    type: boolean
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /inv/onhandQuantities:
+    get:
+      operationId: getOnhandQuantities
+      summary: Retrieve on-hand inventory quantities
+      description: >-
+        Retrieves on-hand quantity information for inventory items. Maps to
+        the MTL_ONHAND_QUANTITIES_DETAIL table.
+      tags:
+        - Inventory
+      security:
+        - tokenAuth: []
+        - basicAuth: []
+      parameters:
+        - name: inventoryItemId
+          in: query
+          description: Inventory item identifier
+          schema:
+            type: integer
+        - name: organizationId
+          in: query
+          description: Inventory organization identifier
+          schema:
+            type: integer
+        - name: subinventoryCode
+          in: query
+          description: Subinventory code
+          schema:
+            type: string
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Offset'
+      responses:
+        '200':
+          description: On-hand quantity records
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/OnhandQuantity'
+                  totalCount:
+                    type: integer
+                  hasMore:
+                    type: boolean
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /wsh/deliveries:
+    get:
+      operationId: getDeliveries
+      summary: Retrieve shipping deliveries
+      description: >-
+        Retrieves shipping delivery records from Oracle Shipping Execution.
+        Maps to the WSH_NEW_DELIVERIES and WSH_DELIVERY_DETAILS tables.
+      tags:
+        - Shipping
+      security:
+        - tokenAuth: []
+        - basicAuth: []
+      parameters:
+        - name: deliveryId
+          in: query
+          description: Delivery identifier
+          schema:
+            type: integer
+        - name: deliveryName
+          in: query
+          description: Delivery name/number
+          schema:
+            type: string
+        - name: statusCode
+          in: query
+          description: Delivery status
+          schema:
+            type: string
+            enum:
+              - OP
+              - PA
+              - SA
+              - CO
+              - IT
+              - CL
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Offset'
+      responses:
+        '200':
+          description: List of shipping deliveries
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Delivery'
+                  totalCount:
+                    type: integer
+                  hasMore:
+                    type: boolean
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication with Oracle EBS username and password
+    tokenAuth:
+      type: apiKey
+      in: cookie
+      name: accessToken
+      description: Token-based authentication using the ISG login access token
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      description: Maximum number of records to return
+      schema:
+        type: integer
+        default: 25
+        maximum: 500
+    Offset:
+      name: offset
+      in: query
+      description: Number of records to skip for pagination
+      schema:
+        type: integer
+        default: 0
+  responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required or token expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    PurchaseOrder:
+      type: object
+      properties:
+        poHeaderId:
+          type: integer
+          description: Purchase order header identifier
+        segment1:
+          type: string
+          description: Purchase order number
+        typeLookupCode:
+          type: string
+          description: Purchase order type
+          enum:
+            - STANDARD
+            - BLANKET
+            - CONTRACT
+            - PLANNED
+        vendorId:
+          type: integer
+          description: Supplier/vendor identifier
+        vendorName:
+          type: string
+          description: Supplier/vendor name
+        vendorSiteId:
+          type: integer
+          description: Vendor site identifier
+        currencyCode:
+          type: string
+          description: Currency code (ISO 4217)
+        authorizationStatus:
+          type: string
+          description: Authorization status
+          enum:
+            - APPROVED
+            - IN PROCESS
+            - INCOMPLETE
+            - PRE-APPROVED
+            - REJECTED
+            - REQUIRES REAPPROVAL
+        approvedFlag:
+          type: string
+          description: Approved flag
+          enum:
+            - 'Y'
+            - 'N'
+        closedCode:
+          type: string
+          description: Close status
+          enum:
+            - OPEN
+            - CLOSED
+            - FINALLY CLOSED
+            - CLOSED FOR RECEIVING
+            - CLOSED FOR INVOICE
+        totalAmount:
+          type: number
+          format: double
+          description: Total purchase order amount
+        creationDate:
+          type: string
+          format: date-time
+          description: Creation date
+        approvedDate:
+          type: string
+          format: date
+          description: Approval date
+        buyerId:
+          type: integer
+          description: Buyer employee identifier
+        shipToLocationId:
+          type: integer
+          description: Ship-to location identifier
+        billToLocationId:
+          type: integer
+          description: Bill-to location identifier
+        termsId:
+          type: integer
+          description: Payment terms identifier
+        description:
+          type: string
+          description: Purchase order description
+        lines:
+          type: array
+          items:
+            $ref: '#/components/schemas/PurchaseOrderLine'
+        orgId:
+          type: integer
+          description: Operating unit identifier
+        lastUpdateDate:
+          type: string
+          format: date-time
+    PurchaseOrderLine:
+      type: object
+      properties:
+        poLineId:
+          type: integer
+          description: Purchase order line identifier
+        lineNum:
+          type: integer
+          description: Line number
+        lineType:
+          type: string
+          description: Line type
+        itemId:
+          type: integer
+          description: Inventory item identifier
+        itemDescription:
+          type: string
+          description: Item description
+        categoryId:
+          type: integer
+          description: Item category identifier
+        quantity:
+          type: number
+          format: double
+          description: Ordered quantity
+        unitMeasLookupCode:
+          type: string
+          description: Unit of measure
+        unitPrice:
+          type: number
+          format: double
+          description: Unit price
+        amount:
+          type: number
+          format: double
+          description: Line amount
+        needByDate:
+          type: string
+          format: date
+          description: Need-by date
+        promisedDate:
+          type: string
+          format: date
+          description: Promised date
+        closedCode:
+          type: string
+          description: Line close status
+        shipments:
+          type: array
+          items:
+            $ref: '#/components/schemas/PurchaseOrderShipment'
+    PurchaseOrderShipment:
+      type: object
+      properties:
+        lineLocationId:
+          type: integer
+          description: Line location (shipment) identifier
+        shipmentNum:
+          type: integer
+          description: Shipment number
+        quantity:
+          type: number
+          format: double
+          description: Shipment quantity
+        quantityReceived:
+          type: number
+          format: double
+          description: Quantity received
+        quantityBilled:
+          type: number
+          format: double
+          description: Quantity billed
+        needByDate:
+          type: string
+          format: date
+        promisedDate:
+          type: string
+          format: date
+        shipToOrganizationId:
+          type: integer
+          description: Ship-to organization identifier
+        shipToLocationId:
+          type: integer
+          description: Ship-to location identifier
+        closedCode:
+          type: string
+          description: Shipment close status
+    PurchaseOrderCreate:
+      type: object
+      required:
+        - vendorId
+        - vendorSiteId
+        - currencyCode
+        - lines
+      properties:
+        vendorId:
+          type: integer
+        vendorSiteId:
+          type: integer
+        currencyCode:
+          type: string
+        typeLookupCode:
+          type: string
+          default: STANDARD
+        description:
+          type: string
+        buyerId:
+          type: integer
+        shipToLocationId:
+          type: integer
+        billToLocationId:
+          type: integer
+        termsId:
+          type: integer
+        lines:
+          type: array
+          items:
+            type: object
+            required:
+              - itemDescription
+              - quantity
+              - unitPrice
+            properties:
+              lineNum:
+                type: integer
+              itemId:
+                type: integer
+              itemDescription:
+                type: string
+              categoryId:
+                type: integer
+              quantity:
+                type: number
+                format: double
+              unitMeasLookupCode:
+                type: string
+              unitPrice:
+                type: number
+                format: double
+              needByDate:
+                type: string
+                format: date
+              shipToOrganizationId:
+                type: integer
+    PurchaseOrderUpdate:
+      type: object
+      properties:
+        description:
+          type: string
+        lines:
+          type: array
+          items:
+            type: object
+            properties:
+              poLineId:
+                type: integer
+              quantity:
+                type: number
+                format: double
+              unitPrice:
+                type: number
+                format: double
+              needByDate:
+                type: string
+                format: date
+              cancelFlag:
+                type: boolean
+    Requisition:
+      type: object
+      properties:
+        requisitionHeaderId:
+          type: integer
+          description: Requisition header identifier
+        segment1:
+          type: string
+          description: Requisition number
+        typeLookupCode:
+          type: string
+          description: Requisition type
+          enum:
+            - PURCHASE
+            - INTERNAL
+        authorizationStatus:
+          type: string
+          description: Authorization status
+        preparerId:
+          type: integer
+          description: Preparer identifier
+        description:
+          type: string
+          description: Requisition description
+        totalAmount:
+          type: number
+          format: double
+        creationDate:
+          type: string
+          format: date-time
+        lines:
+          type: array
+          items:
+            $ref: '#/components/schemas/RequisitionLine'
+        orgId:
+          type: integer
+    RequisitionLine:
+      type: object
+      properties:
+        requisitionLineId:
+          type: integer
+        lineNum:
+          type: integer
+        itemId:
+          type: integer
+        itemDescription:
+          type: string
+        categoryId:
+          type: integer
+        quantity:
+          type: number
+          format: double
+        unitMeasLookupCode:
+          type: string
+        unitPrice:
+          type: number
+          format: double
+        needByDate:
+          type: string
+          format: date
+        suggestedVendorId:
+          type: integer
+    Supplier:
+      type: object
+      properties:
+        vendorId:
+          type: integer
+          description: Vendor identifier
+        vendorName:
+          type: string
+          description: Vendor name
+        segment1:
+          type: string
+          description: Vendor number
+        vendorType:
+          type: string
+          description: Vendor type lookup code
+        taxPayerId:
+          type: string
+          description: Tax payer identification number
+        standardIndustryClass:
+          type: string
+          description: Standard industry classification
+        paymentCurrencyCode:
+          type: string
+          description: Default payment currency
+        paymentMethodCode:
+          type: string
+          description: Default payment method
+        termsId:
+          type: integer
+          description: Default payment terms identifier
+        enabled:
+          type: boolean
+          description: Whether the vendor is active
+        startDateActive:
+          type: string
+          format: date
+        endDateActive:
+          type: string
+          format: date
+        sites:
+          type: array
+          items:
+            $ref: '#/components/schemas/SupplierSite'
+        creationDate:
+          type: string
+          format: date-time
+        lastUpdateDate:
+          type: string
+          format: date-time
+    SupplierSite:
+      type: object
+      properties:
+        vendorSiteId:
+          type: integer
+          description: Vendor site identifier
+        vendorSiteCode:
+          type: string
+          description: Vendor site code
+        addressLine1:
+          type: string
+        addressLine2:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        zip:
+          type: string
+        country:
+          type: string
+        purchasingSiteFlag:
+          type: string
+          enum:
+            - 'Y'
+            - 'N'
+        paymentSiteFlag:
+          type: string
+          enum:
+            - 'Y'
+            - 'N'
+        orgId:
+          type: integer
+    SalesOrder:
+      type: object
+      properties:
+        headerId:
+          type: integer
+          description: Order header identifier
+        orderNumber:
+          type: integer
+          description: Order number
+        orderedDate:
+          type: string
+          format: date
+          description: Order date
+        orderTypeId:
+          type: integer
+          description: Order type identifier
+        orderTypeName:
+          type: string
+          description: Order type name
+        soldToOrgId:
+          type: integer
+          description: Customer identifier (sold-to)
+        customerName:
+          type: string
+          description: Customer name
+        shipToOrgId:
+          type: integer
+          description: Ship-to organization identifier
+        invoiceToOrgId:
+          type: integer
+          description: Bill-to organization identifier
+        transactionalCurrCode:
+          type: string
+          description: Transaction currency code (ISO 4217)
+        flowStatusCode:
+          type: string
+          description: Order flow status
+          enum:
+            - ENTERED
+            - BOOKED
+            - CLOSED
+            - CANCELLED
+        bookedFlag:
+          type: string
+          enum:
+            - 'Y'
+            - 'N'
+        totalAmount:
+          type: number
+          format: double
+          description: Order total amount
+        salesrepId:
+          type: integer
+          description: Salesperson identifier
+        lines:
+          type: array
+          items:
+            $ref: '#/components/schemas/SalesOrderLine'
+        orgId:
+          type: integer
+        creationDate:
+          type: string
+          format: date-time
+        lastUpdateDate:
+          type: string
+          format: date-time
+    SalesOrderLine:
+      type: object
+      properties:
+        lineId:
+          type: integer
+          description: Line identifier
+        lineNumber:
+          type: integer
+          description: Line number
+        orderedItem:
+          type: string
+          description: Ordered item number
+        inventoryItemId:
+          type: integer
+          description: Inventory item identifier
+        orderedQuantity:
+          type: number
+          format: double
+          description: Ordered quantity
+        orderQuantityUom:
+          type: string
+          description: Unit of measure
+        unitSellingPrice:
+          type: number
+          format: double
+          description: Unit selling price
+        unitListPrice:
+          type: number
+          format: double
+          description: Unit list price
+        lineAmount:
+          type: number
+          format: double
+        scheduleShipDate:
+          type: string
+          format: date
+          description: Scheduled ship date
+        actualShipDate:
+          type: string
+          format: date
+          description: Actual ship date
+        flowStatusCode:
+          type: string
+          description: Line flow status
+        shippedQuantity:
+          type: number
+          format: double
+    SalesOrderCreate:
+      type: object
+      required:
+        - soldToOrgId
+        - orderTypeId
+        - lines
+      properties:
+        soldToOrgId:
+          type: integer
+        orderTypeId:
+          type: integer
+        orderedDate:
+          type: string
+          format: date
+        transactionalCurrCode:
+          type: string
+        shipToOrgId:
+          type: integer
+        invoiceToOrgId:
+          type: integer
+        salesrepId:
+          type: integer
+        lines:
+          type: array
+          items:
+            type: object
+            required:
+              - inventoryItemId
+              - orderedQuantity
+            properties:
+              inventoryItemId:
+                type: integer
+              orderedQuantity:
+                type: number
+                format: double
+              orderQuantityUom:
+                type: string
+              unitSellingPrice:
+                type: number
+                format: double
+              scheduleShipDate:
+                type: string
+                format: date
+    InventoryItem:
+      type: object
+      properties:
+        inventoryItemId:
+          type: integer
+          description: Inventory item identifier
+        segment1:
+          type: string
+          description: Item number
+        description:
+          type: string
+          description: Item description
+        longDescription:
+          type: string
+          description: Extended item description
+        primaryUomCode:
+          type: string
+          description: Primary unit of measure
+        itemType:
+          type: string
+          description: Item type
+        inventoryItemStatusCode:
+          type: string
+          description: Item status code
+        organizationId:
+          type: integer
+          description: Inventory organization identifier
+        weightUomCode:
+          type: string
+          description: Weight unit of measure
+        unitWeight:
+          type: number
+          format: double
+          description: Unit weight
+        volumeUomCode:
+          type: string
+          description: Volume unit of measure
+        unitVolume:
+          type: number
+          format: double
+          description: Unit volume
+        listPrice:
+          type: number
+          format: double
+          description: Item list price
+        purchasingEnabledFlag:
+          type: string
+          enum:
+            - 'Y'
+            - 'N'
+        customerOrderEnabledFlag:
+          type: string
+          enum:
+            - 'Y'
+            - 'N'
+        internalOrderEnabledFlag:
+          type: string
+          enum:
+            - 'Y'
+            - 'N'
+        creationDate:
+          type: string
+          format: date-time
+        lastUpdateDate:
+          type: string
+          format: date-time
+    OnhandQuantity:
+      type: object
+      properties:
+        inventoryItemId:
+          type: integer
+          description: Inventory item identifier
+        organizationId:
+          type: integer
+          description: Organization identifier
+        subinventoryCode:
+          type: string
+          description: Subinventory code
+        locatorId:
+          type: integer
+          description: Locator identifier
+        lotNumber:
+          type: string
+          description: Lot number
+        serialNumber:
+          type: string
+          description: Serial number
+        transactionQuantity:
+          type: number
+          format: double
+          description: On-hand quantity
+        transactionUomCode:
+          type: string
+          description: Unit of measure code
+        lastUpdateDate:
+          type: string
+          format: date-time
+    Delivery:
+      type: object
+      properties:
+        deliveryId:
+          type: integer
+          description: Delivery identifier
+        name:
+          type: string
+          description: Delivery name/number
+        statusCode:
+          type: string
+          description: Delivery status code
+          enum:
+            - OP
+            - PA
+            - SA
+            - CO
+            - IT
+            - CL
+        initialPickupDate:
+          type: string
+          format: date
+          description: Initial pickup date
+        ultimateDropoffDate:
+          type: string
+          format: date
+          description: Ultimate dropoff date
+        customerId:
+          type: integer
+          description: Customer identifier
+        shipToLocationId:
+          type: integer
+          description: Ship-to location identifier
+        carrierId:
+          type: integer
+          description: Carrier identifier
+        shipMethodCode:
+          type: string
+          description: Ship method code
+        waybill:
+          type: string
+          description: Waybill/tracking number
+        grossWeight:
+          type: number
+          format: double
+          description: Gross weight
+        weightUomCode:
+          type: string
+          description: Weight unit of measure
+        volume:
+          type: number
+          format: double
+          description: Volume
+        volumeUomCode:
+          type: string
+          description: Volume unit of measure
+        organizationId:
+          type: integer
+        creationDate:
+          type: string
+          format: date-time
+        lastUpdateDate:
+          type: string
+          format: date-time
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            detail:
+              type: string
+tags:
+  - name: Purchasing
+    description: Purchase order, requisition, and supplier management
+  - name: Order Management
+    description: Sales order processing and management
+  - name: Inventory
+    description: Inventory items and on-hand quantity management
+  - name: Shipping
+    description: Shipping delivery management
