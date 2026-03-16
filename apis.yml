@@ -1,16 +1,25 @@
-specificationVersion: '0.18'
+aid: oracle-e-business-suite
 name: Oracle E-Business Suite APIs
-description: A collection of APIs for Oracle E-Business Suite (EBS), Oracle's comprehensive suite of integrated, global business applications that supports today's evolving business models across financials, human capital management, supply chain, and manufacturing.
-image: https://www.oracle.com/a/ocom/img/oracle-logo.svg
+description: >-
+  A collection of APIs for Oracle E-Business Suite (EBS), Oracle's comprehensive
+  suite of integrated, global business applications that supports today's evolving
+  business models across financials, human capital management, supply chain, and
+  manufacturing.
+type: Index
+position: Consumer
+access: 3rd-Party
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
-- ERP
-- Enterprise
-- Business Applications
-- Oracle
-- E-Business Suite
-created: '2024'
-modified: '2026-03-03'
-url: https://www.oracle.com/applications/ebusiness/
+  - ERP
+  - Enterprise
+  - Business Applications
+  - Oracle
+  - E-Business Suite
+created: '2024-01-01'
+modified: '2026-03-16'
+specificationVersion: '0.19'
+url: >-
+  https://raw.githubusercontent.com/api-evangelist/oracle-e-business-suite/refs/heads/main/apis.yml
 apis:
 - name: Oracle EBS Integrated SOA Gateway REST API
   description: RESTful web services for Oracle E-Business Suite modules exposed through the Integrated SOA Gateway (ISG). PL/SQL APIs, Java Bean Services, Application Module Services, and other interface types from the Integration Repository can be deployed as lightweight REST services.
@@ -246,6 +255,6 @@ common:
 - type: GitHub Organization
   url: https://github.com/oracle
 maintainers:
-- FN: Kin Lane
-  email: kin@apievangelist.com
+  - FN: Kin Lane
+    email: kin@apievangelist.com
 include: []
