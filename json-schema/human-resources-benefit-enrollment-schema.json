@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "BenefitEnrollment",
+  "type": "object",
+  "properties": {
+    "enrollmentResultId": {
+      "type": "integer",
+      "description": "Enrollment result identifier"
+    },
+    "personId": {
+      "type": "integer",
+      "description": "Person identifier"
+    },
+    "planId": {
+      "type": "integer",
+      "description": "Benefit plan identifier"
+    },
+    "planName": {
+      "type": "string",
+      "description": "Plan name"
+    },
+    "optionId": {
+      "type": "integer",
+      "description": "Option identifier"
+    },
+    "optionName": {
+      "type": "string",
+      "description": "Option name"
+    },
+    "coverageLevelCode": {
+      "type": "string",
+      "description": "Coverage level"
+    },
+    "effectiveStartDate": {
+      "type": "string"
+    },
+    "effectiveEndDate": {
+      "type": "string"
+    },
+    "enrollmentStartDate": {
+      "type": "string"
+    },
+    "enrollmentEndDate": {
+      "type": "string"
+    },
+    "benefitAmount": {
+      "type": "number",
+      "description": "Benefit coverage amount"
+    }
+  }
+}

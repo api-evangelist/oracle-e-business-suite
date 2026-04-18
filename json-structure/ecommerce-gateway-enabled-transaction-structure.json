@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "EnabledTransaction",
+  "type": "object",
+  "properties": {
+    "transactionType": {
+      "type": "string"
+    },
+    "transactionDescription": {
+      "type": "string"
+    },
+    "direction": {
+      "type": "string"
+    },
+    "documentId": {
+      "type": "string"
+    },
+    "enabled": {
+      "type": "boolean"
+    }
+  }
+}

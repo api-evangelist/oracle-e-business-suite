@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "EmployeeCreate",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "firstName": {
+      "type": "string"
+    },
+    "middleNames": {
+      "type": "string"
+    },
+    "lastName": {
+      "type": "string"
+    },
+    "knownAs": {
+      "type": "string"
+    },
+    "emailAddress": {
+      "type": "string"
+    },
+    "sex": {
+      "type": "string"
+    },
+    "dateOfBirth": {
+      "type": "string"
+    },
+    "nationalIdentifier": {
+      "type": "string"
+    },
+    "nationality": {
+      "type": "string"
+    },
+    "maritalStatus": {
+      "type": "string"
+    },
+    "hireDate": {
+      "type": "string"
+    },
+    "businessGroupId": {
+      "type": "integer"
+    },
+    "jobId": {
+      "type": "integer"
+    },
+    "positionId": {
+      "type": "integer"
+    },
+    "organizationId": {
+      "type": "integer"
+    },
+    "gradeId": {
+      "type": "integer"
+    },
+    "locationId": {
+      "type": "integer"
+    },
+    "payrollId": {
+      "type": "integer"
+    }
+  }
+}

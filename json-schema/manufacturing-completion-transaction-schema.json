@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CompletionTransaction",
+  "type": "object",
+  "properties": {
+    "wipEntityId": {
+      "type": "integer",
+      "description": "WIP entity identifier"
+    },
+    "organizationId": {
+      "type": "integer",
+      "description": "Organization identifier"
+    },
+    "transactionQuantity": {
+      "type": "number",
+      "description": "Completion quantity"
+    },
+    "transactionUom": {
+      "type": "string",
+      "description": "Transaction unit of measure"
+    },
+    "subinventoryCode": {
+      "type": "string",
+      "description": "Completion subinventory"
+    },
+    "locatorId": {
+      "type": "integer",
+      "description": "Completion locator"
+    },
+    "transactionDate": {
+      "type": "string",
+      "description": "Transaction date"
+    }
+  }
+}

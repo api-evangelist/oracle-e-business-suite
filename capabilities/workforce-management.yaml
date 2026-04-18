@@ -1,0 +1,155 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Oracle EBS Workforce Management"
+  description: "Human capital management combining HR, payroll, benefits, and organizational management. Used by HR administrators and payroll managers for employee lifecycle operations."
+  tags:
+    - Oracle
+    - Human Resources
+    - Workforce Management
+    - Payroll
+  created: "2026-04-18"
+  modified: "2026-04-18"
+
+binds:
+  - namespace: env
+    keys:
+      ORACLE_EBS_TOKEN: ORACLE_EBS_TOKEN
+
+capability:
+  consumes:
+    - import: oracle-human-resources
+      location: ./shared/human-resources.yaml
+
+  exposes:
+    - type: rest
+      port: 8081
+      namespace: workforce-management-api
+      description: "Unified REST API for Oracle EBS workforce management."
+      resources:
+        - path: /v1/employees
+          name: employees
+          description: "Employee management."
+          operations:
+            - method: GET
+              name: get-employees
+              description: "List employees."
+              call: "oracle-human-resources.get-employees"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/organizations
+          name: organizations
+          description: "Organization management."
+          operations:
+            - method: GET
+              name: get-organizations
+              description: "List organizations."
+              call: "oracle-human-resources.get-organizations"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/payrolls
+          name: payrolls
+          description: "Payroll management."
+          operations:
+            - method: GET
+              name: get-payrolls
+              description: "List payrolls."
+              call: "oracle-human-resources.get-payrolls"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9081
+      namespace: workforce-management-mcp
+      transport: http
+      description: "MCP server for AI-assisted Oracle EBS workforce management."
+      tools:
+        - name: get-employees
+          description: "Retrieve employees."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "oracle-human-resources.get-employees"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-employee
+          description: "Create an employee record."
+          hints:
+            readOnly: false
+          call: "oracle-human-resources.create-employee"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-employee-by-id
+          description: "Get employee by ID."
+          hints:
+            readOnly: true
+          call: "oracle-human-resources.get-employee-by-id"
+          with:
+            personId: "tools.person_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: update-employee
+          description: "Update employee record."
+          hints:
+            readOnly: false
+            idempotent: true
+          call: "oracle-human-resources.update-employee"
+          with:
+            personId: "tools.person_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-assignments
+          description: "Retrieve assignments."
+          hints:
+            readOnly: true
+          call: "oracle-human-resources.get-assignments"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-organizations
+          description: "Retrieve organizations."
+          hints:
+            readOnly: true
+          call: "oracle-human-resources.get-organizations"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-positions
+          description: "Retrieve positions."
+          hints:
+            readOnly: true
+          call: "oracle-human-resources.get-positions"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-payrolls
+          description: "Retrieve payroll definitions."
+          hints:
+            readOnly: true
+          call: "oracle-human-resources.get-payrolls"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-payroll-runs
+          description: "Retrieve payroll runs."
+          hints:
+            readOnly: true
+          call: "oracle-human-resources.get-payroll-runs"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-benefit-enrollments
+          description: "Retrieve benefit enrollments."
+          hints:
+            readOnly: true
+          call: "oracle-human-resources.get-benefit-enrollments"
+          outputParameters:
+            - type: object
+              mapping: "$."

@@ -1,0 +1,10 @@
+{
+  "organizationId": "500123",
+  "name": "Example Title",
+  "businessGroupId": "500123",
+  "dateFrom": "example_value",
+  "dateTo": "example_value",
+  "locationId": "500123",
+  "type": "example_value",
+  "internalExternalFlag": "example_value"
+}

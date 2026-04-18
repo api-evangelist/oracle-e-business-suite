@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Position",
+  "type": "object",
+  "properties": {
+    "positionId": {
+      "type": "integer",
+      "description": "Position identifier"
+    },
+    "name": {
+      "type": "string",
+      "description": "Position name"
+    },
+    "jobId": {
+      "type": "integer",
+      "description": "Job identifier"
+    },
+    "organizationId": {
+      "type": "integer",
+      "description": "Organization identifier"
+    },
+    "effectiveStartDate": {
+      "type": "string"
+    },
+    "effectiveEndDate": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "description": "Position status"
+    },
+    "availabilityStatusId": {
+      "type": "integer"
+    },
+    "businessGroupId": {
+      "type": "integer"
+    },
+    "locationId": {
+      "type": "integer"
+    }
+  }
+}

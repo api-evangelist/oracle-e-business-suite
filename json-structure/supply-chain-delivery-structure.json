@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "Delivery",
+  "type": "object",
+  "properties": {
+    "deliveryId": {
+      "type": "integer"
+    },
+    "name": {
+      "type": "string"
+    },
+    "statusCode": {
+      "type": "string"
+    },
+    "initialPickupDate": {
+      "type": "string"
+    },
+    "ultimateDropoffDate": {
+      "type": "string"
+    },
+    "customerId": {
+      "type": "integer"
+    },
+    "shipToLocationId": {
+      "type": "integer"
+    },
+    "carrierId": {
+      "type": "integer"
+    },
+    "shipMethodCode": {
+      "type": "string"
+    },
+    "waybill": {
+      "type": "string"
+    },
+    "grossWeight": {
+      "type": "number"
+    },
+    "weightUomCode": {
+      "type": "string"
+    },
+    "volume": {
+      "type": "number"
+    },
+    "volumeUomCode": {
+      "type": "string"
+    },
+    "organizationId": {
+      "type": "integer"
+    },
+    "creationDate": {
+      "type": "string"
+    },
+    "lastUpdateDate": {
+      "type": "string"
+    }
+  }
+}

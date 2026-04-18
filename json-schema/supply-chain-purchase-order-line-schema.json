@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PurchaseOrderLine",
+  "type": "object",
+  "properties": {
+    "poLineId": {
+      "type": "integer",
+      "description": "Purchase order line identifier"
+    },
+    "lineNum": {
+      "type": "integer",
+      "description": "Line number"
+    },
+    "lineType": {
+      "type": "string",
+      "description": "Line type"
+    },
+    "itemId": {
+      "type": "integer",
+      "description": "Inventory item identifier"
+    },
+    "itemDescription": {
+      "type": "string",
+      "description": "Item description"
+    },
+    "categoryId": {
+      "type": "integer",
+      "description": "Item category identifier"
+    },
+    "quantity": {
+      "type": "number",
+      "description": "Ordered quantity"
+    },
+    "unitMeasLookupCode": {
+      "type": "string",
+      "description": "Unit of measure"
+    },
+    "unitPrice": {
+      "type": "number",
+      "description": "Unit price"
+    },
+    "amount": {
+      "type": "number",
+      "description": "Line amount"
+    },
+    "needByDate": {
+      "type": "string",
+      "description": "Need-by date"
+    },
+    "promisedDate": {
+      "type": "string",
+      "description": "Promised date"
+    },
+    "closedCode": {
+      "type": "string",
+      "description": "Line close status"
+    },
+    "shipments": {
+      "type": "array"
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "poHeaderId": "500123",
+  "segment1": "example_value",
+  "typeLookupCode": "example_value",
+  "vendorId": "500123",
+  "vendorName": "example_value",
+  "vendorSiteId": "500123",
+  "currencyCode": "example_value",
+  "authorizationStatus": "example_value",
+  "approvedFlag": "example_value",
+  "closedCode": "example_value",
+  "totalAmount": 42.5,
+  "creationDate": "example_value",
+  "approvedDate": "example_value",
+  "buyerId": "500123",
+  "shipToLocationId": "500123",
+  "billToLocationId": "500123",
+  "termsId": "500123",
+  "description": "A sample description.",
+  "lines": [],
+  "orgId": "500123",
+  "lastUpdateDate": "example_value"
+}

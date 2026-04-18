@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "InboundTransaction",
+  "type": "object",
+  "properties": {
+    "transactionId": {
+      "type": "integer"
+    },
+    "transactionType": {
+      "type": "string"
+    },
+    "transactionDescription": {
+      "type": "string"
+    },
+    "documentStandard": {
+      "type": "string"
+    },
+    "documentNumber": {
+      "type": "string"
+    },
+    "tradingPartnerId": {
+      "type": "integer"
+    },
+    "tradingPartnerName": {
+      "type": "string"
+    },
+    "tradingPartnerSiteId": {
+      "type": "integer"
+    },
+    "processStatus": {
+      "type": "string"
+    },
+    "documentDate": {
+      "type": "string"
+    },
+    "documentAmount": {
+      "type": "number"
+    },
+    "currencyCode": {
+      "type": "string"
+    },
+    "errorMessage": {
+      "type": "string"
+    },
+    "creationDate": {
+      "type": "string"
+    },
+    "lastUpdateDate": {
+      "type": "string"
+    }
+  }
+}

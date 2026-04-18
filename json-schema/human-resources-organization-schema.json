@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Organization",
+  "type": "object",
+  "properties": {
+    "organizationId": {
+      "type": "integer",
+      "description": "Organization identifier"
+    },
+    "name": {
+      "type": "string",
+      "description": "Organization name"
+    },
+    "businessGroupId": {
+      "type": "integer",
+      "description": "Business group identifier"
+    },
+    "dateFrom": {
+      "type": "string",
+      "description": "Organization start date"
+    },
+    "dateTo": {
+      "type": "string",
+      "description": "Organization end date"
+    },
+    "locationId": {
+      "type": "integer",
+      "description": "Location identifier"
+    },
+    "type": {
+      "type": "string",
+      "description": "Organization type"
+    },
+    "internalExternalFlag": {
+      "type": "string"
+    }
+  }
+}

@@ -17,49 +17,53 @@ info:
   x-logo:
     url: https://www.oracle.com/a/ocom/img/oracle-logo.svg
 servers:
-  - url: https://{instance}.oracle.com/webservices/rest
-    description: Oracle EBS ISG REST endpoint
-    variables:
-      instance:
-        default: ebs-host
-        description: The Oracle EBS instance hostname
+- url: https://{instance}.oracle.com/webservices/rest
+  description: Oracle EBS ISG REST endpoint
+  variables:
+    instance:
+      default: ebs-host
+      description: The Oracle EBS instance hostname
 paths:
   /bom/billsOfMaterial:
     get:
       operationId: getBillsOfMaterial
-      summary: Retrieve bills of material
+      summary: Retrieve Bills of Material
       description: >-
         Retrieves Bill of Material (BOM) header and component records. Maps to
         the BOM_STRUCTURES_B and BOM_COMPONENTS_B tables through the
         BOM_BO_PUB PL/SQL API.
       tags:
-        - Bills of Material
+      - Bills of Material
       security:
-        - tokenAuth: []
-        - basicAuth: []
+      - tokenAuth: []
+      - basicAuth: []
       parameters:
-        - name: billSequenceId
-          in: query
-          description: Bill sequence identifier
-          schema:
-            type: integer
-        - name: assemblyItemId
-          in: query
-          description: Assembly item identifier
-          schema:
-            type: integer
-        - name: organizationId
-          in: query
-          description: Organization identifier
-          schema:
-            type: integer
-        - name: alternateDesignator
-          in: query
-          description: Alternate BOM designator
-          schema:
-            type: string
-        - $ref: '#/components/parameters/Limit'
-        - $ref: '#/components/parameters/Offset'
+      - name: billSequenceId
+        in: query
+        description: Bill sequence identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: assemblyItemId
+        in: query
+        description: Assembly item identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: organizationId
+        in: query
+        description: Organization identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: alternateDesignator
+        in: query
+        description: Alternate BOM designator
+        schema:
+          type: string
+        example: example_value
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Offset'
       responses:
         '200':
           description: List of bills of material
@@ -76,24 +80,48 @@ paths:
                     type: integer
                   hasMore:
                     type: boolean
+              examples:
+                Getbillsofmaterial200Example:
+                  summary: Default getBillsOfMaterial 200 response
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - billSequenceId: '500123'
+                      assemblyItemId: '500123'
+                      assemblyItemNumber: example_value
+                      organizationId: '500123'
+                      alternateDesignator: example_value
+                      assemblyType: 10
+                      commonBillSequenceId: '500123'
+                      specificAssemblyComment: example_value
+                      components:
+                      - {}
+                      creationDate: '2026-01-15T10:30:00Z'
+                      lastUpdateDate: '2026-01-15T10:30:00Z'
+                    totalCount: 10
+                    hasMore: true
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /bom/billsOfMaterial/{billSequenceId}:
     get:
       operationId: getBillOfMaterialById
-      summary: Retrieve a specific bill of material
+      summary: Retrieve a Specific Bill of Material
       description: Retrieves a bill of material with all its components.
       tags:
-        - Bills of Material
+      - Bills of Material
       security:
-        - tokenAuth: []
-        - basicAuth: []
+      - tokenAuth: []
+      - basicAuth: []
       parameters:
-        - name: billSequenceId
-          in: path
-          required: true
-          schema:
-            type: integer
+      - name: billSequenceId
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: '500123'
       responses:
         '200':
           description: Bill of material details
@@ -101,41 +129,75 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BillOfMaterial'
+              examples:
+                Getbillofmaterialbyid200Example:
+                  summary: Default getBillOfMaterialById 200 response
+                  x-microcks-default: true
+                  value:
+                    billSequenceId: '500123'
+                    assemblyItemId: '500123'
+                    assemblyItemNumber: example_value
+                    organizationId: '500123'
+                    alternateDesignator: example_value
+                    assemblyType: 10
+                    commonBillSequenceId: '500123'
+                    specificAssemblyComment: example_value
+                    components:
+                    - componentSequenceId: '500123'
+                      componentItemId: '500123'
+                      componentItemNumber: example_value
+                      itemDescription: example_value
+                      operationSeqNum: 10
+                      componentQuantity: 42.5
+                      componentYieldFactor: 42.5
+                      effectivityDate: '2026-01-15'
+                      disableDate: '2026-01-15'
+                      wipSupplyType: 10
+                      optional: 10
+                      quantityRelated: 10
+                    creationDate: '2026-01-15T10:30:00Z'
+                    lastUpdateDate: '2026-01-15T10:30:00Z'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /bom/routings:
     get:
       operationId: getRoutings
-      summary: Retrieve manufacturing routings
+      summary: Retrieve Manufacturing Routings
       description: >-
         Retrieves manufacturing routing records. Maps to the
         BOM_OPERATIONAL_ROUTINGS, BOM_OPERATION_SEQUENCES, and
         BOM_OPERATION_RESOURCES tables.
       tags:
-        - Bills of Material
+      - Bills of Material
       security:
-        - tokenAuth: []
-        - basicAuth: []
+      - tokenAuth: []
+      - basicAuth: []
       parameters:
-        - name: routingSequenceId
-          in: query
-          description: Routing sequence identifier
-          schema:
-            type: integer
-        - name: assemblyItemId
-          in: query
-          description: Assembly item identifier
-          schema:
-            type: integer
-        - name: organizationId
-          in: query
-          description: Organization identifier
-          schema:
-            type: integer
-        - $ref: '#/components/parameters/Limit'
-        - $ref: '#/components/parameters/Offset'
+      - name: routingSequenceId
+        in: query
+        description: Routing sequence identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: assemblyItemId
+        in: query
+        description: Assembly item identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: organizationId
+        in: query
+        description: Organization identifier
+        schema:
+          type: integer
+        example: '500123'
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Offset'
       responses:
         '200':
           description: List of routings
@@ -152,70 +214,98 @@ paths:
                     type: integer
                   hasMore:
                     type: boolean
+              examples:
+                Getroutings200Example:
+                  summary: Default getRoutings 200 response
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - routingSequenceId: '500123'
+                      assemblyItemId: '500123'
+                      assemblyItemNumber: example_value
+                      organizationId: '500123'
+                      alternateDesignator: example_value
+                      routingType: 10
+                      operations:
+                      - {}
+                      creationDate: '2026-01-15T10:30:00Z'
+                      lastUpdateDate: '2026-01-15T10:30:00Z'
+                    totalCount: 10
+                    hasMore: true
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /wip/discreteJobs:
     get:
       operationId: getDiscreteJobs
-      summary: Retrieve WIP discrete jobs
+      summary: Retrieve Wip Discrete Jobs
       description: >-
         Retrieves Work in Process discrete manufacturing job records. Maps to
         the WIP_DISCRETE_JOBS table through the WIP_DISCRETE_JOBS_PUB API.
       tags:
-        - Work in Process
+      - Work in Process
       security:
-        - tokenAuth: []
-        - basicAuth: []
+      - tokenAuth: []
+      - basicAuth: []
       parameters:
-        - name: wipEntityId
-          in: query
-          description: WIP entity identifier
-          schema:
-            type: integer
-        - name: wipEntityName
-          in: query
-          description: Job name/number
-          schema:
-            type: string
-        - name: primaryItemId
-          in: query
-          description: Primary assembly item identifier
-          schema:
-            type: integer
-        - name: organizationId
-          in: query
-          description: Organization identifier
-          schema:
-            type: integer
-        - name: statusType
-          in: query
-          description: Job status
-          schema:
-            type: integer
-            enum:
-              - 1
-              - 3
-              - 4
-              - 5
-              - 6
-              - 7
-              - 12
-              - 14
-              - 15
-        - name: scheduledStartDateFrom
-          in: query
-          description: Scheduled start date range (YYYY-MM-DD)
-          schema:
-            type: string
-            format: date
-        - name: scheduledStartDateTo
-          in: query
-          description: Scheduled start date range end (YYYY-MM-DD)
-          schema:
-            type: string
-            format: date
-        - $ref: '#/components/parameters/Limit'
-        - $ref: '#/components/parameters/Offset'
+      - name: wipEntityId
+        in: query
+        description: WIP entity identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: wipEntityName
+        in: query
+        description: Job name/number
+        schema:
+          type: string
+        example: example_value
+      - name: primaryItemId
+        in: query
+        description: Primary assembly item identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: organizationId
+        in: query
+        description: Organization identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: statusType
+        in: query
+        description: Job status
+        schema:
+          type: integer
+          enum:
+          - 1
+          - 3
+          - 4
+          - 5
+          - 6
+          - 7
+          - 12
+          - 14
+          - 15
+        example: 1
+      - name: scheduledStartDateFrom
+        in: query
+        description: Scheduled start date range (YYYY-MM-DD)
+        schema:
+          type: string
+          format: date
+        example: '2026-01-15'
+      - name: scheduledStartDateTo
+        in: query
+        description: Scheduled start date range end (YYYY-MM-DD)
+        schema:
+          type: string
+          format: date
+        example: '2026-01-15'
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Offset'
       responses:
         '200':
           description: List of discrete jobs
@@ -232,25 +322,77 @@ paths:
                     type: integer
                   hasMore:
                     type: boolean
+              examples:
+                Getdiscretejobs200Example:
+                  summary: Default getDiscreteJobs 200 response
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - wipEntityId: '500123'
+                      wipEntityName: example_value
+                      organizationId: '500123'
+                      primaryItemId: '500123'
+                      primaryItemNumber: example_value
+                      statusType: 10
+                      jobType: 10
+                      startQuantity: 42.5
+                      quantityCompleted: 42.5
+                      quantityScrapped: 42.5
+                      netQuantity: 42.5
+                      scheduledStartDate: '2026-01-15T10:30:00Z'
+                      scheduledCompletionDate: '2026-01-15T10:30:00Z'
+                      dateReleased: '2026-01-15T10:30:00Z'
+                      dateCompleted: '2026-01-15T10:30:00Z'
+                      dateClosed: '2026-01-15T10:30:00Z'
+                      classCode: example_value
+                      bomRevision: example_value
+                      routingRevision: example_value
+                      description: A sample description.
+                      firmPlannedFlag: 10
+                      creationDate: '2026-01-15T10:30:00Z'
+                      lastUpdateDate: '2026-01-15T10:30:00Z'
+                    totalCount: 10
+                    hasMore: true
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: createDiscreteJob
-      summary: Create a WIP discrete job
+      summary: Create a Wip Discrete Job
       description: >-
         Creates a new WIP discrete manufacturing job using the
         WIP_JOB_SCHEDULE_INTERFACE table and WIP Mass Load concurrent program.
       tags:
-        - Work in Process
+      - Work in Process
       security:
-        - tokenAuth: []
-        - basicAuth: []
+      - tokenAuth: []
+      - basicAuth: []
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/DiscreteJobCreate'
+            examples:
+              CreatediscretejobRequestExample:
+                summary: Default createDiscreteJob request
+                x-microcks-default: true
+                value:
+                  wipEntityName: example_value
+                  primaryItemId: '500123'
+                  organizationId: '500123'
+                  statusType: 10
+                  jobType: 10
+                  startQuantity: 42.5
+                  scheduledStartDate: '2026-01-15T10:30:00Z'
+                  scheduledCompletionDate: '2026-01-15T10:30:00Z'
+                  classCode: example_value
+                  bomRevision: example_value
+                  routingRevision: example_value
+                  description: A sample description.
+                  firmPlannedFlag: 10
       responses:
         '201':
           description: Discrete job created successfully
@@ -258,26 +400,58 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DiscreteJob'
+              examples:
+                Creatediscretejob201Example:
+                  summary: Default createDiscreteJob 201 response
+                  x-microcks-default: true
+                  value:
+                    wipEntityId: '500123'
+                    wipEntityName: example_value
+                    organizationId: '500123'
+                    primaryItemId: '500123'
+                    primaryItemNumber: example_value
+                    statusType: 10
+                    jobType: 10
+                    startQuantity: 42.5
+                    quantityCompleted: 42.5
+                    quantityScrapped: 42.5
+                    netQuantity: 42.5
+                    scheduledStartDate: '2026-01-15T10:30:00Z'
+                    scheduledCompletionDate: '2026-01-15T10:30:00Z'
+                    dateReleased: '2026-01-15T10:30:00Z'
+                    dateCompleted: '2026-01-15T10:30:00Z'
+                    dateClosed: '2026-01-15T10:30:00Z'
+                    classCode: example_value
+                    bomRevision: example_value
+                    routingRevision: example_value
+                    description: A sample description.
+                    firmPlannedFlag: 10
+                    creationDate: '2026-01-15T10:30:00Z'
+                    lastUpdateDate: '2026-01-15T10:30:00Z'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /wip/discreteJobs/{wipEntityId}:
     get:
       operationId: getDiscreteJobById
-      summary: Retrieve a specific discrete job
+      summary: Retrieve a Specific Discrete Job
       description: Retrieves a WIP discrete job by its entity identifier.
       tags:
-        - Work in Process
+      - Work in Process
       security:
-        - tokenAuth: []
-        - basicAuth: []
+      - tokenAuth: []
+      - basicAuth: []
       parameters:
-        - name: wipEntityId
-          in: path
-          required: true
-          schema:
-            type: integer
+      - name: wipEntityId
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: '500123'
       responses:
         '200':
           description: Discrete job details
@@ -285,40 +459,74 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DiscreteJob'
+              examples:
+                Getdiscretejobbyid200Example:
+                  summary: Default getDiscreteJobById 200 response
+                  x-microcks-default: true
+                  value:
+                    wipEntityId: '500123'
+                    wipEntityName: example_value
+                    organizationId: '500123'
+                    primaryItemId: '500123'
+                    primaryItemNumber: example_value
+                    statusType: 10
+                    jobType: 10
+                    startQuantity: 42.5
+                    quantityCompleted: 42.5
+                    quantityScrapped: 42.5
+                    netQuantity: 42.5
+                    scheduledStartDate: '2026-01-15T10:30:00Z'
+                    scheduledCompletionDate: '2026-01-15T10:30:00Z'
+                    dateReleased: '2026-01-15T10:30:00Z'
+                    dateCompleted: '2026-01-15T10:30:00Z'
+                    dateClosed: '2026-01-15T10:30:00Z'
+                    classCode: example_value
+                    bomRevision: example_value
+                    routingRevision: example_value
+                    description: A sample description.
+                    firmPlannedFlag: 10
+                    creationDate: '2026-01-15T10:30:00Z'
+                    lastUpdateDate: '2026-01-15T10:30:00Z'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /wip/operations:
     get:
       operationId: getWipOperations
-      summary: Retrieve WIP operations
+      summary: Retrieve Wip Operations
       description: >-
         Retrieves work order operation records. Maps to the
         WIP_OPERATIONS table for tracking operation-level progress.
       tags:
-        - Work in Process
+      - Work in Process
       security:
-        - tokenAuth: []
-        - basicAuth: []
+      - tokenAuth: []
+      - basicAuth: []
       parameters:
-        - name: wipEntityId
-          in: query
-          description: WIP entity identifier
-          schema:
-            type: integer
-        - name: operationSeqNum
-          in: query
-          description: Operation sequence number
-          schema:
-            type: integer
-        - name: organizationId
-          in: query
-          description: Organization identifier
-          schema:
-            type: integer
-        - $ref: '#/components/parameters/Limit'
-        - $ref: '#/components/parameters/Offset'
+      - name: wipEntityId
+        in: query
+        description: WIP entity identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: operationSeqNum
+        in: query
+        description: Operation sequence number
+        schema:
+          type: integer
+        example: 10
+      - name: organizationId
+        in: query
+        description: Organization identifier
+        schema:
+          type: integer
+        example: '500123'
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Offset'
       responses:
         '200':
           description: List of WIP operations
@@ -335,27 +543,65 @@ paths:
                     type: integer
                   hasMore:
                     type: boolean
+              examples:
+                Getwipoperations200Example:
+                  summary: Default getWipOperations 200 response
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - wipEntityId: '500123'
+                      operationSeqNum: 10
+                      organizationId: '500123'
+                      departmentId: '500123'
+                      departmentCode: example_value
+                      operationDescription: example_value
+                      scheduledQuantity: 42.5
+                      quantityInQueue: 42.5
+                      quantityRunning: 42.5
+                      quantityCompleted: 42.5
+                      quantityScrapped: 42.5
+                      firstUnitStartDate: '2026-01-15T10:30:00Z'
+                      lastUnitCompletionDate: '2026-01-15T10:30:00Z'
+                      countPointType: 10
+                      backflushFlag: 10
+                    totalCount: 10
+                    hasMore: true
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /wip/completions:
     post:
       operationId: completeAssembly
-      summary: Complete WIP assembly
+      summary: Complete Wip Assembly
       description: >-
         Records WIP assembly completion transactions. Uses the
         WIP_COMPLETION PL/SQL API to move completed assemblies from
         WIP into inventory.
       tags:
-        - Work in Process
+      - Work in Process
       security:
-        - tokenAuth: []
-        - basicAuth: []
+      - tokenAuth: []
+      - basicAuth: []
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/CompletionTransaction'
+            examples:
+              CompleteassemblyRequestExample:
+                summary: Default completeAssembly request
+                x-microcks-default: true
+                value:
+                  wipEntityId: '500123'
+                  organizationId: '500123'
+                  transactionQuantity: 42.5
+                  transactionUom: example_value
+                  subinventoryCode: example_value
+                  locatorId: '500123'
+                  transactionDate: '2026-01-15T10:30:00Z'
       responses:
         '201':
           description: Completion transaction recorded
@@ -370,28 +616,54 @@ paths:
                     type: string
                   message:
                     type: string
+              examples:
+                Completeassembly201Example:
+                  summary: Default completeAssembly 201 response
+                  x-microcks-default: true
+                  value:
+                    transactionId: '500123'
+                    status: example_value
+                    message: example_value
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /wip/materialTransactions:
     post:
       operationId: issueMaterial
-      summary: Issue material to WIP
+      summary: Issue Material to Wip
       description: >-
         Records material issue/return transactions for WIP jobs. Uses the
         WIP material transaction interface (WIP_MOVE_TXN_INTERFACE).
       tags:
-        - Work in Process
+      - Work in Process
       security:
-        - tokenAuth: []
-        - basicAuth: []
+      - tokenAuth: []
+      - basicAuth: []
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/MaterialTransaction'
+            examples:
+              IssuematerialRequestExample:
+                summary: Default issueMaterial request
+                x-microcks-default: true
+                value:
+                  wipEntityId: '500123'
+                  organizationId: '500123'
+                  operationSeqNum: 10
+                  inventoryItemId: '500123'
+                  transactionQuantity: 42.5
+                  transactionUom: example_value
+                  transactionType: WIP_ISSUE
+                  subinventoryCode: example_value
+                  locatorId: '500123'
+                  transactionDate: '2026-01-15T10:30:00Z'
       responses:
         '201':
           description: Material transaction recorded
@@ -406,10 +678,21 @@ paths:
                     type: string
                   message:
                     type: string
+              examples:
+                Issuematerial201Example:
+                  summary: Default issueMaterial 201 response
+                  x-microcks-default: true
+                  value:
+                    transactionId: '500123'
+                    status: example_value
+                    message: example_value
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
 components:
   securitySchemes:
     basicAuth:
@@ -463,423 +746,541 @@ components:
         billSequenceId:
           type: integer
           description: Bill sequence identifier
+          example: '500123'
         assemblyItemId:
           type: integer
           description: Assembly item identifier
+          example: '500123'
         assemblyItemNumber:
           type: string
           description: Assembly item number
+          example: example_value
         organizationId:
           type: integer
           description: Organization identifier
+          example: '500123'
         alternateDesignator:
           type: string
           description: Alternate BOM designator
+          example: example_value
         assemblyType:
           type: integer
           description: Assembly type (1=Manufacturing, 2=Engineering)
+          example: 10
         commonBillSequenceId:
           type: integer
           description: Common bill sequence identifier
+          example: '500123'
         specificAssemblyComment:
           type: string
           description: Assembly comment
+          example: example_value
         components:
           type: array
           items:
             $ref: '#/components/schemas/BomComponent'
+          example: []
         creationDate:
           type: string
           format: date-time
+          example: '2026-01-15T10:30:00Z'
         lastUpdateDate:
           type: string
           format: date-time
+          example: '2026-01-15T10:30:00Z'
     BomComponent:
       type: object
       properties:
         componentSequenceId:
           type: integer
           description: Component sequence identifier
+          example: '500123'
         componentItemId:
           type: integer
           description: Component item identifier
+          example: '500123'
         componentItemNumber:
           type: string
           description: Component item number
+          example: example_value
         itemDescription:
           type: string
           description: Component item description
+          example: example_value
         operationSeqNum:
           type: integer
           description: Operation sequence number where component is consumed
+          example: 10
         componentQuantity:
           type: number
           format: double
           description: Component quantity per assembly
+          example: 42.5
         componentYieldFactor:
           type: number
           format: double
           description: Component yield factor
+          example: 42.5
         effectivityDate:
           type: string
           format: date
           description: Effective date
+          example: '2026-01-15'
         disableDate:
           type: string
           format: date
           description: Disable date
+          example: '2026-01-15'
         wipSupplyType:
           type: integer
           description: >-
             WIP supply type (1=Push, 2=Assembly Pull, 3=Operation Pull,
             4=Bulk, 5=Supplier, 6=Phantom)
+          example: 10
         optional:
           type: integer
           description: Optional flag (1=Yes, 2=No)
+          example: 10
         quantityRelated:
           type: integer
           description: Quantity related flag
+          example: 10
     Routing:
       type: object
       properties:
         routingSequenceId:
           type: integer
           description: Routing sequence identifier
+          example: '500123'
         assemblyItemId:
           type: integer
           description: Assembly item identifier
+          example: '500123'
         assemblyItemNumber:
           type: string
           description: Assembly item number
+          example: example_value
         organizationId:
           type: integer
           description: Organization identifier
+          example: '500123'
         alternateDesignator:
           type: string
           description: Alternate routing designator
+          example: example_value
         routingType:
           type: integer
           description: Routing type (1=Manufacturing, 2=Engineering)
+          example: 10
         operations:
           type: array
           items:
             $ref: '#/components/schemas/RoutingOperation'
+          example: []
         creationDate:
           type: string
           format: date-time
+          example: '2026-01-15T10:30:00Z'
         lastUpdateDate:
           type: string
           format: date-time
+          example: '2026-01-15T10:30:00Z'
     RoutingOperation:
       type: object
       properties:
         operationSequenceId:
           type: integer
           description: Operation sequence identifier
+          example: '500123'
         operationSeqNum:
           type: integer
           description: Operation sequence number
+          example: 10
         operationDescription:
           type: string
           description: Operation description
+          example: example_value
         operationCode:
           type: string
           description: Standard operation code
+          example: example_value
         departmentId:
           type: integer
           description: Department identifier
+          example: '500123'
         departmentCode:
           type: string
           description: Department code
+          example: example_value
         effectivityDate:
           type: string
           format: date
+          example: '2026-01-15'
         disableDate:
           type: string
           format: date
+          example: '2026-01-15'
         minimumTransferQuantity:
           type: number
           format: double
+          example: 42.5
         countPointType:
           type: integer
           description: Count point type (1=Yes, 2=No, 3=Auto-charge)
+          example: 10
         resources:
           type: array
           items:
             $ref: '#/components/schemas/OperationResource'
+          example: []
     OperationResource:
       type: object
       properties:
         resourceSeqNum:
           type: integer
           description: Resource sequence number
+          example: 10
         resourceId:
           type: integer
           description: Resource identifier
+          example: '500123'
         resourceCode:
           type: string
           description: Resource code
+          example: example_value
         usageRateOrAmount:
           type: number
           format: double
           description: Resource usage rate or amount
+          example: 42.5
         basisType:
           type: integer
           description: Basis type (1=Item, 2=Lot, 3=Resource Units, 4=Resource Value)
+          example: 10
         scheduleFlag:
           type: integer
           description: Schedule flag
+          example: 10
         autochargeType:
           type: integer
           description: Auto-charge type
+          example: 10
     DiscreteJob:
       type: object
       properties:
         wipEntityId:
           type: integer
           description: WIP entity identifier
+          example: '500123'
         wipEntityName:
           type: string
           description: Job name/number
+          example: example_value
         organizationId:
           type: integer
           description: Organization identifier
+          example: '500123'
         primaryItemId:
           type: integer
           description: Primary assembly item identifier
+          example: '500123'
         primaryItemNumber:
           type: string
           description: Primary assembly item number
+          example: example_value
         statusType:
           type: integer
           description: >-
             Job status (1=Unreleased, 3=Released, 4=Complete, 5=Complete-No Charges,
             6=On Hold, 7=Cancelled, 12=Closed, 14=Pending Close, 15=Failed Close)
+          example: 10
         jobType:
           type: integer
           description: Job type (1=Standard, 3=Non-Standard)
+          example: 10
         startQuantity:
           type: number
           format: double
           description: Start quantity
+          example: 42.5
         quantityCompleted:
           type: number
           format: double
           description: Quantity completed
+          example: 42.5
         quantityScrapped:
           type: number
           format: double
           description: Quantity scrapped
+          example: 42.5
         netQuantity:
           type: number
           format: double
           description: Net quantity remaining
+          example: 42.5
         scheduledStartDate:
           type: string
           format: date-time
           description: Scheduled start date
+          example: '2026-01-15T10:30:00Z'
         scheduledCompletionDate:
           type: string
           format: date-time
           description: Scheduled completion date
+          example: '2026-01-15T10:30:00Z'
         dateReleased:
           type: string
           format: date-time
           description: Date released
+          example: '2026-01-15T10:30:00Z'
         dateCompleted:
           type: string
           format: date-time
           description: Date completed
+          example: '2026-01-15T10:30:00Z'
         dateClosed:
           type: string
           format: date-time
           description: Date closed
+          example: '2026-01-15T10:30:00Z'
         classCode:
           type: string
           description: Accounting class code
+          example: example_value
         bomRevision:
           type: string
           description: BOM revision
+          example: example_value
         routingRevision:
           type: string
           description: Routing revision
+          example: example_value
         description:
           type: string
           description: Job description
+          example: A sample description.
         firmPlannedFlag:
           type: integer
           description: Firm planned flag (1=Firm, 2=Not Firm)
+          example: 10
         creationDate:
           type: string
           format: date-time
+          example: '2026-01-15T10:30:00Z'
         lastUpdateDate:
           type: string
           format: date-time
+          example: '2026-01-15T10:30:00Z'
     DiscreteJobCreate:
       type: object
       required:
-        - primaryItemId
-        - organizationId
-        - startQuantity
-        - scheduledStartDate
-        - scheduledCompletionDate
-        - classCode
+      - primaryItemId
+      - organizationId
+      - startQuantity
+      - scheduledStartDate
+      - scheduledCompletionDate
+      - classCode
       properties:
         wipEntityName:
           type: string
+          example: example_value
         primaryItemId:
           type: integer
+          example: '500123'
         organizationId:
           type: integer
+          example: '500123'
         statusType:
           type: integer
           default: 1
+          example: 10
         jobType:
           type: integer
           default: 1
+          example: 10
         startQuantity:
           type: number
           format: double
+          example: 42.5
         scheduledStartDate:
           type: string
           format: date-time
+          example: '2026-01-15T10:30:00Z'
         scheduledCompletionDate:
           type: string
           format: date-time
+          example: '2026-01-15T10:30:00Z'
         classCode:
           type: string
+          example: example_value
         bomRevision:
           type: string
+          example: example_value
         routingRevision:
           type: string
+          example: example_value
         description:
           type: string
+          example: A sample description.
         firmPlannedFlag:
           type: integer
           default: 2
+          example: 10
     WipOperation:
       type: object
       properties:
         wipEntityId:
           type: integer
           description: WIP entity identifier
+          example: '500123'
         operationSeqNum:
           type: integer
           description: Operation sequence number
+          example: 10
         organizationId:
           type: integer
           description: Organization identifier
+          example: '500123'
         departmentId:
           type: integer
           description: Department identifier
+          example: '500123'
         departmentCode:
           type: string
+          example: example_value
         operationDescription:
           type: string
           description: Operation description
+          example: example_value
         scheduledQuantity:
           type: number
           format: double
+          example: 42.5
         quantityInQueue:
           type: number
           format: double
           description: Quantity in queue
+          example: 42.5
         quantityRunning:
           type: number
           format: double
           description: Quantity running
+          example: 42.5
         quantityCompleted:
           type: number
           format: double
           description: Quantity completed
+          example: 42.5
         quantityScrapped:
           type: number
           format: double
           description: Quantity scrapped
+          example: 42.5
         firstUnitStartDate:
           type: string
           format: date-time
+          example: '2026-01-15T10:30:00Z'
         lastUnitCompletionDate:
           type: string
           format: date-time
+          example: '2026-01-15T10:30:00Z'
         countPointType:
           type: integer
+          example: 10
         backflushFlag:
           type: integer
+          example: 10
     CompletionTransaction:
       type: object
       required:
-        - wipEntityId
-        - organizationId
-        - transactionQuantity
+      - wipEntityId
+      - organizationId
+      - transactionQuantity
       properties:
         wipEntityId:
           type: integer
           description: WIP entity identifier
+          example: '500123'
         organizationId:
           type: integer
           description: Organization identifier
+          example: '500123'
         transactionQuantity:
           type: number
           format: double
           description: Completion quantity
+          example: 42.5
         transactionUom:
           type: string
           description: Transaction unit of measure
+          example: example_value
         subinventoryCode:
           type: string
           description: Completion subinventory
+          example: example_value
         locatorId:
           type: integer
           description: Completion locator
+          example: '500123'
         transactionDate:
           type: string
           format: date-time
           description: Transaction date
+          example: '2026-01-15T10:30:00Z'
     MaterialTransaction:
       type: object
       required:
-        - wipEntityId
-        - organizationId
-        - inventoryItemId
-        - transactionQuantity
-        - transactionType
+      - wipEntityId
+      - organizationId
+      - inventoryItemId
+      - transactionQuantity
+      - transactionType
       properties:
         wipEntityId:
           type: integer
           description: WIP entity identifier
+          example: '500123'
         organizationId:
           type: integer
           description: Organization identifier
+          example: '500123'
         operationSeqNum:
           type: integer
           description: Operation sequence number
+          example: 10
         inventoryItemId:
           type: integer
           description: Inventory item identifier
+          example: '500123'
         transactionQuantity:
           type: number
           format: double
           description: Transaction quantity (positive=issue, negative=return)
+          example: 42.5
         transactionUom:
           type: string
           description: Transaction unit of measure
+          example: example_value
         transactionType:
           type: string
           description: Transaction type
           enum:
-            - WIP_ISSUE
-            - WIP_RETURN
+          - WIP_ISSUE
+          - WIP_RETURN
+          example: WIP_ISSUE
         subinventoryCode:
           type: string
           description: Source/destination subinventory
+          example: example_value
         locatorId:
           type: integer
           description: Locator identifier
+          example: '500123'
         transactionDate:
           type: string
           format: date-time
           description: Transaction date
+          example: '2026-01-15T10:30:00Z'
     ErrorResponse:
       type: object
       properties:
@@ -892,8 +1293,9 @@ components:
               type: string
             detail:
               type: string
+          example: example_value
 tags:
-  - name: Bills of Material
-    description: BOM and routing management
-  - name: Work in Process
-    description: WIP job, operation, and transaction management
+- name: Bills of Material
+  description: BOM and routing management
+- name: Work in Process
+  description: WIP job, operation, and transaction management

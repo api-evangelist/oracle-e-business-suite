@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "Phone",
+  "type": "object",
+  "properties": {
+    "phoneId": {
+      "type": "integer"
+    },
+    "phoneType": {
+      "type": "string"
+    },
+    "phoneNumber": {
+      "type": "string"
+    },
+    "dateFrom": {
+      "type": "string"
+    },
+    "dateTo": {
+      "type": "string"
+    }
+  }
+}

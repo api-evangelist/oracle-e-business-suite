@@ -1,0 +1,13 @@
+{
+  "billSequenceId": "500123",
+  "assemblyItemId": "500123",
+  "assemblyItemNumber": "example_value",
+  "organizationId": "500123",
+  "alternateDesignator": "example_value",
+  "assemblyType": 10,
+  "commonBillSequenceId": "500123",
+  "specificAssemblyComment": "example_value",
+  "components": [],
+  "creationDate": "example_value",
+  "lastUpdateDate": "example_value"
+}

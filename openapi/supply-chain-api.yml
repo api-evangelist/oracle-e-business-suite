@@ -16,78 +16,85 @@ info:
   x-logo:
     url: https://www.oracle.com/a/ocom/img/oracle-logo.svg
 servers:
-  - url: https://{instance}.oracle.com/webservices/rest
-    description: Oracle EBS ISG REST endpoint
-    variables:
-      instance:
-        default: ebs-host
-        description: The Oracle EBS instance hostname
+- url: https://{instance}.oracle.com/webservices/rest
+  description: Oracle EBS ISG REST endpoint
+  variables:
+    instance:
+      default: ebs-host
+      description: The Oracle EBS instance hostname
 paths:
   /po/purchaseOrders:
     get:
       operationId: getPurchaseOrders
-      summary: Retrieve purchase orders
+      summary: Retrieve Purchase Orders
       description: >-
         Retrieves purchase order records. Maps to the PO_HEADERS_ALL,
         PO_LINES_ALL, PO_LINE_LOCATIONS_ALL, and PO_DISTRIBUTIONS_ALL tables
         through the PO_PURCHASE_ORDERS_PKG PL/SQL API.
       tags:
-        - Purchasing
+      - Purchasing
       security:
-        - tokenAuth: []
-        - basicAuth: []
+      - tokenAuth: []
+      - basicAuth: []
       parameters:
-        - name: poHeaderId
-          in: query
-          description: Purchase order header identifier
-          schema:
-            type: integer
-        - name: segment1
-          in: query
-          description: Purchase order number
-          schema:
-            type: string
-        - name: vendorId
-          in: query
-          description: Supplier/vendor identifier
-          schema:
-            type: integer
-        - name: authorizationStatus
-          in: query
-          description: Authorization status
-          schema:
-            type: string
-            enum:
-              - APPROVED
-              - IN PROCESS
-              - INCOMPLETE
-              - PRE-APPROVED
-              - REJECTED
-              - REQUIRES REAPPROVAL
-        - name: creationDateFrom
-          in: query
-          description: Creation date range start (YYYY-MM-DD)
-          schema:
-            type: string
-            format: date
-        - name: creationDateTo
-          in: query
-          description: Creation date range end (YYYY-MM-DD)
-          schema:
-            type: string
-            format: date
-        - name: typeLookupCode
-          in: query
-          description: Purchase order type
-          schema:
-            type: string
-            enum:
-              - STANDARD
-              - BLANKET
-              - CONTRACT
-              - PLANNED
-        - $ref: '#/components/parameters/Limit'
-        - $ref: '#/components/parameters/Offset'
+      - name: poHeaderId
+        in: query
+        description: Purchase order header identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: segment1
+        in: query
+        description: Purchase order number
+        schema:
+          type: string
+        example: example_value
+      - name: vendorId
+        in: query
+        description: Supplier/vendor identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: authorizationStatus
+        in: query
+        description: Authorization status
+        schema:
+          type: string
+          enum:
+          - APPROVED
+          - IN PROCESS
+          - INCOMPLETE
+          - PRE-APPROVED
+          - REJECTED
+          - REQUIRES REAPPROVAL
+        example: APPROVED
+      - name: creationDateFrom
+        in: query
+        description: Creation date range start (YYYY-MM-DD)
+        schema:
+          type: string
+          format: date
+        example: '2026-01-15'
+      - name: creationDateTo
+        in: query
+        description: Creation date range end (YYYY-MM-DD)
+        schema:
+          type: string
+          format: date
+        example: '2026-01-15'
+      - name: typeLookupCode
+        in: query
+        description: Purchase order type
+        schema:
+          type: string
+          enum:
+          - STANDARD
+          - BLANKET
+          - CONTRACT
+          - PLANNED
+        example: STANDARD
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Offset'
       responses:
         '200':
           description: List of purchase orders
@@ -104,26 +111,83 @@ paths:
                     type: integer
                   hasMore:
                     type: boolean
+              examples:
+                Getpurchaseorders200Example:
+                  summary: Default getPurchaseOrders 200 response
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - poHeaderId: '500123'
+                      segment1: example_value
+                      typeLookupCode: STANDARD
+                      vendorId: '500123'
+                      vendorName: example_value
+                      vendorSiteId: '500123'
+                      currencyCode: example_value
+                      authorizationStatus: APPROVED
+                      approvedFlag: 'Y'
+                      closedCode: OPEN
+                      totalAmount: 42.5
+                      creationDate: '2026-01-15T10:30:00Z'
+                      approvedDate: '2026-01-15'
+                      buyerId: '500123'
+                      shipToLocationId: '500123'
+                      billToLocationId: '500123'
+                      termsId: '500123'
+                      description: A sample description.
+                      lines:
+                      - {}
+                      orgId: '500123'
+                      lastUpdateDate: '2026-01-15T10:30:00Z'
+                    totalCount: 10
+                    hasMore: true
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: createPurchaseOrder
-      summary: Create a purchase order
+      summary: Create a Purchase Order
       description: >-
         Creates a new purchase order. Uses the PO_HEADERS_INTERFACE,
         PO_LINES_INTERFACE, and PO_DISTRIBUTIONS_INTERFACE tables, then
         initiates the Import Standard Purchase Orders concurrent program.
       tags:
-        - Purchasing
+      - Purchasing
       security:
-        - tokenAuth: []
-        - basicAuth: []
+      - tokenAuth: []
+      - basicAuth: []
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/PurchaseOrderCreate'
+            examples:
+              CreatepurchaseorderRequestExample:
+                summary: Default createPurchaseOrder request
+                x-microcks-default: true
+                value:
+                  vendorId: '500123'
+                  vendorSiteId: '500123'
+                  currencyCode: example_value
+                  typeLookupCode: example_value
+                  description: A sample description.
+                  buyerId: '500123'
+                  shipToLocationId: '500123'
+                  billToLocationId: '500123'
+                  termsId: '500123'
+                  lines:
+                  - lineNum: 10
+                    itemId: '500123'
+                    itemDescription: example_value
+                    categoryId: '500123'
+                    quantity: 42.5
+                    unitMeasLookupCode: example_value
+                    unitPrice: 42.5
+                    needByDate: '2026-01-15'
+                    shipToOrganizationId: '500123'
       responses:
         '201':
           description: Purchase order created successfully
@@ -131,26 +195,70 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PurchaseOrder'
+              examples:
+                Createpurchaseorder201Example:
+                  summary: Default createPurchaseOrder 201 response
+                  x-microcks-default: true
+                  value:
+                    poHeaderId: '500123'
+                    segment1: example_value
+                    typeLookupCode: STANDARD
+                    vendorId: '500123'
+                    vendorName: example_value
+                    vendorSiteId: '500123'
+                    currencyCode: example_value
+                    authorizationStatus: APPROVED
+                    approvedFlag: 'Y'
+                    closedCode: OPEN
+                    totalAmount: 42.5
+                    creationDate: '2026-01-15T10:30:00Z'
+                    approvedDate: '2026-01-15'
+                    buyerId: '500123'
+                    shipToLocationId: '500123'
+                    billToLocationId: '500123'
+                    termsId: '500123'
+                    description: A sample description.
+                    lines:
+                    - poLineId: '500123'
+                      lineNum: 10
+                      lineType: example_value
+                      itemId: '500123'
+                      itemDescription: example_value
+                      categoryId: '500123'
+                      quantity: 42.5
+                      unitMeasLookupCode: example_value
+                      unitPrice: 42.5
+                      amount: 42.5
+                      needByDate: '2026-01-15'
+                      promisedDate: '2026-01-15'
+                      closedCode: example_value
+                      shipments: {}
+                    orgId: '500123'
+                    lastUpdateDate: '2026-01-15T10:30:00Z'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /po/purchaseOrders/{poHeaderId}:
     get:
       operationId: getPurchaseOrderById
-      summary: Retrieve a specific purchase order
+      summary: Retrieve a Specific Purchase Order
       description: Retrieves a purchase order by its header identifier.
       tags:
-        - Purchasing
+      - Purchasing
       security:
-        - tokenAuth: []
-        - basicAuth: []
+      - tokenAuth: []
+      - basicAuth: []
       parameters:
-        - name: poHeaderId
-          in: path
-          required: true
-          schema:
-            type: integer
+      - name: poHeaderId
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: '500123'
       responses:
         '200':
           description: Purchase order details
@@ -158,33 +266,89 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PurchaseOrder'
+              examples:
+                Getpurchaseorderbyid200Example:
+                  summary: Default getPurchaseOrderById 200 response
+                  x-microcks-default: true
+                  value:
+                    poHeaderId: '500123'
+                    segment1: example_value
+                    typeLookupCode: STANDARD
+                    vendorId: '500123'
+                    vendorName: example_value
+                    vendorSiteId: '500123'
+                    currencyCode: example_value
+                    authorizationStatus: APPROVED
+                    approvedFlag: 'Y'
+                    closedCode: OPEN
+                    totalAmount: 42.5
+                    creationDate: '2026-01-15T10:30:00Z'
+                    approvedDate: '2026-01-15'
+                    buyerId: '500123'
+                    shipToLocationId: '500123'
+                    billToLocationId: '500123'
+                    termsId: '500123'
+                    description: A sample description.
+                    lines:
+                    - poLineId: '500123'
+                      lineNum: 10
+                      lineType: example_value
+                      itemId: '500123'
+                      itemDescription: example_value
+                      categoryId: '500123'
+                      quantity: 42.5
+                      unitMeasLookupCode: example_value
+                      unitPrice: 42.5
+                      amount: 42.5
+                      needByDate: '2026-01-15'
+                      promisedDate: '2026-01-15'
+                      closedCode: example_value
+                      shipments: {}
+                    orgId: '500123'
+                    lastUpdateDate: '2026-01-15T10:30:00Z'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     put:
       operationId: updatePurchaseOrder
-      summary: Update a purchase order
+      summary: Update a Purchase Order
       description: >-
         Updates an existing purchase order. Uses the PO_CHANGE_API1_S
         PL/SQL package for modifications to approved purchase orders.
       tags:
-        - Purchasing
+      - Purchasing
       security:
-        - tokenAuth: []
-        - basicAuth: []
+      - tokenAuth: []
+      - basicAuth: []
       parameters:
-        - name: poHeaderId
-          in: path
-          required: true
-          schema:
-            type: integer
+      - name: poHeaderId
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: '500123'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/PurchaseOrderUpdate'
+            examples:
+              UpdatepurchaseorderRequestExample:
+                summary: Default updatePurchaseOrder request
+                x-microcks-default: true
+                value:
+                  description: A sample description.
+                  lines:
+                  - poLineId: '500123'
+                    quantity: 42.5
+                    unitPrice: 42.5
+                    needByDate: '2026-01-15'
+                    cancelFlag: true
       responses:
         '200':
           description: Purchase order updated successfully
@@ -192,48 +356,94 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PurchaseOrder'
+              examples:
+                Updatepurchaseorder200Example:
+                  summary: Default updatePurchaseOrder 200 response
+                  x-microcks-default: true
+                  value:
+                    poHeaderId: '500123'
+                    segment1: example_value
+                    typeLookupCode: STANDARD
+                    vendorId: '500123'
+                    vendorName: example_value
+                    vendorSiteId: '500123'
+                    currencyCode: example_value
+                    authorizationStatus: APPROVED
+                    approvedFlag: 'Y'
+                    closedCode: OPEN
+                    totalAmount: 42.5
+                    creationDate: '2026-01-15T10:30:00Z'
+                    approvedDate: '2026-01-15'
+                    buyerId: '500123'
+                    shipToLocationId: '500123'
+                    billToLocationId: '500123'
+                    termsId: '500123'
+                    description: A sample description.
+                    lines:
+                    - poLineId: '500123'
+                      lineNum: 10
+                      lineType: example_value
+                      itemId: '500123'
+                      itemDescription: example_value
+                      categoryId: '500123'
+                      quantity: 42.5
+                      unitMeasLookupCode: example_value
+                      unitPrice: 42.5
+                      amount: 42.5
+                      needByDate: '2026-01-15'
+                      promisedDate: '2026-01-15'
+                      closedCode: example_value
+                      shipments: {}
+                    orgId: '500123'
+                    lastUpdateDate: '2026-01-15T10:30:00Z'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /po/requisitions:
     get:
       operationId: getRequisitions
-      summary: Retrieve purchase requisitions
+      summary: Retrieve Purchase Requisitions
       description: >-
         Retrieves purchase requisition records. Maps to the
         PO_REQUISITION_HEADERS_ALL and PO_REQUISITION_LINES_ALL tables.
       tags:
-        - Purchasing
+      - Purchasing
       security:
-        - tokenAuth: []
-        - basicAuth: []
+      - tokenAuth: []
+      - basicAuth: []
       parameters:
-        - name: requisitionHeaderId
-          in: query
-          description: Requisition header identifier
-          schema:
-            type: integer
-        - name: requisitionNumber
-          in: query
-          description: Requisition number
-          schema:
-            type: string
-        - name: authorizationStatus
-          in: query
-          description: Authorization status
-          schema:
-            type: string
-            enum:
-              - APPROVED
-              - IN PROCESS
-              - INCOMPLETE
-              - REJECTED
-              - RETURNED
-        - $ref: '#/components/parameters/Limit'
-        - $ref: '#/components/parameters/Offset'
+      - name: requisitionHeaderId
+        in: query
+        description: Requisition header identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: requisitionNumber
+        in: query
+        description: Requisition number
+        schema:
+          type: string
+        example: example_value
+      - name: authorizationStatus
+        in: query
+        description: Authorization status
+        schema:
+          type: string
+          enum:
+          - APPROVED
+          - IN PROCESS
+          - INCOMPLETE
+          - REJECTED
+          - RETURNED
+        example: APPROVED
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Offset'
       responses:
         '200':
           description: List of requisitions
@@ -250,43 +460,69 @@ paths:
                     type: integer
                   hasMore:
                     type: boolean
+              examples:
+                Getrequisitions200Example:
+                  summary: Default getRequisitions 200 response
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - requisitionHeaderId: '500123'
+                      segment1: example_value
+                      typeLookupCode: PURCHASE
+                      authorizationStatus: example_value
+                      preparerId: '500123'
+                      description: A sample description.
+                      totalAmount: 42.5
+                      creationDate: '2026-01-15T10:30:00Z'
+                      lines:
+                      - {}
+                      orgId: '500123'
+                    totalCount: 10
+                    hasMore: true
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /po/suppliers:
     get:
       operationId: getSuppliers
-      summary: Retrieve suppliers
+      summary: Retrieve Suppliers
       description: >-
         Retrieves supplier/vendor records. Maps to the AP_SUPPLIERS and
         AP_SUPPLIER_SITES_ALL tables through the AP_VENDOR_PUB_PKG API.
       tags:
-        - Purchasing
+      - Purchasing
       security:
-        - tokenAuth: []
-        - basicAuth: []
+      - tokenAuth: []
+      - basicAuth: []
       parameters:
-        - name: vendorId
-          in: query
-          description: Vendor identifier
-          schema:
-            type: integer
-        - name: vendorName
-          in: query
-          description: Vendor name (supports wildcards)
-          schema:
-            type: string
-        - name: segment1
-          in: query
-          description: Vendor number
-          schema:
-            type: string
-        - name: vendorType
-          in: query
-          description: Vendor type
-          schema:
-            type: string
-        - $ref: '#/components/parameters/Limit'
-        - $ref: '#/components/parameters/Offset'
+      - name: vendorId
+        in: query
+        description: Vendor identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: vendorName
+        in: query
+        description: Vendor name (supports wildcards)
+        schema:
+          type: string
+        example: example_value
+      - name: segment1
+        in: query
+        description: Vendor number
+        schema:
+          type: string
+        example: example_value
+      - name: vendorType
+        in: query
+        description: Vendor type
+        schema:
+          type: string
+        example: example_value
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Offset'
       responses:
         '200':
           description: List of suppliers
@@ -303,61 +539,94 @@ paths:
                     type: integer
                   hasMore:
                     type: boolean
+              examples:
+                Getsuppliers200Example:
+                  summary: Default getSuppliers 200 response
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - vendorId: '500123'
+                      vendorName: example_value
+                      segment1: example_value
+                      vendorType: example_value
+                      taxPayerId: '500123'
+                      standardIndustryClass: example_value
+                      paymentCurrencyCode: example_value
+                      paymentMethodCode: example_value
+                      termsId: '500123'
+                      enabled: true
+                      startDateActive: '2026-01-15'
+                      endDateActive: '2026-01-15'
+                      sites:
+                      - {}
+                      creationDate: '2026-01-15T10:30:00Z'
+                      lastUpdateDate: '2026-01-15T10:30:00Z'
+                    totalCount: 10
+                    hasMore: true
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /oe/salesOrders:
     get:
       operationId: getSalesOrders
-      summary: Retrieve sales orders
+      summary: Retrieve Sales Orders
       description: >-
         Retrieves Order Management sales order records. Maps to the
         OE_ORDER_HEADERS_ALL and OE_ORDER_LINES_ALL tables through the
         OE_ORDER_PUB PL/SQL API.
       tags:
-        - Order Management
+      - Order Management
       security:
-        - tokenAuth: []
-        - basicAuth: []
+      - tokenAuth: []
+      - basicAuth: []
       parameters:
-        - name: headerId
-          in: query
-          description: Order header identifier
-          schema:
-            type: integer
-        - name: orderNumber
-          in: query
-          description: Order number
-          schema:
-            type: integer
-        - name: customerId
-          in: query
-          description: Customer identifier (sold-to)
-          schema:
-            type: integer
-        - name: flowStatusCode
-          in: query
-          description: Order flow status
-          schema:
-            type: string
-            enum:
-              - ENTERED
-              - BOOKED
-              - CLOSED
-              - CANCELLED
-        - name: orderedDateFrom
-          in: query
-          description: Order date range start (YYYY-MM-DD)
-          schema:
-            type: string
-            format: date
-        - name: orderedDateTo
-          in: query
-          description: Order date range end (YYYY-MM-DD)
-          schema:
-            type: string
-            format: date
-        - $ref: '#/components/parameters/Limit'
-        - $ref: '#/components/parameters/Offset'
+      - name: headerId
+        in: query
+        description: Order header identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: orderNumber
+        in: query
+        description: Order number
+        schema:
+          type: integer
+        example: 10
+      - name: customerId
+        in: query
+        description: Customer identifier (sold-to)
+        schema:
+          type: integer
+        example: '500123'
+      - name: flowStatusCode
+        in: query
+        description: Order flow status
+        schema:
+          type: string
+          enum:
+          - ENTERED
+          - BOOKED
+          - CLOSED
+          - CANCELLED
+        example: ENTERED
+      - name: orderedDateFrom
+        in: query
+        description: Order date range start (YYYY-MM-DD)
+        schema:
+          type: string
+          format: date
+        example: '2026-01-15'
+      - name: orderedDateTo
+        in: query
+        description: Order date range end (YYYY-MM-DD)
+        schema:
+          type: string
+          format: date
+        example: '2026-01-15'
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Offset'
       responses:
         '200':
           description: List of sales orders
@@ -374,25 +643,73 @@ paths:
                     type: integer
                   hasMore:
                     type: boolean
+              examples:
+                Getsalesorders200Example:
+                  summary: Default getSalesOrders 200 response
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - headerId: '500123'
+                      orderNumber: 10
+                      orderedDate: '2026-01-15'
+                      orderTypeId: '500123'
+                      orderTypeName: example_value
+                      soldToOrgId: '500123'
+                      customerName: example_value
+                      shipToOrgId: '500123'
+                      invoiceToOrgId: '500123'
+                      transactionalCurrCode: example_value
+                      flowStatusCode: ENTERED
+                      bookedFlag: 'Y'
+                      totalAmount: 42.5
+                      salesrepId: '500123'
+                      lines:
+                      - {}
+                      orgId: '500123'
+                      creationDate: '2026-01-15T10:30:00Z'
+                      lastUpdateDate: '2026-01-15T10:30:00Z'
+                    totalCount: 10
+                    hasMore: true
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: createSalesOrder
-      summary: Create a sales order
+      summary: Create a Sales Order
       description: >-
         Creates a new sales order using the OE_ORDER_PUB.PROCESS_ORDER
         PL/SQL API or the Order Import open interface.
       tags:
-        - Order Management
+      - Order Management
       security:
-        - tokenAuth: []
-        - basicAuth: []
+      - tokenAuth: []
+      - basicAuth: []
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/SalesOrderCreate'
+            examples:
+              CreatesalesorderRequestExample:
+                summary: Default createSalesOrder request
+                x-microcks-default: true
+                value:
+                  soldToOrgId: '500123'
+                  orderTypeId: '500123'
+                  orderedDate: '2026-01-15'
+                  transactionalCurrCode: example_value
+                  shipToOrgId: '500123'
+                  invoiceToOrgId: '500123'
+                  salesrepId: '500123'
+                  lines:
+                  - inventoryItemId: '500123'
+                    orderedQuantity: 42.5
+                    orderQuantityUom: example_value
+                    unitSellingPrice: 42.5
+                    scheduleShipDate: '2026-01-15'
       responses:
         '201':
           description: Sales order created successfully
@@ -400,45 +717,88 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SalesOrder'
+              examples:
+                Createsalesorder201Example:
+                  summary: Default createSalesOrder 201 response
+                  x-microcks-default: true
+                  value:
+                    headerId: '500123'
+                    orderNumber: 10
+                    orderedDate: '2026-01-15'
+                    orderTypeId: '500123'
+                    orderTypeName: example_value
+                    soldToOrgId: '500123'
+                    customerName: example_value
+                    shipToOrgId: '500123'
+                    invoiceToOrgId: '500123'
+                    transactionalCurrCode: example_value
+                    flowStatusCode: ENTERED
+                    bookedFlag: 'Y'
+                    totalAmount: 42.5
+                    salesrepId: '500123'
+                    lines:
+                    - lineId: '500123'
+                      lineNumber: 10
+                      orderedItem: example_value
+                      inventoryItemId: '500123'
+                      orderedQuantity: 42.5
+                      orderQuantityUom: example_value
+                      unitSellingPrice: 42.5
+                      unitListPrice: 42.5
+                      lineAmount: 42.5
+                      scheduleShipDate: '2026-01-15'
+                      actualShipDate: '2026-01-15'
+                      flowStatusCode: example_value
+                      shippedQuantity: 42.5
+                    orgId: '500123'
+                    creationDate: '2026-01-15T10:30:00Z'
+                    lastUpdateDate: '2026-01-15T10:30:00Z'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /inv/items:
     get:
       operationId: getInventoryItems
-      summary: Retrieve inventory items
+      summary: Retrieve Inventory Items
       description: >-
         Retrieves Inventory item master records. Maps to the
         MTL_SYSTEM_ITEMS_B table through the Inventory Items API.
       tags:
-        - Inventory
+      - Inventory
       security:
-        - tokenAuth: []
-        - basicAuth: []
+      - tokenAuth: []
+      - basicAuth: []
       parameters:
-        - name: inventoryItemId
-          in: query
-          description: Inventory item identifier
-          schema:
-            type: integer
-        - name: segment1
-          in: query
-          description: Item number
-          schema:
-            type: string
-        - name: organizationId
-          in: query
-          description: Inventory organization identifier
-          schema:
-            type: integer
-        - name: itemType
-          in: query
-          description: Item type
-          schema:
-            type: string
-        - $ref: '#/components/parameters/Limit'
-        - $ref: '#/components/parameters/Offset'
+      - name: inventoryItemId
+        in: query
+        description: Inventory item identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: segment1
+        in: query
+        description: Item number
+        schema:
+          type: string
+        example: example_value
+      - name: organizationId
+        in: query
+        description: Inventory organization identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: itemType
+        in: query
+        description: Item type
+        schema:
+          type: string
+        example: example_value
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Offset'
       responses:
         '200':
           description: List of inventory items
@@ -455,38 +815,70 @@ paths:
                     type: integer
                   hasMore:
                     type: boolean
+              examples:
+                Getinventoryitems200Example:
+                  summary: Default getInventoryItems 200 response
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - inventoryItemId: '500123'
+                      segment1: example_value
+                      description: A sample description.
+                      longDescription: example_value
+                      primaryUomCode: example_value
+                      itemType: example_value
+                      inventoryItemStatusCode: example_value
+                      organizationId: '500123'
+                      weightUomCode: example_value
+                      unitWeight: 42.5
+                      volumeUomCode: example_value
+                      unitVolume: 42.5
+                      listPrice: 42.5
+                      purchasingEnabledFlag: 'Y'
+                      customerOrderEnabledFlag: 'Y'
+                      internalOrderEnabledFlag: 'Y'
+                      creationDate: '2026-01-15T10:30:00Z'
+                      lastUpdateDate: '2026-01-15T10:30:00Z'
+                    totalCount: 10
+                    hasMore: true
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /inv/onhandQuantities:
     get:
       operationId: getOnhandQuantities
-      summary: Retrieve on-hand inventory quantities
+      summary: Retrieve On-hand Inventory Quantities
       description: >-
         Retrieves on-hand quantity information for inventory items. Maps to
         the MTL_ONHAND_QUANTITIES_DETAIL table.
       tags:
-        - Inventory
+      - Inventory
       security:
-        - tokenAuth: []
-        - basicAuth: []
+      - tokenAuth: []
+      - basicAuth: []
       parameters:
-        - name: inventoryItemId
-          in: query
-          description: Inventory item identifier
-          schema:
-            type: integer
-        - name: organizationId
-          in: query
-          description: Inventory organization identifier
-          schema:
-            type: integer
-        - name: subinventoryCode
-          in: query
-          description: Subinventory code
-          schema:
-            type: string
-        - $ref: '#/components/parameters/Limit'
-        - $ref: '#/components/parameters/Offset'
+      - name: inventoryItemId
+        in: query
+        description: Inventory item identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: organizationId
+        in: query
+        description: Inventory organization identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: subinventoryCode
+        in: query
+        description: Subinventory code
+        schema:
+          type: string
+        example: example_value
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Offset'
       responses:
         '200':
           description: On-hand quantity records
@@ -503,45 +895,68 @@ paths:
                     type: integer
                   hasMore:
                     type: boolean
+              examples:
+                Getonhandquantities200Example:
+                  summary: Default getOnhandQuantities 200 response
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - inventoryItemId: '500123'
+                      organizationId: '500123'
+                      subinventoryCode: example_value
+                      locatorId: '500123'
+                      lotNumber: example_value
+                      serialNumber: example_value
+                      transactionQuantity: 42.5
+                      transactionUomCode: example_value
+                      lastUpdateDate: '2026-01-15T10:30:00Z'
+                    totalCount: 10
+                    hasMore: true
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /wsh/deliveries:
     get:
       operationId: getDeliveries
-      summary: Retrieve shipping deliveries
+      summary: Retrieve Shipping Deliveries
       description: >-
         Retrieves shipping delivery records from Oracle Shipping Execution.
         Maps to the WSH_NEW_DELIVERIES and WSH_DELIVERY_DETAILS tables.
       tags:
-        - Shipping
+      - Shipping
       security:
-        - tokenAuth: []
-        - basicAuth: []
+      - tokenAuth: []
+      - basicAuth: []
       parameters:
-        - name: deliveryId
-          in: query
-          description: Delivery identifier
-          schema:
-            type: integer
-        - name: deliveryName
-          in: query
-          description: Delivery name/number
-          schema:
-            type: string
-        - name: statusCode
-          in: query
-          description: Delivery status
-          schema:
-            type: string
-            enum:
-              - OP
-              - PA
-              - SA
-              - CO
-              - IT
-              - CL
-        - $ref: '#/components/parameters/Limit'
-        - $ref: '#/components/parameters/Offset'
+      - name: deliveryId
+        in: query
+        description: Delivery identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: deliveryName
+        in: query
+        description: Delivery name/number
+        schema:
+          type: string
+        example: example_value
+      - name: statusCode
+        in: query
+        description: Delivery status
+        schema:
+          type: string
+          enum:
+          - OP
+          - PA
+          - SA
+          - CO
+          - IT
+          - CL
+        example: OP
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Offset'
       responses:
         '200':
           description: List of shipping deliveries
@@ -558,8 +973,36 @@ paths:
                     type: integer
                   hasMore:
                     type: boolean
+              examples:
+                Getdeliveries200Example:
+                  summary: Default getDeliveries 200 response
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - deliveryId: '500123'
+                      name: Example Title
+                      statusCode: OP
+                      initialPickupDate: '2026-01-15'
+                      ultimateDropoffDate: '2026-01-15'
+                      customerId: '500123'
+                      shipToLocationId: '500123'
+                      carrierId: '500123'
+                      shipMethodCode: example_value
+                      waybill: example_value
+                      grossWeight: 42.5
+                      weightUomCode: example_value
+                      volume: 42.5
+                      volumeUomCode: example_value
+                      organizationId: '500123'
+                      creationDate: '2026-01-15T10:30:00Z'
+                      lastUpdateDate: '2026-01-15T10:30:00Z'
+                    totalCount: 10
+                    hasMore: true
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
 components:
   securitySchemes:
     basicAuth:
@@ -613,213 +1056,267 @@ components:
         poHeaderId:
           type: integer
           description: Purchase order header identifier
+          example: '500123'
         segment1:
           type: string
           description: Purchase order number
+          example: example_value
         typeLookupCode:
           type: string
           description: Purchase order type
           enum:
-            - STANDARD
-            - BLANKET
-            - CONTRACT
-            - PLANNED
+          - STANDARD
+          - BLANKET
+          - CONTRACT
+          - PLANNED
+          example: STANDARD
         vendorId:
           type: integer
           description: Supplier/vendor identifier
+          example: '500123'
         vendorName:
           type: string
           description: Supplier/vendor name
+          example: example_value
         vendorSiteId:
           type: integer
           description: Vendor site identifier
+          example: '500123'
         currencyCode:
           type: string
           description: Currency code (ISO 4217)
+          example: example_value
         authorizationStatus:
           type: string
           description: Authorization status
           enum:
-            - APPROVED
-            - IN PROCESS
-            - INCOMPLETE
-            - PRE-APPROVED
-            - REJECTED
-            - REQUIRES REAPPROVAL
+          - APPROVED
+          - IN PROCESS
+          - INCOMPLETE
+          - PRE-APPROVED
+          - REJECTED
+          - REQUIRES REAPPROVAL
+          example: APPROVED
         approvedFlag:
           type: string
           description: Approved flag
           enum:
-            - 'Y'
-            - 'N'
+          - 'Y'
+          - 'N'
+          example: 'Y'
         closedCode:
           type: string
           description: Close status
           enum:
-            - OPEN
-            - CLOSED
-            - FINALLY CLOSED
-            - CLOSED FOR RECEIVING
-            - CLOSED FOR INVOICE
+          - OPEN
+          - CLOSED
+          - FINALLY CLOSED
+          - CLOSED FOR RECEIVING
+          - CLOSED FOR INVOICE
+          example: OPEN
         totalAmount:
           type: number
           format: double
           description: Total purchase order amount
+          example: 42.5
         creationDate:
           type: string
           format: date-time
           description: Creation date
+          example: '2026-01-15T10:30:00Z'
         approvedDate:
           type: string
           format: date
           description: Approval date
+          example: '2026-01-15'
         buyerId:
           type: integer
           description: Buyer employee identifier
+          example: '500123'
         shipToLocationId:
           type: integer
           description: Ship-to location identifier
+          example: '500123'
         billToLocationId:
           type: integer
           description: Bill-to location identifier
+          example: '500123'
         termsId:
           type: integer
           description: Payment terms identifier
+          example: '500123'
         description:
           type: string
           description: Purchase order description
+          example: A sample description.
         lines:
           type: array
           items:
             $ref: '#/components/schemas/PurchaseOrderLine'
+          example: []
         orgId:
           type: integer
           description: Operating unit identifier
+          example: '500123'
         lastUpdateDate:
           type: string
           format: date-time
+          example: '2026-01-15T10:30:00Z'
     PurchaseOrderLine:
       type: object
       properties:
         poLineId:
           type: integer
           description: Purchase order line identifier
+          example: '500123'
         lineNum:
           type: integer
           description: Line number
+          example: 10
         lineType:
           type: string
           description: Line type
+          example: example_value
         itemId:
           type: integer
           description: Inventory item identifier
+          example: '500123'
         itemDescription:
           type: string
           description: Item description
+          example: example_value
         categoryId:
           type: integer
           description: Item category identifier
+          example: '500123'
         quantity:
           type: number
           format: double
           description: Ordered quantity
+          example: 42.5
         unitMeasLookupCode:
           type: string
           description: Unit of measure
+          example: example_value
         unitPrice:
           type: number
           format: double
           description: Unit price
+          example: 42.5
         amount:
           type: number
           format: double
           description: Line amount
+          example: 42.5
         needByDate:
           type: string
           format: date
           description: Need-by date
+          example: '2026-01-15'
         promisedDate:
           type: string
           format: date
           description: Promised date
+          example: '2026-01-15'
         closedCode:
           type: string
           description: Line close status
+          example: example_value
         shipments:
           type: array
           items:
             $ref: '#/components/schemas/PurchaseOrderShipment'
+          example: []
     PurchaseOrderShipment:
       type: object
       properties:
         lineLocationId:
           type: integer
           description: Line location (shipment) identifier
+          example: '500123'
         shipmentNum:
           type: integer
           description: Shipment number
+          example: 10
         quantity:
           type: number
           format: double
           description: Shipment quantity
+          example: 42.5
         quantityReceived:
           type: number
           format: double
           description: Quantity received
+          example: 42.5
         quantityBilled:
           type: number
           format: double
           description: Quantity billed
+          example: 42.5
         needByDate:
           type: string
           format: date
+          example: '2026-01-15'
         promisedDate:
           type: string
           format: date
+          example: '2026-01-15'
         shipToOrganizationId:
           type: integer
           description: Ship-to organization identifier
+          example: '500123'
         shipToLocationId:
           type: integer
           description: Ship-to location identifier
+          example: '500123'
         closedCode:
           type: string
           description: Shipment close status
+          example: example_value
     PurchaseOrderCreate:
       type: object
       required:
-        - vendorId
-        - vendorSiteId
-        - currencyCode
-        - lines
+      - vendorId
+      - vendorSiteId
+      - currencyCode
+      - lines
       properties:
         vendorId:
           type: integer
+          example: '500123'
         vendorSiteId:
           type: integer
+          example: '500123'
         currencyCode:
           type: string
+          example: example_value
         typeLookupCode:
           type: string
           default: STANDARD
+          example: example_value
         description:
           type: string
+          example: A sample description.
         buyerId:
           type: integer
+          example: '500123'
         shipToLocationId:
           type: integer
+          example: '500123'
         billToLocationId:
           type: integer
+          example: '500123'
         termsId:
           type: integer
+          example: '500123'
         lines:
           type: array
           items:
             type: object
             required:
-              - itemDescription
-              - quantity
-              - unitPrice
+            - itemDescription
+            - quantity
+            - unitPrice
             properties:
               lineNum:
                 type: integer
@@ -842,11 +1339,13 @@ components:
                 format: date
               shipToOrganizationId:
                 type: integer
+          example: []
     PurchaseOrderUpdate:
       type: object
       properties:
         description:
           type: string
+          example: A sample description.
         lines:
           type: array
           items:
@@ -865,292 +1364,377 @@ components:
                 format: date
               cancelFlag:
                 type: boolean
+          example: []
     Requisition:
       type: object
       properties:
         requisitionHeaderId:
           type: integer
           description: Requisition header identifier
+          example: '500123'
         segment1:
           type: string
           description: Requisition number
+          example: example_value
         typeLookupCode:
           type: string
           description: Requisition type
           enum:
-            - PURCHASE
-            - INTERNAL
+          - PURCHASE
+          - INTERNAL
+          example: PURCHASE
         authorizationStatus:
           type: string
           description: Authorization status
+          example: example_value
         preparerId:
           type: integer
           description: Preparer identifier
+          example: '500123'
         description:
           type: string
           description: Requisition description
+          example: A sample description.
         totalAmount:
           type: number
           format: double
+          example: 42.5
         creationDate:
           type: string
           format: date-time
+          example: '2026-01-15T10:30:00Z'
         lines:
           type: array
           items:
             $ref: '#/components/schemas/RequisitionLine'
+          example: []
         orgId:
           type: integer
+          example: '500123'
     RequisitionLine:
       type: object
       properties:
         requisitionLineId:
           type: integer
+          example: '500123'
         lineNum:
           type: integer
+          example: 10
         itemId:
           type: integer
+          example: '500123'
         itemDescription:
           type: string
+          example: example_value
         categoryId:
           type: integer
+          example: '500123'
         quantity:
           type: number
           format: double
+          example: 42.5
         unitMeasLookupCode:
           type: string
+          example: example_value
         unitPrice:
           type: number
           format: double
+          example: 42.5
         needByDate:
           type: string
           format: date
+          example: '2026-01-15'
         suggestedVendorId:
           type: integer
+          example: '500123'
     Supplier:
       type: object
       properties:
         vendorId:
           type: integer
           description: Vendor identifier
+          example: '500123'
         vendorName:
           type: string
           description: Vendor name
+          example: example_value
         segment1:
           type: string
           description: Vendor number
+          example: example_value
         vendorType:
           type: string
           description: Vendor type lookup code
+          example: example_value
         taxPayerId:
           type: string
           description: Tax payer identification number
+          example: '500123'
         standardIndustryClass:
           type: string
           description: Standard industry classification
+          example: example_value
         paymentCurrencyCode:
           type: string
           description: Default payment currency
+          example: example_value
         paymentMethodCode:
           type: string
           description: Default payment method
+          example: example_value
         termsId:
           type: integer
           description: Default payment terms identifier
+          example: '500123'
         enabled:
           type: boolean
           description: Whether the vendor is active
+          example: true
         startDateActive:
           type: string
           format: date
+          example: '2026-01-15'
         endDateActive:
           type: string
           format: date
+          example: '2026-01-15'
         sites:
           type: array
           items:
             $ref: '#/components/schemas/SupplierSite'
+          example: []
         creationDate:
           type: string
           format: date-time
+          example: '2026-01-15T10:30:00Z'
         lastUpdateDate:
           type: string
           format: date-time
+          example: '2026-01-15T10:30:00Z'
     SupplierSite:
       type: object
       properties:
         vendorSiteId:
           type: integer
           description: Vendor site identifier
+          example: '500123'
         vendorSiteCode:
           type: string
           description: Vendor site code
+          example: example_value
         addressLine1:
           type: string
+          example: example_value
         addressLine2:
           type: string
+          example: example_value
         city:
           type: string
+          example: example_value
         state:
           type: string
+          example: example_value
         zip:
           type: string
+          example: example_value
         country:
           type: string
+          example: example_value
         purchasingSiteFlag:
           type: string
           enum:
-            - 'Y'
-            - 'N'
+          - 'Y'
+          - 'N'
+          example: 'Y'
         paymentSiteFlag:
           type: string
           enum:
-            - 'Y'
-            - 'N'
+          - 'Y'
+          - 'N'
+          example: 'Y'
         orgId:
           type: integer
+          example: '500123'
     SalesOrder:
       type: object
       properties:
         headerId:
           type: integer
           description: Order header identifier
+          example: '500123'
         orderNumber:
           type: integer
           description: Order number
+          example: 10
         orderedDate:
           type: string
           format: date
           description: Order date
+          example: '2026-01-15'
         orderTypeId:
           type: integer
           description: Order type identifier
+          example: '500123'
         orderTypeName:
           type: string
           description: Order type name
+          example: example_value
         soldToOrgId:
           type: integer
           description: Customer identifier (sold-to)
+          example: '500123'
         customerName:
           type: string
           description: Customer name
+          example: example_value
         shipToOrgId:
           type: integer
           description: Ship-to organization identifier
+          example: '500123'
         invoiceToOrgId:
           type: integer
           description: Bill-to organization identifier
+          example: '500123'
         transactionalCurrCode:
           type: string
           description: Transaction currency code (ISO 4217)
+          example: example_value
         flowStatusCode:
           type: string
           description: Order flow status
           enum:
-            - ENTERED
-            - BOOKED
-            - CLOSED
-            - CANCELLED
+          - ENTERED
+          - BOOKED
+          - CLOSED
+          - CANCELLED
+          example: ENTERED
         bookedFlag:
           type: string
           enum:
-            - 'Y'
-            - 'N'
+          - 'Y'
+          - 'N'
+          example: 'Y'
         totalAmount:
           type: number
           format: double
           description: Order total amount
+          example: 42.5
         salesrepId:
           type: integer
           description: Salesperson identifier
+          example: '500123'
         lines:
           type: array
           items:
             $ref: '#/components/schemas/SalesOrderLine'
+          example: []
         orgId:
           type: integer
+          example: '500123'
         creationDate:
           type: string
           format: date-time
+          example: '2026-01-15T10:30:00Z'
         lastUpdateDate:
           type: string
           format: date-time
+          example: '2026-01-15T10:30:00Z'
     SalesOrderLine:
       type: object
       properties:
         lineId:
           type: integer
           description: Line identifier
+          example: '500123'
         lineNumber:
           type: integer
           description: Line number
+          example: 10
         orderedItem:
           type: string
           description: Ordered item number
+          example: example_value
         inventoryItemId:
           type: integer
           description: Inventory item identifier
+          example: '500123'
         orderedQuantity:
           type: number
           format: double
           description: Ordered quantity
+          example: 42.5
         orderQuantityUom:
           type: string
           description: Unit of measure
+          example: example_value
         unitSellingPrice:
           type: number
           format: double
           description: Unit selling price
+          example: 42.5
         unitListPrice:
           type: number
           format: double
           description: Unit list price
+          example: 42.5
         lineAmount:
           type: number
           format: double
+          example: 42.5
         scheduleShipDate:
           type: string
           format: date
           description: Scheduled ship date
+          example: '2026-01-15'
         actualShipDate:
           type: string
           format: date
           description: Actual ship date
+          example: '2026-01-15'
         flowStatusCode:
           type: string
           description: Line flow status
+          example: example_value
         shippedQuantity:
           type: number
           format: double
+          example: 42.5
     SalesOrderCreate:
       type: object
       required:
-        - soldToOrgId
-        - orderTypeId
-        - lines
+      - soldToOrgId
+      - orderTypeId
+      - lines
       properties:
         soldToOrgId:
           type: integer
+          example: '500123'
         orderTypeId:
           type: integer
+          example: '500123'
         orderedDate:
           type: string
           format: date
+          example: '2026-01-15'
         transactionalCurrCode:
           type: string
+          example: example_value
         shipToOrgId:
           type: integer
+          example: '500123'
         invoiceToOrgId:
           type: integer
+          example: '500123'
         salesrepId:
           type: integer
+          example: '500123'
         lines:
           type: array
           items:
             type: object
             required:
-              - inventoryItemId
-              - orderedQuantity
+            - inventoryItemId
+            - orderedQuantity
             properties:
               inventoryItemId:
                 type: integer
@@ -1165,167 +1749,212 @@ components:
               scheduleShipDate:
                 type: string
                 format: date
+          example: []
     InventoryItem:
       type: object
       properties:
         inventoryItemId:
           type: integer
           description: Inventory item identifier
+          example: '500123'
         segment1:
           type: string
           description: Item number
+          example: example_value
         description:
           type: string
           description: Item description
+          example: A sample description.
         longDescription:
           type: string
           description: Extended item description
+          example: example_value
         primaryUomCode:
           type: string
           description: Primary unit of measure
+          example: example_value
         itemType:
           type: string
           description: Item type
+          example: example_value
         inventoryItemStatusCode:
           type: string
           description: Item status code
+          example: example_value
         organizationId:
           type: integer
           description: Inventory organization identifier
+          example: '500123'
         weightUomCode:
           type: string
           description: Weight unit of measure
+          example: example_value
         unitWeight:
           type: number
           format: double
           description: Unit weight
+          example: 42.5
         volumeUomCode:
           type: string
           description: Volume unit of measure
+          example: example_value
         unitVolume:
           type: number
           format: double
           description: Unit volume
+          example: 42.5
         listPrice:
           type: number
           format: double
           description: Item list price
+          example: 42.5
         purchasingEnabledFlag:
           type: string
           enum:
-            - 'Y'
-            - 'N'
+          - 'Y'
+          - 'N'
+          example: 'Y'
         customerOrderEnabledFlag:
           type: string
           enum:
-            - 'Y'
-            - 'N'
+          - 'Y'
+          - 'N'
+          example: 'Y'
         internalOrderEnabledFlag:
           type: string
           enum:
-            - 'Y'
-            - 'N'
+          - 'Y'
+          - 'N'
+          example: 'Y'
         creationDate:
           type: string
           format: date-time
+          example: '2026-01-15T10:30:00Z'
         lastUpdateDate:
           type: string
           format: date-time
+          example: '2026-01-15T10:30:00Z'
     OnhandQuantity:
       type: object
       properties:
         inventoryItemId:
           type: integer
           description: Inventory item identifier
+          example: '500123'
         organizationId:
           type: integer
           description: Organization identifier
+          example: '500123'
         subinventoryCode:
           type: string
           description: Subinventory code
+          example: example_value
         locatorId:
           type: integer
           description: Locator identifier
+          example: '500123'
         lotNumber:
           type: string
           description: Lot number
+          example: example_value
         serialNumber:
           type: string
           description: Serial number
+          example: example_value
         transactionQuantity:
           type: number
           format: double
           description: On-hand quantity
+          example: 42.5
         transactionUomCode:
           type: string
           description: Unit of measure code
+          example: example_value
         lastUpdateDate:
           type: string
           format: date-time
+          example: '2026-01-15T10:30:00Z'
     Delivery:
       type: object
       properties:
         deliveryId:
           type: integer
           description: Delivery identifier
+          example: '500123'
         name:
           type: string
           description: Delivery name/number
+          example: Example Title
         statusCode:
           type: string
           description: Delivery status code
           enum:
-            - OP
-            - PA
-            - SA
-            - CO
-            - IT
-            - CL
+          - OP
+          - PA
+          - SA
+          - CO
+          - IT
+          - CL
+          example: OP
         initialPickupDate:
           type: string
           format: date
           description: Initial pickup date
+          example: '2026-01-15'
         ultimateDropoffDate:
           type: string
           format: date
           description: Ultimate dropoff date
+          example: '2026-01-15'
         customerId:
           type: integer
           description: Customer identifier
+          example: '500123'
         shipToLocationId:
           type: integer
           description: Ship-to location identifier
+          example: '500123'
         carrierId:
           type: integer
           description: Carrier identifier
+          example: '500123'
         shipMethodCode:
           type: string
           description: Ship method code
+          example: example_value
         waybill:
           type: string
           description: Waybill/tracking number
+          example: example_value
         grossWeight:
           type: number
           format: double
           description: Gross weight
+          example: 42.5
         weightUomCode:
           type: string
           description: Weight unit of measure
+          example: example_value
         volume:
           type: number
           format: double
           description: Volume
+          example: 42.5
         volumeUomCode:
           type: string
           description: Volume unit of measure
+          example: example_value
         organizationId:
           type: integer
+          example: '500123'
         creationDate:
           type: string
           format: date-time
+          example: '2026-01-15T10:30:00Z'
         lastUpdateDate:
           type: string
           format: date-time
+          example: '2026-01-15T10:30:00Z'
     ErrorResponse:
       type: object
       properties:
@@ -1338,12 +1967,13 @@ components:
               type: string
             detail:
               type: string
+          example: example_value
 tags:
-  - name: Purchasing
-    description: Purchase order, requisition, and supplier management
-  - name: Order Management
-    description: Sales order processing and management
-  - name: Inventory
-    description: Inventory items and on-hand quantity management
-  - name: Shipping
-    description: Shipping delivery management
+- name: Purchasing
+  description: Purchase order, requisition, and supplier management
+- name: Order Management
+  description: Sales order processing and management
+- name: Inventory
+  description: Inventory items and on-hand quantity management
+- name: Shipping
+  description: Shipping delivery management

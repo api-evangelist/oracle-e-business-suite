@@ -1,0 +1,12 @@
+{
+  "requisitionHeaderId": "500123",
+  "segment1": "example_value",
+  "typeLookupCode": "example_value",
+  "authorizationStatus": "example_value",
+  "preparerId": "500123",
+  "description": "A sample description.",
+  "totalAmount": 42.5,
+  "creationDate": "example_value",
+  "lines": [],
+  "orgId": "500123"
+}

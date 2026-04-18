@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "ApInvoice",
+  "type": "object",
+  "properties": {
+    "invoiceId": {
+      "type": "integer"
+    },
+    "invoiceNum": {
+      "type": "string"
+    },
+    "invoiceDate": {
+      "type": "string"
+    },
+    "vendorId": {
+      "type": "integer"
+    },
+    "vendorName": {
+      "type": "string"
+    },
+    "vendorSiteId": {
+      "type": "integer"
+    },
+    "invoiceAmount": {
+      "type": "number"
+    },
+    "invoiceCurrencyCode": {
+      "type": "string"
+    },
+    "paymentCurrencyCode": {
+      "type": "string"
+    },
+    "exchangeRate": {
+      "type": "number"
+    },
+    "exchangeRateType": {
+      "type": "string"
+    },
+    "exchangeDate": {
+      "type": "string"
+    },
+    "termsId": {
+      "type": "integer"
+    },
+    "description": {
+      "type": "string"
+    },
+    "invoiceType": {
+      "type": "string"
+    },
+    "source": {
+      "type": "string"
+    },
+    "paymentStatusFlag": {
+      "type": "string"
+    },
+    "approvalStatus": {
+      "type": "string"
+    },
+    "amountPaid": {
+      "type": "number"
+    },
+    "lines": {
+      "type": "array"
+    },
+    "orgId": {
+      "type": "integer"
+    },
+    "createdBy": {
+      "type": "integer"
+    },
+    "creationDate": {
+      "type": "string"
+    },
+    "lastUpdatedBy": {
+      "type": "integer"
+    },
+    "lastUpdateDate": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "CodeConversion",
+  "type": "object",
+  "properties": {
+    "codeConversionId": {
+      "type": "integer"
+    },
+    "tradingPartnerId": {
+      "type": "integer"
+    },
+    "transactionType": {
+      "type": "string"
+    },
+    "codeCategory": {
+      "type": "string"
+    },
+    "externalValue": {
+      "type": "string"
+    },
+    "internalValue": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    }
+  }
+}

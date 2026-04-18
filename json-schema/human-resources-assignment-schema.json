@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Assignment",
+  "type": "object",
+  "properties": {
+    "assignmentId": {
+      "type": "integer",
+      "description": "Assignment identifier"
+    },
+    "assignmentNumber": {
+      "type": "string",
+      "description": "Assignment number"
+    },
+    "assignmentType": {
+      "type": "string",
+      "description": "Assignment type"
+    },
+    "primaryFlag": {
+      "type": "string",
+      "description": "Whether this is the primary assignment"
+    },
+    "jobId": {
+      "type": "integer",
+      "description": "Job identifier"
+    },
+    "jobName": {
+      "type": "string",
+      "description": "Job name"
+    },
+    "positionId": {
+      "type": "integer",
+      "description": "Position identifier"
+    },
+    "positionName": {
+      "type": "string",
+      "description": "Position name"
+    },
+    "gradeId": {
+      "type": "integer",
+      "description": "Grade identifier"
+    },
+    "gradeName": {
+      "type": "string",
+      "description": "Grade name"
+    },
+    "organizationId": {
+      "type": "integer",
+      "description": "Organization identifier"
+    },
+    "organizationName": {
+      "type": "string",
+      "description": "Organization name"
+    },
+    "locationId": {
+      "type": "integer",
+      "description": "Location identifier"
+    },
+    "locationCode": {
+      "type": "string",
+      "description": "Location code"
+    },
+    "supervisorId": {
+      "type": "integer",
+      "description": "Supervisor person identifier"
+    },
+    "payrollId": {
+      "type": "integer",
+      "description": "Payroll identifier"
+    },
+    "employmentCategory": {
+      "type": "string",
+      "description": "Employment category"
+    },
+    "normalHours": {
+      "type": "number",
+      "description": "Normal working hours"
+    },
+    "frequency": {
+      "type": "string",
+      "description": "Hours frequency"
+    },
+    "effectiveStartDate": {
+      "type": "string"
+    },
+    "effectiveEndDate": {
+      "type": "string"
+    }
+  }
+}

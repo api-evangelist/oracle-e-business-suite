@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "TradingPartner",
+  "type": "object",
+  "properties": {
+    "tradingPartnerId": {
+      "type": "integer"
+    },
+    "tradingPartnerName": {
+      "type": "string"
+    },
+    "tradingPartnerType": {
+      "type": "string"
+    },
+    "tradingPartnerSiteId": {
+      "type": "integer"
+    },
+    "tradingPartnerSiteName": {
+      "type": "string"
+    },
+    "ediLocationCode": {
+      "type": "string"
+    },
+    "ediTranslatorCode": {
+      "type": "string"
+    },
+    "documentStandard": {
+      "type": "string"
+    },
+    "enabledTransactions": {
+      "type": "array"
+    },
+    "creationDate": {
+      "type": "string"
+    },
+    "lastUpdateDate": {
+      "type": "string"
+    }
+  }
+}

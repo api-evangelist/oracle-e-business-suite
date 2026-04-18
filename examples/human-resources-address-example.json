@@ -1,0 +1,15 @@
+{
+  "addressId": "500123",
+  "addressType": "example_value",
+  "addressLine1": "example_value",
+  "addressLine2": "example_value",
+  "addressLine3": "example_value",
+  "townOrCity": "example_value",
+  "region1": "example_value",
+  "region2": "example_value",
+  "postalCode": "example_value",
+  "country": "example_value",
+  "primaryFlag": "example_value",
+  "dateFrom": "example_value",
+  "dateTo": "example_value"
+}

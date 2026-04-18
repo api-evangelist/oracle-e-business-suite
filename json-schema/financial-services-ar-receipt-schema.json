@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ArReceipt",
+  "type": "object",
+  "properties": {
+    "cashReceiptId": {
+      "type": "integer",
+      "description": "Cash receipt identifier"
+    },
+    "receiptNumber": {
+      "type": "string",
+      "description": "Receipt number"
+    },
+    "amount": {
+      "type": "number",
+      "description": "Receipt amount"
+    },
+    "currencyCode": {
+      "type": "string",
+      "description": "Receipt currency code"
+    },
+    "receiptDate": {
+      "type": "string",
+      "description": "Receipt date"
+    },
+    "customerId": {
+      "type": "integer",
+      "description": "Customer identifier"
+    },
+    "customerName": {
+      "type": "string",
+      "description": "Customer name"
+    },
+    "receiptMethodId": {
+      "type": "integer",
+      "description": "Receipt method identifier"
+    },
+    "status": {
+      "type": "string",
+      "description": "Receipt status"
+    },
+    "orgId": {
+      "type": "integer"
+    }
+  }
+}

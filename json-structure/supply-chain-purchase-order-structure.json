@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "PurchaseOrder",
+  "type": "object",
+  "properties": {
+    "poHeaderId": {
+      "type": "integer"
+    },
+    "segment1": {
+      "type": "string"
+    },
+    "typeLookupCode": {
+      "type": "string"
+    },
+    "vendorId": {
+      "type": "integer"
+    },
+    "vendorName": {
+      "type": "string"
+    },
+    "vendorSiteId": {
+      "type": "integer"
+    },
+    "currencyCode": {
+      "type": "string"
+    },
+    "authorizationStatus": {
+      "type": "string"
+    },
+    "approvedFlag": {
+      "type": "string"
+    },
+    "closedCode": {
+      "type": "string"
+    },
+    "totalAmount": {
+      "type": "number"
+    },
+    "creationDate": {
+      "type": "string"
+    },
+    "approvedDate": {
+      "type": "string"
+    },
+    "buyerId": {
+      "type": "integer"
+    },
+    "shipToLocationId": {
+      "type": "integer"
+    },
+    "billToLocationId": {
+      "type": "integer"
+    },
+    "termsId": {
+      "type": "integer"
+    },
+    "description": {
+      "type": "string"
+    },
+    "lines": {
+      "type": "array"
+    },
+    "orgId": {
+      "type": "integer"
+    },
+    "lastUpdateDate": {
+      "type": "string"
+    }
+  }
+}

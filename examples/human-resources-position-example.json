@@ -1,0 +1,12 @@
+{
+  "positionId": "500123",
+  "name": "Example Title",
+  "jobId": "500123",
+  "organizationId": "500123",
+  "effectiveStartDate": "example_value",
+  "effectiveEndDate": "example_value",
+  "status": "example_value",
+  "availabilityStatusId": "500123",
+  "businessGroupId": "500123",
+  "locationId": "500123"
+}

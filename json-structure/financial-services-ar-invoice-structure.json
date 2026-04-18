@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "ArInvoice",
+  "type": "object",
+  "properties": {
+    "customerTrxId": {
+      "type": "integer"
+    },
+    "trxNumber": {
+      "type": "string"
+    },
+    "trxDate": {
+      "type": "string"
+    },
+    "customerId": {
+      "type": "integer"
+    },
+    "customerName": {
+      "type": "string"
+    },
+    "billToSiteUseId": {
+      "type": "integer"
+    },
+    "shipToSiteUseId": {
+      "type": "integer"
+    },
+    "invoiceCurrencyCode": {
+      "type": "string"
+    },
+    "trxType": {
+      "type": "string"
+    },
+    "amount": {
+      "type": "number"
+    },
+    "amountDue": {
+      "type": "number"
+    },
+    "status": {
+      "type": "string"
+    },
+    "termsId": {
+      "type": "integer"
+    },
+    "lines": {
+      "type": "array"
+    },
+    "orgId": {
+      "type": "integer"
+    },
+    "creationDate": {
+      "type": "string"
+    },
+    "lastUpdateDate": {
+      "type": "string"
+    }
+  }
+}

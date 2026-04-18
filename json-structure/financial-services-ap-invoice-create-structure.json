@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "ApInvoiceCreate",
+  "type": "object",
+  "properties": {
+    "invoiceNum": {
+      "type": "string"
+    },
+    "vendorId": {
+      "type": "integer"
+    },
+    "vendorSiteId": {
+      "type": "integer"
+    },
+    "invoiceAmount": {
+      "type": "number"
+    },
+    "invoiceCurrencyCode": {
+      "type": "string"
+    },
+    "invoiceDate": {
+      "type": "string"
+    },
+    "invoiceType": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "termsId": {
+      "type": "integer"
+    },
+    "source": {
+      "type": "string"
+    },
+    "lines": {
+      "type": "array"
+    }
+  }
+}

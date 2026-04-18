@@ -1,0 +1,281 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Oracle EBS Human Resources"
+  description: "Human resources management APIs for employee lifecycle, assignments, organizations, payroll, and benefits."
+  tags:
+    - Oracle
+    - Human Resources
+    - Payroll
+  created: "2026-04-18"
+  modified: "2026-04-18"
+
+binds:
+  - namespace: env
+    keys:
+      ORACLE_EBS_TOKEN: ORACLE_EBS_TOKEN
+
+capability:
+  consumes:
+    - type: http
+      namespace: oracle-human-resources
+      baseUri: https://{instance}.oracle.com/webservices/rest
+      description: "Oracle EBS Human Resources API for managing employees and payroll."
+      authentication:
+        type: bearer
+        token: "{{ORACLE_EBS_TOKEN}}"
+      resources:
+        - name: employees
+          path: /hr/employees
+          description: "Employee management."
+          operations:
+            - name: get-employees
+              method: GET
+              description: "Retrieve employees."
+              inputParameters:
+                - name: organizationId
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Organization identifier."
+                - name: employeeNumber
+                  in: query
+                  type: string
+                  required: false
+                  description: "Employee number."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: create-employee
+              method: POST
+              description: "Create a new employee record."
+              body:
+                type: json
+                data:
+                  lastName: "{{tools.last_name}}"
+                  firstName: "{{tools.first_name}}"
+                  hireDate: "{{tools.hire_date}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: employee
+          path: /hr/employees/{personId}
+          description: "Specific employee."
+          operations:
+            - name: get-employee-by-id
+              method: GET
+              description: "Get employee by ID."
+              inputParameters:
+                - name: personId
+                  in: path
+                  type: integer
+                  required: true
+                  description: "Person identifier."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: update-employee
+              method: PUT
+              description: "Update employee record."
+              inputParameters:
+                - name: personId
+                  in: path
+                  type: integer
+                  required: true
+                  description: "Person identifier."
+              body:
+                type: json
+                data:
+                  lastName: "{{tools.last_name}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: assignments
+          path: /hr/assignments
+          description: "Employee assignments."
+          operations:
+            - name: get-assignments
+              method: GET
+              description: "Retrieve assignments."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: organizations
+          path: /hr/organizations
+          description: "Organizations."
+          operations:
+            - name: get-organizations
+              method: GET
+              description: "Retrieve organizations."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: positions
+          path: /hr/positions
+          description: "Positions."
+          operations:
+            - name: get-positions
+              method: GET
+              description: "Retrieve positions."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: payrolls
+          path: /pay/payrolls
+          description: "Payroll definitions."
+          operations:
+            - name: get-payrolls
+              method: GET
+              description: "Retrieve payrolls."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: payroll-runs
+          path: /pay/payroll-runs
+          description: "Payroll runs."
+          operations:
+            - name: get-payroll-runs
+              method: GET
+              description: "Retrieve payroll runs."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: benefit-enrollments
+          path: /ben/enrollments
+          description: "Benefit enrollments."
+          operations:
+            - name: get-benefit-enrollments
+              method: GET
+              description: "Retrieve benefit enrollments."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      port: 8102
+      namespace: oracle-human-resources-api
+      resources:
+        - path: /v1/employees
+          name: employees
+          description: "Employee management."
+          operations:
+            - method: GET
+              name: get-employees
+              description: "List employees."
+              call: "oracle-human-resources.get-employees"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9102
+      namespace: oracle-human-resources-mcp
+      transport: http
+      tools:
+        - name: get-employees
+          description: "Retrieve employees."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "oracle-human-resources.get-employees"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-employee
+          description: "Create an employee record."
+          hints:
+            readOnly: false
+          call: "oracle-human-resources.create-employee"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-employee-by-id
+          description: "Get employee by ID."
+          hints:
+            readOnly: true
+          call: "oracle-human-resources.get-employee-by-id"
+          with:
+            personId: "tools.person_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: update-employee
+          description: "Update employee record."
+          hints:
+            readOnly: false
+            idempotent: true
+          call: "oracle-human-resources.update-employee"
+          with:
+            personId: "tools.person_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-assignments
+          description: "Retrieve assignments."
+          hints:
+            readOnly: true
+          call: "oracle-human-resources.get-assignments"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-organizations
+          description: "Retrieve organizations."
+          hints:
+            readOnly: true
+          call: "oracle-human-resources.get-organizations"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-positions
+          description: "Retrieve positions."
+          hints:
+            readOnly: true
+          call: "oracle-human-resources.get-positions"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-payrolls
+          description: "Retrieve payroll definitions."
+          hints:
+            readOnly: true
+          call: "oracle-human-resources.get-payrolls"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-payroll-runs
+          description: "Retrieve payroll runs."
+          hints:
+            readOnly: true
+          call: "oracle-human-resources.get-payroll-runs"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-benefit-enrollments
+          description: "Retrieve benefit enrollments."
+          hints:
+            readOnly: true
+          call: "oracle-human-resources.get-benefit-enrollments"
+          outputParameters:
+            - type: object
+              mapping: "$."

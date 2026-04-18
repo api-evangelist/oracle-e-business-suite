@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ApPayment",
+  "type": "object",
+  "properties": {
+    "checkId": {
+      "type": "integer",
+      "description": "Payment check identifier"
+    },
+    "checkNumber": {
+      "type": "integer",
+      "description": "Check number"
+    },
+    "amount": {
+      "type": "number",
+      "description": "Payment amount"
+    },
+    "currencyCode": {
+      "type": "string",
+      "description": "Payment currency code"
+    },
+    "checkDate": {
+      "type": "string",
+      "description": "Check date"
+    },
+    "vendorId": {
+      "type": "integer",
+      "description": "Vendor identifier"
+    },
+    "vendorName": {
+      "type": "string",
+      "description": "Vendor name"
+    },
+    "bankAccountId": {
+      "type": "integer",
+      "description": "Bank account identifier"
+    },
+    "paymentMethodCode": {
+      "type": "string",
+      "description": "Payment method"
+    },
+    "status": {
+      "type": "string",
+      "description": "Payment status"
+    },
+    "orgId": {
+      "type": "integer"
+    }
+  }
+}

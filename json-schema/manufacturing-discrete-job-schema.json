@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DiscreteJob",
+  "type": "object",
+  "properties": {
+    "wipEntityId": {
+      "type": "integer",
+      "description": "WIP entity identifier"
+    },
+    "wipEntityName": {
+      "type": "string",
+      "description": "Job name/number"
+    },
+    "organizationId": {
+      "type": "integer",
+      "description": "Organization identifier"
+    },
+    "primaryItemId": {
+      "type": "integer",
+      "description": "Primary assembly item identifier"
+    },
+    "primaryItemNumber": {
+      "type": "string",
+      "description": "Primary assembly item number"
+    },
+    "statusType": {
+      "type": "integer",
+      "description": "Job status (1=Unreleased, 3=Released, 4=Complete, 5=Complete-No Charges, 6=On Hold, 7=Cancelled, 12=Closed, 14=Pending Close, 15=Failed Close)"
+    },
+    "jobType": {
+      "type": "integer",
+      "description": "Job type (1=Standard, 3=Non-Standard)"
+    },
+    "startQuantity": {
+      "type": "number",
+      "description": "Start quantity"
+    },
+    "quantityCompleted": {
+      "type": "number",
+      "description": "Quantity completed"
+    },
+    "quantityScrapped": {
+      "type": "number",
+      "description": "Quantity scrapped"
+    },
+    "netQuantity": {
+      "type": "number",
+      "description": "Net quantity remaining"
+    },
+    "scheduledStartDate": {
+      "type": "string",
+      "description": "Scheduled start date"
+    },
+    "scheduledCompletionDate": {
+      "type": "string",
+      "description": "Scheduled completion date"
+    },
+    "dateReleased": {
+      "type": "string",
+      "description": "Date released"
+    },
+    "dateCompleted": {
+      "type": "string",
+      "description": "Date completed"
+    },
+    "dateClosed": {
+      "type": "string",
+      "description": "Date closed"
+    },
+    "classCode": {
+      "type": "string",
+      "description": "Accounting class code"
+    },
+    "bomRevision": {
+      "type": "string",
+      "description": "BOM revision"
+    },
+    "routingRevision": {
+      "type": "string",
+      "description": "Routing revision"
+    },
+    "description": {
+      "type": "string",
+      "description": "Job description"
+    },
+    "firmPlannedFlag": {
+      "type": "integer",
+      "description": "Firm planned flag (1=Firm, 2=Not Firm)"
+    },
+    "creationDate": {
+      "type": "string"
+    },
+    "lastUpdateDate": {
+      "type": "string"
+    }
+  }
+}

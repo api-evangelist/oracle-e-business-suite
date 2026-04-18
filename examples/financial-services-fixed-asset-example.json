@@ -1,0 +1,16 @@
+{
+  "assetId": "500123",
+  "assetNumber": "example_value",
+  "assetDescription": "example_value",
+  "assetCategoryId": "500123",
+  "assetType": "example_value",
+  "serialNumber": "example_value",
+  "tagNumber": "example_value",
+  "dateEffective": "example_value",
+  "dateInService": "example_value",
+  "cost": 42.5,
+  "salvageValue": 42.5,
+  "depreciationMethod": "example_value",
+  "lifeInMonths": 10,
+  "bookTypeCode": "example_value"
+}

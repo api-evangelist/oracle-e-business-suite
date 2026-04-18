@@ -1,0 +1,10 @@
+{
+  "payrollActionId": "500123",
+  "payrollId": "500123",
+  "actionType": "example_value",
+  "actionStatus": "example_value",
+  "effectiveDate": "example_value",
+  "dateEarned": "example_value",
+  "periodOfServiceId": "500123",
+  "businessGroupId": "500123"
+}

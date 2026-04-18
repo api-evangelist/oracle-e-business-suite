@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "InventoryItem",
+  "type": "object",
+  "properties": {
+    "inventoryItemId": {
+      "type": "integer"
+    },
+    "segment1": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "longDescription": {
+      "type": "string"
+    },
+    "primaryUomCode": {
+      "type": "string"
+    },
+    "itemType": {
+      "type": "string"
+    },
+    "inventoryItemStatusCode": {
+      "type": "string"
+    },
+    "organizationId": {
+      "type": "integer"
+    },
+    "weightUomCode": {
+      "type": "string"
+    },
+    "unitWeight": {
+      "type": "number"
+    },
+    "volumeUomCode": {
+      "type": "string"
+    },
+    "unitVolume": {
+      "type": "number"
+    },
+    "listPrice": {
+      "type": "number"
+    },
+    "purchasingEnabledFlag": {
+      "type": "string"
+    },
+    "customerOrderEnabledFlag": {
+      "type": "string"
+    },
+    "internalOrderEnabledFlag": {
+      "type": "string"
+    },
+    "creationDate": {
+      "type": "string"
+    },
+    "lastUpdateDate": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ApInvoiceLine",
+  "type": "object",
+  "properties": {
+    "lineNumber": {
+      "type": "integer",
+      "description": "Invoice line number"
+    },
+    "lineType": {
+      "type": "string",
+      "description": "Line type lookup code"
+    },
+    "amount": {
+      "type": "number",
+      "description": "Line amount"
+    },
+    "description": {
+      "type": "string",
+      "description": "Line description"
+    },
+    "accountingDate": {
+      "type": "string"
+    },
+    "distCodeCombinationId": {
+      "type": "integer",
+      "description": "Distribution account code combination ID"
+    },
+    "itemDescription": {
+      "type": "string"
+    },
+    "quantity": {
+      "type": "number"
+    },
+    "unitPrice": {
+      "type": "number"
+    }
+  }
+}

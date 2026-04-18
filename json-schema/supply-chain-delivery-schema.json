@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Delivery",
+  "type": "object",
+  "properties": {
+    "deliveryId": {
+      "type": "integer",
+      "description": "Delivery identifier"
+    },
+    "name": {
+      "type": "string",
+      "description": "Delivery name/number"
+    },
+    "statusCode": {
+      "type": "string",
+      "description": "Delivery status code"
+    },
+    "initialPickupDate": {
+      "type": "string",
+      "description": "Initial pickup date"
+    },
+    "ultimateDropoffDate": {
+      "type": "string",
+      "description": "Ultimate dropoff date"
+    },
+    "customerId": {
+      "type": "integer",
+      "description": "Customer identifier"
+    },
+    "shipToLocationId": {
+      "type": "integer",
+      "description": "Ship-to location identifier"
+    },
+    "carrierId": {
+      "type": "integer",
+      "description": "Carrier identifier"
+    },
+    "shipMethodCode": {
+      "type": "string",
+      "description": "Ship method code"
+    },
+    "waybill": {
+      "type": "string",
+      "description": "Waybill/tracking number"
+    },
+    "grossWeight": {
+      "type": "number",
+      "description": "Gross weight"
+    },
+    "weightUomCode": {
+      "type": "string",
+      "description": "Weight unit of measure"
+    },
+    "volume": {
+      "type": "number",
+      "description": "Volume"
+    },
+    "volumeUomCode": {
+      "type": "string",
+      "description": "Volume unit of measure"
+    },
+    "organizationId": {
+      "type": "integer"
+    },
+    "creationDate": {
+      "type": "string"
+    },
+    "lastUpdateDate": {
+      "type": "string"
+    }
+  }
+}

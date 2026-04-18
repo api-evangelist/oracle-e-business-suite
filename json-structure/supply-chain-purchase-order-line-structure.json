@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "PurchaseOrderLine",
+  "type": "object",
+  "properties": {
+    "poLineId": {
+      "type": "integer"
+    },
+    "lineNum": {
+      "type": "integer"
+    },
+    "lineType": {
+      "type": "string"
+    },
+    "itemId": {
+      "type": "integer"
+    },
+    "itemDescription": {
+      "type": "string"
+    },
+    "categoryId": {
+      "type": "integer"
+    },
+    "quantity": {
+      "type": "number"
+    },
+    "unitMeasLookupCode": {
+      "type": "string"
+    },
+    "unitPrice": {
+      "type": "number"
+    },
+    "amount": {
+      "type": "number"
+    },
+    "needByDate": {
+      "type": "string"
+    },
+    "promisedDate": {
+      "type": "string"
+    },
+    "closedCode": {
+      "type": "string"
+    },
+    "shipments": {
+      "type": "array"
+    }
+  }
+}

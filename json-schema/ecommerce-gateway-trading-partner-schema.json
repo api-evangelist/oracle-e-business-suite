@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TradingPartner",
+  "type": "object",
+  "properties": {
+    "tradingPartnerId": {
+      "type": "integer",
+      "description": "Trading partner identifier"
+    },
+    "tradingPartnerName": {
+      "type": "string",
+      "description": "Trading partner name"
+    },
+    "tradingPartnerType": {
+      "type": "string",
+      "description": "Trading partner type"
+    },
+    "tradingPartnerSiteId": {
+      "type": "integer",
+      "description": "Trading partner site identifier"
+    },
+    "tradingPartnerSiteName": {
+      "type": "string",
+      "description": "Site name"
+    },
+    "ediLocationCode": {
+      "type": "string",
+      "description": "EDI location code (DUNS, DUNS+4, etc.)"
+    },
+    "ediTranslatorCode": {
+      "type": "string",
+      "description": "EDI translator code"
+    },
+    "documentStandard": {
+      "type": "string",
+      "description": "Document standard"
+    },
+    "enabledTransactions": {
+      "type": "array",
+      "description": "List of enabled EDI transactions for this partner"
+    },
+    "creationDate": {
+      "type": "string"
+    },
+    "lastUpdateDate": {
+      "type": "string"
+    }
+  }
+}

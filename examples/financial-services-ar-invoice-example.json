@@ -1,0 +1,19 @@
+{
+  "customerTrxId": "500123",
+  "trxNumber": "example_value",
+  "trxDate": "example_value",
+  "customerId": "500123",
+  "customerName": "example_value",
+  "billToSiteUseId": "500123",
+  "shipToSiteUseId": "500123",
+  "invoiceCurrencyCode": "example_value",
+  "trxType": "example_value",
+  "amount": 42.5,
+  "amountDue": 42.5,
+  "status": "example_value",
+  "termsId": "500123",
+  "lines": [],
+  "orgId": "500123",
+  "creationDate": "example_value",
+  "lastUpdateDate": "example_value"
+}

@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "SalesOrderCreate",
+  "type": "object",
+  "properties": {
+    "soldToOrgId": {
+      "type": "integer"
+    },
+    "orderTypeId": {
+      "type": "integer"
+    },
+    "orderedDate": {
+      "type": "string"
+    },
+    "transactionalCurrCode": {
+      "type": "string"
+    },
+    "shipToOrgId": {
+      "type": "integer"
+    },
+    "invoiceToOrgId": {
+      "type": "integer"
+    },
+    "salesrepId": {
+      "type": "integer"
+    },
+    "lines": {
+      "type": "array"
+    }
+  }
+}

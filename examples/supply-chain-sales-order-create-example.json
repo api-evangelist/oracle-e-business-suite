@@ -1,0 +1,10 @@
+{
+  "soldToOrgId": "500123",
+  "orderTypeId": "500123",
+  "orderedDate": "example_value",
+  "transactionalCurrCode": "example_value",
+  "shipToOrgId": "500123",
+  "invoiceToOrgId": "500123",
+  "salesrepId": "500123",
+  "lines": []
+}

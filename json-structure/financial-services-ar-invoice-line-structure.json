@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "ArInvoiceLine",
+  "type": "object",
+  "properties": {
+    "customerTrxLineId": {
+      "type": "integer"
+    },
+    "lineNumber": {
+      "type": "integer"
+    },
+    "lineType": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "quantity": {
+      "type": "number"
+    },
+    "unitSellingPrice": {
+      "type": "number"
+    },
+    "amount": {
+      "type": "number"
+    },
+    "inventoryItemId": {
+      "type": "integer"
+    }
+  }
+}

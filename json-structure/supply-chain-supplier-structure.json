@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "Supplier",
+  "type": "object",
+  "properties": {
+    "vendorId": {
+      "type": "integer"
+    },
+    "vendorName": {
+      "type": "string"
+    },
+    "segment1": {
+      "type": "string"
+    },
+    "vendorType": {
+      "type": "string"
+    },
+    "taxPayerId": {
+      "type": "string"
+    },
+    "standardIndustryClass": {
+      "type": "string"
+    },
+    "paymentCurrencyCode": {
+      "type": "string"
+    },
+    "paymentMethodCode": {
+      "type": "string"
+    },
+    "termsId": {
+      "type": "integer"
+    },
+    "enabled": {
+      "type": "boolean"
+    },
+    "startDateActive": {
+      "type": "string"
+    },
+    "endDateActive": {
+      "type": "string"
+    },
+    "sites": {
+      "type": "array"
+    },
+    "creationDate": {
+      "type": "string"
+    },
+    "lastUpdateDate": {
+      "type": "string"
+    }
+  }
+}

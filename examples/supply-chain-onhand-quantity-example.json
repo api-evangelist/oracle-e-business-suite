@@ -1,0 +1,11 @@
+{
+  "inventoryItemId": "500123",
+  "organizationId": "500123",
+  "subinventoryCode": "example_value",
+  "locatorId": "500123",
+  "lotNumber": "example_value",
+  "serialNumber": "example_value",
+  "transactionQuantity": 42.5,
+  "transactionUomCode": "example_value",
+  "lastUpdateDate": "example_value"
+}

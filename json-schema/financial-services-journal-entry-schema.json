@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "JournalEntry",
+  "type": "object",
+  "properties": {
+    "jeHeaderId": {
+      "type": "integer",
+      "description": "Journal entry header identifier"
+    },
+    "jeBatchId": {
+      "type": "integer",
+      "description": "Journal batch identifier"
+    },
+    "ledgerId": {
+      "type": "integer",
+      "description": "Ledger identifier"
+    },
+    "periodName": {
+      "type": "string",
+      "description": "Accounting period name"
+    },
+    "journalName": {
+      "type": "string",
+      "description": "Journal entry name"
+    },
+    "journalCategory": {
+      "type": "string",
+      "description": "Journal category"
+    },
+    "journalSource": {
+      "type": "string",
+      "description": "Journal source"
+    },
+    "currencyCode": {
+      "type": "string",
+      "description": "Currency code (ISO 4217)"
+    },
+    "status": {
+      "type": "string",
+      "description": "Journal status"
+    },
+    "description": {
+      "type": "string",
+      "description": "Journal description"
+    },
+    "effectiveDate": {
+      "type": "string",
+      "description": "Journal effective date"
+    },
+    "lines": {
+      "type": "array"
+    },
+    "createdBy": {
+      "type": "integer"
+    },
+    "creationDate": {
+      "type": "string"
+    },
+    "lastUpdatedBy": {
+      "type": "integer"
+    },
+    "lastUpdateDate": {
+      "type": "string"
+    }
+  }
+}

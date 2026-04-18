@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "InboundTransaction",
+  "type": "object",
+  "properties": {
+    "transactionId": {
+      "type": "integer",
+      "description": "Transaction identifier"
+    },
+    "transactionType": {
+      "type": "string",
+      "description": "Inbound transaction type code"
+    },
+    "transactionDescription": {
+      "type": "string",
+      "description": "Transaction description"
+    },
+    "documentStandard": {
+      "type": "string",
+      "description": "Document standard (X12 or EDIFACT)"
+    },
+    "documentNumber": {
+      "type": "string",
+      "description": "ASC X12 document number (810, 832, 843, 856, 857)"
+    },
+    "tradingPartnerId": {
+      "type": "integer",
+      "description": "Trading partner identifier"
+    },
+    "tradingPartnerName": {
+      "type": "string"
+    },
+    "tradingPartnerSiteId": {
+      "type": "integer"
+    },
+    "processStatus": {
+      "type": "string",
+      "description": "Processing status"
+    },
+    "documentDate": {
+      "type": "string",
+      "description": "Document date"
+    },
+    "documentAmount": {
+      "type": "number",
+      "description": "Document total amount"
+    },
+    "currencyCode": {
+      "type": "string",
+      "description": "Currency code"
+    },
+    "errorMessage": {
+      "type": "string",
+      "description": "Error message if processing failed"
+    },
+    "creationDate": {
+      "type": "string"
+    },
+    "lastUpdateDate": {
+      "type": "string"
+    }
+  }
+}

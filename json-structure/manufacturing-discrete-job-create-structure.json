@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "DiscreteJobCreate",
+  "type": "object",
+  "properties": {
+    "wipEntityName": {
+      "type": "string"
+    },
+    "primaryItemId": {
+      "type": "integer"
+    },
+    "organizationId": {
+      "type": "integer"
+    },
+    "statusType": {
+      "type": "integer"
+    },
+    "jobType": {
+      "type": "integer"
+    },
+    "startQuantity": {
+      "type": "number"
+    },
+    "scheduledStartDate": {
+      "type": "string"
+    },
+    "scheduledCompletionDate": {
+      "type": "string"
+    },
+    "classCode": {
+      "type": "string"
+    },
+    "bomRevision": {
+      "type": "string"
+    },
+    "routingRevision": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "firmPlannedFlag": {
+      "type": "integer"
+    }
+  }
+}

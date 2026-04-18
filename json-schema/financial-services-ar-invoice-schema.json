@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ArInvoice",
+  "type": "object",
+  "properties": {
+    "customerTrxId": {
+      "type": "integer",
+      "description": "Customer transaction identifier"
+    },
+    "trxNumber": {
+      "type": "string",
+      "description": "Transaction number"
+    },
+    "trxDate": {
+      "type": "string",
+      "description": "Transaction date"
+    },
+    "customerId": {
+      "type": "integer",
+      "description": "Customer identifier"
+    },
+    "customerName": {
+      "type": "string",
+      "description": "Customer name"
+    },
+    "billToSiteUseId": {
+      "type": "integer",
+      "description": "Bill-to site use identifier"
+    },
+    "shipToSiteUseId": {
+      "type": "integer",
+      "description": "Ship-to site use identifier"
+    },
+    "invoiceCurrencyCode": {
+      "type": "string",
+      "description": "Invoice currency (ISO 4217)"
+    },
+    "trxType": {
+      "type": "string",
+      "description": "Transaction type"
+    },
+    "amount": {
+      "type": "number",
+      "description": "Transaction amount"
+    },
+    "amountDue": {
+      "type": "number",
+      "description": "Remaining amount due"
+    },
+    "status": {
+      "type": "string",
+      "description": "Transaction status"
+    },
+    "termsId": {
+      "type": "integer",
+      "description": "Payment terms identifier"
+    },
+    "lines": {
+      "type": "array"
+    },
+    "orgId": {
+      "type": "integer"
+    },
+    "creationDate": {
+      "type": "string"
+    },
+    "lastUpdateDate": {
+      "type": "string"
+    }
+  }
+}

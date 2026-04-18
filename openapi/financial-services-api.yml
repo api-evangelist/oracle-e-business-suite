@@ -17,54 +17,58 @@ info:
   x-logo:
     url: https://www.oracle.com/a/ocom/img/oracle-logo.svg
 servers:
-  - url: https://{instance}.oracle.com/webservices/rest
-    description: Oracle EBS ISG REST endpoint
-    variables:
-      instance:
-        default: ebs-host
-        description: The Oracle EBS instance hostname
+- url: https://{instance}.oracle.com/webservices/rest
+  description: Oracle EBS ISG REST endpoint
+  variables:
+    instance:
+      default: ebs-host
+      description: The Oracle EBS instance hostname
 paths:
   /gl/journals:
     get:
       operationId: getJournals
-      summary: Retrieve journal entries
+      summary: Retrieve Journal Entries
       description: >-
         Retrieves General Ledger journal entries based on the provided filter
         criteria. Maps to the GL_JE_HEADERS and GL_JE_LINES interface tables.
       tags:
-        - General Ledger
+      - General Ledger
       security:
-        - tokenAuth: []
-        - basicAuth: []
+      - tokenAuth: []
+      - basicAuth: []
       parameters:
-        - name: ledgerId
-          in: query
-          description: Ledger identifier
-          schema:
-            type: integer
-        - name: periodName
-          in: query
-          description: Accounting period name
-          schema:
-            type: string
-            example: JAN-26
-        - name: journalCategory
-          in: query
-          description: Journal category name
-          schema:
-            type: string
-        - name: status
-          in: query
-          description: Journal status
-          schema:
-            type: string
-            enum:
-              - U
-              - A
-              - P
-            description: U=Unposted, A=Approved, P=Posted
-        - $ref: '#/components/parameters/Limit'
-        - $ref: '#/components/parameters/Offset'
+      - name: ledgerId
+        in: query
+        description: Ledger identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: periodName
+        in: query
+        description: Accounting period name
+        schema:
+          type: string
+          example: JAN-26
+        example: example_value
+      - name: journalCategory
+        in: query
+        description: Journal category name
+        schema:
+          type: string
+        example: example_value
+      - name: status
+        in: query
+        description: Journal status
+        schema:
+          type: string
+          enum:
+          - U
+          - A
+          - P
+          description: U=Unposted, A=Approved, P=Posted
+        example: U
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Offset'
       responses:
         '200':
           description: List of journal entries
@@ -81,25 +85,73 @@ paths:
                     type: integer
                   hasMore:
                     type: boolean
+              examples:
+                Getjournals200Example:
+                  summary: Default getJournals 200 response
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - jeHeaderId: '500123'
+                      jeBatchId: '500123'
+                      ledgerId: '500123'
+                      periodName: example_value
+                      journalName: example_value
+                      journalCategory: example_value
+                      journalSource: example_value
+                      currencyCode: example_value
+                      status: U
+                      description: A sample description.
+                      effectiveDate: '2026-01-15'
+                      lines:
+                      - {}
+                      createdBy: 10
+                      creationDate: '2026-01-15T10:30:00Z'
+                      lastUpdatedBy: 10
+                      lastUpdateDate: '2026-01-15T10:30:00Z'
+                    totalCount: 10
+                    hasMore: true
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: createJournal
-      summary: Create a journal entry
+      summary: Create a Journal Entry
       description: >-
         Creates a new General Ledger journal entry. Maps to the
         GL_INTERFACE table and GL_JOURNAL_IMPORT concurrent program.
       tags:
-        - General Ledger
+      - General Ledger
       security:
-        - tokenAuth: []
-        - basicAuth: []
+      - tokenAuth: []
+      - basicAuth: []
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/JournalEntryCreate'
+            examples:
+              CreatejournalRequestExample:
+                summary: Default createJournal request
+                x-microcks-default: true
+                value:
+                  ledgerId: '500123'
+                  periodName: example_value
+                  journalName: example_value
+                  journalCategory: example_value
+                  journalSource: example_value
+                  currencyCode: example_value
+                  description: A sample description.
+                  effectiveDate: '2026-01-15'
+                  lines:
+                  - codeCombinatonId: '500123'
+                    accountedDr: 42.5
+                    accountedCr: 42.5
+                    enteredDr: 42.5
+                    enteredCr: 42.5
+                    description: A sample description.
       responses:
         '201':
           description: Journal entry created successfully
@@ -107,62 +159,99 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/JournalEntry'
+              examples:
+                Createjournal201Example:
+                  summary: Default createJournal 201 response
+                  x-microcks-default: true
+                  value:
+                    jeHeaderId: '500123'
+                    jeBatchId: '500123'
+                    ledgerId: '500123'
+                    periodName: example_value
+                    journalName: example_value
+                    journalCategory: example_value
+                    journalSource: example_value
+                    currencyCode: example_value
+                    status: U
+                    description: A sample description.
+                    effectiveDate: '2026-01-15'
+                    lines:
+                    - jeLineNum: 10
+                      codeCombinatonId: '500123'
+                      accountedDr: 42.5
+                      accountedCr: 42.5
+                      enteredDr: 42.5
+                      enteredCr: 42.5
+                      description: A sample description.
+                    createdBy: 10
+                    creationDate: '2026-01-15T10:30:00Z'
+                    lastUpdatedBy: 10
+                    lastUpdateDate: '2026-01-15T10:30:00Z'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /ap/invoices:
     get:
       operationId: getApInvoices
-      summary: Retrieve AP invoices
+      summary: Retrieve Ap Invoices
       description: >-
         Retrieves Accounts Payable invoices. Maps to the AP_INVOICES_ALL and
         AP_INVOICE_LINES_ALL tables through the AP_INVOICES_PKG PL/SQL API.
       tags:
-        - Accounts Payable
+      - Accounts Payable
       security:
-        - tokenAuth: []
-        - basicAuth: []
+      - tokenAuth: []
+      - basicAuth: []
       parameters:
-        - name: invoiceId
-          in: query
-          description: Invoice identifier
-          schema:
-            type: integer
-        - name: invoiceNum
-          in: query
-          description: Invoice number
-          schema:
-            type: string
-        - name: vendorId
-          in: query
-          description: Supplier/vendor identifier
-          schema:
-            type: integer
-        - name: invoiceDateFrom
-          in: query
-          description: Invoice date range start (YYYY-MM-DD)
-          schema:
-            type: string
-            format: date
-        - name: invoiceDateTo
-          in: query
-          description: Invoice date range end (YYYY-MM-DD)
-          schema:
-            type: string
-            format: date
-        - name: invoiceStatus
-          in: query
-          description: Invoice approval status
-          schema:
-            type: string
-            enum:
-              - APPROVED
-              - NEEDS_REAPPROVAL
-              - NEVER_APPROVED
-              - CANCELLED
-        - $ref: '#/components/parameters/Limit'
-        - $ref: '#/components/parameters/Offset'
+      - name: invoiceId
+        in: query
+        description: Invoice identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: invoiceNum
+        in: query
+        description: Invoice number
+        schema:
+          type: string
+        example: example_value
+      - name: vendorId
+        in: query
+        description: Supplier/vendor identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: invoiceDateFrom
+        in: query
+        description: Invoice date range start (YYYY-MM-DD)
+        schema:
+          type: string
+          format: date
+        example: '2026-01-15'
+      - name: invoiceDateTo
+        in: query
+        description: Invoice date range end (YYYY-MM-DD)
+        schema:
+          type: string
+          format: date
+        example: '2026-01-15'
+      - name: invoiceStatus
+        in: query
+        description: Invoice approval status
+        schema:
+          type: string
+          enum:
+          - APPROVED
+          - NEEDS_REAPPROVAL
+          - NEVER_APPROVED
+          - CANCELLED
+        example: APPROVED
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Offset'
       responses:
         '200':
           description: List of AP invoices
@@ -179,26 +268,84 @@ paths:
                     type: integer
                   hasMore:
                     type: boolean
+              examples:
+                Getapinvoices200Example:
+                  summary: Default getApInvoices 200 response
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - invoiceId: '500123'
+                      invoiceNum: example_value
+                      invoiceDate: '2026-01-15'
+                      vendorId: '500123'
+                      vendorName: example_value
+                      vendorSiteId: '500123'
+                      invoiceAmount: 42.5
+                      invoiceCurrencyCode: example_value
+                      paymentCurrencyCode: example_value
+                      exchangeRate: 42.5
+                      exchangeRateType: example_value
+                      exchangeDate: '2026-01-15'
+                      termsId: '500123'
+                      description: A sample description.
+                      invoiceType: STANDARD
+                      source: example_value
+                      paymentStatusFlag: 'Y'
+                      approvalStatus: APPROVED
+                      amountPaid: '500123'
+                      lines:
+                      - {}
+                      orgId: '500123'
+                      createdBy: 10
+                      creationDate: '2026-01-15T10:30:00Z'
+                      lastUpdatedBy: 10
+                      lastUpdateDate: '2026-01-15T10:30:00Z'
+                    totalCount: 10
+                    hasMore: true
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: createApInvoice
-      summary: Create an AP invoice
+      summary: Create an Ap Invoice
       description: >-
         Creates a new Accounts Payable invoice. Uses the AP_INVOICES_INTERFACE
         and AP_INVOICE_LINES_INTERFACE tables, then initiates the Payables
         Open Interface Import program.
       tags:
-        - Accounts Payable
+      - Accounts Payable
       security:
-        - tokenAuth: []
-        - basicAuth: []
+      - tokenAuth: []
+      - basicAuth: []
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/ApInvoiceCreate'
+            examples:
+              CreateapinvoiceRequestExample:
+                summary: Default createApInvoice request
+                x-microcks-default: true
+                value:
+                  invoiceNum: example_value
+                  vendorId: '500123'
+                  vendorSiteId: '500123'
+                  invoiceAmount: 42.5
+                  invoiceCurrencyCode: example_value
+                  invoiceDate: '2026-01-15'
+                  invoiceType: STANDARD
+                  description: A sample description.
+                  termsId: '500123'
+                  source: example_value
+                  lines:
+                  - lineNumber: 10
+                    lineType: example_value
+                    amount: 42.5
+                    description: A sample description.
+                    distCodeCombinationId: '500123'
       responses:
         '201':
           description: Invoice created successfully
@@ -206,26 +353,69 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApInvoice'
+              examples:
+                Createapinvoice201Example:
+                  summary: Default createApInvoice 201 response
+                  x-microcks-default: true
+                  value:
+                    invoiceId: '500123'
+                    invoiceNum: example_value
+                    invoiceDate: '2026-01-15'
+                    vendorId: '500123'
+                    vendorName: example_value
+                    vendorSiteId: '500123'
+                    invoiceAmount: 42.5
+                    invoiceCurrencyCode: example_value
+                    paymentCurrencyCode: example_value
+                    exchangeRate: 42.5
+                    exchangeRateType: example_value
+                    exchangeDate: '2026-01-15'
+                    termsId: '500123'
+                    description: A sample description.
+                    invoiceType: STANDARD
+                    source: example_value
+                    paymentStatusFlag: 'Y'
+                    approvalStatus: APPROVED
+                    amountPaid: '500123'
+                    lines:
+                    - lineNumber: 10
+                      lineType: ITEM
+                      amount: 42.5
+                      description: A sample description.
+                      accountingDate: '2026-01-15'
+                      distCodeCombinationId: '500123'
+                      itemDescription: example_value
+                      quantity: 42.5
+                      unitPrice: 42.5
+                    orgId: '500123'
+                    createdBy: 10
+                    creationDate: '2026-01-15T10:30:00Z'
+                    lastUpdatedBy: 10
+                    lastUpdateDate: '2026-01-15T10:30:00Z'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /ap/invoices/{invoiceId}:
     get:
       operationId: getApInvoiceById
-      summary: Retrieve a specific AP invoice
+      summary: Retrieve a Specific Ap Invoice
       description: Retrieves an Accounts Payable invoice by its identifier.
       tags:
-        - Accounts Payable
+      - Accounts Payable
       security:
-        - tokenAuth: []
-        - basicAuth: []
+      - tokenAuth: []
+      - basicAuth: []
       parameters:
-        - name: invoiceId
-          in: path
-          required: true
-          schema:
-            type: integer
+      - name: invoiceId
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: '500123'
       responses:
         '200':
           description: Invoice details
@@ -233,47 +423,93 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApInvoice'
+              examples:
+                Getapinvoicebyid200Example:
+                  summary: Default getApInvoiceById 200 response
+                  x-microcks-default: true
+                  value:
+                    invoiceId: '500123'
+                    invoiceNum: example_value
+                    invoiceDate: '2026-01-15'
+                    vendorId: '500123'
+                    vendorName: example_value
+                    vendorSiteId: '500123'
+                    invoiceAmount: 42.5
+                    invoiceCurrencyCode: example_value
+                    paymentCurrencyCode: example_value
+                    exchangeRate: 42.5
+                    exchangeRateType: example_value
+                    exchangeDate: '2026-01-15'
+                    termsId: '500123'
+                    description: A sample description.
+                    invoiceType: STANDARD
+                    source: example_value
+                    paymentStatusFlag: 'Y'
+                    approvalStatus: APPROVED
+                    amountPaid: '500123'
+                    lines:
+                    - lineNumber: 10
+                      lineType: ITEM
+                      amount: 42.5
+                      description: A sample description.
+                      accountingDate: '2026-01-15'
+                      distCodeCombinationId: '500123'
+                      itemDescription: example_value
+                      quantity: 42.5
+                      unitPrice: 42.5
+                    orgId: '500123'
+                    createdBy: 10
+                    creationDate: '2026-01-15T10:30:00Z'
+                    lastUpdatedBy: 10
+                    lastUpdateDate: '2026-01-15T10:30:00Z'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /ap/payments:
     get:
       operationId: getPayments
-      summary: Retrieve AP payments
+      summary: Retrieve Ap Payments
       description: >-
         Retrieves Accounts Payable payment records. Maps to the
         AP_CHECKS_ALL and AP_INVOICE_PAYMENTS_ALL tables.
       tags:
-        - Accounts Payable
+      - Accounts Payable
       security:
-        - tokenAuth: []
-        - basicAuth: []
+      - tokenAuth: []
+      - basicAuth: []
       parameters:
-        - name: checkId
-          in: query
-          description: Payment check identifier
-          schema:
-            type: integer
-        - name: vendorId
-          in: query
-          description: Supplier/vendor identifier
-          schema:
-            type: integer
-        - name: paymentDateFrom
-          in: query
-          description: Payment date range start (YYYY-MM-DD)
-          schema:
-            type: string
-            format: date
-        - name: paymentDateTo
-          in: query
-          description: Payment date range end (YYYY-MM-DD)
-          schema:
-            type: string
-            format: date
-        - $ref: '#/components/parameters/Limit'
-        - $ref: '#/components/parameters/Offset'
+      - name: checkId
+        in: query
+        description: Payment check identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: vendorId
+        in: query
+        description: Supplier/vendor identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: paymentDateFrom
+        in: query
+        description: Payment date range start (YYYY-MM-DD)
+        schema:
+          type: string
+          format: date
+        example: '2026-01-15'
+      - name: paymentDateTo
+        in: query
+        description: Payment date range end (YYYY-MM-DD)
+        schema:
+          type: string
+          format: date
+        example: '2026-01-15'
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Offset'
       responses:
         '200':
           description: List of payments
@@ -290,50 +526,77 @@ paths:
                     type: integer
                   hasMore:
                     type: boolean
+              examples:
+                Getpayments200Example:
+                  summary: Default getPayments 200 response
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - checkId: '500123'
+                      checkNumber: 10
+                      amount: 42.5
+                      currencyCode: example_value
+                      checkDate: '2026-01-15'
+                      vendorId: '500123'
+                      vendorName: example_value
+                      bankAccountId: '500123'
+                      paymentMethodCode: example_value
+                      status: example_value
+                      orgId: '500123'
+                    totalCount: 10
+                    hasMore: true
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /ar/invoices:
     get:
       operationId: getArInvoices
-      summary: Retrieve AR invoices
+      summary: Retrieve Ar Invoices
       description: >-
         Retrieves Accounts Receivable invoices and transactions. Maps to the
         RA_CUSTOMER_TRX_ALL and RA_CUSTOMER_TRX_LINES_ALL tables.
       tags:
-        - Accounts Receivable
+      - Accounts Receivable
       security:
-        - tokenAuth: []
-        - basicAuth: []
+      - tokenAuth: []
+      - basicAuth: []
       parameters:
-        - name: customerTrxId
-          in: query
-          description: Customer transaction identifier
-          schema:
-            type: integer
-        - name: trxNumber
-          in: query
-          description: Transaction number
-          schema:
-            type: string
-        - name: customerId
-          in: query
-          description: Customer identifier
-          schema:
-            type: integer
-        - name: trxDateFrom
-          in: query
-          description: Transaction date range start (YYYY-MM-DD)
-          schema:
-            type: string
-            format: date
-        - name: trxDateTo
-          in: query
-          description: Transaction date range end (YYYY-MM-DD)
-          schema:
-            type: string
-            format: date
-        - $ref: '#/components/parameters/Limit'
-        - $ref: '#/components/parameters/Offset'
+      - name: customerTrxId
+        in: query
+        description: Customer transaction identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: trxNumber
+        in: query
+        description: Transaction number
+        schema:
+          type: string
+        example: example_value
+      - name: customerId
+        in: query
+        description: Customer identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: trxDateFrom
+        in: query
+        description: Transaction date range start (YYYY-MM-DD)
+        schema:
+          type: string
+          format: date
+        example: '2026-01-15'
+      - name: trxDateTo
+        in: query
+        description: Transaction date range end (YYYY-MM-DD)
+        schema:
+          type: string
+          format: date
+        example: '2026-01-15'
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Offset'
       responses:
         '200':
           description: List of AR invoices
@@ -350,26 +613,74 @@ paths:
                     type: integer
                   hasMore:
                     type: boolean
+              examples:
+                Getarinvoices200Example:
+                  summary: Default getArInvoices 200 response
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - customerTrxId: '500123'
+                      trxNumber: example_value
+                      trxDate: '2026-01-15'
+                      customerId: '500123'
+                      customerName: example_value
+                      billToSiteUseId: '500123'
+                      shipToSiteUseId: '500123'
+                      invoiceCurrencyCode: example_value
+                      trxType: example_value
+                      amount: 42.5
+                      amountDue: 42.5
+                      status: example_value
+                      termsId: '500123'
+                      lines:
+                      - {}
+                      orgId: '500123'
+                      creationDate: '2026-01-15T10:30:00Z'
+                      lastUpdateDate: '2026-01-15T10:30:00Z'
+                    totalCount: 10
+                    hasMore: true
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: createArInvoice
-      summary: Create an AR invoice
+      summary: Create an Ar Invoice
       description: >-
         Creates a new Accounts Receivable invoice/transaction using the
         RA_INTERFACE_LINES_ALL interface table and AutoInvoice concurrent
         program.
       tags:
-        - Accounts Receivable
+      - Accounts Receivable
       security:
-        - tokenAuth: []
-        - basicAuth: []
+      - tokenAuth: []
+      - basicAuth: []
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/ArInvoiceCreate'
+            examples:
+              CreatearinvoiceRequestExample:
+                summary: Default createArInvoice request
+                x-microcks-default: true
+                value:
+                  customerId: '500123'
+                  trxDate: '2026-01-15'
+                  invoiceCurrencyCode: example_value
+                  batchSourceName: example_value
+                  billToSiteUseId: '500123'
+                  shipToSiteUseId: '500123'
+                  termsId: '500123'
+                  lines:
+                  - lineNumber: 10
+                    lineType: example_value
+                    description: A sample description.
+                    quantity: 42.5
+                    unitSellingPrice: 42.5
+                    inventoryItemId: '500123'
       responses:
         '201':
           description: AR invoice created successfully
@@ -377,40 +688,76 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ArInvoice'
+              examples:
+                Createarinvoice201Example:
+                  summary: Default createArInvoice 201 response
+                  x-microcks-default: true
+                  value:
+                    customerTrxId: '500123'
+                    trxNumber: example_value
+                    trxDate: '2026-01-15'
+                    customerId: '500123'
+                    customerName: example_value
+                    billToSiteUseId: '500123'
+                    shipToSiteUseId: '500123'
+                    invoiceCurrencyCode: example_value
+                    trxType: example_value
+                    amount: 42.5
+                    amountDue: 42.5
+                    status: example_value
+                    termsId: '500123'
+                    lines:
+                    - customerTrxLineId: '500123'
+                      lineNumber: 10
+                      lineType: LINE
+                      description: A sample description.
+                      quantity: 42.5
+                      unitSellingPrice: 42.5
+                      amount: 42.5
+                      inventoryItemId: '500123'
+                    orgId: '500123'
+                    creationDate: '2026-01-15T10:30:00Z'
+                    lastUpdateDate: '2026-01-15T10:30:00Z'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /ar/receipts:
     get:
       operationId: getReceipts
-      summary: Retrieve AR receipts
+      summary: Retrieve Ar Receipts
       description: >-
         Retrieves Accounts Receivable cash receipts. Maps to the
         AR_CASH_RECEIPTS_ALL table through the AR_RECEIPT_API_PUB PL/SQL API.
       tags:
-        - Accounts Receivable
+      - Accounts Receivable
       security:
-        - tokenAuth: []
-        - basicAuth: []
+      - tokenAuth: []
+      - basicAuth: []
       parameters:
-        - name: cashReceiptId
-          in: query
-          description: Cash receipt identifier
-          schema:
-            type: integer
-        - name: receiptNumber
-          in: query
-          description: Receipt number
-          schema:
-            type: string
-        - name: customerId
-          in: query
-          description: Customer identifier
-          schema:
-            type: integer
-        - $ref: '#/components/parameters/Limit'
-        - $ref: '#/components/parameters/Offset'
+      - name: cashReceiptId
+        in: query
+        description: Cash receipt identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: receiptNumber
+        in: query
+        description: Receipt number
+        schema:
+          type: string
+        example: example_value
+      - name: customerId
+        in: query
+        description: Customer identifier
+        schema:
+          type: integer
+        example: '500123'
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Offset'
       responses:
         '200':
           description: List of receipts
@@ -427,38 +774,62 @@ paths:
                     type: integer
                   hasMore:
                     type: boolean
+              examples:
+                Getreceipts200Example:
+                  summary: Default getReceipts 200 response
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - cashReceiptId: '500123'
+                      receiptNumber: example_value
+                      amount: 42.5
+                      currencyCode: example_value
+                      receiptDate: '2026-01-15'
+                      customerId: '500123'
+                      customerName: example_value
+                      receiptMethodId: '500123'
+                      status: example_value
+                      orgId: '500123'
+                    totalCount: 10
+                    hasMore: true
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /fa/assets:
     get:
       operationId: getAssets
-      summary: Retrieve fixed assets
+      summary: Retrieve Fixed Assets
       description: >-
         Retrieves Fixed Assets records. Maps to the FA_ADDITIONS_B and
         FA_BOOKS tables through the Fixed Assets API.
       tags:
-        - Fixed Assets
+      - Fixed Assets
       security:
-        - tokenAuth: []
-        - basicAuth: []
+      - tokenAuth: []
+      - basicAuth: []
       parameters:
-        - name: assetId
-          in: query
-          description: Asset identifier
-          schema:
-            type: integer
-        - name: assetNumber
-          in: query
-          description: Asset number
-          schema:
-            type: string
-        - name: assetCategory
-          in: query
-          description: Asset category
-          schema:
-            type: string
-        - $ref: '#/components/parameters/Limit'
-        - $ref: '#/components/parameters/Offset'
+      - name: assetId
+        in: query
+        description: Asset identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: assetNumber
+        in: query
+        description: Asset number
+        schema:
+          type: string
+        example: example_value
+      - name: assetCategory
+        in: query
+        description: Asset category
+        schema:
+          type: string
+        example: example_value
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Offset'
       responses:
         '200':
           description: List of fixed assets
@@ -475,33 +846,60 @@ paths:
                     type: integer
                   hasMore:
                     type: boolean
+              examples:
+                Getassets200Example:
+                  summary: Default getAssets 200 response
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - assetId: '500123'
+                      assetNumber: example_value
+                      assetDescription: example_value
+                      assetCategoryId: '500123'
+                      assetType: CAPITALIZED
+                      serialNumber: example_value
+                      tagNumber: example_value
+                      dateEffective: '2026-01-15'
+                      dateInService: '2026-01-15'
+                      cost: 42.5
+                      salvageValue: 42.5
+                      depreciationMethod: example_value
+                      lifeInMonths: 10
+                      bookTypeCode: example_value
+                    totalCount: 10
+                    hasMore: true
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /ce/bankAccounts:
     get:
       operationId: getBankAccounts
-      summary: Retrieve bank accounts
+      summary: Retrieve Bank Accounts
       description: >-
         Retrieves Cash Management bank account records. Maps to the
         CE_BANK_ACCOUNTS table through the Cash Management APIs.
       tags:
-        - Cash Management
+      - Cash Management
       security:
-        - tokenAuth: []
-        - basicAuth: []
+      - tokenAuth: []
+      - basicAuth: []
       parameters:
-        - name: bankAccountId
-          in: query
-          description: Bank account identifier
-          schema:
-            type: integer
-        - name: bankAccountName
-          in: query
-          description: Bank account name
-          schema:
-            type: string
-        - $ref: '#/components/parameters/Limit'
-        - $ref: '#/components/parameters/Offset'
+      - name: bankAccountId
+        in: query
+        description: Bank account identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: bankAccountName
+        in: query
+        description: Bank account name
+        schema:
+          type: string
+        example: example_value
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Offset'
       responses:
         '200':
           description: List of bank accounts
@@ -518,8 +916,29 @@ paths:
                     type: integer
                   hasMore:
                     type: boolean
+              examples:
+                Getbankaccounts200Example:
+                  summary: Default getBankAccounts 200 response
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - bankAccountId: '500123'
+                      bankAccountName: example_value
+                      bankAccountNum: example_value
+                      bankId: '500123'
+                      bankName: example_value
+                      branchId: '500123'
+                      branchName: example_value
+                      currencyCode: example_value
+                      accountType: example_value
+                      status: example_value
+                    totalCount: 10
+                    hasMore: true
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
 components:
   securitySchemes:
     basicAuth:
@@ -573,24 +992,31 @@ components:
         jeHeaderId:
           type: integer
           description: Journal entry header identifier
+          example: '500123'
         jeBatchId:
           type: integer
           description: Journal batch identifier
+          example: '500123'
         ledgerId:
           type: integer
           description: Ledger identifier
+          example: '500123'
         periodName:
           type: string
           description: Accounting period name
+          example: example_value
         journalName:
           type: string
           description: Journal entry name
+          example: example_value
         journalCategory:
           type: string
           description: Journal category
+          example: example_value
         journalSource:
           type: string
           description: Journal source
+          example: example_value
         currencyCode:
           type: string
           description: Currency code (ISO 4217)
@@ -599,92 +1025,115 @@ components:
           type: string
           description: Journal status
           enum:
-            - U
-            - A
-            - P
+          - U
+          - A
+          - P
+          example: U
         description:
           type: string
           description: Journal description
+          example: A sample description.
         effectiveDate:
           type: string
           format: date
           description: Journal effective date
+          example: '2026-01-15'
         lines:
           type: array
           items:
             $ref: '#/components/schemas/JournalLine'
+          example: []
         createdBy:
           type: integer
+          example: 10
         creationDate:
           type: string
           format: date-time
+          example: '2026-01-15T10:30:00Z'
         lastUpdatedBy:
           type: integer
+          example: 10
         lastUpdateDate:
           type: string
           format: date-time
+          example: '2026-01-15T10:30:00Z'
     JournalLine:
       type: object
       properties:
         jeLineNum:
           type: integer
           description: Journal line number
+          example: 10
         codeCombinatonId:
           type: integer
           description: Chart of accounts code combination identifier
+          example: '500123'
         accountedDr:
           type: number
           format: double
           description: Debit amount in functional currency
+          example: 42.5
         accountedCr:
           type: number
           format: double
           description: Credit amount in functional currency
+          example: 42.5
         enteredDr:
           type: number
           format: double
           description: Debit amount in entered currency
+          example: 42.5
         enteredCr:
           type: number
           format: double
           description: Credit amount in entered currency
+          example: 42.5
         description:
           type: string
           description: Line description
+          example: A sample description.
     JournalEntryCreate:
       type: object
       required:
-        - ledgerId
-        - periodName
-        - journalName
-        - journalCategory
-        - journalSource
-        - currencyCode
-        - lines
+      - ledgerId
+      - periodName
+      - journalName
+      - journalCategory
+      - journalSource
+      - currencyCode
+      - lines
       properties:
         ledgerId:
           type: integer
+          example: '500123'
         periodName:
           type: string
+          example: example_value
         journalName:
           type: string
+          example: example_value
         journalCategory:
           type: string
+          example: example_value
         journalSource:
           type: string
+          example: example_value
         currencyCode:
           type: string
+          example: example_value
         description:
           type: string
+          example: A sample description.
         effectiveDate:
           type: string
           format: date
+          example: '2026-01-15'
         lines:
           type: array
           items:
             type: object
             required:
-              - codeCombinatonId
+            - codeCombinatonId
             properties:
               codeCombinatonId:
                 type: integer
@@ -702,32 +1151,40 @@ components:
                 format: double
               description:
                 type: string
+          example: []
     ApInvoice:
       type: object
       properties:
         invoiceId:
           type: integer
           description: Invoice unique identifier
+          example: '500123'
         invoiceNum:
           type: string
           description: Invoice number
+          example: example_value
         invoiceDate:
           type: string
           format: date
           description: Invoice date
+          example: '2026-01-15'
         vendorId:
           type: integer
           description: Supplier/vendor identifier
+          example: '500123'
         vendorName:
           type: string
           description: Supplier/vendor name
+          example: example_value
         vendorSiteId:
           type: integer
           description: Vendor site identifier
+          example: '500123'
         invoiceAmount:
           type: number
           format: double
           description: Total invoice amount
+          example: 42.5
         invoiceCurrencyCode:
           type: string
           description: Invoice currency code (ISO 4217)
@@ -735,143 +1192,179 @@ components:
         paymentCurrencyCode:
           type: string
           description: Payment currency code
+          example: example_value
         exchangeRate:
           type: number
           format: double
           description: Currency exchange rate
+          example: 42.5
         exchangeRateType:
           type: string
           description: Exchange rate type
+          example: example_value
         exchangeDate:
           type: string
           format: date
           description: Exchange rate date
+          example: '2026-01-15'
         termsId:
           type: integer
           description: Payment terms identifier
+          example: '500123'
         description:
           type: string
           description: Invoice description
+          example: A sample description.
         invoiceType:
           type: string
           description: Invoice type lookup code
           enum:
-            - STANDARD
-            - CREDIT
-            - DEBIT
-            - PREPAYMENT
-            - MIXED
+          - STANDARD
+          - CREDIT
+          - DEBIT
+          - PREPAYMENT
+          - MIXED
+          example: STANDARD
         source:
           type: string
           description: Invoice source
+          example: example_value
         paymentStatusFlag:
           type: string
           description: Payment status
           enum:
-            - 'Y'
-            - 'N'
-            - P
+          - 'Y'
+          - 'N'
+          - P
+          example: 'Y'
         approvalStatus:
           type: string
           description: Approval status
           enum:
-            - APPROVED
-            - NEEDS_REAPPROVAL
-            - NEVER_APPROVED
-            - CANCELLED
+          - APPROVED
+          - NEEDS_REAPPROVAL
+          - NEVER_APPROVED
+          - CANCELLED
+          example: APPROVED
         amountPaid:
           type: number
           format: double
           description: Amount paid
+          example: '500123'
         lines:
           type: array
           items:
             $ref: '#/components/schemas/ApInvoiceLine'
+          example: []
         orgId:
           type: integer
           description: Operating unit identifier
+          example: '500123'
         createdBy:
           type: integer
+          example: 10
         creationDate:
           type: string
           format: date-time
+          example: '2026-01-15T10:30:00Z'
         lastUpdatedBy:
           type: integer
+          example: 10
         lastUpdateDate:
           type: string
           format: date-time
+          example: '2026-01-15T10:30:00Z'
     ApInvoiceLine:
       type: object
       properties:
         lineNumber:
           type: integer
           description: Invoice line number
+          example: 10
         lineType:
           type: string
           description: Line type lookup code
           enum:
-            - ITEM
-            - TAX
-            - FREIGHT
-            - MISCELLANEOUS
+          - ITEM
+          - TAX
+          - FREIGHT
+          - MISCELLANEOUS
+          example: ITEM
         amount:
           type: number
           format: double
           description: Line amount
+          example: 42.5
         description:
           type: string
           description: Line description
+          example: A sample description.
         accountingDate:
           type: string
           format: date
+          example: '2026-01-15'
         distCodeCombinationId:
           type: integer
           description: Distribution account code combination ID
+          example: '500123'
         itemDescription:
           type: string
+          example: example_value
         quantity:
           type: number
           format: double
+          example: 42.5
         unitPrice:
           type: number
           format: double
+          example: 42.5
     ApInvoiceCreate:
       type: object
       required:
-        - invoiceNum
-        - vendorId
-        - vendorSiteId
-        - invoiceAmount
-        - invoiceCurrencyCode
-        - invoiceDate
+      - invoiceNum
+      - vendorId
+      - vendorSiteId
+      - invoiceAmount
+      - invoiceCurrencyCode
+      - invoiceDate
       properties:
         invoiceNum:
           type: string
+          example: example_value
         vendorId:
           type: integer
+          example: '500123'
         vendorSiteId:
           type: integer
+          example: '500123'
         invoiceAmount:
           type: number
           format: double
+          example: 42.5
         invoiceCurrencyCode:
           type: string
+          example: example_value
         invoiceDate:
           type: string
           format: date
+          example: '2026-01-15'
         invoiceType:
           type: string
           enum:
-            - STANDARD
-            - CREDIT
-            - DEBIT
-            - PREPAYMENT
+          - STANDARD
+          - CREDIT
+          - DEBIT
+          - PREPAYMENT
+          example: STANDARD
         description:
           type: string
+          example: A sample description.
         termsId:
           type: integer
+          example: '500123'
         source:
           type: string
+          example: example_value
         lines:
           type: array
           items:
@@ -888,149 +1381,193 @@ components:
                 type: string
               distCodeCombinationId:
                 type: integer
+          example: []
     ApPayment:
       type: object
       properties:
         checkId:
           type: integer
           description: Payment check identifier
+          example: '500123'
         checkNumber:
           type: integer
           description: Check number
+          example: 10
         amount:
           type: number
           format: double
           description: Payment amount
+          example: 42.5
         currencyCode:
           type: string
           description: Payment currency code
+          example: example_value
         checkDate:
           type: string
           format: date
           description: Check date
+          example: '2026-01-15'
         vendorId:
           type: integer
           description: Vendor identifier
+          example: '500123'
         vendorName:
           type: string
           description: Vendor name
+          example: example_value
         bankAccountId:
           type: integer
           description: Bank account identifier
+          example: '500123'
         paymentMethodCode:
           type: string
           description: Payment method
+          example: example_value
         status:
           type: string
           description: Payment status
+          example: example_value
         orgId:
           type: integer
+          example: '500123'
     ArInvoice:
       type: object
       properties:
         customerTrxId:
           type: integer
           description: Customer transaction identifier
+          example: '500123'
         trxNumber:
           type: string
           description: Transaction number
+          example: example_value
         trxDate:
           type: string
           format: date
           description: Transaction date
+          example: '2026-01-15'
         customerId:
           type: integer
           description: Customer identifier
+          example: '500123'
         customerName:
           type: string
           description: Customer name
+          example: example_value
         billToSiteUseId:
           type: integer
           description: Bill-to site use identifier
+          example: '500123'
         shipToSiteUseId:
           type: integer
           description: Ship-to site use identifier
+          example: '500123'
         invoiceCurrencyCode:
           type: string
           description: Invoice currency (ISO 4217)
+          example: example_value
         trxType:
           type: string
           description: Transaction type
+          example: example_value
         amount:
           type: number
           format: double
           description: Transaction amount
+          example: 42.5
         amountDue:
           type: number
           format: double
           description: Remaining amount due
+          example: 42.5
         status:
           type: string
           description: Transaction status
+          example: example_value
         termsId:
           type: integer
           description: Payment terms identifier
+          example: '500123'
         lines:
           type: array
           items:
             $ref: '#/components/schemas/ArInvoiceLine'
+          example: []
         orgId:
           type: integer
+          example: '500123'
         creationDate:
           type: string
           format: date-time
+          example: '2026-01-15T10:30:00Z'
         lastUpdateDate:
           type: string
           format: date-time
+          example: '2026-01-15T10:30:00Z'
     ArInvoiceLine:
       type: object
       properties:
         customerTrxLineId:
           type: integer
+          example: '500123'
         lineNumber:
           type: integer
+          example: 10
         lineType:
           type: string
           enum:
-            - LINE
-            - TAX
-            - FREIGHT
+          - LINE
+          - TAX
+          - FREIGHT
+          example: LINE
         description:
           type: string
+          example: A sample description.
         quantity:
           type: number
           format: double
+          example: 42.5
         unitSellingPrice:
           type: number
           format: double
+          example: 42.5
         amount:
           type: number
           format: double
+          example: 42.5
         inventoryItemId:
           type: integer
+          example: '500123'
     ArInvoiceCreate:
       type: object
       required:
-        - customerId
-        - trxDate
-        - invoiceCurrencyCode
-        - batchSourceName
+      - customerId
+      - trxDate
+      - invoiceCurrencyCode
+      - batchSourceName
       properties:
         customerId:
           type: integer
+          example: '500123'
         trxDate:
           type: string
           format: date
+          example: '2026-01-15'
         invoiceCurrencyCode:
           type: string
+          example: example_value
         batchSourceName:
           type: string
+          example: example_value
         billToSiteUseId:
           type: integer
+          example: '500123'
         shipToSiteUseId:
           type: integer
+          example: '500123'
         termsId:
           type: integer
+          example: '500123'
         lines:
           type: array
           items:
@@ -1050,125 +1587,160 @@ components:
                 format: double
               inventoryItemId:
                 type: integer
+          example: []
     ArReceipt:
       type: object
       properties:
         cashReceiptId:
           type: integer
           description: Cash receipt identifier
+          example: '500123'
         receiptNumber:
           type: string
           description: Receipt number
+          example: example_value
         amount:
           type: number
           format: double
           description: Receipt amount
+          example: 42.5
         currencyCode:
           type: string
           description: Receipt currency code
+          example: example_value
         receiptDate:
           type: string
           format: date
           description: Receipt date
+          example: '2026-01-15'
         customerId:
           type: integer
           description: Customer identifier
+          example: '500123'
         customerName:
           type: string
           description: Customer name
+          example: example_value
         receiptMethodId:
           type: integer
           description: Receipt method identifier
+          example: '500123'
         status:
           type: string
           description: Receipt status
+          example: example_value
         orgId:
           type: integer
+          example: '500123'
     FixedAsset:
       type: object
       properties:
         assetId:
           type: integer
           description: Asset identifier
+          example: '500123'
         assetNumber:
           type: string
           description: Asset number
+          example: example_value
         assetDescription:
           type: string
           description: Asset description
+          example: example_value
         assetCategoryId:
           type: integer
           description: Asset category identifier
+          example: '500123'
         assetType:
           type: string
           description: Asset type
           enum:
-            - CAPITALIZED
-            - CIP
-            - EXPENSED
+          - CAPITALIZED
+          - CIP
+          - EXPENSED
+          example: CAPITALIZED
         serialNumber:
           type: string
           description: Serial number
+          example: example_value
         tagNumber:
           type: string
           description: Tag number
+          example: example_value
         dateEffective:
           type: string
           format: date
+          example: '2026-01-15'
         dateInService:
           type: string
           format: date
           description: Date placed in service
+          example: '2026-01-15'
         cost:
           type: number
           format: double
           description: Asset cost
+          example: 42.5
         salvageValue:
           type: number
           format: double
           description: Salvage value
+          example: 42.5
         depreciationMethod:
           type: string
           description: Depreciation method
+          example: example_value
         lifeInMonths:
           type: integer
           description: Useful life in months
+          example: 10
         bookTypeCode:
           type: string
           description: Book type code (corporate or tax)
+          example: example_value
     BankAccount:
       type: object
       properties:
         bankAccountId:
           type: integer
           description: Bank account identifier
+          example: '500123'
         bankAccountName:
           type: string
           description: Bank account name
+          example: example_value
         bankAccountNum:
           type: string
           description: Bank account number
+          example: example_value
         bankId:
           type: integer
           description: Bank identifier
+          example: '500123'
         bankName:
           type: string
           description: Bank name
+          example: example_value
         branchId:
           type: integer
           description: Bank branch identifier
+          example: '500123'
         branchName:
           type: string
           description: Branch name
+          example: example_value
         currencyCode:
           type: string
           description: Account currency code
+          example: example_value
         accountType:
           type: string
           description: Account type
+          example: example_value
         status:
           type: string
           description: Account status
+          example: example_value
     ErrorResponse:
       type: object
       properties:
@@ -1181,14 +1753,15 @@ components:
               type: string
             detail:
               type: string
+          example: example_value
 tags:
-  - name: General Ledger
-    description: General Ledger journal operations
-  - name: Accounts Payable
-    description: Accounts Payable invoice and payment operations
-  - name: Accounts Receivable
-    description: Accounts Receivable invoice and receipt operations
-  - name: Fixed Assets
-    description: Fixed asset management operations
-  - name: Cash Management
-    description: Cash management and bank account operations
+- name: General Ledger
+  description: General Ledger journal operations
+- name: Accounts Payable
+  description: Accounts Payable invoice and payment operations
+- name: Accounts Receivable
+  description: Accounts Receivable invoice and receipt operations
+- name: Fixed Assets
+  description: Fixed asset management operations
+- name: Cash Management
+  description: Cash management and bank account operations

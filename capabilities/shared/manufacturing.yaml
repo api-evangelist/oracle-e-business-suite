@@ -1,0 +1,277 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Oracle EBS Manufacturing"
+  description: "Manufacturing APIs for Bills of Material, routings, discrete jobs, WIP operations, and material transactions."
+  tags:
+    - Oracle
+    - Manufacturing
+    - Production
+  created: "2026-04-18"
+  modified: "2026-04-18"
+
+binds:
+  - namespace: env
+    keys:
+      ORACLE_EBS_TOKEN: ORACLE_EBS_TOKEN
+
+capability:
+  consumes:
+    - type: http
+      namespace: oracle-manufacturing
+      baseUri: https://{instance}.oracle.com/webservices/rest
+      description: "Oracle EBS Manufacturing API for managing production operations."
+      authentication:
+        type: bearer
+        token: "{{ORACLE_EBS_TOKEN}}"
+      resources:
+        - name: bills-of-material
+          path: /bom/bills
+          description: "Bills of Material."
+          operations:
+            - name: get-bills-of-material
+              method: GET
+              description: "Retrieve bills of material."
+              inputParameters:
+                - name: organizationId
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Organization identifier."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: bill-of-material
+          path: /bom/bills/{billSequenceId}
+          description: "Specific bill of material."
+          operations:
+            - name: get-bill-of-material-by-id
+              method: GET
+              description: "Get bill of material by ID."
+              inputParameters:
+                - name: billSequenceId
+                  in: path
+                  type: integer
+                  required: true
+                  description: "Bill sequence identifier."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: routings
+          path: /bom/routings
+          description: "Manufacturing routings."
+          operations:
+            - name: get-routings
+              method: GET
+              description: "Retrieve routings."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: discrete-jobs
+          path: /wip/discrete-jobs
+          description: "Discrete manufacturing jobs."
+          operations:
+            - name: get-discrete-jobs
+              method: GET
+              description: "Retrieve discrete jobs."
+              inputParameters:
+                - name: organizationId
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Organization identifier."
+                - name: status
+                  in: query
+                  type: string
+                  required: false
+                  description: "Job status."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: create-discrete-job
+              method: POST
+              description: "Create a discrete job."
+              body:
+                type: json
+                data:
+                  organizationId: "{{tools.organization_id}}"
+                  assemblyItemId: "{{tools.assembly_item_id}}"
+                  startQuantity: "{{tools.start_quantity}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: discrete-job
+          path: /wip/discrete-jobs/{wipEntityId}
+          description: "Specific discrete job."
+          operations:
+            - name: get-discrete-job-by-id
+              method: GET
+              description: "Get discrete job by ID."
+              inputParameters:
+                - name: wipEntityId
+                  in: path
+                  type: integer
+                  required: true
+                  description: "WIP entity identifier."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: wip-operations
+          path: /wip/operations
+          description: "WIP operations."
+          operations:
+            - name: get-wip-operations
+              method: GET
+              description: "Retrieve WIP operations."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: assembly-completion
+          path: /wip/completions
+          description: "Assembly completions."
+          operations:
+            - name: complete-assembly
+              method: POST
+              description: "Complete an assembly."
+              body:
+                type: json
+                data:
+                  wipEntityId: "{{tools.wip_entity_id}}"
+                  quantity: "{{tools.quantity}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: material-issues
+          path: /wip/material-issues
+          description: "Material issue transactions."
+          operations:
+            - name: issue-material
+              method: POST
+              description: "Issue material to a job."
+              body:
+                type: json
+                data:
+                  wipEntityId: "{{tools.wip_entity_id}}"
+                  inventoryItemId: "{{tools.inventory_item_id}}"
+                  quantity: "{{tools.quantity}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      port: 8103
+      namespace: oracle-manufacturing-api
+      resources:
+        - path: /v1/bills-of-material
+          name: bills-of-material
+          description: "BOM management."
+          operations:
+            - method: GET
+              name: get-bills-of-material
+              description: "List bills of material."
+              call: "oracle-manufacturing.get-bills-of-material"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9103
+      namespace: oracle-manufacturing-mcp
+      transport: http
+      tools:
+        - name: get-bills-of-material
+          description: "Retrieve bills of material."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "oracle-manufacturing.get-bills-of-material"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-bill-of-material-by-id
+          description: "Get BOM by ID."
+          hints:
+            readOnly: true
+          call: "oracle-manufacturing.get-bill-of-material-by-id"
+          with:
+            billSequenceId: "tools.bill_sequence_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-routings
+          description: "Retrieve routings."
+          hints:
+            readOnly: true
+          call: "oracle-manufacturing.get-routings"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-discrete-jobs
+          description: "Retrieve discrete jobs."
+          hints:
+            readOnly: true
+          call: "oracle-manufacturing.get-discrete-jobs"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-discrete-job
+          description: "Create a discrete job."
+          hints:
+            readOnly: false
+          call: "oracle-manufacturing.create-discrete-job"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-discrete-job-by-id
+          description: "Get discrete job by ID."
+          hints:
+            readOnly: true
+          call: "oracle-manufacturing.get-discrete-job-by-id"
+          with:
+            wipEntityId: "tools.wip_entity_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-wip-operations
+          description: "Retrieve WIP operations."
+          hints:
+            readOnly: true
+          call: "oracle-manufacturing.get-wip-operations"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: complete-assembly
+          description: "Complete an assembly."
+          hints:
+            readOnly: false
+          call: "oracle-manufacturing.complete-assembly"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: issue-material
+          description: "Issue material to a job."
+          hints:
+            readOnly: false
+          call: "oracle-manufacturing.issue-material"
+          outputParameters:
+            - type: object
+              mapping: "$."

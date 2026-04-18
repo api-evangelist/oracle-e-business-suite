@@ -1,0 +1,301 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Oracle EBS Supply Chain"
+  description: "Supply chain management APIs for purchasing, order management, inventory, and logistics."
+  tags:
+    - Oracle
+    - Supply Chain
+    - Purchasing
+  created: "2026-04-18"
+  modified: "2026-04-18"
+
+binds:
+  - namespace: env
+    keys:
+      ORACLE_EBS_TOKEN: ORACLE_EBS_TOKEN
+
+capability:
+  consumes:
+    - type: http
+      namespace: oracle-supply-chain
+      baseUri: https://{instance}.oracle.com/webservices/rest
+      description: "Oracle EBS Supply Chain API for managing procurement and inventory."
+      authentication:
+        type: bearer
+        token: "{{ORACLE_EBS_TOKEN}}"
+      resources:
+        - name: purchase-orders
+          path: /po/purchase-orders
+          description: "Purchase order management."
+          operations:
+            - name: get-purchase-orders
+              method: GET
+              description: "Retrieve purchase orders."
+              inputParameters:
+                - name: vendorId
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Vendor identifier."
+                - name: status
+                  in: query
+                  type: string
+                  required: false
+                  description: "PO status."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: create-purchase-order
+              method: POST
+              description: "Create a purchase order."
+              body:
+                type: json
+                data:
+                  vendorId: "{{tools.vendor_id}}"
+                  lines: "{{tools.lines}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: purchase-order
+          path: /po/purchase-orders/{poHeaderId}
+          description: "Specific purchase order."
+          operations:
+            - name: get-purchase-order-by-id
+              method: GET
+              description: "Get purchase order by ID."
+              inputParameters:
+                - name: poHeaderId
+                  in: path
+                  type: integer
+                  required: true
+                  description: "PO header identifier."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: update-purchase-order
+              method: PUT
+              description: "Update a purchase order."
+              inputParameters:
+                - name: poHeaderId
+                  in: path
+                  type: integer
+                  required: true
+                  description: "PO header identifier."
+              body:
+                type: json
+                data:
+                  status: "{{tools.status}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: requisitions
+          path: /po/requisitions
+          description: "Purchase requisitions."
+          operations:
+            - name: get-requisitions
+              method: GET
+              description: "Retrieve requisitions."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: suppliers
+          path: /po/suppliers
+          description: "Supplier management."
+          operations:
+            - name: get-suppliers
+              method: GET
+              description: "Retrieve suppliers."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: sales-orders
+          path: /oe/sales-orders
+          description: "Sales order management."
+          operations:
+            - name: get-sales-orders
+              method: GET
+              description: "Retrieve sales orders."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: create-sales-order
+              method: POST
+              description: "Create a sales order."
+              body:
+                type: json
+                data:
+                  customerId: "{{tools.customer_id}}"
+                  lines: "{{tools.lines}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: inventory-items
+          path: /inv/items
+          description: "Inventory items."
+          operations:
+            - name: get-inventory-items
+              method: GET
+              description: "Retrieve inventory items."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: onhand-quantities
+          path: /inv/onhand
+          description: "On-hand inventory quantities."
+          operations:
+            - name: get-onhand-quantities
+              method: GET
+              description: "Retrieve on-hand quantities."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: deliveries
+          path: /wsh/deliveries
+          description: "Shipping deliveries."
+          operations:
+            - name: get-deliveries
+              method: GET
+              description: "Retrieve deliveries."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      port: 8101
+      namespace: oracle-supply-chain-api
+      resources:
+        - path: /v1/purchase-orders
+          name: purchase-orders
+          description: "Purchase order management."
+          operations:
+            - method: GET
+              name: get-purchase-orders
+              description: "List purchase orders."
+              call: "oracle-supply-chain.get-purchase-orders"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9101
+      namespace: oracle-supply-chain-mcp
+      transport: http
+      tools:
+        - name: get-purchase-orders
+          description: "Retrieve purchase orders."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "oracle-supply-chain.get-purchase-orders"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-purchase-order
+          description: "Create a purchase order."
+          hints:
+            readOnly: false
+          call: "oracle-supply-chain.create-purchase-order"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-purchase-order-by-id
+          description: "Get purchase order by ID."
+          hints:
+            readOnly: true
+          call: "oracle-supply-chain.get-purchase-order-by-id"
+          with:
+            poHeaderId: "tools.po_header_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: update-purchase-order
+          description: "Update a purchase order."
+          hints:
+            readOnly: false
+            idempotent: true
+          call: "oracle-supply-chain.update-purchase-order"
+          with:
+            poHeaderId: "tools.po_header_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-requisitions
+          description: "Retrieve requisitions."
+          hints:
+            readOnly: true
+          call: "oracle-supply-chain.get-requisitions"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-suppliers
+          description: "Retrieve suppliers."
+          hints:
+            readOnly: true
+          call: "oracle-supply-chain.get-suppliers"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-sales-orders
+          description: "Retrieve sales orders."
+          hints:
+            readOnly: true
+          call: "oracle-supply-chain.get-sales-orders"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-sales-order
+          description: "Create a sales order."
+          hints:
+            readOnly: false
+          call: "oracle-supply-chain.create-sales-order"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-inventory-items
+          description: "Retrieve inventory items."
+          hints:
+            readOnly: true
+          call: "oracle-supply-chain.get-inventory-items"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-onhand-quantities
+          description: "Retrieve on-hand quantities."
+          hints:
+            readOnly: true
+          call: "oracle-supply-chain.get-onhand-quantities"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-deliveries
+          description: "Retrieve deliveries."
+          hints:
+            readOnly: true
+          call: "oracle-supply-chain.get-deliveries"
+          outputParameters:
+            - type: object
+              mapping: "$."

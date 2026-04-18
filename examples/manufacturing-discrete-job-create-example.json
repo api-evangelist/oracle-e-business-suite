@@ -1,0 +1,15 @@
+{
+  "wipEntityName": "example_value",
+  "primaryItemId": "500123",
+  "organizationId": "500123",
+  "statusType": 10,
+  "jobType": 10,
+  "startQuantity": 42.5,
+  "scheduledStartDate": "example_value",
+  "scheduledCompletionDate": "example_value",
+  "classCode": "example_value",
+  "bomRevision": "example_value",
+  "routingRevision": "example_value",
+  "description": "A sample description.",
+  "firmPlannedFlag": 10
+}

@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "Routing",
+  "type": "object",
+  "properties": {
+    "routingSequenceId": {
+      "type": "integer"
+    },
+    "assemblyItemId": {
+      "type": "integer"
+    },
+    "assemblyItemNumber": {
+      "type": "string"
+    },
+    "organizationId": {
+      "type": "integer"
+    },
+    "alternateDesignator": {
+      "type": "string"
+    },
+    "routingType": {
+      "type": "integer"
+    },
+    "operations": {
+      "type": "array"
+    },
+    "creationDate": {
+      "type": "string"
+    },
+    "lastUpdateDate": {
+      "type": "string"
+    }
+  }
+}

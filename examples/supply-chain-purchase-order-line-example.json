@@ -1,0 +1,16 @@
+{
+  "poLineId": "500123",
+  "lineNum": 10,
+  "lineType": "example_value",
+  "itemId": "500123",
+  "itemDescription": "example_value",
+  "categoryId": "500123",
+  "quantity": 42.5,
+  "unitMeasLookupCode": "example_value",
+  "unitPrice": 42.5,
+  "amount": 42.5,
+  "needByDate": "example_value",
+  "promisedDate": "example_value",
+  "closedCode": "example_value",
+  "shipments": []
+}

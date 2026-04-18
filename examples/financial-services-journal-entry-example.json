@@ -1,0 +1,18 @@
+{
+  "jeHeaderId": "500123",
+  "jeBatchId": "500123",
+  "ledgerId": "500123",
+  "periodName": "example_value",
+  "journalName": "example_value",
+  "journalCategory": "example_value",
+  "journalSource": "example_value",
+  "currencyCode": "example_value",
+  "status": "example_value",
+  "description": "A sample description.",
+  "effectiveDate": "example_value",
+  "lines": [],
+  "createdBy": 10,
+  "creationDate": "example_value",
+  "lastUpdatedBy": 10,
+  "lastUpdateDate": "example_value"
+}

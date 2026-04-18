@@ -1,0 +1,19 @@
+{
+  "transactionId": "500123",
+  "transactionType": "example_value",
+  "transactionDescription": "example_value",
+  "documentStandard": "example_value",
+  "documentNumber": "example_value",
+  "tradingPartnerId": "500123",
+  "tradingPartnerName": "example_value",
+  "tradingPartnerSiteId": "500123",
+  "processStatus": "example_value",
+  "sourceDocumentId": "500123",
+  "sourceDocumentNumber": "example_value",
+  "documentDate": "example_value",
+  "documentAmount": 42.5,
+  "currencyCode": "example_value",
+  "errorMessage": "example_value",
+  "creationDate": "example_value",
+  "lastUpdateDate": "example_value"
+}

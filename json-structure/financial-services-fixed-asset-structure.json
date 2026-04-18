@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "FixedAsset",
+  "type": "object",
+  "properties": {
+    "assetId": {
+      "type": "integer"
+    },
+    "assetNumber": {
+      "type": "string"
+    },
+    "assetDescription": {
+      "type": "string"
+    },
+    "assetCategoryId": {
+      "type": "integer"
+    },
+    "assetType": {
+      "type": "string"
+    },
+    "serialNumber": {
+      "type": "string"
+    },
+    "tagNumber": {
+      "type": "string"
+    },
+    "dateEffective": {
+      "type": "string"
+    },
+    "dateInService": {
+      "type": "string"
+    },
+    "cost": {
+      "type": "number"
+    },
+    "salvageValue": {
+      "type": "number"
+    },
+    "depreciationMethod": {
+      "type": "string"
+    },
+    "lifeInMonths": {
+      "type": "integer"
+    },
+    "bookTypeCode": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "transactionType": "example_value",
+  "transactionDescription": "example_value",
+  "direction": "example_value",
+  "documentId": "500123",
+  "enabled": true
+}

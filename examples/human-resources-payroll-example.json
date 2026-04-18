@@ -1,0 +1,10 @@
+{
+  "payrollId": "500123",
+  "payrollName": "example_value",
+  "periodType": "example_value",
+  "numberOfYears": 10,
+  "firstPeriodEndDate": "example_value",
+  "effectiveStartDate": "example_value",
+  "effectiveEndDate": "example_value",
+  "businessGroupId": "500123"
+}

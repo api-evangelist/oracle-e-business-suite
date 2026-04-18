@@ -1,0 +1,12 @@
+{
+  "cashReceiptId": "500123",
+  "receiptNumber": "example_value",
+  "amount": 42.5,
+  "currencyCode": "example_value",
+  "receiptDate": "example_value",
+  "customerId": "500123",
+  "customerName": "example_value",
+  "receiptMethodId": "500123",
+  "status": "example_value",
+  "orgId": "500123"
+}

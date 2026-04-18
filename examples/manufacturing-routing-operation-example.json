@@ -1,0 +1,13 @@
+{
+  "operationSequenceId": "500123",
+  "operationSeqNum": 10,
+  "operationDescription": "example_value",
+  "operationCode": "example_value",
+  "departmentId": "500123",
+  "departmentCode": "example_value",
+  "effectivityDate": "example_value",
+  "disableDate": "example_value",
+  "minimumTransferQuantity": 42.5,
+  "countPointType": 10,
+  "resources": []
+}

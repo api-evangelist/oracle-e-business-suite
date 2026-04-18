@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "BomComponent",
+  "type": "object",
+  "properties": {
+    "componentSequenceId": {
+      "type": "integer",
+      "description": "Component sequence identifier"
+    },
+    "componentItemId": {
+      "type": "integer",
+      "description": "Component item identifier"
+    },
+    "componentItemNumber": {
+      "type": "string",
+      "description": "Component item number"
+    },
+    "itemDescription": {
+      "type": "string",
+      "description": "Component item description"
+    },
+    "operationSeqNum": {
+      "type": "integer",
+      "description": "Operation sequence number where component is consumed"
+    },
+    "componentQuantity": {
+      "type": "number",
+      "description": "Component quantity per assembly"
+    },
+    "componentYieldFactor": {
+      "type": "number",
+      "description": "Component yield factor"
+    },
+    "effectivityDate": {
+      "type": "string",
+      "description": "Effective date"
+    },
+    "disableDate": {
+      "type": "string",
+      "description": "Disable date"
+    },
+    "wipSupplyType": {
+      "type": "integer",
+      "description": "WIP supply type (1=Push, 2=Assembly Pull, 3=Operation Pull, 4=Bulk, 5=Supplier, 6=Phantom)"
+    },
+    "optional": {
+      "type": "integer",
+      "description": "Optional flag (1=Yes, 2=No)"
+    },
+    "quantityRelated": {
+      "type": "integer",
+      "description": "Quantity related flag"
+    }
+  }
+}

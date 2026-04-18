@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Routing",
+  "type": "object",
+  "properties": {
+    "routingSequenceId": {
+      "type": "integer",
+      "description": "Routing sequence identifier"
+    },
+    "assemblyItemId": {
+      "type": "integer",
+      "description": "Assembly item identifier"
+    },
+    "assemblyItemNumber": {
+      "type": "string",
+      "description": "Assembly item number"
+    },
+    "organizationId": {
+      "type": "integer",
+      "description": "Organization identifier"
+    },
+    "alternateDesignator": {
+      "type": "string",
+      "description": "Alternate routing designator"
+    },
+    "routingType": {
+      "type": "integer",
+      "description": "Routing type (1=Manufacturing, 2=Engineering)"
+    },
+    "operations": {
+      "type": "array"
+    },
+    "creationDate": {
+      "type": "string"
+    },
+    "lastUpdateDate": {
+      "type": "string"
+    }
+  }
+}

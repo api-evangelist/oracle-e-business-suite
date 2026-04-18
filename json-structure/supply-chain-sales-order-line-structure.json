@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "SalesOrderLine",
+  "type": "object",
+  "properties": {
+    "lineId": {
+      "type": "integer"
+    },
+    "lineNumber": {
+      "type": "integer"
+    },
+    "orderedItem": {
+      "type": "string"
+    },
+    "inventoryItemId": {
+      "type": "integer"
+    },
+    "orderedQuantity": {
+      "type": "number"
+    },
+    "orderQuantityUom": {
+      "type": "string"
+    },
+    "unitSellingPrice": {
+      "type": "number"
+    },
+    "unitListPrice": {
+      "type": "number"
+    },
+    "lineAmount": {
+      "type": "number"
+    },
+    "scheduleShipDate": {
+      "type": "string"
+    },
+    "actualShipDate": {
+      "type": "string"
+    },
+    "flowStatusCode": {
+      "type": "string"
+    },
+    "shippedQuantity": {
+      "type": "number"
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "JournalLine",
+  "type": "object",
+  "properties": {
+    "jeLineNum": {
+      "type": "integer"
+    },
+    "codeCombinatonId": {
+      "type": "integer"
+    },
+    "accountedDr": {
+      "type": "number"
+    },
+    "accountedCr": {
+      "type": "number"
+    },
+    "enteredDr": {
+      "type": "number"
+    },
+    "enteredCr": {
+      "type": "number"
+    },
+    "description": {
+      "type": "string"
+    }
+  }
+}

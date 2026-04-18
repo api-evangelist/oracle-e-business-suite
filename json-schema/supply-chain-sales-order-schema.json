@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SalesOrder",
+  "type": "object",
+  "properties": {
+    "headerId": {
+      "type": "integer",
+      "description": "Order header identifier"
+    },
+    "orderNumber": {
+      "type": "integer",
+      "description": "Order number"
+    },
+    "orderedDate": {
+      "type": "string",
+      "description": "Order date"
+    },
+    "orderTypeId": {
+      "type": "integer",
+      "description": "Order type identifier"
+    },
+    "orderTypeName": {
+      "type": "string",
+      "description": "Order type name"
+    },
+    "soldToOrgId": {
+      "type": "integer",
+      "description": "Customer identifier (sold-to)"
+    },
+    "customerName": {
+      "type": "string",
+      "description": "Customer name"
+    },
+    "shipToOrgId": {
+      "type": "integer",
+      "description": "Ship-to organization identifier"
+    },
+    "invoiceToOrgId": {
+      "type": "integer",
+      "description": "Bill-to organization identifier"
+    },
+    "transactionalCurrCode": {
+      "type": "string",
+      "description": "Transaction currency code (ISO 4217)"
+    },
+    "flowStatusCode": {
+      "type": "string",
+      "description": "Order flow status"
+    },
+    "bookedFlag": {
+      "type": "string"
+    },
+    "totalAmount": {
+      "type": "number",
+      "description": "Order total amount"
+    },
+    "salesrepId": {
+      "type": "integer",
+      "description": "Salesperson identifier"
+    },
+    "lines": {
+      "type": "array"
+    },
+    "orgId": {
+      "type": "integer"
+    },
+    "creationDate": {
+      "type": "string"
+    },
+    "lastUpdateDate": {
+      "type": "string"
+    }
+  }
+}

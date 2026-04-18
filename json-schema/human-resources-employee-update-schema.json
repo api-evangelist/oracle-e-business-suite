@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "EmployeeUpdate",
+  "type": "object",
+  "properties": {
+    "effectiveDate": {
+      "type": "string",
+      "description": "Date-track effective date for the update"
+    },
+    "dateTrackUpdateMode": {
+      "type": "string",
+      "description": "Date-track update mode"
+    },
+    "title": {
+      "type": "string"
+    },
+    "firstName": {
+      "type": "string"
+    },
+    "middleNames": {
+      "type": "string"
+    },
+    "lastName": {
+      "type": "string"
+    },
+    "knownAs": {
+      "type": "string"
+    },
+    "emailAddress": {
+      "type": "string"
+    },
+    "maritalStatus": {
+      "type": "string"
+    }
+  }
+}

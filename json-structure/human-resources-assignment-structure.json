@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "Assignment",
+  "type": "object",
+  "properties": {
+    "assignmentId": {
+      "type": "integer"
+    },
+    "assignmentNumber": {
+      "type": "string"
+    },
+    "assignmentType": {
+      "type": "string"
+    },
+    "primaryFlag": {
+      "type": "string"
+    },
+    "jobId": {
+      "type": "integer"
+    },
+    "jobName": {
+      "type": "string"
+    },
+    "positionId": {
+      "type": "integer"
+    },
+    "positionName": {
+      "type": "string"
+    },
+    "gradeId": {
+      "type": "integer"
+    },
+    "gradeName": {
+      "type": "string"
+    },
+    "organizationId": {
+      "type": "integer"
+    },
+    "organizationName": {
+      "type": "string"
+    },
+    "locationId": {
+      "type": "integer"
+    },
+    "locationCode": {
+      "type": "string"
+    },
+    "supervisorId": {
+      "type": "integer"
+    },
+    "payrollId": {
+      "type": "integer"
+    },
+    "employmentCategory": {
+      "type": "string"
+    },
+    "normalHours": {
+      "type": "number"
+    },
+    "frequency": {
+      "type": "string"
+    },
+    "effectiveStartDate": {
+      "type": "string"
+    },
+    "effectiveEndDate": {
+      "type": "string"
+    }
+  }
+}

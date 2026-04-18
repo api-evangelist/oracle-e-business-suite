@@ -19,46 +19,49 @@ info:
   x-logo:
     url: https://www.oracle.com/a/ocom/img/oracle-logo.svg
 servers:
-  - url: https://{instance}.oracle.com/webservices/rest
-    description: Oracle EBS ISG REST endpoint
-    variables:
-      instance:
-        default: ebs-host
-        description: The Oracle EBS instance hostname
+- url: https://{instance}.oracle.com/webservices/rest
+  description: Oracle EBS ISG REST endpoint
+  variables:
+    instance:
+      default: ebs-host
+      description: The Oracle EBS instance hostname
 paths:
   /ece/tradingPartners:
     get:
       operationId: getTradingPartners
-      summary: Retrieve trading partners
+      summary: Retrieve Trading Partners
       description: >-
         Retrieves e-Commerce Gateway trading partner definitions including
         enabled EDI transactions and code conversion mappings.
       tags:
-        - Trading Partners
+      - Trading Partners
       security:
-        - tokenAuth: []
-        - basicAuth: []
+      - tokenAuth: []
+      - basicAuth: []
       parameters:
-        - name: tradingPartnerId
-          in: query
-          description: Trading partner identifier
-          schema:
-            type: integer
-        - name: tradingPartnerName
-          in: query
-          description: Trading partner name (supports wildcards)
-          schema:
-            type: string
-        - name: tradingPartnerType
-          in: query
-          description: Trading partner type
-          schema:
-            type: string
-            enum:
-              - CUSTOMER
-              - SUPPLIER
-        - $ref: '#/components/parameters/Limit'
-        - $ref: '#/components/parameters/Offset'
+      - name: tradingPartnerId
+        in: query
+        description: Trading partner identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: tradingPartnerName
+        in: query
+        description: Trading partner name (supports wildcards)
+        schema:
+          type: string
+        example: example_value
+      - name: tradingPartnerType
+        in: query
+        description: Trading partner type
+        schema:
+          type: string
+          enum:
+          - CUSTOMER
+          - SUPPLIER
+        example: CUSTOMER
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Offset'
       responses:
         '200':
           description: List of trading partners
@@ -75,24 +78,48 @@ paths:
                     type: integer
                   hasMore:
                     type: boolean
+              examples:
+                Gettradingpartners200Example:
+                  summary: Default getTradingPartners 200 response
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - tradingPartnerId: '500123'
+                      tradingPartnerName: example_value
+                      tradingPartnerType: CUSTOMER
+                      tradingPartnerSiteId: '500123'
+                      tradingPartnerSiteName: example_value
+                      ediLocationCode: example_value
+                      ediTranslatorCode: example_value
+                      documentStandard: X12
+                      enabledTransactions:
+                      - {}
+                      creationDate: '2026-01-15T10:30:00Z'
+                      lastUpdateDate: '2026-01-15T10:30:00Z'
+                    totalCount: 10
+                    hasMore: true
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /ece/tradingPartners/{tradingPartnerId}:
     get:
       operationId: getTradingPartnerById
-      summary: Retrieve a specific trading partner
+      summary: Retrieve a Specific Trading Partner
       description: Retrieves a trading partner by identifier with full detail.
       tags:
-        - Trading Partners
+      - Trading Partners
       security:
-        - tokenAuth: []
-        - basicAuth: []
+      - tokenAuth: []
+      - basicAuth: []
       parameters:
-        - name: tradingPartnerId
-          in: path
-          required: true
-          schema:
-            type: integer
+      - name: tradingPartnerId
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: '500123'
       responses:
         '200':
           description: Trading partner details
@@ -100,63 +127,92 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TradingPartner'
+              examples:
+                Gettradingpartnerbyid200Example:
+                  summary: Default getTradingPartnerById 200 response
+                  x-microcks-default: true
+                  value:
+                    tradingPartnerId: '500123'
+                    tradingPartnerName: example_value
+                    tradingPartnerType: CUSTOMER
+                    tradingPartnerSiteId: '500123'
+                    tradingPartnerSiteName: example_value
+                    ediLocationCode: example_value
+                    ediTranslatorCode: example_value
+                    documentStandard: X12
+                    enabledTransactions:
+                    - transactionType: example_value
+                      transactionDescription: example_value
+                      direction: INBOUND
+                      documentId: '500123'
+                      enabled: true
+                    creationDate: '2026-01-15T10:30:00Z'
+                    lastUpdateDate: '2026-01-15T10:30:00Z'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /ece/transactions/inbound:
     get:
       operationId: getInboundTransactions
-      summary: Retrieve inbound EDI transactions
+      summary: Retrieve Inbound Edi Transactions
       description: >-
         Retrieves inbound EDI transaction records that have been imported
         through the e-Commerce Gateway. Includes invoice, ship notice, price
         catalog, and quote response documents.
       tags:
-        - Inbound Transactions
+      - Inbound Transactions
       security:
-        - tokenAuth: []
-        - basicAuth: []
+      - tokenAuth: []
+      - basicAuth: []
       parameters:
-        - name: transactionType
-          in: query
-          description: EDI transaction type code
-          schema:
-            type: string
-            enum:
-              - INI
-              - CATI
-              - RRQI
-              - ASNI
-              - SBNI
-        - name: tradingPartnerId
-          in: query
-          description: Trading partner identifier
-          schema:
-            type: integer
-        - name: processStatus
-          in: query
-          description: Processing status
-          schema:
-            type: string
-            enum:
-              - PENDING
-              - PROCESSED
-              - ERROR
-        - name: creationDateFrom
-          in: query
-          description: Creation date range start (YYYY-MM-DD)
-          schema:
-            type: string
-            format: date
-        - name: creationDateTo
-          in: query
-          description: Creation date range end (YYYY-MM-DD)
-          schema:
-            type: string
-            format: date
-        - $ref: '#/components/parameters/Limit'
-        - $ref: '#/components/parameters/Offset'
+      - name: transactionType
+        in: query
+        description: EDI transaction type code
+        schema:
+          type: string
+          enum:
+          - INI
+          - CATI
+          - RRQI
+          - ASNI
+          - SBNI
+        example: INI
+      - name: tradingPartnerId
+        in: query
+        description: Trading partner identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: processStatus
+        in: query
+        description: Processing status
+        schema:
+          type: string
+          enum:
+          - PENDING
+          - PROCESSED
+          - ERROR
+        example: PENDING
+      - name: creationDateFrom
+        in: query
+        description: Creation date range start (YYYY-MM-DD)
+        schema:
+          type: string
+          format: date
+        example: '2026-01-15'
+      - name: creationDateTo
+        in: query
+        description: Creation date range end (YYYY-MM-DD)
+        schema:
+          type: string
+          format: date
+        example: '2026-01-15'
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Offset'
       responses:
         '200':
           description: List of inbound transactions
@@ -173,27 +229,63 @@ paths:
                     type: integer
                   hasMore:
                     type: boolean
+              examples:
+                Getinboundtransactions200Example:
+                  summary: Default getInboundTransactions 200 response
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - transactionId: '500123'
+                      transactionType: INI
+                      transactionDescription: example_value
+                      documentStandard: example_value
+                      documentNumber: example_value
+                      tradingPartnerId: '500123'
+                      tradingPartnerName: example_value
+                      tradingPartnerSiteId: '500123'
+                      processStatus: PENDING
+                      documentDate: '2026-01-15'
+                      documentAmount: 42.5
+                      currencyCode: example_value
+                      errorMessage: example_value
+                      creationDate: '2026-01-15T10:30:00Z'
+                      lastUpdateDate: '2026-01-15T10:30:00Z'
+                    totalCount: 10
+                    hasMore: true
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: importInboundTransaction
-      summary: Import an inbound EDI transaction
+      summary: Import an Inbound Edi Transaction
       description: >-
         Imports an inbound EDI transaction into Oracle EBS through the
         e-Commerce Gateway. The transaction data is validated, code conversion
         is applied, and data is loaded into the appropriate Oracle
         application open interface tables.
       tags:
-        - Inbound Transactions
+      - Inbound Transactions
       security:
-        - tokenAuth: []
-        - basicAuth: []
+      - tokenAuth: []
+      - basicAuth: []
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/InboundTransactionImport'
+            examples:
+              ImportinboundtransactionRequestExample:
+                summary: Default importInboundTransaction request
+                x-microcks-default: true
+                value:
+                  transactionType: INI
+                  tradingPartnerId: '500123'
+                  tradingPartnerSiteId: '500123'
+                  documentDate: '2026-01-15'
+                  documentData: example_value
       responses:
         '201':
           description: Inbound transaction imported successfully
@@ -208,67 +300,83 @@ paths:
                     type: string
                   message:
                     type: string
+              examples:
+                Importinboundtransaction201Example:
+                  summary: Default importInboundTransaction 201 response
+                  x-microcks-default: true
+                  value:
+                    transactionId: '500123'
+                    status: example_value
+                    message: example_value
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /ece/transactions/outbound:
     get:
       operationId: getOutboundTransactions
-      summary: Retrieve outbound EDI transactions
+      summary: Retrieve Outbound Edi Transactions
       description: >-
         Retrieves outbound EDI transaction records that have been extracted
         from Oracle EBS for transmission to trading partners. Includes
         purchase orders, invoices, payments, and schedule documents.
       tags:
-        - Outbound Transactions
+      - Outbound Transactions
       security:
-        - tokenAuth: []
-        - basicAuth: []
+      - tokenAuth: []
+      - basicAuth: []
       parameters:
-        - name: transactionType
-          in: query
-          description: EDI transaction type code
-          schema:
-            type: string
-            enum:
-              - POO
-              - POCO
-              - INO
-              - CDMO
-              - PYO
-              - SPSO
-              - SSSO
-              - ADVO
-              - MVSTO
-        - name: tradingPartnerId
-          in: query
-          description: Trading partner identifier
-          schema:
-            type: integer
-        - name: processStatus
-          in: query
-          description: Processing status
-          schema:
-            type: string
-            enum:
-              - PENDING
-              - EXTRACTED
-              - ERROR
-        - name: creationDateFrom
-          in: query
-          description: Creation date range start (YYYY-MM-DD)
-          schema:
-            type: string
-            format: date
-        - name: creationDateTo
-          in: query
-          description: Creation date range end (YYYY-MM-DD)
-          schema:
-            type: string
-            format: date
-        - $ref: '#/components/parameters/Limit'
-        - $ref: '#/components/parameters/Offset'
+      - name: transactionType
+        in: query
+        description: EDI transaction type code
+        schema:
+          type: string
+          enum:
+          - POO
+          - POCO
+          - INO
+          - CDMO
+          - PYO
+          - SPSO
+          - SSSO
+          - ADVO
+          - MVSTO
+        example: POO
+      - name: tradingPartnerId
+        in: query
+        description: Trading partner identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: processStatus
+        in: query
+        description: Processing status
+        schema:
+          type: string
+          enum:
+          - PENDING
+          - EXTRACTED
+          - ERROR
+        example: PENDING
+      - name: creationDateFrom
+        in: query
+        description: Creation date range start (YYYY-MM-DD)
+        schema:
+          type: string
+          format: date
+        example: '2026-01-15'
+      - name: creationDateTo
+        in: query
+        description: Creation date range end (YYYY-MM-DD)
+        schema:
+          type: string
+          format: date
+        example: '2026-01-15'
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Offset'
       responses:
         '200':
           description: List of outbound transactions
@@ -285,27 +393,65 @@ paths:
                     type: integer
                   hasMore:
                     type: boolean
+              examples:
+                Getoutboundtransactions200Example:
+                  summary: Default getOutboundTransactions 200 response
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - transactionId: '500123'
+                      transactionType: POO
+                      transactionDescription: example_value
+                      documentStandard: example_value
+                      documentNumber: example_value
+                      tradingPartnerId: '500123'
+                      tradingPartnerName: example_value
+                      tradingPartnerSiteId: '500123'
+                      processStatus: PENDING
+                      sourceDocumentId: '500123'
+                      sourceDocumentNumber: example_value
+                      documentDate: '2026-01-15'
+                      documentAmount: 42.5
+                      currencyCode: example_value
+                      errorMessage: example_value
+                      creationDate: '2026-01-15T10:30:00Z'
+                      lastUpdateDate: '2026-01-15T10:30:00Z'
+                    totalCount: 10
+                    hasMore: true
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: extractOutboundTransaction
-      summary: Extract an outbound EDI transaction
+      summary: Extract an Outbound Edi Transaction
       description: >-
         Initiates extraction of outbound EDI transaction data from Oracle EBS
         application tables. The extracted data is formatted into the standard
         interface data file format for the specified transaction type and
         trading partner.
       tags:
-        - Outbound Transactions
+      - Outbound Transactions
       security:
-        - tokenAuth: []
-        - basicAuth: []
+      - tokenAuth: []
+      - basicAuth: []
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/OutboundTransactionExtract'
+            examples:
+              ExtractoutboundtransactionRequestExample:
+                summary: Default extractOutboundTransaction request
+                x-microcks-default: true
+                value:
+                  transactionType: POO
+                  tradingPartnerId: '500123'
+                  tradingPartnerSiteId: '500123'
+                  dateFrom: '2026-01-15'
+                  dateTo: '2026-01-15'
       responses:
         '201':
           description: Outbound extraction initiated
@@ -321,40 +467,54 @@ paths:
                     type: string
                   message:
                     type: string
+              examples:
+                Extractoutboundtransaction201Example:
+                  summary: Default extractOutboundTransaction 201 response
+                  x-microcks-default: true
+                  value:
+                    requestId: '500123'
+                    status: example_value
+                    message: example_value
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /ece/codeConversions:
     get:
       operationId: getCodeConversions
-      summary: Retrieve code conversion mappings
+      summary: Retrieve Code Conversion Mappings
       description: >-
         Retrieves e-Commerce Gateway code conversion mappings that translate
         between trading partner external codes and Oracle EBS internal codes.
       tags:
-        - Code Conversions
+      - Code Conversions
       security:
-        - tokenAuth: []
-        - basicAuth: []
+      - tokenAuth: []
+      - basicAuth: []
       parameters:
-        - name: tradingPartnerId
-          in: query
-          description: Trading partner identifier
-          schema:
-            type: integer
-        - name: transactionType
-          in: query
-          description: Transaction type code
-          schema:
-            type: string
-        - name: codeCategory
-          in: query
-          description: Code category
-          schema:
-            type: string
-        - $ref: '#/components/parameters/Limit'
-        - $ref: '#/components/parameters/Offset'
+      - name: tradingPartnerId
+        in: query
+        description: Trading partner identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: transactionType
+        in: query
+        description: Transaction type code
+        schema:
+          type: string
+        example: example_value
+      - name: codeCategory
+        in: query
+        description: Code category
+        schema:
+          type: string
+        example: example_value
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Offset'
       responses:
         '200':
           description: List of code conversion mappings
@@ -371,8 +531,26 @@ paths:
                     type: integer
                   hasMore:
                     type: boolean
+              examples:
+                Getcodeconversions200Example:
+                  summary: Default getCodeConversions 200 response
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - codeConversionId: '500123'
+                      tradingPartnerId: '500123'
+                      transactionType: example_value
+                      codeCategory: example_value
+                      externalValue: example_value
+                      internalValue: example_value
+                      description: A sample description.
+                    totalCount: 10
+                    hasMore: true
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
 components:
   securitySchemes:
     basicAuth:
@@ -426,269 +604,334 @@ components:
         tradingPartnerId:
           type: integer
           description: Trading partner identifier
+          example: '500123'
         tradingPartnerName:
           type: string
           description: Trading partner name
+          example: example_value
         tradingPartnerType:
           type: string
           description: Trading partner type
           enum:
-            - CUSTOMER
-            - SUPPLIER
+          - CUSTOMER
+          - SUPPLIER
+          example: CUSTOMER
         tradingPartnerSiteId:
           type: integer
           description: Trading partner site identifier
+          example: '500123'
         tradingPartnerSiteName:
           type: string
           description: Site name
+          example: example_value
         ediLocationCode:
           type: string
           description: EDI location code (DUNS, DUNS+4, etc.)
+          example: example_value
         ediTranslatorCode:
           type: string
           description: EDI translator code
+          example: example_value
         documentStandard:
           type: string
           description: Document standard
           enum:
-            - X12
-            - EDIFACT
+          - X12
+          - EDIFACT
+          example: X12
         enabledTransactions:
           type: array
           description: List of enabled EDI transactions for this partner
           items:
             $ref: '#/components/schemas/EnabledTransaction'
+          example: []
         creationDate:
           type: string
           format: date-time
+          example: '2026-01-15T10:30:00Z'
         lastUpdateDate:
           type: string
           format: date-time
+          example: '2026-01-15T10:30:00Z'
     EnabledTransaction:
       type: object
       properties:
         transactionType:
           type: string
           description: Transaction type code
+          example: example_value
         transactionDescription:
           type: string
           description: Transaction description
+          example: example_value
         direction:
           type: string
           description: Transaction direction
           enum:
-            - INBOUND
-            - OUTBOUND
+          - INBOUND
+          - OUTBOUND
+          example: INBOUND
         documentId:
           type: string
           description: ASC X12 or EDIFACT document identifier
+          example: '500123'
         enabled:
           type: boolean
           description: Whether transaction is enabled
+          example: true
     InboundTransaction:
       type: object
       properties:
         transactionId:
           type: integer
           description: Transaction identifier
+          example: '500123'
         transactionType:
           type: string
           description: Inbound transaction type code
           enum:
-            - INI
-            - CATI
-            - RRQI
-            - ASNI
-            - SBNI
+          - INI
+          - CATI
+          - RRQI
+          - ASNI
+          - SBNI
+          example: INI
         transactionDescription:
           type: string
           description: Transaction description
+          example: example_value
         documentStandard:
           type: string
           description: Document standard (X12 or EDIFACT)
+          example: example_value
         documentNumber:
           type: string
           description: ASC X12 document number (810, 832, 843, 856, 857)
+          example: example_value
         tradingPartnerId:
           type: integer
           description: Trading partner identifier
+          example: '500123'
         tradingPartnerName:
           type: string
+          example: example_value
         tradingPartnerSiteId:
           type: integer
+          example: '500123'
         processStatus:
           type: string
           description: Processing status
           enum:
-            - PENDING
-            - PROCESSED
-            - ERROR
+          - PENDING
+          - PROCESSED
+          - ERROR
+          example: PENDING
         documentDate:
           type: string
           format: date
           description: Document date
+          example: '2026-01-15'
         documentAmount:
           type: number
           format: double
           description: Document total amount
+          example: 42.5
         currencyCode:
           type: string
           description: Currency code
+          example: example_value
         errorMessage:
           type: string
           description: Error message if processing failed
+          example: example_value
         creationDate:
           type: string
           format: date-time
+          example: '2026-01-15T10:30:00Z'
         lastUpdateDate:
           type: string
           format: date-time
+          example: '2026-01-15T10:30:00Z'
     InboundTransactionImport:
       type: object
       required:
-        - transactionType
-        - tradingPartnerId
-        - tradingPartnerSiteId
+      - transactionType
+      - tradingPartnerId
+      - tradingPartnerSiteId
       properties:
         transactionType:
           type: string
           description: Inbound transaction type
           enum:
-            - INI
-            - CATI
-            - RRQI
-            - ASNI
-            - SBNI
+          - INI
+          - CATI
+          - RRQI
+          - ASNI
+          - SBNI
+          example: INI
         tradingPartnerId:
           type: integer
+          example: '500123'
         tradingPartnerSiteId:
           type: integer
+          example: '500123'
         documentDate:
           type: string
           format: date
+          example: '2026-01-15'
         documentData:
           type: object
           description: >-
             Transaction-specific document data. Structure varies by
             transaction type (invoice, ship notice, etc.)
           additionalProperties: true
+          example: example_value
     OutboundTransaction:
       type: object
       properties:
         transactionId:
           type: integer
           description: Transaction identifier
+          example: '500123'
         transactionType:
           type: string
           description: Outbound transaction type code
           enum:
-            - POO
-            - POCO
-            - INO
-            - CDMO
-            - PYO
-            - SPSO
-            - SSSO
-            - ADVO
-            - MVSTO
+          - POO
+          - POCO
+          - INO
+          - CDMO
+          - PYO
+          - SPSO
+          - SSSO
+          - ADVO
+          - MVSTO
+          example: POO
         transactionDescription:
           type: string
           description: Transaction description
+          example: example_value
         documentStandard:
           type: string
           description: Document standard (X12 or EDIFACT)
+          example: example_value
         documentNumber:
           type: string
           description: ASC X12/EDIFACT document number
+          example: example_value
         tradingPartnerId:
           type: integer
+          example: '500123'
         tradingPartnerName:
           type: string
+          example: example_value
         tradingPartnerSiteId:
           type: integer
+          example: '500123'
         processStatus:
           type: string
           enum:
-            - PENDING
-            - EXTRACTED
-            - ERROR
+          - PENDING
+          - EXTRACTED
+          - ERROR
+          example: PENDING
         sourceDocumentId:
           type: integer
           description: Source document identifier in Oracle EBS
+          example: '500123'
         sourceDocumentNumber:
           type: string
           description: Source document number
+          example: example_value
         documentDate:
           type: string
           format: date
+          example: '2026-01-15'
         documentAmount:
           type: number
           format: double
+          example: 42.5
         currencyCode:
           type: string
+          example: example_value
         errorMessage:
           type: string
+          example: example_value
         creationDate:
           type: string
           format: date-time
+          example: '2026-01-15T10:30:00Z'
         lastUpdateDate:
           type: string
           format: date-time
+          example: '2026-01-15T10:30:00Z'
     OutboundTransactionExtract:
       type: object
       required:
-        - transactionType
-        - tradingPartnerId
+      - transactionType
+      - tradingPartnerId
       properties:
         transactionType:
           type: string
           description: Outbound transaction type
           enum:
-            - POO
-            - POCO
-            - INO
-            - CDMO
-            - PYO
-            - SPSO
-            - SSSO
-            - ADVO
-            - MVSTO
+          - POO
+          - POCO
+          - INO
+          - CDMO
+          - PYO
+          - SPSO
+          - SSSO
+          - ADVO
+          - MVSTO
+          example: POO
         tradingPartnerId:
           type: integer
+          example: '500123'
         tradingPartnerSiteId:
           type: integer
+          example: '500123'
         dateFrom:
           type: string
           format: date
           description: Extract documents from this date
+          example: '2026-01-15'
         dateTo:
           type: string
           format: date
           description: Extract documents to this date
+          example: '2026-01-15'
     CodeConversion:
       type: object
       properties:
         codeConversionId:
           type: integer
           description: Code conversion mapping identifier
+          example: '500123'
         tradingPartnerId:
           type: integer
           description: Trading partner identifier
+          example: '500123'
         transactionType:
           type: string
           description: Transaction type
+          example: example_value
         codeCategory:
           type: string
           description: Code category
+          example: example_value
         externalValue:
           type: string
           description: External trading partner code value
+          example: example_value
         internalValue:
           type: string
           description: Internal Oracle EBS code value
+          example: example_value
         description:
           type: string
           description: Code conversion description
+          example: A sample description.
     ErrorResponse:
       type: object
       properties:
@@ -701,12 +944,13 @@ components:
               type: string
             detail:
               type: string
+          example: example_value
 tags:
-  - name: Trading Partners
-    description: Trading partner configuration and management
-  - name: Inbound Transactions
-    description: Inbound EDI document processing
-  - name: Outbound Transactions
-    description: Outbound EDI document extraction
-  - name: Code Conversions
-    description: EDI code conversion mapping management
+- name: Trading Partners
+  description: Trading partner configuration and management
+- name: Inbound Transactions
+  description: Inbound EDI document processing
+- name: Outbound Transactions
+  description: Outbound EDI document extraction
+- name: Code Conversions
+  description: EDI code conversion mapping management

@@ -1,0 +1,13 @@
+{
+  "invoiceNum": "example_value",
+  "vendorId": "500123",
+  "vendorSiteId": "500123",
+  "invoiceAmount": 42.5,
+  "invoiceCurrencyCode": "example_value",
+  "invoiceDate": "example_value",
+  "invoiceType": "example_value",
+  "description": "A sample description.",
+  "termsId": "500123",
+  "source": "example_value",
+  "lines": []
+}

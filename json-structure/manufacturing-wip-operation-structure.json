@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "WipOperation",
+  "type": "object",
+  "properties": {
+    "wipEntityId": {
+      "type": "integer"
+    },
+    "operationSeqNum": {
+      "type": "integer"
+    },
+    "organizationId": {
+      "type": "integer"
+    },
+    "departmentId": {
+      "type": "integer"
+    },
+    "departmentCode": {
+      "type": "string"
+    },
+    "operationDescription": {
+      "type": "string"
+    },
+    "scheduledQuantity": {
+      "type": "number"
+    },
+    "quantityInQueue": {
+      "type": "number"
+    },
+    "quantityRunning": {
+      "type": "number"
+    },
+    "quantityCompleted": {
+      "type": "number"
+    },
+    "quantityScrapped": {
+      "type": "number"
+    },
+    "firstUnitStartDate": {
+      "type": "string"
+    },
+    "lastUnitCompletionDate": {
+      "type": "string"
+    },
+    "countPointType": {
+      "type": "integer"
+    },
+    "backflushFlag": {
+      "type": "integer"
+    }
+  }
+}

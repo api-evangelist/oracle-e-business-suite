@@ -1,0 +1,9 @@
+{
+  "wipEntityId": "500123",
+  "organizationId": "500123",
+  "transactionQuantity": 42.5,
+  "transactionUom": "example_value",
+  "subinventoryCode": "example_value",
+  "locatorId": "500123",
+  "transactionDate": "example_value"
+}

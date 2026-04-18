@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "BillOfMaterial",
+  "type": "object",
+  "properties": {
+    "billSequenceId": {
+      "type": "integer"
+    },
+    "assemblyItemId": {
+      "type": "integer"
+    },
+    "assemblyItemNumber": {
+      "type": "string"
+    },
+    "organizationId": {
+      "type": "integer"
+    },
+    "alternateDesignator": {
+      "type": "string"
+    },
+    "assemblyType": {
+      "type": "integer"
+    },
+    "commonBillSequenceId": {
+      "type": "integer"
+    },
+    "specificAssemblyComment": {
+      "type": "string"
+    },
+    "components": {
+      "type": "array"
+    },
+    "creationDate": {
+      "type": "string"
+    },
+    "lastUpdateDate": {
+      "type": "string"
+    }
+  }
+}

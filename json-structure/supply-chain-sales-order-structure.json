@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "SalesOrder",
+  "type": "object",
+  "properties": {
+    "headerId": {
+      "type": "integer"
+    },
+    "orderNumber": {
+      "type": "integer"
+    },
+    "orderedDate": {
+      "type": "string"
+    },
+    "orderTypeId": {
+      "type": "integer"
+    },
+    "orderTypeName": {
+      "type": "string"
+    },
+    "soldToOrgId": {
+      "type": "integer"
+    },
+    "customerName": {
+      "type": "string"
+    },
+    "shipToOrgId": {
+      "type": "integer"
+    },
+    "invoiceToOrgId": {
+      "type": "integer"
+    },
+    "transactionalCurrCode": {
+      "type": "string"
+    },
+    "flowStatusCode": {
+      "type": "string"
+    },
+    "bookedFlag": {
+      "type": "string"
+    },
+    "totalAmount": {
+      "type": "number"
+    },
+    "salesrepId": {
+      "type": "integer"
+    },
+    "lines": {
+      "type": "array"
+    },
+    "orgId": {
+      "type": "integer"
+    },
+    "creationDate": {
+      "type": "string"
+    },
+    "lastUpdateDate": {
+      "type": "string"
+    }
+  }
+}

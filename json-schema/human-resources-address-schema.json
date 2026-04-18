@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Address",
+  "type": "object",
+  "properties": {
+    "addressId": {
+      "type": "integer",
+      "description": "Address identifier"
+    },
+    "addressType": {
+      "type": "string",
+      "description": "Address type"
+    },
+    "addressLine1": {
+      "type": "string"
+    },
+    "addressLine2": {
+      "type": "string"
+    },
+    "addressLine3": {
+      "type": "string"
+    },
+    "townOrCity": {
+      "type": "string"
+    },
+    "region1": {
+      "type": "string",
+      "description": "County/province"
+    },
+    "region2": {
+      "type": "string",
+      "description": "State"
+    },
+    "postalCode": {
+      "type": "string"
+    },
+    "country": {
+      "type": "string",
+      "description": "Country code"
+    },
+    "primaryFlag": {
+      "type": "string"
+    },
+    "dateFrom": {
+      "type": "string"
+    },
+    "dateTo": {
+      "type": "string"
+    }
+  }
+}

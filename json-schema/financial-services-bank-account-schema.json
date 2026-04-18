@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "BankAccount",
+  "type": "object",
+  "properties": {
+    "bankAccountId": {
+      "type": "integer",
+      "description": "Bank account identifier"
+    },
+    "bankAccountName": {
+      "type": "string",
+      "description": "Bank account name"
+    },
+    "bankAccountNum": {
+      "type": "string",
+      "description": "Bank account number"
+    },
+    "bankId": {
+      "type": "integer",
+      "description": "Bank identifier"
+    },
+    "bankName": {
+      "type": "string",
+      "description": "Bank name"
+    },
+    "branchId": {
+      "type": "integer",
+      "description": "Bank branch identifier"
+    },
+    "branchName": {
+      "type": "string",
+      "description": "Branch name"
+    },
+    "currencyCode": {
+      "type": "string",
+      "description": "Account currency code"
+    },
+    "accountType": {
+      "type": "string",
+      "description": "Account type"
+    },
+    "status": {
+      "type": "string",
+      "description": "Account status"
+    }
+  }
+}

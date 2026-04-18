@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "OnhandQuantity",
+  "type": "object",
+  "properties": {
+    "inventoryItemId": {
+      "type": "integer"
+    },
+    "organizationId": {
+      "type": "integer"
+    },
+    "subinventoryCode": {
+      "type": "string"
+    },
+    "locatorId": {
+      "type": "integer"
+    },
+    "lotNumber": {
+      "type": "string"
+    },
+    "serialNumber": {
+      "type": "string"
+    },
+    "transactionQuantity": {
+      "type": "number"
+    },
+    "transactionUomCode": {
+      "type": "string"
+    },
+    "lastUpdateDate": {
+      "type": "string"
+    }
+  }
+}

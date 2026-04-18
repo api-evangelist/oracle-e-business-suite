@@ -1,0 +1,12 @@
+{
+  "lineLocationId": "500123",
+  "shipmentNum": 10,
+  "quantity": 42.5,
+  "quantityReceived": 42.5,
+  "quantityBilled": 42.5,
+  "needByDate": "example_value",
+  "promisedDate": "example_value",
+  "shipToOrganizationId": "500123",
+  "shipToLocationId": "500123",
+  "closedCode": "example_value"
+}

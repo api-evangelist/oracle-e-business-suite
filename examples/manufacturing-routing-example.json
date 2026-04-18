@@ -1,0 +1,11 @@
+{
+  "routingSequenceId": "500123",
+  "assemblyItemId": "500123",
+  "assemblyItemNumber": "example_value",
+  "organizationId": "500123",
+  "alternateDesignator": "example_value",
+  "routingType": 10,
+  "operations": [],
+  "creationDate": "example_value",
+  "lastUpdateDate": "example_value"
+}

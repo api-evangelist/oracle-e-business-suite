@@ -1,0 +1,12 @@
+{
+  "bankAccountId": "500123",
+  "bankAccountName": "example_value",
+  "bankAccountNum": "example_value",
+  "bankId": "500123",
+  "bankName": "example_value",
+  "branchId": "500123",
+  "branchName": "example_value",
+  "currencyCode": "example_value",
+  "accountType": "example_value",
+  "status": "example_value"
+}

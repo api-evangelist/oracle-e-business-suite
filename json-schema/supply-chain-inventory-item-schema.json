@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "InventoryItem",
+  "type": "object",
+  "properties": {
+    "inventoryItemId": {
+      "type": "integer",
+      "description": "Inventory item identifier"
+    },
+    "segment1": {
+      "type": "string",
+      "description": "Item number"
+    },
+    "description": {
+      "type": "string",
+      "description": "Item description"
+    },
+    "longDescription": {
+      "type": "string",
+      "description": "Extended item description"
+    },
+    "primaryUomCode": {
+      "type": "string",
+      "description": "Primary unit of measure"
+    },
+    "itemType": {
+      "type": "string",
+      "description": "Item type"
+    },
+    "inventoryItemStatusCode": {
+      "type": "string",
+      "description": "Item status code"
+    },
+    "organizationId": {
+      "type": "integer",
+      "description": "Inventory organization identifier"
+    },
+    "weightUomCode": {
+      "type": "string",
+      "description": "Weight unit of measure"
+    },
+    "unitWeight": {
+      "type": "number",
+      "description": "Unit weight"
+    },
+    "volumeUomCode": {
+      "type": "string",
+      "description": "Volume unit of measure"
+    },
+    "unitVolume": {
+      "type": "number",
+      "description": "Unit volume"
+    },
+    "listPrice": {
+      "type": "number",
+      "description": "Item list price"
+    },
+    "purchasingEnabledFlag": {
+      "type": "string"
+    },
+    "customerOrderEnabledFlag": {
+      "type": "string"
+    },
+    "internalOrderEnabledFlag": {
+      "type": "string"
+    },
+    "creationDate": {
+      "type": "string"
+    },
+    "lastUpdateDate": {
+      "type": "string"
+    }
+  }
+}

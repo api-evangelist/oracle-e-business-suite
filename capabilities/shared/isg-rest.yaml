@@ -1,0 +1,180 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Oracle EBS ISG REST"
+  description: "Integrated SOA Gateway REST API for authentication, session management, and generic service invocation."
+  tags:
+    - Oracle
+    - Integration
+    - SOA Gateway
+  created: "2026-04-18"
+  modified: "2026-04-18"
+
+binds:
+  - namespace: env
+    keys:
+      ORACLE_EBS_USERNAME: ORACLE_EBS_USERNAME
+      ORACLE_EBS_PASSWORD: ORACLE_EBS_PASSWORD
+
+capability:
+  consumes:
+    - type: http
+      namespace: oracle-isg-rest
+      baseUri: https://{instance}.oracle.com/webservices/rest
+      description: "Oracle EBS ISG REST API for session management and service discovery."
+      authentication:
+        type: basic
+        username: "{{ORACLE_EBS_USERNAME}}"
+        password: "{{ORACLE_EBS_PASSWORD}}"
+      resources:
+        - name: auth
+          path: /auth
+          description: "Authentication and session management."
+          operations:
+            - name: login
+              method: POST
+              description: "Authenticate and obtain a session token."
+              body:
+                type: json
+                data:
+                  username: "{{tools.username}}"
+                  password: "{{tools.password}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: logout
+              method: POST
+              description: "End the current session."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: initialize
+          path: /initialize
+          description: "Initialize responsibility context."
+          operations:
+            - name: initialize
+              method: POST
+              description: "Initialize the EBS responsibility context."
+              body:
+                type: json
+                data:
+                  responsibilityId: "{{tools.responsibility_id}}"
+                  applicationId: "{{tools.application_id}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: wadl
+          path: /{service}/wadl
+          description: "Service WADL discovery."
+          operations:
+            - name: get-service-wadl
+              method: GET
+              description: "Get WADL for a deployed REST service."
+              inputParameters:
+                - name: service
+                  in: path
+                  type: string
+                  required: true
+                  description: "Service name."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: rest-method
+          path: /{service}/{method}
+          description: "Invoke a generic REST method."
+          operations:
+            - name: invoke-rest-method
+              method: POST
+              description: "Invoke a REST method on a deployed service."
+              inputParameters:
+                - name: service
+                  in: path
+                  type: string
+                  required: true
+                  description: "Service name."
+                - name: method
+                  in: path
+                  type: string
+                  required: true
+                  description: "Method name."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      port: 8104
+      namespace: oracle-isg-rest-api
+      resources:
+        - path: /v1/auth
+          name: auth
+          description: "Authentication."
+          operations:
+            - method: POST
+              name: login
+              description: "Authenticate."
+              call: "oracle-isg-rest.login"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9104
+      namespace: oracle-isg-rest-mcp
+      transport: http
+      tools:
+        - name: login
+          description: "Authenticate and obtain session token."
+          hints:
+            readOnly: false
+          call: "oracle-isg-rest.login"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: logout
+          description: "End the current session."
+          hints:
+            readOnly: false
+          call: "oracle-isg-rest.logout"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: initialize
+          description: "Initialize responsibility context."
+          hints:
+            readOnly: false
+          call: "oracle-isg-rest.initialize"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-service-wadl
+          description: "Get WADL for a REST service."
+          hints:
+            readOnly: true
+          call: "oracle-isg-rest.get-service-wadl"
+          with:
+            service: "tools.service"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: invoke-rest-method
+          description: "Invoke a REST method on a service."
+          hints:
+            readOnly: false
+          call: "oracle-isg-rest.invoke-rest-method"
+          with:
+            service: "tools.service"
+            method: "tools.method"
+          outputParameters:
+            - type: object
+              mapping: "$."

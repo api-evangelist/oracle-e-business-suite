@@ -1,0 +1,9 @@
+{
+  "resourceSeqNum": 10,
+  "resourceId": "500123",
+  "resourceCode": "example_value",
+  "usageRateOrAmount": 42.5,
+  "basisType": 10,
+  "scheduleFlag": 10,
+  "autochargeType": 10
+}

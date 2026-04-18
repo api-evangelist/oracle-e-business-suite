@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "OperationResource",
+  "type": "object",
+  "properties": {
+    "resourceSeqNum": {
+      "type": "integer"
+    },
+    "resourceId": {
+      "type": "integer"
+    },
+    "resourceCode": {
+      "type": "string"
+    },
+    "usageRateOrAmount": {
+      "type": "number"
+    },
+    "basisType": {
+      "type": "integer"
+    },
+    "scheduleFlag": {
+      "type": "integer"
+    },
+    "autochargeType": {
+      "type": "integer"
+    }
+  }
+}

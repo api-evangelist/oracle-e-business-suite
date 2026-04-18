@@ -1,0 +1,10 @@
+{
+  "customerId": "500123",
+  "trxDate": "example_value",
+  "invoiceCurrencyCode": "example_value",
+  "batchSourceName": "example_value",
+  "billToSiteUseId": "500123",
+  "shipToSiteUseId": "500123",
+  "termsId": "500123",
+  "lines": []
+}

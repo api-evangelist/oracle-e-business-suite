@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Requisition",
+  "type": "object",
+  "properties": {
+    "requisitionHeaderId": {
+      "type": "integer",
+      "description": "Requisition header identifier"
+    },
+    "segment1": {
+      "type": "string",
+      "description": "Requisition number"
+    },
+    "typeLookupCode": {
+      "type": "string",
+      "description": "Requisition type"
+    },
+    "authorizationStatus": {
+      "type": "string",
+      "description": "Authorization status"
+    },
+    "preparerId": {
+      "type": "integer",
+      "description": "Preparer identifier"
+    },
+    "description": {
+      "type": "string",
+      "description": "Requisition description"
+    },
+    "totalAmount": {
+      "type": "number"
+    },
+    "creationDate": {
+      "type": "string"
+    },
+    "lines": {
+      "type": "array"
+    },
+    "orgId": {
+      "type": "integer"
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "ledgerId": "500123",
+  "periodName": "example_value",
+  "journalName": "example_value",
+  "journalCategory": "example_value",
+  "journalSource": "example_value",
+  "currencyCode": "example_value",
+  "description": "A sample description.",
+  "effectiveDate": "example_value",
+  "lines": []
+}

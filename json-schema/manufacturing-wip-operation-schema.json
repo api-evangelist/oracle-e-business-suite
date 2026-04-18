@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "WipOperation",
+  "type": "object",
+  "properties": {
+    "wipEntityId": {
+      "type": "integer",
+      "description": "WIP entity identifier"
+    },
+    "operationSeqNum": {
+      "type": "integer",
+      "description": "Operation sequence number"
+    },
+    "organizationId": {
+      "type": "integer",
+      "description": "Organization identifier"
+    },
+    "departmentId": {
+      "type": "integer",
+      "description": "Department identifier"
+    },
+    "departmentCode": {
+      "type": "string"
+    },
+    "operationDescription": {
+      "type": "string",
+      "description": "Operation description"
+    },
+    "scheduledQuantity": {
+      "type": "number"
+    },
+    "quantityInQueue": {
+      "type": "number",
+      "description": "Quantity in queue"
+    },
+    "quantityRunning": {
+      "type": "number",
+      "description": "Quantity running"
+    },
+    "quantityCompleted": {
+      "type": "number",
+      "description": "Quantity completed"
+    },
+    "quantityScrapped": {
+      "type": "number",
+      "description": "Quantity scrapped"
+    },
+    "firstUnitStartDate": {
+      "type": "string"
+    },
+    "lastUnitCompletionDate": {
+      "type": "string"
+    },
+    "countPointType": {
+      "type": "integer"
+    },
+    "backflushFlag": {
+      "type": "integer"
+    }
+  }
+}

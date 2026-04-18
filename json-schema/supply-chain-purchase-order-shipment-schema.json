@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PurchaseOrderShipment",
+  "type": "object",
+  "properties": {
+    "lineLocationId": {
+      "type": "integer",
+      "description": "Line location (shipment) identifier"
+    },
+    "shipmentNum": {
+      "type": "integer",
+      "description": "Shipment number"
+    },
+    "quantity": {
+      "type": "number",
+      "description": "Shipment quantity"
+    },
+    "quantityReceived": {
+      "type": "number",
+      "description": "Quantity received"
+    },
+    "quantityBilled": {
+      "type": "number",
+      "description": "Quantity billed"
+    },
+    "needByDate": {
+      "type": "string"
+    },
+    "promisedDate": {
+      "type": "string"
+    },
+    "shipToOrganizationId": {
+      "type": "integer",
+      "description": "Ship-to organization identifier"
+    },
+    "shipToLocationId": {
+      "type": "integer",
+      "description": "Ship-to location identifier"
+    },
+    "closedCode": {
+      "type": "string",
+      "description": "Shipment close status"
+    }
+  }
+}

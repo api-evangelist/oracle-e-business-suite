@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "EnabledTransaction",
+  "type": "object",
+  "properties": {
+    "transactionType": {
+      "type": "string",
+      "description": "Transaction type code"
+    },
+    "transactionDescription": {
+      "type": "string",
+      "description": "Transaction description"
+    },
+    "direction": {
+      "type": "string",
+      "description": "Transaction direction"
+    },
+    "documentId": {
+      "type": "string",
+      "description": "ASC X12 or EDIFACT document identifier"
+    },
+    "enabled": {
+      "type": "boolean",
+      "description": "Whether transaction is enabled"
+    }
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Employee",
+  "type": "object",
+  "properties": {
+    "personId": {
+      "type": "integer",
+      "description": "Person identifier"
+    },
+    "employeeNumber": {
+      "type": "string",
+      "description": "Employee number"
+    },
+    "title": {
+      "type": "string",
+      "description": "Title (Mr., Mrs., etc.)"
+    },
+    "firstName": {
+      "type": "string",
+      "description": "First name"
+    },
+    "middleNames": {
+      "type": "string",
+      "description": "Middle name(s)"
+    },
+    "lastName": {
+      "type": "string",
+      "description": "Last name"
+    },
+    "fullName": {
+      "type": "string",
+      "description": "Full name (derived)"
+    },
+    "knownAs": {
+      "type": "string",
+      "description": "Preferred name"
+    },
+    "emailAddress": {
+      "type": "string",
+      "description": "Email address"
+    },
+    "sex": {
+      "type": "string",
+      "description": "Gender"
+    },
+    "dateOfBirth": {
+      "type": "string",
+      "description": "Date of birth"
+    },
+    "nationalIdentifier": {
+      "type": "string",
+      "description": "National identifier (e.g., SSN)"
+    },
+    "nationality": {
+      "type": "string",
+      "description": "Nationality code"
+    },
+    "maritalStatus": {
+      "type": "string",
+      "description": "Marital status"
+    },
+    "effectiveStartDate": {
+      "type": "string",
+      "description": "Record effective start date (date-tracked)"
+    },
+    "effectiveEndDate": {
+      "type": "string",
+      "description": "Record effective end date (date-tracked)"
+    },
+    "hireDate": {
+      "type": "string",
+      "description": "Original hire date"
+    },
+    "currentEmployeeFlag": {
+      "type": "string"
+    },
+    "businessGroupId": {
+      "type": "integer",
+      "description": "Business group identifier"
+    },
+    "addresses": {
+      "type": "array"
+    },
+    "phones": {
+      "type": "array"
+    },
+    "creationDate": {
+      "type": "string"
+    },
+    "lastUpdateDate": {
+      "type": "string"
+    }
+  }
+}

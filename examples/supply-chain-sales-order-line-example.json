@@ -1,0 +1,15 @@
+{
+  "lineId": "500123",
+  "lineNumber": 10,
+  "orderedItem": "example_value",
+  "inventoryItemId": "500123",
+  "orderedQuantity": 42.5,
+  "orderQuantityUom": "example_value",
+  "unitSellingPrice": 42.5,
+  "unitListPrice": 42.5,
+  "lineAmount": 42.5,
+  "scheduleShipDate": "example_value",
+  "actualShipDate": "example_value",
+  "flowStatusCode": "example_value",
+  "shippedQuantity": 42.5
+}

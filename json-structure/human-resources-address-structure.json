@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "Address",
+  "type": "object",
+  "properties": {
+    "addressId": {
+      "type": "integer"
+    },
+    "addressType": {
+      "type": "string"
+    },
+    "addressLine1": {
+      "type": "string"
+    },
+    "addressLine2": {
+      "type": "string"
+    },
+    "addressLine3": {
+      "type": "string"
+    },
+    "townOrCity": {
+      "type": "string"
+    },
+    "region1": {
+      "type": "string"
+    },
+    "region2": {
+      "type": "string"
+    },
+    "postalCode": {
+      "type": "string"
+    },
+    "country": {
+      "type": "string"
+    },
+    "primaryFlag": {
+      "type": "string"
+    },
+    "dateFrom": {
+      "type": "string"
+    },
+    "dateTo": {
+      "type": "string"
+    }
+  }
+}

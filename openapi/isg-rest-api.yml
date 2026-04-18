@@ -18,28 +18,28 @@ info:
   x-logo:
     url: https://www.oracle.com/a/ocom/img/oracle-logo.svg
 servers:
-  - url: https://{instance}.oracle.com/webservices/rest
-    description: Oracle EBS ISG REST endpoint
-    variables:
-      instance:
-        default: ebs-host
-        description: The Oracle EBS instance hostname
+- url: https://{instance}.oracle.com/webservices/rest
+  description: Oracle EBS ISG REST endpoint
+  variables:
+    instance:
+      default: ebs-host
+      description: The Oracle EBS instance hostname
 paths:
   /login:
     get:
       operationId: login
-      summary: Authenticate and obtain access token
+      summary: Authenticate and Obtain Access Token
       description: >-
         Authenticates a user using HTTP Basic Authentication and returns a
         session access token for subsequent REST service calls. The access token
         is returned both as a cookie and in the response body.
       tags:
-        - Authentication
+      - Authentication
       security:
-        - basicAuth: []
+      - basicAuth: []
       parameters:
-        - $ref: '#/components/parameters/AcceptLanguage'
-        - $ref: '#/components/parameters/ContentType'
+      - $ref: '#/components/parameters/AcceptLanguage'
+      - $ref: '#/components/parameters/ContentType'
       responses:
         '200':
           description: Successful authentication
@@ -52,39 +52,107 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LoginResponse'
+              examples:
+                Login200Example:
+                  summary: Default login 200 response
+                  x-microcks-default: true
+                  value:
+                    response:
+                      data:
+                        accessToken: example_value
+                        accessTokenName: example_value
+                        ebsVersion: example_value
+                        userName: example_value
             application/xml:
               schema:
                 $ref: '#/components/schemas/LoginResponse'
+              examples:
+                Login200Example:
+                  summary: Default login 200 response
+                  x-microcks-default: true
+                  value:
+                    response:
+                      data:
+                        accessToken: example_value
+                        accessTokenName: example_value
+                        ebsVersion: example_value
+                        userName: example_value
         '401':
           description: Authentication failed
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Login401Example:
+                  summary: Default login 401 response
+                  x-microcks-default: true
+                  value:
+                    error:
+                      code: example_value
+                      message: example_value
+                      detail: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /initialize:
     post:
       operationId: initialize
-      summary: Initialize application context
+      summary: Initialize Application Context
       description: >-
         Initializes the application context including responsibility, security
         group, and organization for the authenticated session. Must be called
         after login and before invoking any custom REST services.
       tags:
-        - Authentication
+      - Authentication
       security:
-        - tokenAuth: []
+      - tokenAuth: []
       parameters:
-        - $ref: '#/components/parameters/AcceptLanguage'
-        - $ref: '#/components/parameters/ContentType'
+      - $ref: '#/components/parameters/AcceptLanguage'
+      - $ref: '#/components/parameters/ContentType'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/InitializeRequest'
+            examples:
+              InitializeRequestExample:
+                summary: Default initialize request
+                x-microcks-default: true
+                value:
+                  data:
+                    resp:
+                      id: abc123
+                      applId: '500123'
+                      key: example_value
+                      applKey: example_value
+                    securityGroup:
+                      id: abc123
+                      key: example_value
+                    org:
+                      id: abc123
+                      key: example_value
           application/xml:
             schema:
               $ref: '#/components/schemas/InitializeRequest'
+            examples:
+              InitializeRequestExample:
+                summary: Default initialize request
+                x-microcks-default: true
+                value:
+                  data:
+                    resp:
+                      id: abc123
+                      applId: '500123'
+                      key: example_value
+                      applKey: example_value
+                    securityGroup:
+                      id: abc123
+                      key: example_value
+                    org:
+                      id: abc123
+                      key: example_value
       responses:
         '200':
           description: Context initialized successfully
@@ -92,32 +160,67 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/InitializeResponse'
+              examples:
+                Initialize200Example:
+                  summary: Default initialize 200 response
+                  x-microcks-default: true
+                  value:
+                    response:
+                      data: example_value
             application/xml:
               schema:
                 $ref: '#/components/schemas/InitializeResponse'
+              examples:
+                Initialize200Example:
+                  summary: Default initialize 200 response
+                  x-microcks-default: true
+                  value:
+                    response:
+                      data: example_value
         '400':
           description: Invalid initialization parameters
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Initialize400Example:
+                  summary: Default initialize 400 response
+                  x-microcks-default: true
+                  value:
+                    error:
+                      code: example_value
+                      message: example_value
+                      detail: example_value
         '401':
           description: Unauthorized - invalid or missing token
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Initialize401Example:
+                  summary: Default initialize 401 response
+                  x-microcks-default: true
+                  value:
+                    error:
+                      code: example_value
+                      message: example_value
+                      detail: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /logout:
     get:
       operationId: logout
-      summary: Terminate session and invalidate token
+      summary: Terminate Session and Invalidate Token
       description: >-
         Logs out the current user and invalidates the session access token.
         Should be called when the client is finished making REST service calls.
       tags:
-        - Authentication
+      - Authentication
       security:
-        - tokenAuth: []
+      - tokenAuth: []
       responses:
         '200':
           description: Successfully logged out
@@ -125,38 +228,58 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LogoutResponse'
+              examples:
+                Logout200Example:
+                  summary: Default logout 200 response
+                  x-microcks-default: true
+                  value:
+                    response:
+                      data: example_value
         '401':
           description: Unauthorized - invalid or expired token
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Logout401Example:
+                  summary: Default logout 401 response
+                  x-microcks-default: true
+                  value:
+                    error:
+                      code: example_value
+                      message: example_value
+                      detail: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /{serviceAlias}:
     get:
       operationId: getServiceWADL
-      summary: Retrieve WADL description for a deployed service
+      summary: Retrieve Wadl Description for a Deployed Service
       description: >-
         Returns the WADL (Web Application Description Language) document
         describing the available methods, parameters, and data types for the
         specified deployed REST service.
       tags:
-        - Service Discovery
+      - Service Discovery
       parameters:
-        - name: serviceAlias
-          in: path
-          required: true
-          description: The alias of the deployed REST service
-          schema:
-            type: string
-          example: approvals
-        - name: WADL
-          in: query
-          required: true
-          description: Flag to request the WADL description
-          schema:
-            type: string
-            enum:
-              - ''
+      - name: serviceAlias
+        in: path
+        required: true
+        description: The alias of the deployed REST service
+        schema:
+          type: string
+        example: approvals
+      - name: WADL
+        in: query
+        required: true
+        description: Flag to request the WADL description
+        schema:
+          type: string
+          enum:
+          - ''
+        example: ''
       responses:
         '200':
           description: WADL document for the service
@@ -165,52 +288,93 @@ paths:
               schema:
                 type: string
                 description: WADL XML document
+              examples:
+                Getservicewadl200Example:
+                  summary: Default getServiceWADL 200 response
+                  x-microcks-default: true
+                  value: example_value
         '404':
           description: Service not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Getservicewadl404Example:
+                  summary: Default getServiceWADL 404 response
+                  x-microcks-default: true
+                  value:
+                    error:
+                      code: example_value
+                      message: example_value
+                      detail: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /{serviceAlias}/{methodName}:
     post:
       operationId: invokeRestMethod
-      summary: Invoke a REST service method
+      summary: Invoke a Rest Service Method
       description: >-
         Invokes a specific method on a deployed REST service. The service alias
         and method name correspond to the PL/SQL API, Java Bean Service,
         Application Module Service, or other interface type deployed through the
         Integration Repository. Request and response payloads vary by service.
       tags:
-        - Service Invocation
+      - Service Invocation
       security:
-        - tokenAuth: []
-        - basicAuth: []
+      - tokenAuth: []
+      - basicAuth: []
       parameters:
-        - name: serviceAlias
-          in: path
-          required: true
-          description: The alias of the deployed REST service
-          schema:
-            type: string
-          example: purchaseOrders
-        - name: methodName
-          in: path
-          required: true
-          description: The REST method name to invoke
-          schema:
-            type: string
-          example: createPurchaseOrder
-        - $ref: '#/components/parameters/AcceptLanguage'
-        - $ref: '#/components/parameters/ContentType'
+      - name: serviceAlias
+        in: path
+        required: true
+        description: The alias of the deployed REST service
+        schema:
+          type: string
+        example: purchaseOrders
+      - name: methodName
+        in: path
+        required: true
+        description: The REST method name to invoke
+        schema:
+          type: string
+        example: createPurchaseOrder
+      - $ref: '#/components/parameters/AcceptLanguage'
+      - $ref: '#/components/parameters/ContentType'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/ServiceMethodRequest'
+            examples:
+              InvokerestmethodRequestExample:
+                summary: Default invokeRestMethod request
+                x-microcks-default: true
+                value:
+                  RESTHeader:
+                    Responsibility: example_value
+                    RespApplication: example_value
+                    SecurityGroup: example_value
+                    NLSLanguage: example_value
+                    Org_Id: '500123'
+                  InputParameters: example_value
           application/xml:
             schema:
               $ref: '#/components/schemas/ServiceMethodRequest'
+            examples:
+              InvokerestmethodRequestExample:
+                summary: Default invokeRestMethod request
+                x-microcks-default: true
+                value:
+                  RESTHeader:
+                    Responsibility: example_value
+                    RespApplication: example_value
+                    SecurityGroup: example_value
+                    NLSLanguage: example_value
+                    Org_Id: '500123'
+                  InputParameters: example_value
       responses:
         '200':
           description: Method invoked successfully
@@ -218,33 +382,84 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ServiceMethodResponse'
+              examples:
+                Invokerestmethod200Example:
+                  summary: Default invokeRestMethod 200 response
+                  x-microcks-default: true
+                  value:
+                    OutputParameters: example_value
             application/xml:
               schema:
                 $ref: '#/components/schemas/ServiceMethodResponse'
+              examples:
+                Invokerestmethod200Example:
+                  summary: Default invokeRestMethod 200 response
+                  x-microcks-default: true
+                  value:
+                    OutputParameters: example_value
         '400':
           description: Invalid request parameters
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Invokerestmethod400Example:
+                  summary: Default invokeRestMethod 400 response
+                  x-microcks-default: true
+                  value:
+                    error:
+                      code: example_value
+                      message: example_value
+                      detail: example_value
         '401':
           description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Invokerestmethod401Example:
+                  summary: Default invokeRestMethod 401 response
+                  x-microcks-default: true
+                  value:
+                    error:
+                      code: example_value
+                      message: example_value
+                      detail: example_value
         '404':
           description: Service or method not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Invokerestmethod404Example:
+                  summary: Default invokeRestMethod 404 response
+                  x-microcks-default: true
+                  value:
+                    error:
+                      code: example_value
+                      message: example_value
+                      detail: example_value
         '500':
           description: Internal server error during method execution
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Invokerestmethod500Example:
+                  summary: Default invokeRestMethod 500 response
+                  x-microcks-default: true
+                  value:
+                    error:
+                      code: example_value
+                      message: example_value
+                      detail: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
 components:
   securitySchemes:
     basicAuth:
@@ -276,8 +491,8 @@ components:
       schema:
         type: string
         enum:
-          - application/json
-          - application/xml
+        - application/json
+        - application/xml
         default: application/json
   schemas:
     LoginResponse:
@@ -302,6 +517,7 @@ components:
                 userName:
                   type: string
                   description: Authenticated username
+          example: example_value
     InitializeRequest:
       type: object
       properties:
@@ -352,6 +568,7 @@ components:
                   type: string
                   description: Organization key
                   example: CM1
+          example: example_value
     InitializeResponse:
       type: object
       properties:
@@ -361,6 +578,7 @@ components:
             data:
               type: string
               description: Initialization result message with resolved context values
+          example: example_value
     LogoutResponse:
       type: object
       properties:
@@ -370,6 +588,7 @@ components:
             data:
               type: string
               description: Logout confirmation message
+          example: example_value
     ServiceMethodRequest:
       type: object
       description: >-
@@ -398,12 +617,14 @@ components:
             Org_Id:
               type: integer
               description: Organization ID
+          example: example_value
         InputParameters:
           type: object
           description: >-
             Input parameters specific to the service method. Structure varies
             by service - consult the WADL.
           additionalProperties: true
+          example: example_value
     ServiceMethodResponse:
       type: object
       description: >-
@@ -414,6 +635,7 @@ components:
           type: object
           description: Output parameters from the service method
           additionalProperties: true
+          example: example_value
     ErrorResponse:
       type: object
       properties:
@@ -429,10 +651,11 @@ components:
             detail:
               type: string
               description: Detailed error information
+          example: example_value
 tags:
-  - name: Authentication
-    description: Login, session initialization, and logout operations
-  - name: Service Discovery
-    description: WADL retrieval and service metadata
-  - name: Service Invocation
-    description: Invoke deployed REST service methods
+- name: Authentication
+  description: Login, session initialization, and logout operations
+- name: Service Discovery
+  description: WADL retrieval and service metadata
+- name: Service Invocation
+  description: Invoke deployed REST service methods

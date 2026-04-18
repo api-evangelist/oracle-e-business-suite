@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PurchaseOrder",
+  "type": "object",
+  "properties": {
+    "poHeaderId": {
+      "type": "integer",
+      "description": "Purchase order header identifier"
+    },
+    "segment1": {
+      "type": "string",
+      "description": "Purchase order number"
+    },
+    "typeLookupCode": {
+      "type": "string",
+      "description": "Purchase order type"
+    },
+    "vendorId": {
+      "type": "integer",
+      "description": "Supplier/vendor identifier"
+    },
+    "vendorName": {
+      "type": "string",
+      "description": "Supplier/vendor name"
+    },
+    "vendorSiteId": {
+      "type": "integer",
+      "description": "Vendor site identifier"
+    },
+    "currencyCode": {
+      "type": "string",
+      "description": "Currency code (ISO 4217)"
+    },
+    "authorizationStatus": {
+      "type": "string",
+      "description": "Authorization status"
+    },
+    "approvedFlag": {
+      "type": "string",
+      "description": "Approved flag"
+    },
+    "closedCode": {
+      "type": "string",
+      "description": "Close status"
+    },
+    "totalAmount": {
+      "type": "number",
+      "description": "Total purchase order amount"
+    },
+    "creationDate": {
+      "type": "string",
+      "description": "Creation date"
+    },
+    "approvedDate": {
+      "type": "string",
+      "description": "Approval date"
+    },
+    "buyerId": {
+      "type": "integer",
+      "description": "Buyer employee identifier"
+    },
+    "shipToLocationId": {
+      "type": "integer",
+      "description": "Ship-to location identifier"
+    },
+    "billToLocationId": {
+      "type": "integer",
+      "description": "Bill-to location identifier"
+    },
+    "termsId": {
+      "type": "integer",
+      "description": "Payment terms identifier"
+    },
+    "description": {
+      "type": "string",
+      "description": "Purchase order description"
+    },
+    "lines": {
+      "type": "array"
+    },
+    "orgId": {
+      "type": "integer",
+      "description": "Operating unit identifier"
+    },
+    "lastUpdateDate": {
+      "type": "string"
+    }
+  }
+}

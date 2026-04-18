@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "JournalEntry",
+  "type": "object",
+  "properties": {
+    "jeHeaderId": {
+      "type": "integer"
+    },
+    "jeBatchId": {
+      "type": "integer"
+    },
+    "ledgerId": {
+      "type": "integer"
+    },
+    "periodName": {
+      "type": "string"
+    },
+    "journalName": {
+      "type": "string"
+    },
+    "journalCategory": {
+      "type": "string"
+    },
+    "journalSource": {
+      "type": "string"
+    },
+    "currencyCode": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "effectiveDate": {
+      "type": "string"
+    },
+    "lines": {
+      "type": "array"
+    },
+    "createdBy": {
+      "type": "integer"
+    },
+    "creationDate": {
+      "type": "string"
+    },
+    "lastUpdatedBy": {
+      "type": "integer"
+    },
+    "lastUpdateDate": {
+      "type": "string"
+    }
+  }
+}

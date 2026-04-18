@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "RequisitionLine",
+  "type": "object",
+  "properties": {
+    "requisitionLineId": {
+      "type": "integer"
+    },
+    "lineNum": {
+      "type": "integer"
+    },
+    "itemId": {
+      "type": "integer"
+    },
+    "itemDescription": {
+      "type": "string"
+    },
+    "categoryId": {
+      "type": "integer"
+    },
+    "quantity": {
+      "type": "number"
+    },
+    "unitMeasLookupCode": {
+      "type": "string"
+    },
+    "unitPrice": {
+      "type": "number"
+    },
+    "needByDate": {
+      "type": "string"
+    },
+    "suggestedVendorId": {
+      "type": "integer"
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "BomComponent",
+  "type": "object",
+  "properties": {
+    "componentSequenceId": {
+      "type": "integer"
+    },
+    "componentItemId": {
+      "type": "integer"
+    },
+    "componentItemNumber": {
+      "type": "string"
+    },
+    "itemDescription": {
+      "type": "string"
+    },
+    "operationSeqNum": {
+      "type": "integer"
+    },
+    "componentQuantity": {
+      "type": "number"
+    },
+    "componentYieldFactor": {
+      "type": "number"
+    },
+    "effectivityDate": {
+      "type": "string"
+    },
+    "disableDate": {
+      "type": "string"
+    },
+    "wipSupplyType": {
+      "type": "integer"
+    },
+    "optional": {
+      "type": "integer"
+    },
+    "quantityRelated": {
+      "type": "integer"
+    }
+  }
+}

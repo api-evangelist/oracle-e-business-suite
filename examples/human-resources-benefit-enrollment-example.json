@@ -1,0 +1,14 @@
+{
+  "enrollmentResultId": "500123",
+  "personId": "500123",
+  "planId": "500123",
+  "planName": "example_value",
+  "optionId": "500123",
+  "optionName": "example_value",
+  "coverageLevelCode": "example_value",
+  "effectiveStartDate": "example_value",
+  "effectiveEndDate": "example_value",
+  "enrollmentStartDate": "example_value",
+  "enrollmentEndDate": "example_value",
+  "benefitAmount": 42.5
+}

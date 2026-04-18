@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "OnhandQuantity",
+  "type": "object",
+  "properties": {
+    "inventoryItemId": {
+      "type": "integer",
+      "description": "Inventory item identifier"
+    },
+    "organizationId": {
+      "type": "integer",
+      "description": "Organization identifier"
+    },
+    "subinventoryCode": {
+      "type": "string",
+      "description": "Subinventory code"
+    },
+    "locatorId": {
+      "type": "integer",
+      "description": "Locator identifier"
+    },
+    "lotNumber": {
+      "type": "string",
+      "description": "Lot number"
+    },
+    "serialNumber": {
+      "type": "string",
+      "description": "Serial number"
+    },
+    "transactionQuantity": {
+      "type": "number",
+      "description": "On-hand quantity"
+    },
+    "transactionUomCode": {
+      "type": "string",
+      "description": "Unit of measure code"
+    },
+    "lastUpdateDate": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Supplier",
+  "type": "object",
+  "properties": {
+    "vendorId": {
+      "type": "integer",
+      "description": "Vendor identifier"
+    },
+    "vendorName": {
+      "type": "string",
+      "description": "Vendor name"
+    },
+    "segment1": {
+      "type": "string",
+      "description": "Vendor number"
+    },
+    "vendorType": {
+      "type": "string",
+      "description": "Vendor type lookup code"
+    },
+    "taxPayerId": {
+      "type": "string",
+      "description": "Tax payer identification number"
+    },
+    "standardIndustryClass": {
+      "type": "string",
+      "description": "Standard industry classification"
+    },
+    "paymentCurrencyCode": {
+      "type": "string",
+      "description": "Default payment currency"
+    },
+    "paymentMethodCode": {
+      "type": "string",
+      "description": "Default payment method"
+    },
+    "termsId": {
+      "type": "integer",
+      "description": "Default payment terms identifier"
+    },
+    "enabled": {
+      "type": "boolean",
+      "description": "Whether the vendor is active"
+    },
+    "startDateActive": {
+      "type": "string"
+    },
+    "endDateActive": {
+      "type": "string"
+    },
+    "sites": {
+      "type": "array"
+    },
+    "creationDate": {
+      "type": "string"
+    },
+    "lastUpdateDate": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ApInvoice",
+  "type": "object",
+  "properties": {
+    "invoiceId": {
+      "type": "integer",
+      "description": "Invoice unique identifier"
+    },
+    "invoiceNum": {
+      "type": "string",
+      "description": "Invoice number"
+    },
+    "invoiceDate": {
+      "type": "string",
+      "description": "Invoice date"
+    },
+    "vendorId": {
+      "type": "integer",
+      "description": "Supplier/vendor identifier"
+    },
+    "vendorName": {
+      "type": "string",
+      "description": "Supplier/vendor name"
+    },
+    "vendorSiteId": {
+      "type": "integer",
+      "description": "Vendor site identifier"
+    },
+    "invoiceAmount": {
+      "type": "number",
+      "description": "Total invoice amount"
+    },
+    "invoiceCurrencyCode": {
+      "type": "string",
+      "description": "Invoice currency code (ISO 4217)"
+    },
+    "paymentCurrencyCode": {
+      "type": "string",
+      "description": "Payment currency code"
+    },
+    "exchangeRate": {
+      "type": "number",
+      "description": "Currency exchange rate"
+    },
+    "exchangeRateType": {
+      "type": "string",
+      "description": "Exchange rate type"
+    },
+    "exchangeDate": {
+      "type": "string",
+      "description": "Exchange rate date"
+    },
+    "termsId": {
+      "type": "integer",
+      "description": "Payment terms identifier"
+    },
+    "description": {
+      "type": "string",
+      "description": "Invoice description"
+    },
+    "invoiceType": {
+      "type": "string",
+      "description": "Invoice type lookup code"
+    },
+    "source": {
+      "type": "string",
+      "description": "Invoice source"
+    },
+    "paymentStatusFlag": {
+      "type": "string",
+      "description": "Payment status"
+    },
+    "approvalStatus": {
+      "type": "string",
+      "description": "Approval status"
+    },
+    "amountPaid": {
+      "type": "number",
+      "description": "Amount paid"
+    },
+    "lines": {
+      "type": "array"
+    },
+    "orgId": {
+      "type": "integer",
+      "description": "Operating unit identifier"
+    },
+    "createdBy": {
+      "type": "integer"
+    },
+    "creationDate": {
+      "type": "string"
+    },
+    "lastUpdatedBy": {
+      "type": "integer"
+    },
+    "lastUpdateDate": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,226 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Oracle EBS Financial Operations"
+  description: "End-to-end financial operations combining General Ledger, AP/AR, procurement, and cash management. Used by finance teams and controllers for the procure-to-pay and order-to-cash cycles."
+  tags:
+    - Oracle
+    - Financials
+    - Procurement
+    - ERP
+  created: "2026-04-18"
+  modified: "2026-04-18"
+
+binds:
+  - namespace: env
+    keys:
+      ORACLE_EBS_TOKEN: ORACLE_EBS_TOKEN
+
+capability:
+  consumes:
+    - import: oracle-financial-services
+      location: ./shared/financial-services.yaml
+    - import: oracle-supply-chain
+      location: ./shared/supply-chain.yaml
+
+  exposes:
+    - type: rest
+      port: 8080
+      namespace: financial-operations-api
+      description: "Unified REST API for Oracle EBS financial operations."
+      resources:
+        - path: /v1/journals
+          name: journals
+          description: "Journal entry management."
+          operations:
+            - method: GET
+              name: get-journals
+              description: "List journal entries."
+              call: "oracle-financial-services.get-journals"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/ap-invoices
+          name: ap-invoices
+          description: "AP invoice management."
+          operations:
+            - method: GET
+              name: get-ap-invoices
+              description: "List AP invoices."
+              call: "oracle-financial-services.get-ap-invoices"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/ar-invoices
+          name: ar-invoices
+          description: "AR invoice management."
+          operations:
+            - method: GET
+              name: get-ar-invoices
+              description: "List AR invoices."
+              call: "oracle-financial-services.get-ar-invoices"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/purchase-orders
+          name: purchase-orders
+          description: "Purchase order management."
+          operations:
+            - method: GET
+              name: get-purchase-orders
+              description: "List purchase orders."
+              call: "oracle-supply-chain.get-purchase-orders"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/suppliers
+          name: suppliers
+          description: "Supplier management."
+          operations:
+            - method: GET
+              name: get-suppliers
+              description: "List suppliers."
+              call: "oracle-supply-chain.get-suppliers"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9080
+      namespace: financial-operations-mcp
+      transport: http
+      description: "MCP server for AI-assisted Oracle EBS financial operations."
+      tools:
+        - name: gl-get-journals
+          description: "Retrieve General Ledger journal entries."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "oracle-financial-services.get-journals"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: gl-create-journal
+          description: "Create a journal entry."
+          hints:
+            readOnly: false
+          call: "oracle-financial-services.create-journal"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: ap-get-invoices
+          description: "Retrieve AP invoices."
+          hints:
+            readOnly: true
+          call: "oracle-financial-services.get-ap-invoices"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: ap-create-invoice
+          description: "Create an AP invoice."
+          hints:
+            readOnly: false
+          call: "oracle-financial-services.create-ap-invoice"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: ap-get-invoice-by-id
+          description: "Get AP invoice by ID."
+          hints:
+            readOnly: true
+          call: "oracle-financial-services.get-ap-invoice-by-id"
+          with:
+            invoiceId: "tools.invoice_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: ap-get-payments
+          description: "Retrieve payments."
+          hints:
+            readOnly: true
+          call: "oracle-financial-services.get-payments"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: ar-get-invoices
+          description: "Retrieve AR invoices."
+          hints:
+            readOnly: true
+          call: "oracle-financial-services.get-ar-invoices"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: ar-create-invoice
+          description: "Create an AR invoice."
+          hints:
+            readOnly: false
+          call: "oracle-financial-services.create-ar-invoice"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: ar-get-receipts
+          description: "Retrieve receipts."
+          hints:
+            readOnly: true
+          call: "oracle-financial-services.get-receipts"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: fa-get-assets
+          description: "Retrieve fixed assets."
+          hints:
+            readOnly: true
+          call: "oracle-financial-services.get-assets"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: ce-get-bank-accounts
+          description: "Retrieve bank accounts."
+          hints:
+            readOnly: true
+          call: "oracle-financial-services.get-bank-accounts"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: po-get-purchase-orders
+          description: "Retrieve purchase orders."
+          hints:
+            readOnly: true
+          call: "oracle-supply-chain.get-purchase-orders"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: po-create-purchase-order
+          description: "Create a purchase order."
+          hints:
+            readOnly: false
+          call: "oracle-supply-chain.create-purchase-order"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: po-get-purchase-order-by-id
+          description: "Get purchase order by ID."
+          hints:
+            readOnly: true
+          call: "oracle-supply-chain.get-purchase-order-by-id"
+          with:
+            poHeaderId: "tools.po_header_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: po-get-requisitions
+          description: "Retrieve requisitions."
+          hints:
+            readOnly: true
+          call: "oracle-supply-chain.get-requisitions"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: po-get-suppliers
+          description: "Retrieve suppliers."
+          hints:
+            readOnly: true
+          call: "oracle-supply-chain.get-suppliers"
+          outputParameters:
+            - type: object
+              mapping: "$."

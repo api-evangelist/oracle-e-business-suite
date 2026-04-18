@@ -1,0 +1,14 @@
+{
+  "componentSequenceId": "500123",
+  "componentItemId": "500123",
+  "componentItemNumber": "example_value",
+  "itemDescription": "example_value",
+  "operationSeqNum": 10,
+  "componentQuantity": 42.5,
+  "componentYieldFactor": 42.5,
+  "effectivityDate": "example_value",
+  "disableDate": "example_value",
+  "wipSupplyType": 10,
+  "optional": 10,
+  "quantityRelated": 10
+}

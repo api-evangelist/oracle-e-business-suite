@@ -1,0 +1,13 @@
+{
+  "tradingPartnerId": "500123",
+  "tradingPartnerName": "example_value",
+  "tradingPartnerType": "example_value",
+  "tradingPartnerSiteId": "500123",
+  "tradingPartnerSiteName": "example_value",
+  "ediLocationCode": "example_value",
+  "ediTranslatorCode": "example_value",
+  "documentStandard": "example_value",
+  "enabledTransactions": [],
+  "creationDate": "example_value",
+  "lastUpdateDate": "example_value"
+}

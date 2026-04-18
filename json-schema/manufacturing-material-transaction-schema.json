@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MaterialTransaction",
+  "type": "object",
+  "properties": {
+    "wipEntityId": {
+      "type": "integer",
+      "description": "WIP entity identifier"
+    },
+    "organizationId": {
+      "type": "integer",
+      "description": "Organization identifier"
+    },
+    "operationSeqNum": {
+      "type": "integer",
+      "description": "Operation sequence number"
+    },
+    "inventoryItemId": {
+      "type": "integer",
+      "description": "Inventory item identifier"
+    },
+    "transactionQuantity": {
+      "type": "number",
+      "description": "Transaction quantity (positive=issue, negative=return)"
+    },
+    "transactionUom": {
+      "type": "string",
+      "description": "Transaction unit of measure"
+    },
+    "transactionType": {
+      "type": "string",
+      "description": "Transaction type"
+    },
+    "subinventoryCode": {
+      "type": "string",
+      "description": "Source/destination subinventory"
+    },
+    "locatorId": {
+      "type": "integer",
+      "description": "Locator identifier"
+    },
+    "transactionDate": {
+      "type": "string",
+      "description": "Transaction date"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+name: oracle-e-business-suite API Vocabulary
+provider: oracle-e-business-suite
+created: '2026-04-18'
+modified: '2026-04-18'
+operations: 53
+schemas: 68
+tags:
+- Accounts Payable
+- Accounts Receivable
+- Authentication
+- Benefits
+- Bills of Material
+- Cash Management
+- Code Conversions
+- Employee Management
+- Fixed Assets
+- General Ledger
+- Inbound Transactions
+- Inventory
+- Order Management
+- Organization
+- Outbound Transactions
+- Payroll
+- Purchasing
+- Service Discovery
+- Service Invocation
+- Shipping
+- Trading Partners
+- Work in Process

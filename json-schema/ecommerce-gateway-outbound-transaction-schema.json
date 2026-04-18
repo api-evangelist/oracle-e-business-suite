@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "OutboundTransaction",
+  "type": "object",
+  "properties": {
+    "transactionId": {
+      "type": "integer",
+      "description": "Transaction identifier"
+    },
+    "transactionType": {
+      "type": "string",
+      "description": "Outbound transaction type code"
+    },
+    "transactionDescription": {
+      "type": "string",
+      "description": "Transaction description"
+    },
+    "documentStandard": {
+      "type": "string",
+      "description": "Document standard (X12 or EDIFACT)"
+    },
+    "documentNumber": {
+      "type": "string",
+      "description": "ASC X12/EDIFACT document number"
+    },
+    "tradingPartnerId": {
+      "type": "integer"
+    },
+    "tradingPartnerName": {
+      "type": "string"
+    },
+    "tradingPartnerSiteId": {
+      "type": "integer"
+    },
+    "processStatus": {
+      "type": "string"
+    },
+    "sourceDocumentId": {
+      "type": "integer",
+      "description": "Source document identifier in Oracle EBS"
+    },
+    "sourceDocumentNumber": {
+      "type": "string",
+      "description": "Source document number"
+    },
+    "documentDate": {
+      "type": "string"
+    },
+    "documentAmount": {
+      "type": "number"
+    },
+    "currencyCode": {
+      "type": "string"
+    },
+    "errorMessage": {
+      "type": "string"
+    },
+    "creationDate": {
+      "type": "string"
+    },
+    "lastUpdateDate": {
+      "type": "string"
+    }
+  }
+}

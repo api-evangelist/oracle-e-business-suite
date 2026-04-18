@@ -1,0 +1,21 @@
+{
+  "title": "Example Title",
+  "firstName": "example_value",
+  "middleNames": "example_value",
+  "lastName": "example_value",
+  "knownAs": "example_value",
+  "emailAddress": "user@example.com",
+  "sex": "example_value",
+  "dateOfBirth": "example_value",
+  "nationalIdentifier": "example_value",
+  "nationality": "example_value",
+  "maritalStatus": "example_value",
+  "hireDate": "example_value",
+  "businessGroupId": "500123",
+  "jobId": "500123",
+  "positionId": "500123",
+  "organizationId": "500123",
+  "gradeId": "500123",
+  "locationId": "500123",
+  "payrollId": "500123"
+}

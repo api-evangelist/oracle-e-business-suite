@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "RoutingOperation",
+  "type": "object",
+  "properties": {
+    "operationSequenceId": {
+      "type": "integer"
+    },
+    "operationSeqNum": {
+      "type": "integer"
+    },
+    "operationDescription": {
+      "type": "string"
+    },
+    "operationCode": {
+      "type": "string"
+    },
+    "departmentId": {
+      "type": "integer"
+    },
+    "departmentCode": {
+      "type": "string"
+    },
+    "effectivityDate": {
+      "type": "string"
+    },
+    "disableDate": {
+      "type": "string"
+    },
+    "minimumTransferQuantity": {
+      "type": "number"
+    },
+    "countPointType": {
+      "type": "integer"
+    },
+    "resources": {
+      "type": "array"
+    }
+  }
+}

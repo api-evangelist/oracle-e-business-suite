@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "InboundTransactionImport",
+  "type": "object",
+  "properties": {
+    "transactionType": {
+      "type": "string",
+      "description": "Inbound transaction type"
+    },
+    "tradingPartnerId": {
+      "type": "integer"
+    },
+    "tradingPartnerSiteId": {
+      "type": "integer"
+    },
+    "documentDate": {
+      "type": "string"
+    },
+    "documentData": {
+      "type": "object",
+      "description": "Transaction-specific document data. Structure varies by transaction type (invoice, ship notice, etc.)"
+    }
+  }
+}

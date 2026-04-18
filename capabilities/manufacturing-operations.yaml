@@ -1,0 +1,191 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Oracle EBS Manufacturing Operations"
+  description: "Manufacturing execution combining BOMs, routings, discrete jobs, WIP operations, and inventory management. Used by production managers and shop floor supervisors for manufacturing lifecycle."
+  tags:
+    - Oracle
+    - Manufacturing
+    - Supply Chain
+    - Production
+  created: "2026-04-18"
+  modified: "2026-04-18"
+
+binds:
+  - namespace: env
+    keys:
+      ORACLE_EBS_TOKEN: ORACLE_EBS_TOKEN
+
+capability:
+  consumes:
+    - import: oracle-manufacturing
+      location: ./shared/manufacturing.yaml
+    - import: oracle-supply-chain
+      location: ./shared/supply-chain.yaml
+
+  exposes:
+    - type: rest
+      port: 8082
+      namespace: manufacturing-operations-api
+      description: "Unified REST API for Oracle EBS manufacturing operations."
+      resources:
+        - path: /v1/bills-of-material
+          name: bills-of-material
+          description: "BOM management."
+          operations:
+            - method: GET
+              name: get-bills-of-material
+              description: "List BOMs."
+              call: "oracle-manufacturing.get-bills-of-material"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/discrete-jobs
+          name: discrete-jobs
+          description: "Discrete job management."
+          operations:
+            - method: GET
+              name: get-discrete-jobs
+              description: "List discrete jobs."
+              call: "oracle-manufacturing.get-discrete-jobs"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/inventory-items
+          name: inventory-items
+          description: "Inventory item management."
+          operations:
+            - method: GET
+              name: get-inventory-items
+              description: "List inventory items."
+              call: "oracle-supply-chain.get-inventory-items"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/onhand-quantities
+          name: onhand-quantities
+          description: "On-hand quantity management."
+          operations:
+            - method: GET
+              name: get-onhand-quantities
+              description: "List on-hand quantities."
+              call: "oracle-supply-chain.get-onhand-quantities"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9082
+      namespace: manufacturing-operations-mcp
+      transport: http
+      description: "MCP server for AI-assisted Oracle EBS manufacturing operations."
+      tools:
+        - name: mfg-get-bills-of-material
+          description: "Retrieve bills of material."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "oracle-manufacturing.get-bills-of-material"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: mfg-get-bill-of-material-by-id
+          description: "Get BOM by ID."
+          hints:
+            readOnly: true
+          call: "oracle-manufacturing.get-bill-of-material-by-id"
+          with:
+            billSequenceId: "tools.bill_sequence_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: mfg-get-routings
+          description: "Retrieve routings."
+          hints:
+            readOnly: true
+          call: "oracle-manufacturing.get-routings"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: mfg-get-discrete-jobs
+          description: "Retrieve discrete jobs."
+          hints:
+            readOnly: true
+          call: "oracle-manufacturing.get-discrete-jobs"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: mfg-create-discrete-job
+          description: "Create a discrete job."
+          hints:
+            readOnly: false
+          call: "oracle-manufacturing.create-discrete-job"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: mfg-get-discrete-job-by-id
+          description: "Get discrete job by ID."
+          hints:
+            readOnly: true
+          call: "oracle-manufacturing.get-discrete-job-by-id"
+          with:
+            wipEntityId: "tools.wip_entity_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: mfg-get-wip-operations
+          description: "Retrieve WIP operations."
+          hints:
+            readOnly: true
+          call: "oracle-manufacturing.get-wip-operations"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: mfg-complete-assembly
+          description: "Complete an assembly."
+          hints:
+            readOnly: false
+          call: "oracle-manufacturing.complete-assembly"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: mfg-issue-material
+          description: "Issue material to a job."
+          hints:
+            readOnly: false
+          call: "oracle-manufacturing.issue-material"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: inv-get-inventory-items
+          description: "Retrieve inventory items."
+          hints:
+            readOnly: true
+          call: "oracle-supply-chain.get-inventory-items"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: inv-get-onhand-quantities
+          description: "Retrieve on-hand quantities."
+          hints:
+            readOnly: true
+          call: "oracle-supply-chain.get-onhand-quantities"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: inv-get-sales-orders
+          description: "Retrieve sales orders."
+          hints:
+            readOnly: true
+          call: "oracle-supply-chain.get-sales-orders"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: inv-get-deliveries
+          description: "Retrieve deliveries."
+          hints:
+            readOnly: true
+          call: "oracle-supply-chain.get-deliveries"
+          outputParameters:
+            - type: object
+              mapping: "$."

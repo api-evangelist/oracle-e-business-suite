@@ -1,0 +1,10 @@
+{
+  "customerTrxLineId": "500123",
+  "lineNumber": 10,
+  "lineType": "example_value",
+  "description": "A sample description.",
+  "quantity": 42.5,
+  "unitSellingPrice": 42.5,
+  "amount": 42.5,
+  "inventoryItemId": "500123"
+}

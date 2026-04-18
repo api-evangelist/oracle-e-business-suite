@@ -1,0 +1,20 @@
+{
+  "inventoryItemId": "500123",
+  "segment1": "example_value",
+  "description": "A sample description.",
+  "longDescription": "example_value",
+  "primaryUomCode": "example_value",
+  "itemType": "example_value",
+  "inventoryItemStatusCode": "example_value",
+  "organizationId": "500123",
+  "weightUomCode": "example_value",
+  "unitWeight": 42.5,
+  "volumeUomCode": "example_value",
+  "unitVolume": 42.5,
+  "listPrice": 42.5,
+  "purchasingEnabledFlag": "example_value",
+  "customerOrderEnabledFlag": "example_value",
+  "internalOrderEnabledFlag": "example_value",
+  "creationDate": "example_value",
+  "lastUpdateDate": "example_value"
+}

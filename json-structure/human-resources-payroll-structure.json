@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "Payroll",
+  "type": "object",
+  "properties": {
+    "payrollId": {
+      "type": "integer"
+    },
+    "payrollName": {
+      "type": "string"
+    },
+    "periodType": {
+      "type": "string"
+    },
+    "numberOfYears": {
+      "type": "integer"
+    },
+    "firstPeriodEndDate": {
+      "type": "string"
+    },
+    "effectiveStartDate": {
+      "type": "string"
+    },
+    "effectiveEndDate": {
+      "type": "string"
+    },
+    "businessGroupId": {
+      "type": "integer"
+    }
+  }
+}

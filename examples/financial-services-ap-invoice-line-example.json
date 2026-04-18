@@ -1,0 +1,11 @@
+{
+  "lineNumber": 10,
+  "lineType": "example_value",
+  "amount": 42.5,
+  "description": "A sample description.",
+  "accountingDate": "example_value",
+  "distCodeCombinationId": "500123",
+  "itemDescription": "example_value",
+  "quantity": 42.5,
+  "unitPrice": 42.5
+}

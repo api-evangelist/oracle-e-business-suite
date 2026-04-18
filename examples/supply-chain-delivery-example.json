@@ -1,0 +1,19 @@
+{
+  "deliveryId": "500123",
+  "name": "Example Title",
+  "statusCode": "example_value",
+  "initialPickupDate": "example_value",
+  "ultimateDropoffDate": "example_value",
+  "customerId": "500123",
+  "shipToLocationId": "500123",
+  "carrierId": "500123",
+  "shipMethodCode": "example_value",
+  "waybill": "example_value",
+  "grossWeight": 42.5,
+  "weightUomCode": "example_value",
+  "volume": 42.5,
+  "volumeUomCode": "example_value",
+  "organizationId": "500123",
+  "creationDate": "example_value",
+  "lastUpdateDate": "example_value"
+}

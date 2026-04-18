@@ -1,0 +1,11 @@
+{
+  "effectiveDate": "example_value",
+  "dateTrackUpdateMode": "example_value",
+  "title": "Example Title",
+  "firstName": "example_value",
+  "middleNames": "example_value",
+  "lastName": "example_value",
+  "knownAs": "example_value",
+  "emailAddress": "user@example.com",
+  "maritalStatus": "example_value"
+}

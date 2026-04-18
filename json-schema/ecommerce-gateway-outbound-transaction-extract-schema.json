@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "OutboundTransactionExtract",
+  "type": "object",
+  "properties": {
+    "transactionType": {
+      "type": "string",
+      "description": "Outbound transaction type"
+    },
+    "tradingPartnerId": {
+      "type": "integer"
+    },
+    "tradingPartnerSiteId": {
+      "type": "integer"
+    },
+    "dateFrom": {
+      "type": "string",
+      "description": "Extract documents from this date"
+    },
+    "dateTo": {
+      "type": "string",
+      "description": "Extract documents to this date"
+    }
+  }
+}

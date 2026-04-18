@@ -1,0 +1,201 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Oracle EBS e-Commerce Gateway"
+  description: "EDI transaction support for exchanging electronic data interchange documents with trading partners using ASC X12 and EDIFACT standards."
+  tags:
+    - Oracle
+    - EDI
+    - E-Commerce
+  created: "2026-04-18"
+  modified: "2026-04-18"
+
+binds:
+  - namespace: env
+    keys:
+      ORACLE_EBS_TOKEN: ORACLE_EBS_TOKEN
+
+capability:
+  consumes:
+    - type: http
+      namespace: oracle-ecommerce-gateway
+      baseUri: https://{instance}.oracle.com/webservices/rest
+      description: "Oracle EBS e-Commerce Gateway API for EDI transactions."
+      authentication:
+        type: bearer
+        token: "{{ORACLE_EBS_TOKEN}}"
+      resources:
+        - name: trading-partners
+          path: /ecx/trading-partners
+          description: "Trading partner management."
+          operations:
+            - name: get-trading-partners
+              method: GET
+              description: "Retrieve trading partners."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: trading-partner
+          path: /ecx/trading-partners/{tradingPartnerId}
+          description: "Specific trading partner."
+          operations:
+            - name: get-trading-partner-by-id
+              method: GET
+              description: "Get trading partner by ID."
+              inputParameters:
+                - name: tradingPartnerId
+                  in: path
+                  type: integer
+                  required: true
+                  description: "Trading partner identifier."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: inbound-transactions
+          path: /ecx/inbound-transactions
+          description: "Inbound EDI transactions."
+          operations:
+            - name: get-inbound-transactions
+              method: GET
+              description: "Retrieve inbound transactions."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: import-inbound-transaction
+              method: POST
+              description: "Import an inbound EDI transaction."
+              body:
+                type: json
+                data:
+                  tradingPartnerId: "{{tools.trading_partner_id}}"
+                  transactionType: "{{tools.transaction_type}}"
+                  data: "{{tools.data}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: outbound-transactions
+          path: /ecx/outbound-transactions
+          description: "Outbound EDI transactions."
+          operations:
+            - name: get-outbound-transactions
+              method: GET
+              description: "Retrieve outbound transactions."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: extract-outbound-transaction
+              method: POST
+              description: "Extract an outbound EDI transaction."
+              body:
+                type: json
+                data:
+                  transactionType: "{{tools.transaction_type}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: code-conversions
+          path: /ecx/code-conversions
+          description: "EDI code conversions."
+          operations:
+            - name: get-code-conversions
+              method: GET
+              description: "Retrieve code conversion mappings."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      port: 8105
+      namespace: oracle-ecommerce-gateway-api
+      resources:
+        - path: /v1/trading-partners
+          name: trading-partners
+          description: "Trading partner management."
+          operations:
+            - method: GET
+              name: get-trading-partners
+              description: "List trading partners."
+              call: "oracle-ecommerce-gateway.get-trading-partners"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9105
+      namespace: oracle-ecommerce-gateway-mcp
+      transport: http
+      tools:
+        - name: get-trading-partners
+          description: "Retrieve trading partners."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "oracle-ecommerce-gateway.get-trading-partners"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-trading-partner-by-id
+          description: "Get trading partner by ID."
+          hints:
+            readOnly: true
+          call: "oracle-ecommerce-gateway.get-trading-partner-by-id"
+          with:
+            tradingPartnerId: "tools.trading_partner_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-inbound-transactions
+          description: "Retrieve inbound EDI transactions."
+          hints:
+            readOnly: true
+          call: "oracle-ecommerce-gateway.get-inbound-transactions"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: import-inbound-transaction
+          description: "Import an inbound EDI transaction."
+          hints:
+            readOnly: false
+          call: "oracle-ecommerce-gateway.import-inbound-transaction"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-outbound-transactions
+          description: "Retrieve outbound EDI transactions."
+          hints:
+            readOnly: true
+          call: "oracle-ecommerce-gateway.get-outbound-transactions"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: extract-outbound-transaction
+          description: "Extract an outbound EDI transaction."
+          hints:
+            readOnly: false
+          call: "oracle-ecommerce-gateway.extract-outbound-transaction"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-code-conversions
+          description: "Retrieve code conversion mappings."
+          hints:
+            readOnly: true
+          call: "oracle-ecommerce-gateway.get-code-conversions"
+          outputParameters:
+            - type: object
+              mapping: "$."

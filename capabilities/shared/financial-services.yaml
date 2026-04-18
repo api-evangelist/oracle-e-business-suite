@@ -1,0 +1,324 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Oracle EBS Financial Services"
+  description: "Financial management APIs for General Ledger, Accounts Payable, Accounts Receivable, Fixed Assets, and Cash Management."
+  tags:
+    - Oracle
+    - Financials
+    - ERP
+  created: "2026-04-18"
+  modified: "2026-04-18"
+
+binds:
+  - namespace: env
+    keys:
+      ORACLE_EBS_TOKEN: ORACLE_EBS_TOKEN
+
+capability:
+  consumes:
+    - type: http
+      namespace: oracle-financial-services
+      baseUri: https://{instance}.oracle.com/webservices/rest
+      description: "Oracle EBS Financial Services API for managing financial transactions."
+      authentication:
+        type: bearer
+        token: "{{ORACLE_EBS_TOKEN}}"
+      resources:
+        - name: journals
+          path: /gl/journals
+          description: "General Ledger journal entries."
+          operations:
+            - name: get-journals
+              method: GET
+              description: "Retrieve General Ledger journal entries."
+              inputParameters:
+                - name: ledgerId
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Ledger identifier."
+                - name: periodName
+                  in: query
+                  type: string
+                  required: false
+                  description: "Accounting period name."
+                - name: status
+                  in: query
+                  type: string
+                  required: false
+                  description: "Journal status (U=Unposted, A=Approved, P=Posted)."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: create-journal
+              method: POST
+              description: "Create a new journal entry."
+              body:
+                type: json
+                data:
+                  ledgerId: "{{tools.ledger_id}}"
+                  periodName: "{{tools.period_name}}"
+                  journalCategory: "{{tools.journal_category}}"
+                  lines: "{{tools.lines}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: ap-invoices
+          path: /ap/invoices
+          description: "Accounts Payable invoices."
+          operations:
+            - name: get-ap-invoices
+              method: GET
+              description: "Retrieve AP invoices."
+              inputParameters:
+                - name: vendorId
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Vendor identifier."
+                - name: status
+                  in: query
+                  type: string
+                  required: false
+                  description: "Invoice status."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: create-ap-invoice
+              method: POST
+              description: "Create an AP invoice."
+              body:
+                type: json
+                data:
+                  vendorId: "{{tools.vendor_id}}"
+                  invoiceAmount: "{{tools.invoice_amount}}"
+                  invoiceDate: "{{tools.invoice_date}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: ap-invoice
+          path: /ap/invoices/{invoiceId}
+          description: "Specific AP invoice."
+          operations:
+            - name: get-ap-invoice-by-id
+              method: GET
+              description: "Get AP invoice by ID."
+              inputParameters:
+                - name: invoiceId
+                  in: path
+                  type: integer
+                  required: true
+                  description: "Invoice identifier."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: payments
+          path: /ap/payments
+          description: "AP payments."
+          operations:
+            - name: get-payments
+              method: GET
+              description: "Retrieve payments."
+              inputParameters:
+                - name: vendorId
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Vendor identifier."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: ar-invoices
+          path: /ar/invoices
+          description: "Accounts Receivable invoices."
+          operations:
+            - name: get-ar-invoices
+              method: GET
+              description: "Retrieve AR invoices."
+              inputParameters:
+                - name: customerId
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Customer identifier."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: create-ar-invoice
+              method: POST
+              description: "Create an AR invoice."
+              body:
+                type: json
+                data:
+                  customerId: "{{tools.customer_id}}"
+                  amount: "{{tools.amount}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: receipts
+          path: /ar/receipts
+          description: "AR receipts."
+          operations:
+            - name: get-receipts
+              method: GET
+              description: "Retrieve receipts."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: assets
+          path: /fa/assets
+          description: "Fixed assets."
+          operations:
+            - name: get-assets
+              method: GET
+              description: "Retrieve fixed assets."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: bank-accounts
+          path: /ce/bank-accounts
+          description: "Cash management bank accounts."
+          operations:
+            - name: get-bank-accounts
+              method: GET
+              description: "Retrieve bank accounts."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      port: 8100
+      namespace: oracle-financial-services-api
+      resources:
+        - path: /v1/journals
+          name: journals
+          description: "Journal entry management."
+          operations:
+            - method: GET
+              name: get-journals
+              description: "List journal entries."
+              call: "oracle-financial-services.get-journals"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9100
+      namespace: oracle-financial-services-mcp
+      transport: http
+      tools:
+        - name: get-journals
+          description: "Retrieve General Ledger journal entries."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "oracle-financial-services.get-journals"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-journal
+          description: "Create a journal entry."
+          hints:
+            readOnly: false
+          call: "oracle-financial-services.create-journal"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-ap-invoices
+          description: "Retrieve AP invoices."
+          hints:
+            readOnly: true
+          call: "oracle-financial-services.get-ap-invoices"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-ap-invoice
+          description: "Create an AP invoice."
+          hints:
+            readOnly: false
+          call: "oracle-financial-services.create-ap-invoice"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-ap-invoice-by-id
+          description: "Get AP invoice by ID."
+          hints:
+            readOnly: true
+          call: "oracle-financial-services.get-ap-invoice-by-id"
+          with:
+            invoiceId: "tools.invoice_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-payments
+          description: "Retrieve payments."
+          hints:
+            readOnly: true
+          call: "oracle-financial-services.get-payments"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-ar-invoices
+          description: "Retrieve AR invoices."
+          hints:
+            readOnly: true
+          call: "oracle-financial-services.get-ar-invoices"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-ar-invoice
+          description: "Create an AR invoice."
+          hints:
+            readOnly: false
+          call: "oracle-financial-services.create-ar-invoice"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-receipts
+          description: "Retrieve receipts."
+          hints:
+            readOnly: true
+          call: "oracle-financial-services.get-receipts"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-assets
+          description: "Retrieve fixed assets."
+          hints:
+            readOnly: true
+          call: "oracle-financial-services.get-assets"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-bank-accounts
+          description: "Retrieve bank accounts."
+          hints:
+            readOnly: true
+          call: "oracle-financial-services.get-bank-accounts"
+          outputParameters:
+            - type: object
+              mapping: "$."

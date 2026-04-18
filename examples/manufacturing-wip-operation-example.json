@@ -1,0 +1,17 @@
+{
+  "wipEntityId": "500123",
+  "operationSeqNum": 10,
+  "organizationId": "500123",
+  "departmentId": "500123",
+  "departmentCode": "example_value",
+  "operationDescription": "example_value",
+  "scheduledQuantity": 42.5,
+  "quantityInQueue": 42.5,
+  "quantityRunning": 42.5,
+  "quantityCompleted": 42.5,
+  "quantityScrapped": 42.5,
+  "firstUnitStartDate": "example_value",
+  "lastUnitCompletionDate": "example_value",
+  "countPointType": 10,
+  "backflushFlag": 10
+}

@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "FixedAsset",
+  "type": "object",
+  "properties": {
+    "assetId": {
+      "type": "integer",
+      "description": "Asset identifier"
+    },
+    "assetNumber": {
+      "type": "string",
+      "description": "Asset number"
+    },
+    "assetDescription": {
+      "type": "string",
+      "description": "Asset description"
+    },
+    "assetCategoryId": {
+      "type": "integer",
+      "description": "Asset category identifier"
+    },
+    "assetType": {
+      "type": "string",
+      "description": "Asset type"
+    },
+    "serialNumber": {
+      "type": "string",
+      "description": "Serial number"
+    },
+    "tagNumber": {
+      "type": "string",
+      "description": "Tag number"
+    },
+    "dateEffective": {
+      "type": "string"
+    },
+    "dateInService": {
+      "type": "string",
+      "description": "Date placed in service"
+    },
+    "cost": {
+      "type": "number",
+      "description": "Asset cost"
+    },
+    "salvageValue": {
+      "type": "number",
+      "description": "Salvage value"
+    },
+    "depreciationMethod": {
+      "type": "string",
+      "description": "Depreciation method"
+    },
+    "lifeInMonths": {
+      "type": "integer",
+      "description": "Useful life in months"
+    },
+    "bookTypeCode": {
+      "type": "string",
+      "description": "Book type code (corporate or tax)"
+    }
+  }
+}

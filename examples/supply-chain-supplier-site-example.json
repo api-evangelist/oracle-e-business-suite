@@ -1,0 +1,13 @@
+{
+  "vendorSiteId": "500123",
+  "vendorSiteCode": "example_value",
+  "addressLine1": "example_value",
+  "addressLine2": "example_value",
+  "city": "example_value",
+  "state": "example_value",
+  "zip": "example_value",
+  "country": "example_value",
+  "purchasingSiteFlag": "example_value",
+  "paymentSiteFlag": "example_value",
+  "orgId": "500123"
+}

@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ServiceMethodResponse",
+  "type": "object",
+  "description": "Dynamic response payload whose structure depends on the specific service and method invoked. Refer to the WADL for the deployed service.",
+  "properties": {
+    "OutputParameters": {
+      "type": "object",
+      "description": "Output parameters from the service method"
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "vendorId": "500123",
+  "vendorSiteId": "500123",
+  "currencyCode": "example_value",
+  "typeLookupCode": "example_value",
+  "description": "A sample description.",
+  "buyerId": "500123",
+  "shipToLocationId": "500123",
+  "billToLocationId": "500123",
+  "termsId": "500123",
+  "lines": []
+}

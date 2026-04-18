@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "PayrollRun",
+  "type": "object",
+  "properties": {
+    "payrollActionId": {
+      "type": "integer"
+    },
+    "payrollId": {
+      "type": "integer"
+    },
+    "actionType": {
+      "type": "string"
+    },
+    "actionStatus": {
+      "type": "string"
+    },
+    "effectiveDate": {
+      "type": "string"
+    },
+    "dateEarned": {
+      "type": "string"
+    },
+    "periodOfServiceId": {
+      "type": "integer"
+    },
+    "businessGroupId": {
+      "type": "integer"
+    }
+  }
+}

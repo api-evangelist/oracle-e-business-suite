@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "InboundTransactionImport",
+  "type": "object",
+  "properties": {
+    "transactionType": {
+      "type": "string"
+    },
+    "tradingPartnerId": {
+      "type": "integer"
+    },
+    "tradingPartnerSiteId": {
+      "type": "integer"
+    },
+    "documentDate": {
+      "type": "string"
+    },
+    "documentData": {
+      "type": "object"
+    }
+  }
+}

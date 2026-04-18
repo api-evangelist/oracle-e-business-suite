@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "CompletionTransaction",
+  "type": "object",
+  "properties": {
+    "wipEntityId": {
+      "type": "integer"
+    },
+    "organizationId": {
+      "type": "integer"
+    },
+    "transactionQuantity": {
+      "type": "number"
+    },
+    "transactionUom": {
+      "type": "string"
+    },
+    "subinventoryCode": {
+      "type": "string"
+    },
+    "locatorId": {
+      "type": "integer"
+    },
+    "transactionDate": {
+      "type": "string"
+    }
+  }
+}

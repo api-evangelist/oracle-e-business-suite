@@ -1,0 +1,17 @@
+{
+  "vendorId": "500123",
+  "vendorName": "example_value",
+  "segment1": "example_value",
+  "vendorType": "example_value",
+  "taxPayerId": "500123",
+  "standardIndustryClass": "example_value",
+  "paymentCurrencyCode": "example_value",
+  "paymentMethodCode": "example_value",
+  "termsId": "500123",
+  "enabled": true,
+  "startDateActive": "example_value",
+  "endDateActive": "example_value",
+  "sites": [],
+  "creationDate": "example_value",
+  "lastUpdateDate": "example_value"
+}

@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "Employee",
+  "type": "object",
+  "properties": {
+    "personId": {
+      "type": "integer"
+    },
+    "employeeNumber": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "firstName": {
+      "type": "string"
+    },
+    "middleNames": {
+      "type": "string"
+    },
+    "lastName": {
+      "type": "string"
+    },
+    "fullName": {
+      "type": "string"
+    },
+    "knownAs": {
+      "type": "string"
+    },
+    "emailAddress": {
+      "type": "string"
+    },
+    "sex": {
+      "type": "string"
+    },
+    "dateOfBirth": {
+      "type": "string"
+    },
+    "nationalIdentifier": {
+      "type": "string"
+    },
+    "nationality": {
+      "type": "string"
+    },
+    "maritalStatus": {
+      "type": "string"
+    },
+    "effectiveStartDate": {
+      "type": "string"
+    },
+    "effectiveEndDate": {
+      "type": "string"
+    },
+    "hireDate": {
+      "type": "string"
+    },
+    "currentEmployeeFlag": {
+      "type": "string"
+    },
+    "businessGroupId": {
+      "type": "integer"
+    },
+    "addresses": {
+      "type": "array"
+    },
+    "phones": {
+      "type": "array"
+    },
+    "creationDate": {
+      "type": "string"
+    },
+    "lastUpdateDate": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "DiscreteJob",
+  "type": "object",
+  "properties": {
+    "wipEntityId": {
+      "type": "integer"
+    },
+    "wipEntityName": {
+      "type": "string"
+    },
+    "organizationId": {
+      "type": "integer"
+    },
+    "primaryItemId": {
+      "type": "integer"
+    },
+    "primaryItemNumber": {
+      "type": "string"
+    },
+    "statusType": {
+      "type": "integer"
+    },
+    "jobType": {
+      "type": "integer"
+    },
+    "startQuantity": {
+      "type": "number"
+    },
+    "quantityCompleted": {
+      "type": "number"
+    },
+    "quantityScrapped": {
+      "type": "number"
+    },
+    "netQuantity": {
+      "type": "number"
+    },
+    "scheduledStartDate": {
+      "type": "string"
+    },
+    "scheduledCompletionDate": {
+      "type": "string"
+    },
+    "dateReleased": {
+      "type": "string"
+    },
+    "dateCompleted": {
+      "type": "string"
+    },
+    "dateClosed": {
+      "type": "string"
+    },
+    "classCode": {
+      "type": "string"
+    },
+    "bomRevision": {
+      "type": "string"
+    },
+    "routingRevision": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "firmPlannedFlag": {
+      "type": "integer"
+    },
+    "creationDate": {
+      "type": "string"
+    },
+    "lastUpdateDate": {
+      "type": "string"
+    }
+  }
+}

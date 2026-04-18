@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "BillOfMaterial",
+  "type": "object",
+  "properties": {
+    "billSequenceId": {
+      "type": "integer",
+      "description": "Bill sequence identifier"
+    },
+    "assemblyItemId": {
+      "type": "integer",
+      "description": "Assembly item identifier"
+    },
+    "assemblyItemNumber": {
+      "type": "string",
+      "description": "Assembly item number"
+    },
+    "organizationId": {
+      "type": "integer",
+      "description": "Organization identifier"
+    },
+    "alternateDesignator": {
+      "type": "string",
+      "description": "Alternate BOM designator"
+    },
+    "assemblyType": {
+      "type": "integer",
+      "description": "Assembly type (1=Manufacturing, 2=Engineering)"
+    },
+    "commonBillSequenceId": {
+      "type": "integer",
+      "description": "Common bill sequence identifier"
+    },
+    "specificAssemblyComment": {
+      "type": "string",
+      "description": "Assembly comment"
+    },
+    "components": {
+      "type": "array"
+    },
+    "creationDate": {
+      "type": "string"
+    },
+    "lastUpdateDate": {
+      "type": "string"
+    }
+  }
+}

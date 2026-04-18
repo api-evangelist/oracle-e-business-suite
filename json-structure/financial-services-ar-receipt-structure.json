@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "ArReceipt",
+  "type": "object",
+  "properties": {
+    "cashReceiptId": {
+      "type": "integer"
+    },
+    "receiptNumber": {
+      "type": "string"
+    },
+    "amount": {
+      "type": "number"
+    },
+    "currencyCode": {
+      "type": "string"
+    },
+    "receiptDate": {
+      "type": "string"
+    },
+    "customerId": {
+      "type": "integer"
+    },
+    "customerName": {
+      "type": "string"
+    },
+    "receiptMethodId": {
+      "type": "integer"
+    },
+    "status": {
+      "type": "string"
+    },
+    "orgId": {
+      "type": "integer"
+    }
+  }
+}
