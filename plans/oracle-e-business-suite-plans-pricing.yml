@@ -4,181 +4,136 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Oracle E-Business Suite
 providerId: oracle-e-business-suite
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: true
 tags:
-  - Business Applications
-  - E-Business Suite
-  - Enterprise
   - ERP
+  - Business Applications
+  - Enterprise
   - Oracle
-description: Machine-readable plans and pricing scaffold for this API provider. Conforms to the API Commons
-  Plans schema. Tier limits and prices are scaffold defaults; replace with provider-published values.
+description: Oracle E-Business Suite (EBS) is sold as a perpetual application license with separately-licensed
+  modules (Financials, Procurement, SCM, Order Management, HCM, CRM, Projects, Manufacturing, etc.) and
+  per-Application-User or per-Custom-Application-Suite metrics. Per-user list prices vary widely by module
+  — small business modules from a few thousand USD/user, full-stack ERP $20K-$100K+/user. Annual support
+  is typically 22% of license list price. EBS itself runs on Oracle Database (separately licensed). EBS
+  is also offered as a managed deployment on OCI ("EBS on OCI"). Total contract commonly ranges $25K–$1M+/year
+  depending on modules, users, and implementation scope. Public list prices are documented in Oracle's
+  Applications Global Price List PDF; enterprise discounting is universal.
+sources:
+  - https://www.oracle.com/applications/ebusiness/
+  - https://www.oracle.com/nl/a/ocom/docs/corporate/pricing/applications-price-list-070574.pdf
 plans:
-  - id: oracle-e-business-suite-free
-    name: Free
-    type: freemium
-    description: Free entry tier for the Oracle E-Business Suite API surface. Intended for evaluation,
-      prototyping, and low-volume integrations. Real limits and pricing must be reconciled with the provider's
-      published plan documentation.
+  - id: oracle-ebs-named-user
+    name: EBS Application User License
+    type: subscription
+    description: Per-named-user perpetual license per module. Pricing varies by module; common ERP modules
+      list in the $4K–$5K per-user range, with full-suite per-user totals reaching $20K–$100K depending
+      on bundle.
     entries:
-      - label: API Requests
-        description: Monthly API request quota across all included endpoints
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 1000
-        timeFrame: month
+      - label: Financials per Application User
+        name: financials_user
+        type: subscription
+        metric: named_user
+        limit: -1
+        timeFrame: year
         geo: global
-        domains:
-          - https://{instance}.oracle.com/webservices/rest/
-          - https://{instance}.oracle.com/webservices/SOAProvider/
-          - https://{instance}.oracle.com/
         unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the free tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 10
-        timeFrame: minute
+        price: see Oracle Applications Global Price List
+        userMultiplied: true
+      - label: Procurement per Application User
+        name: procurement_user
+        type: subscription
+        metric: named_user
+        limit: -1
+        timeFrame: year
         geo: global
-        domains:
-          - https://{instance}.oracle.com/webservices/rest/
-          - https://{instance}.oracle.com/webservices/SOAProvider/
-          - https://{instance}.oracle.com/
         unit: 1
-        price: '0.00'
+        price: see Oracle Applications Global Price List
+        userMultiplied: true
+      - label: Supply Chain Management per Application User
+        name: scm_user
+        type: subscription
+        metric: named_user
+        limit: -1
+        timeFrame: year
+        geo: global
+        unit: 1
+        price: see Oracle Applications Global Price List
+        userMultiplied: true
+      - label: Human Capital Management per Application User (employee record)
+        name: hcm_user
+        type: subscription
+        metric: named_user
+        limit: -1
+        timeFrame: year
+        geo: global
+        unit: 1
+        price: see Oracle Applications Global Price List
+        userMultiplied: true
+    elements:
+      - name: Per-named-user perpetual license
+      - name: Module-specific metric (employee, customer record, etc.)
+      - name: Annual support 22%
+  - id: oracle-ebs-custom-suite
+    name: EBS Custom Application Suite
+    type: subscription
+    description: Per-Processor or aggregated user metric for custom-bundled module sets. Used by enterprises
+      committing to many modules with negotiated pricing.
+    entries:
+      - label: Custom suite (negotiated)
+        name: custom_suite
+        type: subscription
+        metric: processor or named_user
+        limit: -1
+        timeFrame: year
+        geo: global
+        unit: 1
+        price: contact sales (typical contracts $100K–$1M+/year)
         userMultiplied: false
     elements:
-      - name: Public Documentation
-      - name: Community Support
-      - name: Sandbox Access
-      - name: Oracle EBS Integrated SOA Gateway REST API
-      - name: Oracle EBS Integrated SOA Gateway SOAP Web Services
-      - name: Oracle EBS Financial Services API
-      - name: Oracle EBS Supply Chain Management API
-      - name: Oracle EBS Human Resources API
-      - name: Oracle EBS Manufacturing API
-      - name: Oracle EBS e-Commerce Gateway API
-      - name: Oracle EBS PL/SQL API Framework
-  - id: oracle-e-business-suite-pro
-    name: Professional
-    type: paid
-    description: Production tier for Oracle E-Business Suite. Provides higher quotas, priority support,
-      and access to the broader API portfolio. Pricing placeholder; align with the provider's pricing
-      page.
+      - name: Bundled-module pricing
+      - name: Volume discounts negotiated
+      - name: 22% annual support
+  - id: oracle-ebs-support
+    name: Annual Software Update + Support
+    type: subscription
+    description: Mandatory annual support fee on perpetual licenses; access to patches, upgrades, and
+      tech support.
     entries:
-      - label: API Requests
-        description: Monthly API request quota
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 100000
-        timeFrame: month
+      - label: Annual support
+        name: annual_support
+        type: subscription
+        metric: license-year
+        limit: -1
+        timeFrame: year
         geo: global
-        domains:
-          - https://{instance}.oracle.com/webservices/rest/
-          - https://{instance}.oracle.com/webservices/SOAProvider/
-          - https://{instance}.oracle.com/
         unit: 1
-        price: TBD
+        price: ~22% of license list
         userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the professional tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 100
-        timeFrame: minute
-        geo: global
-        domains:
-          - https://{instance}.oracle.com/webservices/rest/
-          - https://{instance}.oracle.com/webservices/SOAProvider/
-          - https://{instance}.oracle.com/
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Overage
-        description: Per-request price after monthly quota is exceeded
-        name: overage
+    elements:
+      - name: 22% of license list per year
+      - name: Required to receive patches
+  - id: oracle-ebs-on-oci
+    name: EBS on Oracle Cloud Infrastructure
+    type: usage-based
+    description: EBS deployed on OCI compute + database services. Underlying OCI compute, database, storage
+      billed pay-as-you-go (or via Universal Credits); EBS application licenses still required (BYOL or
+      negotiated cloud subscription).
+    entries:
+      - label: OCI infrastructure for EBS
+        name: ebs_oci_infra
         type: metered
-        metric: requests
+        metric: varies
         limit: -1
-        timeFrame: month
+        timeFrame: usage
         geo: global
-        domains:
-          - https://{instance}.oracle.com/webservices/rest/
-          - https://{instance}.oracle.com/webservices/SOAProvider/
-          - https://{instance}.oracle.com/
-        unit: 1000
-        price: TBD
+        unit: 1
+        price: see https://www.oracle.com/cloud/price-list/
         userMultiplied: false
     elements:
-      - name: All Production Endpoints
-      - name: Email Support
-      - name: SLA Targets
-      - name: Webhook Subscriptions
-      - name: Oracle EBS Integrated SOA Gateway REST API
-      - name: Oracle EBS Integrated SOA Gateway SOAP Web Services
-      - name: Oracle EBS Financial Services API
-      - name: Oracle EBS Supply Chain Management API
-      - name: Oracle EBS Human Resources API
-      - name: Oracle EBS Manufacturing API
-      - name: Oracle EBS e-Commerce Gateway API
-      - name: Oracle EBS PL/SQL API Framework
-  - id: oracle-e-business-suite-enterprise
-    name: Enterprise
-    type: enterprise
-    description: Custom-negotiated tier for Oracle E-Business Suite. Includes dedicated capacity, contractual
-      SLAs, security review, data residency options, and named technical account management.
-    entries:
-      - label: API Requests
-        description: Negotiated request volume; -1 indicates uncapped subject to fair use
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: -1
-        timeFrame: month
-        geo: configurable
-        domains:
-          - https://{instance}.oracle.com/webservices/rest/
-          - https://{instance}.oracle.com/webservices/SOAProvider/
-          - https://{instance}.oracle.com/
-        unit: 1
-        price: custom
-        userMultiplied: false
-      - label: Rate Limit
-        description: Negotiated burst and steady-state rate
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 1000
-        timeFrame: minute
-        geo: configurable
-        domains:
-          - https://{instance}.oracle.com/webservices/rest/
-          - https://{instance}.oracle.com/webservices/SOAProvider/
-          - https://{instance}.oracle.com/
-        unit: 1
-        price: custom
-        userMultiplied: false
-    elements:
-      - name: Unlimited / Negotiated Volume
-      - name: 24/7 Dedicated Support
-      - name: Contractual SLA
-      - name: Security & Compliance Review
-      - name: Dedicated Account Manager
-      - name: Custom Data Residency
-      - name: Oracle EBS Integrated SOA Gateway REST API
-      - name: Oracle EBS Integrated SOA Gateway SOAP Web Services
-      - name: Oracle EBS Financial Services API
-      - name: Oracle EBS Supply Chain Management API
-      - name: Oracle EBS Human Resources API
-      - name: Oracle EBS Manufacturing API
-      - name: Oracle EBS e-Commerce Gateway API
-      - name: Oracle EBS PL/SQL API Framework
+      - name: OCI compute, DB, storage billed separately
+      - name: BYOL of EBS application licenses
+      - name: Managed cloud option available
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
