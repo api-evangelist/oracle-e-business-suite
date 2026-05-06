@@ -1,188 +1,372 @@
-naftiko: "1.0.0-alpha1"
-
+naftiko: 1.0.0-alpha2
 info:
-  label: "Oracle EBS Integration and EDI"
-  description: "Integration capabilities combining ISG REST API for service management and e-Commerce Gateway for EDI document exchange with trading partners. Used by integration architects and B2B teams."
+  label: Oracle EBS Integration and EDI
+  description: Integration capabilities combining ISG REST API for service management and e-Commerce Gateway for EDI document
+    exchange with trading partners. Used by integration architects and B2B teams.
   tags:
-    - Oracle
-    - Integration
-    - EDI
-    - SOA Gateway
-  created: "2026-04-18"
-  modified: "2026-04-18"
-
+  - Oracle
+  - Integration
+  - EDI
+  - SOA Gateway
+  created: '2026-04-18'
+  modified: '2026-05-06'
 binds:
-  - namespace: env
-    keys:
-      ORACLE_EBS_TOKEN: ORACLE_EBS_TOKEN
-      ORACLE_EBS_USERNAME: ORACLE_EBS_USERNAME
-      ORACLE_EBS_PASSWORD: ORACLE_EBS_PASSWORD
-
+- namespace: env
+  keys:
+    ORACLE_EBS_TOKEN: ORACLE_EBS_TOKEN
+    ORACLE_EBS_USERNAME: ORACLE_EBS_USERNAME
+    ORACLE_EBS_PASSWORD: ORACLE_EBS_PASSWORD
 capability:
   consumes:
-    - import: oracle-isg-rest
-      location: ./shared/isg-rest.yaml
-    - import: oracle-ecommerce-gateway
-      location: ./shared/ecommerce-gateway.yaml
-
+  - type: http
+    namespace: oracle-isg-rest
+    baseUri: https://{instance}.oracle.com/webservices/rest
+    description: Oracle EBS ISG REST API for session management and service discovery.
+    authentication:
+      type: basic
+      username: '{{ORACLE_EBS_USERNAME}}'
+      password: '{{ORACLE_EBS_PASSWORD}}'
+    resources:
+    - name: auth
+      path: /auth
+      description: Authentication and session management.
+      operations:
+      - name: login
+        method: POST
+        description: Authenticate and obtain a session token.
+        body:
+          type: json
+          data:
+            username: '{{tools.username}}'
+            password: '{{tools.password}}'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: logout
+        method: POST
+        description: End the current session.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: initialize
+      path: /initialize
+      description: Initialize responsibility context.
+      operations:
+      - name: initialize
+        method: POST
+        description: Initialize the EBS responsibility context.
+        body:
+          type: json
+          data:
+            responsibilityId: '{{tools.responsibility_id}}'
+            applicationId: '{{tools.application_id}}'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: wadl
+      path: /{service}/wadl
+      description: Service WADL discovery.
+      operations:
+      - name: get-service-wadl
+        method: GET
+        description: Get WADL for a deployed REST service.
+        inputParameters:
+        - name: service
+          in: path
+          type: string
+          required: true
+          description: Service name.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: rest-method
+      path: /{service}/{method}
+      description: Invoke a generic REST method.
+      operations:
+      - name: invoke-rest-method
+        method: POST
+        description: Invoke a REST method on a deployed service.
+        inputParameters:
+        - name: service
+          in: path
+          type: string
+          required: true
+          description: Service name.
+        - name: method
+          in: path
+          type: string
+          required: true
+          description: Method name.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  - type: http
+    namespace: oracle-ecommerce-gateway
+    baseUri: https://{instance}.oracle.com/webservices/rest
+    description: Oracle EBS e-Commerce Gateway API for EDI transactions.
+    authentication:
+      type: bearer
+      token: '{{ORACLE_EBS_TOKEN}}'
+    resources:
+    - name: trading-partners
+      path: /ecx/trading-partners
+      description: Trading partner management.
+      operations:
+      - name: get-trading-partners
+        method: GET
+        description: Retrieve trading partners.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: trading-partner
+      path: /ecx/trading-partners/{tradingPartnerId}
+      description: Specific trading partner.
+      operations:
+      - name: get-trading-partner-by-id
+        method: GET
+        description: Get trading partner by ID.
+        inputParameters:
+        - name: tradingPartnerId
+          in: path
+          type: integer
+          required: true
+          description: Trading partner identifier.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: inbound-transactions
+      path: /ecx/inbound-transactions
+      description: Inbound EDI transactions.
+      operations:
+      - name: get-inbound-transactions
+        method: GET
+        description: Retrieve inbound transactions.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: import-inbound-transaction
+        method: POST
+        description: Import an inbound EDI transaction.
+        body:
+          type: json
+          data:
+            tradingPartnerId: '{{tools.trading_partner_id}}'
+            transactionType: '{{tools.transaction_type}}'
+            data: '{{tools.data}}'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: outbound-transactions
+      path: /ecx/outbound-transactions
+      description: Outbound EDI transactions.
+      operations:
+      - name: get-outbound-transactions
+        method: GET
+        description: Retrieve outbound transactions.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: extract-outbound-transaction
+        method: POST
+        description: Extract an outbound EDI transaction.
+        body:
+          type: json
+          data:
+            transactionType: '{{tools.transaction_type}}'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: code-conversions
+      path: /ecx/code-conversions
+      description: EDI code conversions.
+      operations:
+      - name: get-code-conversions
+        method: GET
+        description: Retrieve code conversion mappings.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
   exposes:
-    - type: rest
-      port: 8083
-      namespace: integration-edi-api
-      description: "Unified REST API for Oracle EBS integration and EDI."
-      resources:
-        - path: /v1/auth
-          name: auth
-          description: "Authentication."
-          operations:
-            - method: POST
-              name: login
-              description: "Authenticate."
-              call: "oracle-isg-rest.login"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/trading-partners
-          name: trading-partners
-          description: "Trading partner management."
-          operations:
-            - method: GET
-              name: get-trading-partners
-              description: "List trading partners."
-              call: "oracle-ecommerce-gateway.get-trading-partners"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/inbound-transactions
-          name: inbound-transactions
-          description: "Inbound EDI transactions."
-          operations:
-            - method: GET
-              name: get-inbound-transactions
-              description: "List inbound transactions."
-              call: "oracle-ecommerce-gateway.get-inbound-transactions"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/outbound-transactions
-          name: outbound-transactions
-          description: "Outbound EDI transactions."
-          operations:
-            - method: GET
-              name: get-outbound-transactions
-              description: "List outbound transactions."
-              call: "oracle-ecommerce-gateway.get-outbound-transactions"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-    - type: mcp
-      port: 9083
-      namespace: integration-edi-mcp
-      transport: http
-      description: "MCP server for AI-assisted Oracle EBS integration and EDI."
-      tools:
-        - name: isg-login
-          description: "Authenticate and obtain session token."
-          hints:
-            readOnly: false
-          call: "oracle-isg-rest.login"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: isg-logout
-          description: "End the current session."
-          hints:
-            readOnly: false
-          call: "oracle-isg-rest.logout"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: isg-initialize
-          description: "Initialize responsibility context."
-          hints:
-            readOnly: false
-          call: "oracle-isg-rest.initialize"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: isg-get-service-wadl
-          description: "Get WADL for a REST service."
-          hints:
-            readOnly: true
-          call: "oracle-isg-rest.get-service-wadl"
-          with:
-            service: "tools.service"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: isg-invoke-rest-method
-          description: "Invoke a REST method on a service."
-          hints:
-            readOnly: false
-          call: "oracle-isg-rest.invoke-rest-method"
-          with:
-            service: "tools.service"
-            method: "tools.method"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: edi-get-trading-partners
-          description: "Retrieve trading partners."
-          hints:
-            readOnly: true
-            openWorld: true
-          call: "oracle-ecommerce-gateway.get-trading-partners"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: edi-get-trading-partner-by-id
-          description: "Get trading partner by ID."
-          hints:
-            readOnly: true
-          call: "oracle-ecommerce-gateway.get-trading-partner-by-id"
-          with:
-            tradingPartnerId: "tools.trading_partner_id"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: edi-get-inbound-transactions
-          description: "Retrieve inbound EDI transactions."
-          hints:
-            readOnly: true
-          call: "oracle-ecommerce-gateway.get-inbound-transactions"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: edi-import-inbound-transaction
-          description: "Import an inbound EDI transaction."
-          hints:
-            readOnly: false
-          call: "oracle-ecommerce-gateway.import-inbound-transaction"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: edi-get-outbound-transactions
-          description: "Retrieve outbound EDI transactions."
-          hints:
-            readOnly: true
-          call: "oracle-ecommerce-gateway.get-outbound-transactions"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: edi-extract-outbound-transaction
-          description: "Extract an outbound EDI transaction."
-          hints:
-            readOnly: false
-          call: "oracle-ecommerce-gateway.extract-outbound-transaction"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: edi-get-code-conversions
-          description: "Retrieve code conversion mappings."
-          hints:
-            readOnly: true
-          call: "oracle-ecommerce-gateway.get-code-conversions"
-          outputParameters:
-            - type: object
-              mapping: "$."
+  - type: rest
+    port: 8083
+    namespace: integration-edi-api
+    description: Unified REST API for Oracle EBS integration and EDI.
+    resources:
+    - path: /v1/auth
+      name: auth
+      description: Authentication.
+      operations:
+      - method: POST
+        name: login
+        description: Authenticate.
+        call: oracle-isg-rest.login
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/trading-partners
+      name: trading-partners
+      description: Trading partner management.
+      operations:
+      - method: GET
+        name: get-trading-partners
+        description: List trading partners.
+        call: oracle-ecommerce-gateway.get-trading-partners
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/inbound-transactions
+      name: inbound-transactions
+      description: Inbound EDI transactions.
+      operations:
+      - method: GET
+        name: get-inbound-transactions
+        description: List inbound transactions.
+        call: oracle-ecommerce-gateway.get-inbound-transactions
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/outbound-transactions
+      name: outbound-transactions
+      description: Outbound EDI transactions.
+      operations:
+      - method: GET
+        name: get-outbound-transactions
+        description: List outbound transactions.
+        call: oracle-ecommerce-gateway.get-outbound-transactions
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    port: 9083
+    namespace: integration-edi-mcp
+    transport: http
+    description: MCP server for AI-assisted Oracle EBS integration and EDI.
+    tools:
+    - name: isg-login
+      description: Authenticate and obtain session token.
+      hints:
+        readOnly: false
+      call: oracle-isg-rest.login
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: isg-logout
+      description: End the current session.
+      hints:
+        readOnly: false
+      call: oracle-isg-rest.logout
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: isg-initialize
+      description: Initialize responsibility context.
+      hints:
+        readOnly: false
+      call: oracle-isg-rest.initialize
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: isg-get-service-wadl
+      description: Get WADL for a REST service.
+      hints:
+        readOnly: true
+      call: oracle-isg-rest.get-service-wadl
+      with:
+        service: tools.service
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: isg-invoke-rest-method
+      description: Invoke a REST method on a service.
+      hints:
+        readOnly: false
+      call: oracle-isg-rest.invoke-rest-method
+      with:
+        service: tools.service
+        method: tools.method
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: edi-get-trading-partners
+      description: Retrieve trading partners.
+      hints:
+        readOnly: true
+        openWorld: true
+      call: oracle-ecommerce-gateway.get-trading-partners
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: edi-get-trading-partner-by-id
+      description: Get trading partner by ID.
+      hints:
+        readOnly: true
+      call: oracle-ecommerce-gateway.get-trading-partner-by-id
+      with:
+        tradingPartnerId: tools.trading_partner_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: edi-get-inbound-transactions
+      description: Retrieve inbound EDI transactions.
+      hints:
+        readOnly: true
+      call: oracle-ecommerce-gateway.get-inbound-transactions
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: edi-import-inbound-transaction
+      description: Import an inbound EDI transaction.
+      hints:
+        readOnly: false
+      call: oracle-ecommerce-gateway.import-inbound-transaction
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: edi-get-outbound-transactions
+      description: Retrieve outbound EDI transactions.
+      hints:
+        readOnly: true
+      call: oracle-ecommerce-gateway.get-outbound-transactions
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: edi-extract-outbound-transaction
+      description: Extract an outbound EDI transaction.
+      hints:
+        readOnly: false
+      call: oracle-ecommerce-gateway.extract-outbound-transaction
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: edi-get-code-conversions
+      description: Retrieve code conversion mappings.
+      hints:
+        readOnly: true
+      call: oracle-ecommerce-gateway.get-code-conversions
+      outputParameters:
+      - type: object
+        mapping: $.
