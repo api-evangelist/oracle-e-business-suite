@@ -1,0 +1,346 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Oracle EBS Supply Chain Management API — Purchasing
+  description: 'Oracle EBS Supply Chain Management API — Purchasing. 6 operations. Lead operation: Retrieve Purchase Orders.
+    Self-contained Naftiko capability covering one Oracle E Business Suite business surface.'
+  tags:
+  - Oracle E Business Suite
+  - Purchasing
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ORACLE_E_BUSINESS_SUITE_API_KEY: ORACLE_E_BUSINESS_SUITE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: supply-chain-purchasing
+    baseUri: https://{instance}.oracle.com/webservices/rest
+    description: Oracle EBS Supply Chain Management API — Purchasing business capability. Self-contained, no shared references.
+    resources:
+    - name: po-purchaseOrders
+      path: /po/purchaseOrders
+      operations:
+      - name: getpurchaseorders
+        method: GET
+        description: Retrieve Purchase Orders
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: poHeaderId
+          in: query
+          type: integer
+          description: Purchase order header identifier
+        - name: segment1
+          in: query
+          type: string
+          description: Purchase order number
+        - name: vendorId
+          in: query
+          type: integer
+          description: Supplier/vendor identifier
+        - name: authorizationStatus
+          in: query
+          type: string
+          description: Authorization status
+        - name: creationDateFrom
+          in: query
+          type: string
+          description: Creation date range start (YYYY-MM-DD)
+        - name: creationDateTo
+          in: query
+          type: string
+          description: Creation date range end (YYYY-MM-DD)
+        - name: typeLookupCode
+          in: query
+          type: string
+          description: Purchase order type
+      - name: createpurchaseorder
+        method: POST
+        description: Create a Purchase Order
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: po-purchaseOrders-poHeaderId
+      path: /po/purchaseOrders/{poHeaderId}
+      operations:
+      - name: getpurchaseorderbyid
+        method: GET
+        description: Retrieve a Specific Purchase Order
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: poHeaderId
+          in: path
+          type: integer
+          required: true
+      - name: updatepurchaseorder
+        method: PUT
+        description: Update a Purchase Order
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: poHeaderId
+          in: path
+          type: integer
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: po-requisitions
+      path: /po/requisitions
+      operations:
+      - name: getrequisitions
+        method: GET
+        description: Retrieve Purchase Requisitions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: requisitionHeaderId
+          in: query
+          type: integer
+          description: Requisition header identifier
+        - name: requisitionNumber
+          in: query
+          type: string
+          description: Requisition number
+        - name: authorizationStatus
+          in: query
+          type: string
+          description: Authorization status
+    - name: po-suppliers
+      path: /po/suppliers
+      operations:
+      - name: getsuppliers
+        method: GET
+        description: Retrieve Suppliers
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: vendorId
+          in: query
+          type: integer
+          description: Vendor identifier
+        - name: vendorName
+          in: query
+          type: string
+          description: Vendor name (supports wildcards)
+        - name: segment1
+          in: query
+          type: string
+          description: Vendor number
+        - name: vendorType
+          in: query
+          type: string
+          description: Vendor type
+    authentication:
+      type: apikey
+      key: accessToken
+      value: '{{env.ORACLE_E_BUSINESS_SUITE_API_KEY}}'
+      placement: cookie
+  exposes:
+  - type: rest
+    namespace: supply-chain-purchasing-rest
+    port: 8080
+    description: REST adapter for Oracle EBS Supply Chain Management API — Purchasing. One Spectral-compliant resource per
+      consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/po/purchaseorders
+      name: po-purchaseorders
+      description: REST surface for po-purchaseOrders.
+      operations:
+      - method: GET
+        name: getpurchaseorders
+        description: Retrieve Purchase Orders
+        call: supply-chain-purchasing.getpurchaseorders
+        with:
+          poHeaderId: rest.poHeaderId
+          segment1: rest.segment1
+          vendorId: rest.vendorId
+          authorizationStatus: rest.authorizationStatus
+          creationDateFrom: rest.creationDateFrom
+          creationDateTo: rest.creationDateTo
+          typeLookupCode: rest.typeLookupCode
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createpurchaseorder
+        description: Create a Purchase Order
+        call: supply-chain-purchasing.createpurchaseorder
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/po/purchaseorders/{poheaderid}
+      name: po-purchaseorders-poheaderid
+      description: REST surface for po-purchaseOrders-poHeaderId.
+      operations:
+      - method: GET
+        name: getpurchaseorderbyid
+        description: Retrieve a Specific Purchase Order
+        call: supply-chain-purchasing.getpurchaseorderbyid
+        with:
+          poHeaderId: rest.poHeaderId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatepurchaseorder
+        description: Update a Purchase Order
+        call: supply-chain-purchasing.updatepurchaseorder
+        with:
+          poHeaderId: rest.poHeaderId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/po/requisitions
+      name: po-requisitions
+      description: REST surface for po-requisitions.
+      operations:
+      - method: GET
+        name: getrequisitions
+        description: Retrieve Purchase Requisitions
+        call: supply-chain-purchasing.getrequisitions
+        with:
+          requisitionHeaderId: rest.requisitionHeaderId
+          requisitionNumber: rest.requisitionNumber
+          authorizationStatus: rest.authorizationStatus
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/po/suppliers
+      name: po-suppliers
+      description: REST surface for po-suppliers.
+      operations:
+      - method: GET
+        name: getsuppliers
+        description: Retrieve Suppliers
+        call: supply-chain-purchasing.getsuppliers
+        with:
+          vendorId: rest.vendorId
+          vendorName: rest.vendorName
+          segment1: rest.segment1
+          vendorType: rest.vendorType
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: supply-chain-purchasing-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Oracle EBS Supply Chain Management API — Purchasing. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: retrieve-purchase-orders
+      description: Retrieve Purchase Orders
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: supply-chain-purchasing.getpurchaseorders
+      with:
+        poHeaderId: tools.poHeaderId
+        segment1: tools.segment1
+        vendorId: tools.vendorId
+        authorizationStatus: tools.authorizationStatus
+        creationDateFrom: tools.creationDateFrom
+        creationDateTo: tools.creationDateTo
+        typeLookupCode: tools.typeLookupCode
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-purchase-order
+      description: Create a Purchase Order
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: supply-chain-purchasing.createpurchaseorder
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-specific-purchase-order
+      description: Retrieve a Specific Purchase Order
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: supply-chain-purchasing.getpurchaseorderbyid
+      with:
+        poHeaderId: tools.poHeaderId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-purchase-order
+      description: Update a Purchase Order
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: supply-chain-purchasing.updatepurchaseorder
+      with:
+        poHeaderId: tools.poHeaderId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-purchase-requisitions
+      description: Retrieve Purchase Requisitions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: supply-chain-purchasing.getrequisitions
+      with:
+        requisitionHeaderId: tools.requisitionHeaderId
+        requisitionNumber: tools.requisitionNumber
+        authorizationStatus: tools.authorizationStatus
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-suppliers
+      description: Retrieve Suppliers
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: supply-chain-purchasing.getsuppliers
+      with:
+        vendorId: tools.vendorId
+        vendorName: tools.vendorName
+        segment1: tools.segment1
+        vendorType: tools.vendorType
+      outputParameters:
+      - type: object
+        mapping: $.

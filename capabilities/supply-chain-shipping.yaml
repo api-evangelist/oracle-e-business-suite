@@ -1,0 +1,93 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Oracle EBS Supply Chain Management API — Shipping
+  description: 'Oracle EBS Supply Chain Management API — Shipping. 1 operations. Lead operation: Retrieve Shipping Deliveries.
+    Self-contained Naftiko capability covering one Oracle E Business Suite business surface.'
+  tags:
+  - Oracle E Business Suite
+  - Shipping
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ORACLE_E_BUSINESS_SUITE_API_KEY: ORACLE_E_BUSINESS_SUITE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: supply-chain-shipping
+    baseUri: https://{instance}.oracle.com/webservices/rest
+    description: Oracle EBS Supply Chain Management API — Shipping business capability. Self-contained, no shared references.
+    resources:
+    - name: wsh-deliveries
+      path: /wsh/deliveries
+      operations:
+      - name: getdeliveries
+        method: GET
+        description: Retrieve Shipping Deliveries
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: deliveryId
+          in: query
+          type: integer
+          description: Delivery identifier
+        - name: deliveryName
+          in: query
+          type: string
+          description: Delivery name/number
+        - name: statusCode
+          in: query
+          type: string
+          description: Delivery status
+    authentication:
+      type: apikey
+      key: accessToken
+      value: '{{env.ORACLE_E_BUSINESS_SUITE_API_KEY}}'
+      placement: cookie
+  exposes:
+  - type: rest
+    namespace: supply-chain-shipping-rest
+    port: 8080
+    description: REST adapter for Oracle EBS Supply Chain Management API — Shipping. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/wsh/deliveries
+      name: wsh-deliveries
+      description: REST surface for wsh-deliveries.
+      operations:
+      - method: GET
+        name: getdeliveries
+        description: Retrieve Shipping Deliveries
+        call: supply-chain-shipping.getdeliveries
+        with:
+          deliveryId: rest.deliveryId
+          deliveryName: rest.deliveryName
+          statusCode: rest.statusCode
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: supply-chain-shipping-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Oracle EBS Supply Chain Management API — Shipping. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: retrieve-shipping-deliveries
+      description: Retrieve Shipping Deliveries
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: supply-chain-shipping.getdeliveries
+      with:
+        deliveryId: tools.deliveryId
+        deliveryName: tools.deliveryName
+        statusCode: tools.statusCode
+      outputParameters:
+      - type: object
+        mapping: $.

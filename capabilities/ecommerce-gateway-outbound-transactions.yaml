@@ -1,0 +1,141 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Oracle EBS e-Commerce Gateway API — Outbound Transactions
+  description: 'Oracle EBS e-Commerce Gateway API — Outbound Transactions. 2 operations. Lead operation: Retrieve Outbound
+    Edi Transactions. Self-contained Naftiko capability covering one Oracle E Business Suite business surface.'
+  tags:
+  - Oracle E Business Suite
+  - Outbound Transactions
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ORACLE_E_BUSINESS_SUITE_API_KEY: ORACLE_E_BUSINESS_SUITE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: ecommerce-gateway-outbound-transactions
+    baseUri: https://{instance}.oracle.com/webservices/rest
+    description: Oracle EBS e-Commerce Gateway API — Outbound Transactions business capability. Self-contained, no shared
+      references.
+    resources:
+    - name: ece-transactions-outbound
+      path: /ece/transactions/outbound
+      operations:
+      - name: getoutboundtransactions
+        method: GET
+        description: Retrieve Outbound Edi Transactions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: transactionType
+          in: query
+          type: string
+          description: EDI transaction type code
+        - name: tradingPartnerId
+          in: query
+          type: integer
+          description: Trading partner identifier
+        - name: processStatus
+          in: query
+          type: string
+          description: Processing status
+        - name: creationDateFrom
+          in: query
+          type: string
+          description: Creation date range start (YYYY-MM-DD)
+        - name: creationDateTo
+          in: query
+          type: string
+          description: Creation date range end (YYYY-MM-DD)
+      - name: extractoutboundtransaction
+        method: POST
+        description: Extract an Outbound Edi Transaction
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: accessToken
+      value: '{{env.ORACLE_E_BUSINESS_SUITE_API_KEY}}'
+      placement: cookie
+  exposes:
+  - type: rest
+    namespace: ecommerce-gateway-outbound-transactions-rest
+    port: 8080
+    description: REST adapter for Oracle EBS e-Commerce Gateway API — Outbound Transactions. One Spectral-compliant resource
+      per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/ece/transactions/outbound
+      name: ece-transactions-outbound
+      description: REST surface for ece-transactions-outbound.
+      operations:
+      - method: GET
+        name: getoutboundtransactions
+        description: Retrieve Outbound Edi Transactions
+        call: ecommerce-gateway-outbound-transactions.getoutboundtransactions
+        with:
+          transactionType: rest.transactionType
+          tradingPartnerId: rest.tradingPartnerId
+          processStatus: rest.processStatus
+          creationDateFrom: rest.creationDateFrom
+          creationDateTo: rest.creationDateTo
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: extractoutboundtransaction
+        description: Extract an Outbound Edi Transaction
+        call: ecommerce-gateway-outbound-transactions.extractoutboundtransaction
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: ecommerce-gateway-outbound-transactions-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Oracle EBS e-Commerce Gateway API — Outbound Transactions. One tool per consumed operation,
+      routed inline through this capability's consumes block.
+    tools:
+    - name: retrieve-outbound-edi-transactions
+      description: Retrieve Outbound Edi Transactions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: ecommerce-gateway-outbound-transactions.getoutboundtransactions
+      with:
+        transactionType: tools.transactionType
+        tradingPartnerId: tools.tradingPartnerId
+        processStatus: tools.processStatus
+        creationDateFrom: tools.creationDateFrom
+        creationDateTo: tools.creationDateTo
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: extract-outbound-edi-transaction
+      description: Extract an Outbound Edi Transaction
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: ecommerce-gateway-outbound-transactions.extractoutboundtransaction
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

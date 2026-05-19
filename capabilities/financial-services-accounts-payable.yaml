@@ -1,0 +1,246 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Oracle EBS Financial Services API — Accounts Payable
+  description: 'Oracle EBS Financial Services API — Accounts Payable. 4 operations. Lead operation: Retrieve Ap Invoices.
+    Self-contained Naftiko capability covering one Oracle E Business Suite business surface.'
+  tags:
+  - Oracle E Business Suite
+  - Accounts Payable
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ORACLE_E_BUSINESS_SUITE_API_KEY: ORACLE_E_BUSINESS_SUITE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: financial-services-accounts-payable
+    baseUri: https://{instance}.oracle.com/webservices/rest
+    description: Oracle EBS Financial Services API — Accounts Payable business capability. Self-contained, no shared references.
+    resources:
+    - name: ap-invoices
+      path: /ap/invoices
+      operations:
+      - name: getapinvoices
+        method: GET
+        description: Retrieve Ap Invoices
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: invoiceId
+          in: query
+          type: integer
+          description: Invoice identifier
+        - name: invoiceNum
+          in: query
+          type: string
+          description: Invoice number
+        - name: vendorId
+          in: query
+          type: integer
+          description: Supplier/vendor identifier
+        - name: invoiceDateFrom
+          in: query
+          type: string
+          description: Invoice date range start (YYYY-MM-DD)
+        - name: invoiceDateTo
+          in: query
+          type: string
+          description: Invoice date range end (YYYY-MM-DD)
+        - name: invoiceStatus
+          in: query
+          type: string
+          description: Invoice approval status
+      - name: createapinvoice
+        method: POST
+        description: Create an Ap Invoice
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: ap-invoices-invoiceId
+      path: /ap/invoices/{invoiceId}
+      operations:
+      - name: getapinvoicebyid
+        method: GET
+        description: Retrieve a Specific Ap Invoice
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: invoiceId
+          in: path
+          type: integer
+          required: true
+    - name: ap-payments
+      path: /ap/payments
+      operations:
+      - name: getpayments
+        method: GET
+        description: Retrieve Ap Payments
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: checkId
+          in: query
+          type: integer
+          description: Payment check identifier
+        - name: vendorId
+          in: query
+          type: integer
+          description: Supplier/vendor identifier
+        - name: paymentDateFrom
+          in: query
+          type: string
+          description: Payment date range start (YYYY-MM-DD)
+        - name: paymentDateTo
+          in: query
+          type: string
+          description: Payment date range end (YYYY-MM-DD)
+    authentication:
+      type: apikey
+      key: accessToken
+      value: '{{env.ORACLE_E_BUSINESS_SUITE_API_KEY}}'
+      placement: cookie
+  exposes:
+  - type: rest
+    namespace: financial-services-accounts-payable-rest
+    port: 8080
+    description: REST adapter for Oracle EBS Financial Services API — Accounts Payable. One Spectral-compliant resource per
+      consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/ap/invoices
+      name: ap-invoices
+      description: REST surface for ap-invoices.
+      operations:
+      - method: GET
+        name: getapinvoices
+        description: Retrieve Ap Invoices
+        call: financial-services-accounts-payable.getapinvoices
+        with:
+          invoiceId: rest.invoiceId
+          invoiceNum: rest.invoiceNum
+          vendorId: rest.vendorId
+          invoiceDateFrom: rest.invoiceDateFrom
+          invoiceDateTo: rest.invoiceDateTo
+          invoiceStatus: rest.invoiceStatus
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createapinvoice
+        description: Create an Ap Invoice
+        call: financial-services-accounts-payable.createapinvoice
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/ap/invoices/{invoiceid}
+      name: ap-invoices-invoiceid
+      description: REST surface for ap-invoices-invoiceId.
+      operations:
+      - method: GET
+        name: getapinvoicebyid
+        description: Retrieve a Specific Ap Invoice
+        call: financial-services-accounts-payable.getapinvoicebyid
+        with:
+          invoiceId: rest.invoiceId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/ap/payments
+      name: ap-payments
+      description: REST surface for ap-payments.
+      operations:
+      - method: GET
+        name: getpayments
+        description: Retrieve Ap Payments
+        call: financial-services-accounts-payable.getpayments
+        with:
+          checkId: rest.checkId
+          vendorId: rest.vendorId
+          paymentDateFrom: rest.paymentDateFrom
+          paymentDateTo: rest.paymentDateTo
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: financial-services-accounts-payable-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Oracle EBS Financial Services API — Accounts Payable. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: retrieve-ap-invoices
+      description: Retrieve Ap Invoices
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: financial-services-accounts-payable.getapinvoices
+      with:
+        invoiceId: tools.invoiceId
+        invoiceNum: tools.invoiceNum
+        vendorId: tools.vendorId
+        invoiceDateFrom: tools.invoiceDateFrom
+        invoiceDateTo: tools.invoiceDateTo
+        invoiceStatus: tools.invoiceStatus
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-ap-invoice
+      description: Create an Ap Invoice
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: financial-services-accounts-payable.createapinvoice
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-specific-ap-invoice
+      description: Retrieve a Specific Ap Invoice
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: financial-services-accounts-payable.getapinvoicebyid
+      with:
+        invoiceId: tools.invoiceId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-ap-payments
+      description: Retrieve Ap Payments
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: financial-services-accounts-payable.getpayments
+      with:
+        checkId: tools.checkId
+        vendorId: tools.vendorId
+        paymentDateFrom: tools.paymentDateFrom
+        paymentDateTo: tools.paymentDateTo
+      outputParameters:
+      - type: object
+        mapping: $.

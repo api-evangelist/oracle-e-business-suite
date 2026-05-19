@@ -1,0 +1,152 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Oracle EBS Supply Chain Management API — Inventory
+  description: 'Oracle EBS Supply Chain Management API — Inventory. 2 operations. Lead operation: Retrieve Inventory Items.
+    Self-contained Naftiko capability covering one Oracle E Business Suite business surface.'
+  tags:
+  - Oracle E Business Suite
+  - Inventory
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ORACLE_E_BUSINESS_SUITE_API_KEY: ORACLE_E_BUSINESS_SUITE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: supply-chain-inventory
+    baseUri: https://{instance}.oracle.com/webservices/rest
+    description: Oracle EBS Supply Chain Management API — Inventory business capability. Self-contained, no shared references.
+    resources:
+    - name: inv-items
+      path: /inv/items
+      operations:
+      - name: getinventoryitems
+        method: GET
+        description: Retrieve Inventory Items
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: inventoryItemId
+          in: query
+          type: integer
+          description: Inventory item identifier
+        - name: segment1
+          in: query
+          type: string
+          description: Item number
+        - name: organizationId
+          in: query
+          type: integer
+          description: Inventory organization identifier
+        - name: itemType
+          in: query
+          type: string
+          description: Item type
+    - name: inv-onhandQuantities
+      path: /inv/onhandQuantities
+      operations:
+      - name: getonhandquantities
+        method: GET
+        description: Retrieve On-hand Inventory Quantities
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: inventoryItemId
+          in: query
+          type: integer
+          description: Inventory item identifier
+        - name: organizationId
+          in: query
+          type: integer
+          description: Inventory organization identifier
+        - name: subinventoryCode
+          in: query
+          type: string
+          description: Subinventory code
+    authentication:
+      type: apikey
+      key: accessToken
+      value: '{{env.ORACLE_E_BUSINESS_SUITE_API_KEY}}'
+      placement: cookie
+  exposes:
+  - type: rest
+    namespace: supply-chain-inventory-rest
+    port: 8080
+    description: REST adapter for Oracle EBS Supply Chain Management API — Inventory. One Spectral-compliant resource per
+      consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/inv/items
+      name: inv-items
+      description: REST surface for inv-items.
+      operations:
+      - method: GET
+        name: getinventoryitems
+        description: Retrieve Inventory Items
+        call: supply-chain-inventory.getinventoryitems
+        with:
+          inventoryItemId: rest.inventoryItemId
+          segment1: rest.segment1
+          organizationId: rest.organizationId
+          itemType: rest.itemType
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/inv/onhandquantities
+      name: inv-onhandquantities
+      description: REST surface for inv-onhandQuantities.
+      operations:
+      - method: GET
+        name: getonhandquantities
+        description: Retrieve On-hand Inventory Quantities
+        call: supply-chain-inventory.getonhandquantities
+        with:
+          inventoryItemId: rest.inventoryItemId
+          organizationId: rest.organizationId
+          subinventoryCode: rest.subinventoryCode
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: supply-chain-inventory-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Oracle EBS Supply Chain Management API — Inventory. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: retrieve-inventory-items
+      description: Retrieve Inventory Items
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: supply-chain-inventory.getinventoryitems
+      with:
+        inventoryItemId: tools.inventoryItemId
+        segment1: tools.segment1
+        organizationId: tools.organizationId
+        itemType: tools.itemType
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-hand-inventory-quantities
+      description: Retrieve On-hand Inventory Quantities
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: supply-chain-inventory.getonhandquantities
+      with:
+        inventoryItemId: tools.inventoryItemId
+        organizationId: tools.organizationId
+        subinventoryCode: tools.subinventoryCode
+      outputParameters:
+      - type: object
+        mapping: $.
