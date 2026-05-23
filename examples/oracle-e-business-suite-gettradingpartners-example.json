@@ -1,0 +1,35 @@
+{
+  "operationId": "getTradingPartners",
+  "method": "GET",
+  "path": "/ece/tradingPartners",
+  "summary": "Retrieve Trading Partners",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Gettradingpartners200Example",
+      "example": {
+        "items": [
+          {
+            "tradingPartnerId": "500123",
+            "tradingPartnerName": "example_value",
+            "tradingPartnerType": "CUSTOMER",
+            "tradingPartnerSiteId": "500123",
+            "tradingPartnerSiteName": "example_value",
+            "ediLocationCode": "example_value",
+            "ediTranslatorCode": "example_value",
+            "documentStandard": "X12",
+            "enabledTransactions": [
+              {}
+            ],
+            "creationDate": "2026-01-15T10:30:00Z",
+            "lastUpdateDate": "2026-01-15T10:30:00Z"
+          }
+        ],
+        "totalCount": 10,
+        "hasMore": true
+      }
+    }
+  ]
+}

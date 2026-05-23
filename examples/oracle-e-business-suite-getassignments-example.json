@@ -1,0 +1,43 @@
+{
+  "operationId": "getAssignments",
+  "method": "GET",
+  "path": "/hr/assignments",
+  "summary": "Retrieve Employee Assignments",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getassignments200Example",
+      "example": {
+        "items": [
+          {
+            "assignmentId": "500123",
+            "assignmentNumber": "example_value",
+            "assignmentType": "E",
+            "primaryFlag": "Y",
+            "jobId": "500123",
+            "jobName": "example_value",
+            "positionId": "500123",
+            "positionName": "example_value",
+            "gradeId": "500123",
+            "gradeName": "example_value",
+            "organizationId": "500123",
+            "organizationName": "example_value",
+            "locationId": "500123",
+            "locationCode": "example_value",
+            "supervisorId": "500123",
+            "payrollId": "500123",
+            "employmentCategory": "FR",
+            "normalHours": 42.5,
+            "frequency": "D",
+            "effectiveStartDate": "2026-01-15",
+            "effectiveEndDate": "2026-01-15"
+          }
+        ],
+        "totalCount": 10,
+        "hasMore": true
+      }
+    }
+  ]
+}

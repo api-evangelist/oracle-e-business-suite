@@ -1,0 +1,45 @@
+{
+  "operationId": "getPurchaseOrders",
+  "method": "GET",
+  "path": "/po/purchaseOrders",
+  "summary": "Retrieve Purchase Orders",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getpurchaseorders200Example",
+      "example": {
+        "items": [
+          {
+            "poHeaderId": "500123",
+            "segment1": "example_value",
+            "typeLookupCode": "STANDARD",
+            "vendorId": "500123",
+            "vendorName": "example_value",
+            "vendorSiteId": "500123",
+            "currencyCode": "example_value",
+            "authorizationStatus": "APPROVED",
+            "approvedFlag": "Y",
+            "closedCode": "OPEN",
+            "totalAmount": 42.5,
+            "creationDate": "2026-01-15T10:30:00Z",
+            "approvedDate": "2026-01-15",
+            "buyerId": "500123",
+            "shipToLocationId": "500123",
+            "billToLocationId": "500123",
+            "termsId": "500123",
+            "description": "A sample description.",
+            "lines": [
+              {}
+            ],
+            "orgId": "500123",
+            "lastUpdateDate": "2026-01-15T10:30:00Z"
+          }
+        ],
+        "totalCount": 10,
+        "hasMore": true
+      }
+    }
+  ]
+}

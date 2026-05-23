@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/BillOfMaterial",
+  "title": "BillOfMaterial",
+  "type": "object",
+  "properties": {
+    "billSequenceId": {
+      "type": "integer",
+      "description": "Bill sequence identifier",
+      "example": "500123"
+    },
+    "assemblyItemId": {
+      "type": "integer",
+      "description": "Assembly item identifier",
+      "example": "500123"
+    },
+    "assemblyItemNumber": {
+      "type": "string",
+      "description": "Assembly item number",
+      "example": "example_value"
+    },
+    "organizationId": {
+      "type": "integer",
+      "description": "Organization identifier",
+      "example": "500123"
+    },
+    "alternateDesignator": {
+      "type": "string",
+      "description": "Alternate BOM designator",
+      "example": "example_value"
+    },
+    "assemblyType": {
+      "type": "integer",
+      "description": "Assembly type (1=Manufacturing, 2=Engineering)",
+      "example": 10
+    },
+    "commonBillSequenceId": {
+      "type": "integer",
+      "description": "Common bill sequence identifier",
+      "example": "500123"
+    },
+    "specificAssemblyComment": {
+      "type": "string",
+      "description": "Assembly comment",
+      "example": "example_value"
+    },
+    "components": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/BomComponent"
+      },
+      "example": []
+    },
+    "creationDate": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-01-15T10:30:00Z"
+    },
+    "lastUpdateDate": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-01-15T10:30:00Z"
+    }
+  }
+}

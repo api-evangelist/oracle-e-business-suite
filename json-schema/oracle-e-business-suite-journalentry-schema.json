@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/JournalEntry",
+  "title": "JournalEntry",
+  "type": "object",
+  "properties": {
+    "jeHeaderId": {
+      "type": "integer",
+      "description": "Journal entry header identifier",
+      "example": "500123"
+    },
+    "jeBatchId": {
+      "type": "integer",
+      "description": "Journal batch identifier",
+      "example": "500123"
+    },
+    "ledgerId": {
+      "type": "integer",
+      "description": "Ledger identifier",
+      "example": "500123"
+    },
+    "periodName": {
+      "type": "string",
+      "description": "Accounting period name",
+      "example": "example_value"
+    },
+    "journalName": {
+      "type": "string",
+      "description": "Journal entry name",
+      "example": "example_value"
+    },
+    "journalCategory": {
+      "type": "string",
+      "description": "Journal category",
+      "example": "example_value"
+    },
+    "journalSource": {
+      "type": "string",
+      "description": "Journal source",
+      "example": "example_value"
+    },
+    "currencyCode": {
+      "type": "string",
+      "description": "Currency code (ISO 4217)",
+      "example": "USD"
+    },
+    "status": {
+      "type": "string",
+      "description": "Journal status",
+      "enum": [
+        "U",
+        "A",
+        "P"
+      ],
+      "example": "U"
+    },
+    "description": {
+      "type": "string",
+      "description": "Journal description",
+      "example": "A sample description."
+    },
+    "effectiveDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Journal effective date",
+      "example": "2026-01-15"
+    },
+    "lines": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/JournalLine"
+      },
+      "example": []
+    },
+    "createdBy": {
+      "type": "integer",
+      "example": 10
+    },
+    "creationDate": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-01-15T10:30:00Z"
+    },
+    "lastUpdatedBy": {
+      "type": "integer",
+      "example": 10
+    },
+    "lastUpdateDate": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-01-15T10:30:00Z"
+    }
+  }
+}

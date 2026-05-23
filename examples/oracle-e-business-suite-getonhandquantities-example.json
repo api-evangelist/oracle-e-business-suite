@@ -1,0 +1,31 @@
+{
+  "operationId": "getOnhandQuantities",
+  "method": "GET",
+  "path": "/inv/onhandQuantities",
+  "summary": "Retrieve On-hand Inventory Quantities",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getonhandquantities200Example",
+      "example": {
+        "items": [
+          {
+            "inventoryItemId": "500123",
+            "organizationId": "500123",
+            "subinventoryCode": "example_value",
+            "locatorId": "500123",
+            "lotNumber": "example_value",
+            "serialNumber": "example_value",
+            "transactionQuantity": 42.5,
+            "transactionUomCode": "example_value",
+            "lastUpdateDate": "2026-01-15T10:30:00Z"
+          }
+        ],
+        "totalCount": 10,
+        "hasMore": true
+      }
+    }
+  ]
+}

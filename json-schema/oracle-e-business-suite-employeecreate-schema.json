@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/EmployeeCreate",
+  "title": "EmployeeCreate",
+  "type": "object",
+  "required": [
+    "firstName",
+    "lastName",
+    "hireDate",
+    "businessGroupId"
+  ],
+  "properties": {
+    "title": {
+      "type": "string",
+      "example": "Example Title"
+    },
+    "firstName": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "middleNames": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "lastName": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "knownAs": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "emailAddress": {
+      "type": "string",
+      "format": "email",
+      "example": "user@example.com"
+    },
+    "sex": {
+      "type": "string",
+      "enum": [
+        "M",
+        "F"
+      ],
+      "example": "M"
+    },
+    "dateOfBirth": {
+      "type": "string",
+      "format": "date",
+      "example": "2026-01-15"
+    },
+    "nationalIdentifier": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "nationality": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "maritalStatus": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "hireDate": {
+      "type": "string",
+      "format": "date",
+      "example": "2026-01-15"
+    },
+    "businessGroupId": {
+      "type": "integer",
+      "example": "500123"
+    },
+    "jobId": {
+      "type": "integer",
+      "example": "500123"
+    },
+    "positionId": {
+      "type": "integer",
+      "example": "500123"
+    },
+    "organizationId": {
+      "type": "integer",
+      "example": "500123"
+    },
+    "gradeId": {
+      "type": "integer",
+      "example": "500123"
+    },
+    "locationId": {
+      "type": "integer",
+      "example": "500123"
+    },
+    "payrollId": {
+      "type": "integer",
+      "example": "500123"
+    }
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ApPayment",
+  "title": "ApPayment",
+  "type": "object",
+  "properties": {
+    "checkId": {
+      "type": "integer",
+      "description": "Payment check identifier",
+      "example": "500123"
+    },
+    "checkNumber": {
+      "type": "integer",
+      "description": "Check number",
+      "example": 10
+    },
+    "amount": {
+      "type": "number",
+      "format": "double",
+      "description": "Payment amount",
+      "example": 42.5
+    },
+    "currencyCode": {
+      "type": "string",
+      "description": "Payment currency code",
+      "example": "example_value"
+    },
+    "checkDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Check date",
+      "example": "2026-01-15"
+    },
+    "vendorId": {
+      "type": "integer",
+      "description": "Vendor identifier",
+      "example": "500123"
+    },
+    "vendorName": {
+      "type": "string",
+      "description": "Vendor name",
+      "example": "example_value"
+    },
+    "bankAccountId": {
+      "type": "integer",
+      "description": "Bank account identifier",
+      "example": "500123"
+    },
+    "paymentMethodCode": {
+      "type": "string",
+      "description": "Payment method",
+      "example": "example_value"
+    },
+    "status": {
+      "type": "string",
+      "description": "Payment status",
+      "example": "example_value"
+    },
+    "orgId": {
+      "type": "integer",
+      "example": "500123"
+    }
+  }
+}

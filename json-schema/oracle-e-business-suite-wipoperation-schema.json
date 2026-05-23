@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/WipOperation",
+  "title": "WipOperation",
+  "type": "object",
+  "properties": {
+    "wipEntityId": {
+      "type": "integer",
+      "description": "WIP entity identifier",
+      "example": "500123"
+    },
+    "operationSeqNum": {
+      "type": "integer",
+      "description": "Operation sequence number",
+      "example": 10
+    },
+    "organizationId": {
+      "type": "integer",
+      "description": "Organization identifier",
+      "example": "500123"
+    },
+    "departmentId": {
+      "type": "integer",
+      "description": "Department identifier",
+      "example": "500123"
+    },
+    "departmentCode": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "operationDescription": {
+      "type": "string",
+      "description": "Operation description",
+      "example": "example_value"
+    },
+    "scheduledQuantity": {
+      "type": "number",
+      "format": "double",
+      "example": 42.5
+    },
+    "quantityInQueue": {
+      "type": "number",
+      "format": "double",
+      "description": "Quantity in queue",
+      "example": 42.5
+    },
+    "quantityRunning": {
+      "type": "number",
+      "format": "double",
+      "description": "Quantity running",
+      "example": 42.5
+    },
+    "quantityCompleted": {
+      "type": "number",
+      "format": "double",
+      "description": "Quantity completed",
+      "example": 42.5
+    },
+    "quantityScrapped": {
+      "type": "number",
+      "format": "double",
+      "description": "Quantity scrapped",
+      "example": 42.5
+    },
+    "firstUnitStartDate": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-01-15T10:30:00Z"
+    },
+    "lastUnitCompletionDate": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-01-15T10:30:00Z"
+    },
+    "countPointType": {
+      "type": "integer",
+      "example": 10
+    },
+    "backflushFlag": {
+      "type": "integer",
+      "example": 10
+    }
+  }
+}

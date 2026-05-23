@@ -1,0 +1,13 @@
+name: Oracle E-Business Suite Domain Vocabulary
+provider: Oracle E-Business Suite
+providerId: oracle-e-business-suite
+description: Tag-derived vocabulary for the Oracle E-Business Suite API surface; sourced from openapi/ tags.
+terms:
+- term: Purchasing
+  description: Purchase order, requisition, and supplier management
+- term: Order Management
+  description: Sales order processing and management
+- term: Inventory
+  description: Inventory items and on-hand quantity management
+- term: Shipping
+  description: Shipping delivery management

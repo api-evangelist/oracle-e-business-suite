@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CompletionTransaction",
+  "title": "CompletionTransaction",
+  "type": "object",
+  "required": [
+    "wipEntityId",
+    "organizationId",
+    "transactionQuantity"
+  ],
+  "properties": {
+    "wipEntityId": {
+      "type": "integer",
+      "description": "WIP entity identifier",
+      "example": "500123"
+    },
+    "organizationId": {
+      "type": "integer",
+      "description": "Organization identifier",
+      "example": "500123"
+    },
+    "transactionQuantity": {
+      "type": "number",
+      "format": "double",
+      "description": "Completion quantity",
+      "example": 42.5
+    },
+    "transactionUom": {
+      "type": "string",
+      "description": "Transaction unit of measure",
+      "example": "example_value"
+    },
+    "subinventoryCode": {
+      "type": "string",
+      "description": "Completion subinventory",
+      "example": "example_value"
+    },
+    "locatorId": {
+      "type": "integer",
+      "description": "Completion locator",
+      "example": "500123"
+    },
+    "transactionDate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Transaction date",
+      "example": "2026-01-15T10:30:00Z"
+    }
+  }
+}

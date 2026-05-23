@@ -1,0 +1,32 @@
+{
+  "operationId": "getPositions",
+  "method": "GET",
+  "path": "/hr/positions",
+  "summary": "Retrieve Hr Positions",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getpositions200Example",
+      "example": {
+        "items": [
+          {
+            "positionId": "500123",
+            "name": "Example Title",
+            "jobId": "500123",
+            "organizationId": "500123",
+            "effectiveStartDate": "2026-01-15",
+            "effectiveEndDate": "2026-01-15",
+            "status": "example_value",
+            "availabilityStatusId": "500123",
+            "businessGroupId": "500123",
+            "locationId": "500123"
+          }
+        ],
+        "totalCount": 10,
+        "hasMore": true
+      }
+    }
+  ]
+}

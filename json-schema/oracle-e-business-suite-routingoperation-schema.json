@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/RoutingOperation",
+  "title": "RoutingOperation",
+  "type": "object",
+  "properties": {
+    "operationSequenceId": {
+      "type": "integer",
+      "description": "Operation sequence identifier",
+      "example": "500123"
+    },
+    "operationSeqNum": {
+      "type": "integer",
+      "description": "Operation sequence number",
+      "example": 10
+    },
+    "operationDescription": {
+      "type": "string",
+      "description": "Operation description",
+      "example": "example_value"
+    },
+    "operationCode": {
+      "type": "string",
+      "description": "Standard operation code",
+      "example": "example_value"
+    },
+    "departmentId": {
+      "type": "integer",
+      "description": "Department identifier",
+      "example": "500123"
+    },
+    "departmentCode": {
+      "type": "string",
+      "description": "Department code",
+      "example": "example_value"
+    },
+    "effectivityDate": {
+      "type": "string",
+      "format": "date",
+      "example": "2026-01-15"
+    },
+    "disableDate": {
+      "type": "string",
+      "format": "date",
+      "example": "2026-01-15"
+    },
+    "minimumTransferQuantity": {
+      "type": "number",
+      "format": "double",
+      "example": 42.5
+    },
+    "countPointType": {
+      "type": "integer",
+      "description": "Count point type (1=Yes, 2=No, 3=Auto-charge)",
+      "example": 10
+    },
+    "resources": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/OperationResource"
+      },
+      "example": []
+    }
+  }
+}

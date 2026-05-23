@@ -1,0 +1,51 @@
+{
+  "operationId": "login",
+  "method": "GET",
+  "path": "/login",
+  "summary": "Authenticate and Obtain Access Token",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Login200Example",
+      "example": {
+        "response": {
+          "data": {
+            "accessToken": "example_value",
+            "accessTokenName": "example_value",
+            "ebsVersion": "example_value",
+            "userName": "example_value"
+          }
+        }
+      }
+    },
+    {
+      "status": "200",
+      "contentType": "application/xml",
+      "name": "Login200Example",
+      "example": {
+        "response": {
+          "data": {
+            "accessToken": "example_value",
+            "accessTokenName": "example_value",
+            "ebsVersion": "example_value",
+            "userName": "example_value"
+          }
+        }
+      }
+    },
+    {
+      "status": "401",
+      "contentType": "application/json",
+      "name": "Login401Example",
+      "example": {
+        "error": {
+          "code": "example_value",
+          "message": "example_value",
+          "detail": "example_value"
+        }
+      }
+    }
+  ]
+}

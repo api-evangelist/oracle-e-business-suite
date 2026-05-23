@@ -1,0 +1,68 @@
+{
+  "operationId": "createArInvoice",
+  "method": "POST",
+  "path": "/ar/invoices",
+  "summary": "Create an Ar Invoice",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "CreatearinvoiceRequestExample",
+      "example": {
+        "customerId": "500123",
+        "trxDate": "2026-01-15",
+        "invoiceCurrencyCode": "example_value",
+        "batchSourceName": "example_value",
+        "billToSiteUseId": "500123",
+        "shipToSiteUseId": "500123",
+        "termsId": "500123",
+        "lines": [
+          {
+            "lineNumber": 10,
+            "lineType": "example_value",
+            "description": "A sample description.",
+            "quantity": 42.5,
+            "unitSellingPrice": 42.5,
+            "inventoryItemId": "500123"
+          }
+        ]
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "201",
+      "contentType": "application/json",
+      "name": "Createarinvoice201Example",
+      "example": {
+        "customerTrxId": "500123",
+        "trxNumber": "example_value",
+        "trxDate": "2026-01-15",
+        "customerId": "500123",
+        "customerName": "example_value",
+        "billToSiteUseId": "500123",
+        "shipToSiteUseId": "500123",
+        "invoiceCurrencyCode": "example_value",
+        "trxType": "example_value",
+        "amount": 42.5,
+        "amountDue": 42.5,
+        "status": "example_value",
+        "termsId": "500123",
+        "lines": [
+          {
+            "customerTrxLineId": "500123",
+            "lineNumber": 10,
+            "lineType": "LINE",
+            "description": "A sample description.",
+            "quantity": 42.5,
+            "unitSellingPrice": 42.5,
+            "amount": 42.5,
+            "inventoryItemId": "500123"
+          }
+        ],
+        "orgId": "500123",
+        "creationDate": "2026-01-15T10:30:00Z",
+        "lastUpdateDate": "2026-01-15T10:30:00Z"
+      }
+    }
+  ]
+}

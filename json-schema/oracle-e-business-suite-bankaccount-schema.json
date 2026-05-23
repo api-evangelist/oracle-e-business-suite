@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/BankAccount",
+  "title": "BankAccount",
+  "type": "object",
+  "properties": {
+    "bankAccountId": {
+      "type": "integer",
+      "description": "Bank account identifier",
+      "example": "500123"
+    },
+    "bankAccountName": {
+      "type": "string",
+      "description": "Bank account name",
+      "example": "example_value"
+    },
+    "bankAccountNum": {
+      "type": "string",
+      "description": "Bank account number",
+      "example": "example_value"
+    },
+    "bankId": {
+      "type": "integer",
+      "description": "Bank identifier",
+      "example": "500123"
+    },
+    "bankName": {
+      "type": "string",
+      "description": "Bank name",
+      "example": "example_value"
+    },
+    "branchId": {
+      "type": "integer",
+      "description": "Bank branch identifier",
+      "example": "500123"
+    },
+    "branchName": {
+      "type": "string",
+      "description": "Branch name",
+      "example": "example_value"
+    },
+    "currencyCode": {
+      "type": "string",
+      "description": "Account currency code",
+      "example": "example_value"
+    },
+    "accountType": {
+      "type": "string",
+      "description": "Account type",
+      "example": "example_value"
+    },
+    "status": {
+      "type": "string",
+      "description": "Account status",
+      "example": "example_value"
+    }
+  }
+}

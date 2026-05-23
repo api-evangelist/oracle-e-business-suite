@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/InboundTransactionImport",
+  "title": "InboundTransactionImport",
+  "type": "object",
+  "required": [
+    "transactionType",
+    "tradingPartnerId",
+    "tradingPartnerSiteId"
+  ],
+  "properties": {
+    "transactionType": {
+      "type": "string",
+      "description": "Inbound transaction type",
+      "enum": [
+        "INI",
+        "CATI",
+        "RRQI",
+        "ASNI",
+        "SBNI"
+      ],
+      "example": "INI"
+    },
+    "tradingPartnerId": {
+      "type": "integer",
+      "example": "500123"
+    },
+    "tradingPartnerSiteId": {
+      "type": "integer",
+      "example": "500123"
+    },
+    "documentDate": {
+      "type": "string",
+      "format": "date",
+      "example": "2026-01-15"
+    },
+    "documentData": {
+      "type": "object",
+      "description": "Transaction-specific document data. Structure varies by transaction type (invoice, ship notice, etc.)",
+      "additionalProperties": true,
+      "example": "example_value"
+    }
+  }
+}

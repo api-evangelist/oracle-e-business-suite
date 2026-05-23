@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ApInvoiceCreate",
+  "title": "ApInvoiceCreate",
+  "type": "object",
+  "required": [
+    "invoiceNum",
+    "vendorId",
+    "vendorSiteId",
+    "invoiceAmount",
+    "invoiceCurrencyCode",
+    "invoiceDate"
+  ],
+  "properties": {
+    "invoiceNum": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "vendorId": {
+      "type": "integer",
+      "example": "500123"
+    },
+    "vendorSiteId": {
+      "type": "integer",
+      "example": "500123"
+    },
+    "invoiceAmount": {
+      "type": "number",
+      "format": "double",
+      "example": 42.5
+    },
+    "invoiceCurrencyCode": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "invoiceDate": {
+      "type": "string",
+      "format": "date",
+      "example": "2026-01-15"
+    },
+    "invoiceType": {
+      "type": "string",
+      "enum": [
+        "STANDARD",
+        "CREDIT",
+        "DEBIT",
+        "PREPAYMENT"
+      ],
+      "example": "STANDARD"
+    },
+    "description": {
+      "type": "string",
+      "example": "A sample description."
+    },
+    "termsId": {
+      "type": "integer",
+      "example": "500123"
+    },
+    "source": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "lines": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "lineNumber": {
+            "type": "integer"
+          },
+          "lineType": {
+            "type": "string"
+          },
+          "amount": {
+            "type": "number",
+            "format": "double"
+          },
+          "description": {
+            "type": "string"
+          },
+          "distCodeCombinationId": {
+            "type": "integer"
+          }
+        }
+      },
+      "example": []
+    }
+  }
+}

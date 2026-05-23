@@ -1,0 +1,156 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ApInvoice",
+  "title": "ApInvoice",
+  "type": "object",
+  "properties": {
+    "invoiceId": {
+      "type": "integer",
+      "description": "Invoice unique identifier",
+      "example": "500123"
+    },
+    "invoiceNum": {
+      "type": "string",
+      "description": "Invoice number",
+      "example": "example_value"
+    },
+    "invoiceDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Invoice date",
+      "example": "2026-01-15"
+    },
+    "vendorId": {
+      "type": "integer",
+      "description": "Supplier/vendor identifier",
+      "example": "500123"
+    },
+    "vendorName": {
+      "type": "string",
+      "description": "Supplier/vendor name",
+      "example": "example_value"
+    },
+    "vendorSiteId": {
+      "type": "integer",
+      "description": "Vendor site identifier",
+      "example": "500123"
+    },
+    "invoiceAmount": {
+      "type": "number",
+      "format": "double",
+      "description": "Total invoice amount",
+      "example": 42.5
+    },
+    "invoiceCurrencyCode": {
+      "type": "string",
+      "description": "Invoice currency code (ISO 4217)",
+      "example": "USD"
+    },
+    "paymentCurrencyCode": {
+      "type": "string",
+      "description": "Payment currency code",
+      "example": "example_value"
+    },
+    "exchangeRate": {
+      "type": "number",
+      "format": "double",
+      "description": "Currency exchange rate",
+      "example": 42.5
+    },
+    "exchangeRateType": {
+      "type": "string",
+      "description": "Exchange rate type",
+      "example": "example_value"
+    },
+    "exchangeDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Exchange rate date",
+      "example": "2026-01-15"
+    },
+    "termsId": {
+      "type": "integer",
+      "description": "Payment terms identifier",
+      "example": "500123"
+    },
+    "description": {
+      "type": "string",
+      "description": "Invoice description",
+      "example": "A sample description."
+    },
+    "invoiceType": {
+      "type": "string",
+      "description": "Invoice type lookup code",
+      "enum": [
+        "STANDARD",
+        "CREDIT",
+        "DEBIT",
+        "PREPAYMENT",
+        "MIXED"
+      ],
+      "example": "STANDARD"
+    },
+    "source": {
+      "type": "string",
+      "description": "Invoice source",
+      "example": "example_value"
+    },
+    "paymentStatusFlag": {
+      "type": "string",
+      "description": "Payment status",
+      "enum": [
+        "Y",
+        "N",
+        "P"
+      ],
+      "example": "Y"
+    },
+    "approvalStatus": {
+      "type": "string",
+      "description": "Approval status",
+      "enum": [
+        "APPROVED",
+        "NEEDS_REAPPROVAL",
+        "NEVER_APPROVED",
+        "CANCELLED"
+      ],
+      "example": "APPROVED"
+    },
+    "amountPaid": {
+      "type": "number",
+      "format": "double",
+      "description": "Amount paid",
+      "example": "500123"
+    },
+    "lines": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/ApInvoiceLine"
+      },
+      "example": []
+    },
+    "orgId": {
+      "type": "integer",
+      "description": "Operating unit identifier",
+      "example": "500123"
+    },
+    "createdBy": {
+      "type": "integer",
+      "example": 10
+    },
+    "creationDate": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-01-15T10:30:00Z"
+    },
+    "lastUpdatedBy": {
+      "type": "integer",
+      "example": 10
+    },
+    "lastUpdateDate": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-01-15T10:30:00Z"
+    }
+  }
+}

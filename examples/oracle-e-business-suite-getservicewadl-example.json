@@ -1,0 +1,27 @@
+{
+  "operationId": "getServiceWADL",
+  "method": "GET",
+  "path": "/{serviceAlias}",
+  "summary": "Retrieve Wadl Description for a Deployed Service",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/xml",
+      "name": "Getservicewadl200Example",
+      "example": "example_value"
+    },
+    {
+      "status": "404",
+      "contentType": "application/json",
+      "name": "Getservicewadl404Example",
+      "example": {
+        "error": {
+          "code": "example_value",
+          "message": "example_value",
+          "detail": "example_value"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/InitializeRequest",
+  "title": "InitializeRequest",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "object",
+      "properties": {
+        "resp": {
+          "type": "object",
+          "description": "Responsibility context",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "description": "Responsibility ID",
+              "example": 20872
+            },
+            "applId": {
+              "type": "integer",
+              "description": "Application ID",
+              "example": 178
+            },
+            "key": {
+              "type": "string",
+              "description": "Responsibility key (alternative to ID)",
+              "example": "SYSTEM_ADMINISTRATION"
+            },
+            "applKey": {
+              "type": "string",
+              "description": "Application key (alternative to applId)",
+              "example": "ICX"
+            }
+          }
+        },
+        "securityGroup": {
+          "type": "object",
+          "description": "Security group context",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "description": "Security group ID",
+              "example": 0
+            },
+            "key": {
+              "type": "string",
+              "description": "Security group key",
+              "example": "STANDARD"
+            }
+          }
+        },
+        "org": {
+          "type": "object",
+          "description": "Organization context",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "description": "Organization ID",
+              "example": 1733
+            },
+            "key": {
+              "type": "string",
+              "description": "Organization key",
+              "example": "CM1"
+            }
+          }
+        }
+      },
+      "example": "example_value"
+    }
+  }
+}

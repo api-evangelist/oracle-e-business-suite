@@ -1,0 +1,31 @@
+{
+  "operationId": "logout",
+  "method": "GET",
+  "path": "/logout",
+  "summary": "Terminate Session and Invalidate Token",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Logout200Example",
+      "example": {
+        "response": {
+          "data": "example_value"
+        }
+      }
+    },
+    {
+      "status": "401",
+      "contentType": "application/json",
+      "name": "Logout401Example",
+      "example": {
+        "error": {
+          "code": "example_value",
+          "message": "example_value",
+          "detail": "example_value"
+        }
+      }
+    }
+  ]
+}

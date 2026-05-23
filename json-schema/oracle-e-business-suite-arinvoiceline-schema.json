@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ArInvoiceLine",
+  "title": "ArInvoiceLine",
+  "type": "object",
+  "properties": {
+    "customerTrxLineId": {
+      "type": "integer",
+      "example": "500123"
+    },
+    "lineNumber": {
+      "type": "integer",
+      "example": 10
+    },
+    "lineType": {
+      "type": "string",
+      "enum": [
+        "LINE",
+        "TAX",
+        "FREIGHT"
+      ],
+      "example": "LINE"
+    },
+    "description": {
+      "type": "string",
+      "example": "A sample description."
+    },
+    "quantity": {
+      "type": "number",
+      "format": "double",
+      "example": 42.5
+    },
+    "unitSellingPrice": {
+      "type": "number",
+      "format": "double",
+      "example": 42.5
+    },
+    "amount": {
+      "type": "number",
+      "format": "double",
+      "example": 42.5
+    },
+    "inventoryItemId": {
+      "type": "integer",
+      "example": "500123"
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "operationId": "getArInvoices",
+  "method": "GET",
+  "path": "/ar/invoices",
+  "summary": "Retrieve Ar Invoices",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getarinvoices200Example",
+      "example": {
+        "items": [
+          {
+            "customerTrxId": "500123",
+            "trxNumber": "example_value",
+            "trxDate": "2026-01-15",
+            "customerId": "500123",
+            "customerName": "example_value",
+            "billToSiteUseId": "500123",
+            "shipToSiteUseId": "500123",
+            "invoiceCurrencyCode": "example_value",
+            "trxType": "example_value",
+            "amount": 42.5,
+            "amountDue": 42.5,
+            "status": "example_value",
+            "termsId": "500123",
+            "lines": [
+              {}
+            ],
+            "orgId": "500123",
+            "creationDate": "2026-01-15T10:30:00Z",
+            "lastUpdateDate": "2026-01-15T10:30:00Z"
+          }
+        ],
+        "totalCount": 10,
+        "hasMore": true
+      }
+    }
+  ]
+}

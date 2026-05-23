@@ -1,0 +1,73 @@
+{
+  "operationId": "createSalesOrder",
+  "method": "POST",
+  "path": "/oe/salesOrders",
+  "summary": "Create a Sales Order",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "CreatesalesorderRequestExample",
+      "example": {
+        "soldToOrgId": "500123",
+        "orderTypeId": "500123",
+        "orderedDate": "2026-01-15",
+        "transactionalCurrCode": "example_value",
+        "shipToOrgId": "500123",
+        "invoiceToOrgId": "500123",
+        "salesrepId": "500123",
+        "lines": [
+          {
+            "inventoryItemId": "500123",
+            "orderedQuantity": 42.5,
+            "orderQuantityUom": "example_value",
+            "unitSellingPrice": 42.5,
+            "scheduleShipDate": "2026-01-15"
+          }
+        ]
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "201",
+      "contentType": "application/json",
+      "name": "Createsalesorder201Example",
+      "example": {
+        "headerId": "500123",
+        "orderNumber": 10,
+        "orderedDate": "2026-01-15",
+        "orderTypeId": "500123",
+        "orderTypeName": "example_value",
+        "soldToOrgId": "500123",
+        "customerName": "example_value",
+        "shipToOrgId": "500123",
+        "invoiceToOrgId": "500123",
+        "transactionalCurrCode": "example_value",
+        "flowStatusCode": "ENTERED",
+        "bookedFlag": "Y",
+        "totalAmount": 42.5,
+        "salesrepId": "500123",
+        "lines": [
+          {
+            "lineId": "500123",
+            "lineNumber": 10,
+            "orderedItem": "example_value",
+            "inventoryItemId": "500123",
+            "orderedQuantity": 42.5,
+            "orderQuantityUom": "example_value",
+            "unitSellingPrice": 42.5,
+            "unitListPrice": 42.5,
+            "lineAmount": 42.5,
+            "scheduleShipDate": "2026-01-15",
+            "actualShipDate": "2026-01-15",
+            "flowStatusCode": "example_value",
+            "shippedQuantity": 42.5
+          }
+        ],
+        "orgId": "500123",
+        "creationDate": "2026-01-15T10:30:00Z",
+        "lastUpdateDate": "2026-01-15T10:30:00Z"
+      }
+    }
+  ]
+}

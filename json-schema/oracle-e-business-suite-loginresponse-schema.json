@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/LoginResponse",
+  "title": "LoginResponse",
+  "type": "object",
+  "properties": {
+    "response": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "object",
+          "properties": {
+            "accessToken": {
+              "type": "string",
+              "description": "Session access token for subsequent requests"
+            },
+            "accessTokenName": {
+              "type": "string",
+              "description": "Name of the access token cookie"
+            },
+            "ebsVersion": {
+              "type": "string",
+              "description": "Oracle E-Business Suite version",
+              "example": "12.2.0"
+            },
+            "userName": {
+              "type": "string",
+              "description": "Authenticated username"
+            }
+          }
+        }
+      },
+      "example": "example_value"
+    }
+  }
+}

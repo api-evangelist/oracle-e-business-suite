@@ -1,0 +1,40 @@
+{
+  "operationId": "getInventoryItems",
+  "method": "GET",
+  "path": "/inv/items",
+  "summary": "Retrieve Inventory Items",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getinventoryitems200Example",
+      "example": {
+        "items": [
+          {
+            "inventoryItemId": "500123",
+            "segment1": "example_value",
+            "description": "A sample description.",
+            "longDescription": "example_value",
+            "primaryUomCode": "example_value",
+            "itemType": "example_value",
+            "inventoryItemStatusCode": "example_value",
+            "organizationId": "500123",
+            "weightUomCode": "example_value",
+            "unitWeight": 42.5,
+            "volumeUomCode": "example_value",
+            "unitVolume": 42.5,
+            "listPrice": 42.5,
+            "purchasingEnabledFlag": "Y",
+            "customerOrderEnabledFlag": "Y",
+            "internalOrderEnabledFlag": "Y",
+            "creationDate": "2026-01-15T10:30:00Z",
+            "lastUpdateDate": "2026-01-15T10:30:00Z"
+          }
+        ],
+        "totalCount": 10,
+        "hasMore": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/BomComponent",
+  "title": "BomComponent",
+  "type": "object",
+  "properties": {
+    "componentSequenceId": {
+      "type": "integer",
+      "description": "Component sequence identifier",
+      "example": "500123"
+    },
+    "componentItemId": {
+      "type": "integer",
+      "description": "Component item identifier",
+      "example": "500123"
+    },
+    "componentItemNumber": {
+      "type": "string",
+      "description": "Component item number",
+      "example": "example_value"
+    },
+    "itemDescription": {
+      "type": "string",
+      "description": "Component item description",
+      "example": "example_value"
+    },
+    "operationSeqNum": {
+      "type": "integer",
+      "description": "Operation sequence number where component is consumed",
+      "example": 10
+    },
+    "componentQuantity": {
+      "type": "number",
+      "format": "double",
+      "description": "Component quantity per assembly",
+      "example": 42.5
+    },
+    "componentYieldFactor": {
+      "type": "number",
+      "format": "double",
+      "description": "Component yield factor",
+      "example": 42.5
+    },
+    "effectivityDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Effective date",
+      "example": "2026-01-15"
+    },
+    "disableDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Disable date",
+      "example": "2026-01-15"
+    },
+    "wipSupplyType": {
+      "type": "integer",
+      "description": "WIP supply type (1=Push, 2=Assembly Pull, 3=Operation Pull, 4=Bulk, 5=Supplier, 6=Phantom)",
+      "example": 10
+    },
+    "optional": {
+      "type": "integer",
+      "description": "Optional flag (1=Yes, 2=No)",
+      "example": 10
+    },
+    "quantityRelated": {
+      "type": "integer",
+      "description": "Quantity related flag",
+      "example": 10
+    }
+  }
+}

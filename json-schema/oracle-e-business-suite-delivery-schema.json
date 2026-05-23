@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Delivery",
+  "title": "Delivery",
+  "type": "object",
+  "properties": {
+    "deliveryId": {
+      "type": "integer",
+      "description": "Delivery identifier",
+      "example": "500123"
+    },
+    "name": {
+      "type": "string",
+      "description": "Delivery name/number",
+      "example": "Example Title"
+    },
+    "statusCode": {
+      "type": "string",
+      "description": "Delivery status code",
+      "enum": [
+        "OP",
+        "PA",
+        "SA",
+        "CO",
+        "IT",
+        "CL"
+      ],
+      "example": "OP"
+    },
+    "initialPickupDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Initial pickup date",
+      "example": "2026-01-15"
+    },
+    "ultimateDropoffDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Ultimate dropoff date",
+      "example": "2026-01-15"
+    },
+    "customerId": {
+      "type": "integer",
+      "description": "Customer identifier",
+      "example": "500123"
+    },
+    "shipToLocationId": {
+      "type": "integer",
+      "description": "Ship-to location identifier",
+      "example": "500123"
+    },
+    "carrierId": {
+      "type": "integer",
+      "description": "Carrier identifier",
+      "example": "500123"
+    },
+    "shipMethodCode": {
+      "type": "string",
+      "description": "Ship method code",
+      "example": "example_value"
+    },
+    "waybill": {
+      "type": "string",
+      "description": "Waybill/tracking number",
+      "example": "example_value"
+    },
+    "grossWeight": {
+      "type": "number",
+      "format": "double",
+      "description": "Gross weight",
+      "example": 42.5
+    },
+    "weightUomCode": {
+      "type": "string",
+      "description": "Weight unit of measure",
+      "example": "example_value"
+    },
+    "volume": {
+      "type": "number",
+      "format": "double",
+      "description": "Volume",
+      "example": 42.5
+    },
+    "volumeUomCode": {
+      "type": "string",
+      "description": "Volume unit of measure",
+      "example": "example_value"
+    },
+    "organizationId": {
+      "type": "integer",
+      "example": "500123"
+    },
+    "creationDate": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-01-15T10:30:00Z"
+    },
+    "lastUpdateDate": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-01-15T10:30:00Z"
+    }
+  }
+}

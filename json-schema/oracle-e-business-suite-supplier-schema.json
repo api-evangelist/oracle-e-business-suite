@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Supplier",
+  "title": "Supplier",
+  "type": "object",
+  "properties": {
+    "vendorId": {
+      "type": "integer",
+      "description": "Vendor identifier",
+      "example": "500123"
+    },
+    "vendorName": {
+      "type": "string",
+      "description": "Vendor name",
+      "example": "example_value"
+    },
+    "segment1": {
+      "type": "string",
+      "description": "Vendor number",
+      "example": "example_value"
+    },
+    "vendorType": {
+      "type": "string",
+      "description": "Vendor type lookup code",
+      "example": "example_value"
+    },
+    "taxPayerId": {
+      "type": "string",
+      "description": "Tax payer identification number",
+      "example": "500123"
+    },
+    "standardIndustryClass": {
+      "type": "string",
+      "description": "Standard industry classification",
+      "example": "example_value"
+    },
+    "paymentCurrencyCode": {
+      "type": "string",
+      "description": "Default payment currency",
+      "example": "example_value"
+    },
+    "paymentMethodCode": {
+      "type": "string",
+      "description": "Default payment method",
+      "example": "example_value"
+    },
+    "termsId": {
+      "type": "integer",
+      "description": "Default payment terms identifier",
+      "example": "500123"
+    },
+    "enabled": {
+      "type": "boolean",
+      "description": "Whether the vendor is active",
+      "example": true
+    },
+    "startDateActive": {
+      "type": "string",
+      "format": "date",
+      "example": "2026-01-15"
+    },
+    "endDateActive": {
+      "type": "string",
+      "format": "date",
+      "example": "2026-01-15"
+    },
+    "sites": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/SupplierSite"
+      },
+      "example": []
+    },
+    "creationDate": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-01-15T10:30:00Z"
+    },
+    "lastUpdateDate": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-01-15T10:30:00Z"
+    }
+  }
+}

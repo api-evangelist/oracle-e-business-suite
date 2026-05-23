@@ -1,0 +1,142 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Employee",
+  "title": "Employee",
+  "type": "object",
+  "properties": {
+    "personId": {
+      "type": "integer",
+      "description": "Person identifier",
+      "example": "500123"
+    },
+    "employeeNumber": {
+      "type": "string",
+      "description": "Employee number",
+      "example": "example_value"
+    },
+    "title": {
+      "type": "string",
+      "description": "Title (Mr., Mrs., etc.)",
+      "example": "Example Title"
+    },
+    "firstName": {
+      "type": "string",
+      "description": "First name",
+      "example": "example_value"
+    },
+    "middleNames": {
+      "type": "string",
+      "description": "Middle name(s)",
+      "example": "example_value"
+    },
+    "lastName": {
+      "type": "string",
+      "description": "Last name",
+      "example": "example_value"
+    },
+    "fullName": {
+      "type": "string",
+      "description": "Full name (derived)",
+      "example": "example_value"
+    },
+    "knownAs": {
+      "type": "string",
+      "description": "Preferred name",
+      "example": "example_value"
+    },
+    "emailAddress": {
+      "type": "string",
+      "format": "email",
+      "description": "Email address",
+      "example": "user@example.com"
+    },
+    "sex": {
+      "type": "string",
+      "description": "Gender",
+      "enum": [
+        "M",
+        "F"
+      ],
+      "example": "M"
+    },
+    "dateOfBirth": {
+      "type": "string",
+      "format": "date",
+      "description": "Date of birth",
+      "example": "2026-01-15"
+    },
+    "nationalIdentifier": {
+      "type": "string",
+      "description": "National identifier (e.g., SSN)",
+      "example": "example_value"
+    },
+    "nationality": {
+      "type": "string",
+      "description": "Nationality code",
+      "example": "example_value"
+    },
+    "maritalStatus": {
+      "type": "string",
+      "description": "Marital status",
+      "example": "example_value"
+    },
+    "effectiveStartDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Record effective start date (date-tracked)",
+      "example": "2026-01-15"
+    },
+    "effectiveEndDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Record effective end date (date-tracked)",
+      "example": "2026-01-15"
+    },
+    "hireDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Original hire date",
+      "example": "2026-01-15"
+    },
+    "currentEmployeeFlag": {
+      "type": "string",
+      "enum": [
+        "Y",
+        "N"
+      ],
+      "example": "Y"
+    },
+    "businessGroupId": {
+      "type": "integer",
+      "description": "Business group identifier",
+      "example": "500123"
+    },
+    "assignment": {
+      "$ref": "#/components/schemas/Assignment"
+    },
+    "addresses": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/Address"
+      },
+      "example": []
+    },
+    "phones": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/Phone"
+      },
+      "example": []
+    },
+    "creationDate": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-01-15T10:30:00Z"
+    },
+    "lastUpdateDate": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-01-15T10:30:00Z"
+    }
+  }
+}

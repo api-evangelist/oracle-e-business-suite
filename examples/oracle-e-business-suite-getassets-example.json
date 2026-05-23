@@ -1,0 +1,36 @@
+{
+  "operationId": "getAssets",
+  "method": "GET",
+  "path": "/fa/assets",
+  "summary": "Retrieve Fixed Assets",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getassets200Example",
+      "example": {
+        "items": [
+          {
+            "assetId": "500123",
+            "assetNumber": "example_value",
+            "assetDescription": "example_value",
+            "assetCategoryId": "500123",
+            "assetType": "CAPITALIZED",
+            "serialNumber": "example_value",
+            "tagNumber": "example_value",
+            "dateEffective": "2026-01-15",
+            "dateInService": "2026-01-15",
+            "cost": 42.5,
+            "salvageValue": 42.5,
+            "depreciationMethod": "example_value",
+            "lifeInMonths": 10,
+            "bookTypeCode": "example_value"
+          }
+        ],
+        "totalCount": 10,
+        "hasMore": true
+      }
+    }
+  ]
+}

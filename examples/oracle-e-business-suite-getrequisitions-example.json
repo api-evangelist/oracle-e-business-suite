@@ -1,0 +1,34 @@
+{
+  "operationId": "getRequisitions",
+  "method": "GET",
+  "path": "/po/requisitions",
+  "summary": "Retrieve Purchase Requisitions",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getrequisitions200Example",
+      "example": {
+        "items": [
+          {
+            "requisitionHeaderId": "500123",
+            "segment1": "example_value",
+            "typeLookupCode": "PURCHASE",
+            "authorizationStatus": "example_value",
+            "preparerId": "500123",
+            "description": "A sample description.",
+            "totalAmount": 42.5,
+            "creationDate": "2026-01-15T10:30:00Z",
+            "lines": [
+              {}
+            ],
+            "orgId": "500123"
+          }
+        ],
+        "totalCount": 10,
+        "hasMore": true
+      }
+    }
+  ]
+}

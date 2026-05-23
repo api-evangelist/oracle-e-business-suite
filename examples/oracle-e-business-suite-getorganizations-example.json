@@ -1,0 +1,30 @@
+{
+  "operationId": "getOrganizations",
+  "method": "GET",
+  "path": "/hr/organizations",
+  "summary": "Retrieve Hr Organizations",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getorganizations200Example",
+      "example": {
+        "items": [
+          {
+            "organizationId": "500123",
+            "name": "Example Title",
+            "businessGroupId": "500123",
+            "dateFrom": "2026-01-15",
+            "dateTo": "2026-01-15",
+            "locationId": "500123",
+            "type": "example_value",
+            "internalExternalFlag": "INT"
+          }
+        ],
+        "totalCount": 10,
+        "hasMore": true
+      }
+    }
+  ]
+}

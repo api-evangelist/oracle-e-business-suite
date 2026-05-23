@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ArInvoiceCreate",
+  "title": "ArInvoiceCreate",
+  "type": "object",
+  "required": [
+    "customerId",
+    "trxDate",
+    "invoiceCurrencyCode",
+    "batchSourceName"
+  ],
+  "properties": {
+    "customerId": {
+      "type": "integer",
+      "example": "500123"
+    },
+    "trxDate": {
+      "type": "string",
+      "format": "date",
+      "example": "2026-01-15"
+    },
+    "invoiceCurrencyCode": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "batchSourceName": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "billToSiteUseId": {
+      "type": "integer",
+      "example": "500123"
+    },
+    "shipToSiteUseId": {
+      "type": "integer",
+      "example": "500123"
+    },
+    "termsId": {
+      "type": "integer",
+      "example": "500123"
+    },
+    "lines": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "lineNumber": {
+            "type": "integer"
+          },
+          "lineType": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "number",
+            "format": "double"
+          },
+          "unitSellingPrice": {
+            "type": "number",
+            "format": "double"
+          },
+          "inventoryItemId": {
+            "type": "integer"
+          }
+        }
+      },
+      "example": []
+    }
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "operationId": "getJournals",
+  "method": "GET",
+  "path": "/gl/journals",
+  "summary": "Retrieve Journal Entries",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getjournals200Example",
+      "example": {
+        "items": [
+          {
+            "jeHeaderId": "500123",
+            "jeBatchId": "500123",
+            "ledgerId": "500123",
+            "periodName": "example_value",
+            "journalName": "example_value",
+            "journalCategory": "example_value",
+            "journalSource": "example_value",
+            "currencyCode": "example_value",
+            "status": "U",
+            "description": "A sample description.",
+            "effectiveDate": "2026-01-15",
+            "lines": [
+              {}
+            ],
+            "createdBy": 10,
+            "creationDate": "2026-01-15T10:30:00Z",
+            "lastUpdatedBy": 10,
+            "lastUpdateDate": "2026-01-15T10:30:00Z"
+          }
+        ],
+        "totalCount": 10,
+        "hasMore": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CodeConversion",
+  "title": "CodeConversion",
+  "type": "object",
+  "properties": {
+    "codeConversionId": {
+      "type": "integer",
+      "description": "Code conversion mapping identifier",
+      "example": "500123"
+    },
+    "tradingPartnerId": {
+      "type": "integer",
+      "description": "Trading partner identifier",
+      "example": "500123"
+    },
+    "transactionType": {
+      "type": "string",
+      "description": "Transaction type",
+      "example": "example_value"
+    },
+    "codeCategory": {
+      "type": "string",
+      "description": "Code category",
+      "example": "example_value"
+    },
+    "externalValue": {
+      "type": "string",
+      "description": "External trading partner code value",
+      "example": "example_value"
+    },
+    "internalValue": {
+      "type": "string",
+      "description": "Internal Oracle EBS code value",
+      "example": "example_value"
+    },
+    "description": {
+      "type": "string",
+      "description": "Code conversion description",
+      "example": "A sample description."
+    }
+  }
+}

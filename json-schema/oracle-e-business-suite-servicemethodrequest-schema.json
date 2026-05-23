@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ServiceMethodRequest",
+  "title": "ServiceMethodRequest",
+  "type": "object",
+  "description": "Dynamic request payload whose structure depends on the specific service and method being invoked. Refer to the WADL for the deployed service.",
+  "properties": {
+    "RESTHeader": {
+      "type": "object",
+      "description": "Optional REST header for overriding application context on a per-request basis. Only required if the context differs from the initialized session.",
+      "properties": {
+        "Responsibility": {
+          "type": "string",
+          "description": "Responsibility name"
+        },
+        "RespApplication": {
+          "type": "string",
+          "description": "Responsibility application short name"
+        },
+        "SecurityGroup": {
+          "type": "string",
+          "description": "Security group name"
+        },
+        "NLSLanguage": {
+          "type": "string",
+          "description": "NLS language code"
+        },
+        "Org_Id": {
+          "type": "integer",
+          "description": "Organization ID"
+        }
+      },
+      "example": "example_value"
+    },
+    "InputParameters": {
+      "type": "object",
+      "description": "Input parameters specific to the service method. Structure varies by service - consult the WADL.",
+      "additionalProperties": true,
+      "example": "example_value"
+    }
+  }
+}

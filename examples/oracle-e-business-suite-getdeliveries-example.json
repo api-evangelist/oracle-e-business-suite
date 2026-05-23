@@ -1,0 +1,39 @@
+{
+  "operationId": "getDeliveries",
+  "method": "GET",
+  "path": "/wsh/deliveries",
+  "summary": "Retrieve Shipping Deliveries",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getdeliveries200Example",
+      "example": {
+        "items": [
+          {
+            "deliveryId": "500123",
+            "name": "Example Title",
+            "statusCode": "OP",
+            "initialPickupDate": "2026-01-15",
+            "ultimateDropoffDate": "2026-01-15",
+            "customerId": "500123",
+            "shipToLocationId": "500123",
+            "carrierId": "500123",
+            "shipMethodCode": "example_value",
+            "waybill": "example_value",
+            "grossWeight": 42.5,
+            "weightUomCode": "example_value",
+            "volume": 42.5,
+            "volumeUomCode": "example_value",
+            "organizationId": "500123",
+            "creationDate": "2026-01-15T10:30:00Z",
+            "lastUpdateDate": "2026-01-15T10:30:00Z"
+          }
+        ],
+        "totalCount": 10,
+        "hasMore": true
+      }
+    }
+  ]
+}

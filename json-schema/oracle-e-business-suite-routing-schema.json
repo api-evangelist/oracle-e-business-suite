@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Routing",
+  "title": "Routing",
+  "type": "object",
+  "properties": {
+    "routingSequenceId": {
+      "type": "integer",
+      "description": "Routing sequence identifier",
+      "example": "500123"
+    },
+    "assemblyItemId": {
+      "type": "integer",
+      "description": "Assembly item identifier",
+      "example": "500123"
+    },
+    "assemblyItemNumber": {
+      "type": "string",
+      "description": "Assembly item number",
+      "example": "example_value"
+    },
+    "organizationId": {
+      "type": "integer",
+      "description": "Organization identifier",
+      "example": "500123"
+    },
+    "alternateDesignator": {
+      "type": "string",
+      "description": "Alternate routing designator",
+      "example": "example_value"
+    },
+    "routingType": {
+      "type": "integer",
+      "description": "Routing type (1=Manufacturing, 2=Engineering)",
+      "example": 10
+    },
+    "operations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/RoutingOperation"
+      },
+      "example": []
+    },
+    "creationDate": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-01-15T10:30:00Z"
+    },
+    "lastUpdateDate": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-01-15T10:30:00Z"
+    }
+  }
+}

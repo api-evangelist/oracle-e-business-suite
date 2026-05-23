@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ArInvoice",
+  "title": "ArInvoice",
+  "type": "object",
+  "properties": {
+    "customerTrxId": {
+      "type": "integer",
+      "description": "Customer transaction identifier",
+      "example": "500123"
+    },
+    "trxNumber": {
+      "type": "string",
+      "description": "Transaction number",
+      "example": "example_value"
+    },
+    "trxDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Transaction date",
+      "example": "2026-01-15"
+    },
+    "customerId": {
+      "type": "integer",
+      "description": "Customer identifier",
+      "example": "500123"
+    },
+    "customerName": {
+      "type": "string",
+      "description": "Customer name",
+      "example": "example_value"
+    },
+    "billToSiteUseId": {
+      "type": "integer",
+      "description": "Bill-to site use identifier",
+      "example": "500123"
+    },
+    "shipToSiteUseId": {
+      "type": "integer",
+      "description": "Ship-to site use identifier",
+      "example": "500123"
+    },
+    "invoiceCurrencyCode": {
+      "type": "string",
+      "description": "Invoice currency (ISO 4217)",
+      "example": "example_value"
+    },
+    "trxType": {
+      "type": "string",
+      "description": "Transaction type",
+      "example": "example_value"
+    },
+    "amount": {
+      "type": "number",
+      "format": "double",
+      "description": "Transaction amount",
+      "example": 42.5
+    },
+    "amountDue": {
+      "type": "number",
+      "format": "double",
+      "description": "Remaining amount due",
+      "example": 42.5
+    },
+    "status": {
+      "type": "string",
+      "description": "Transaction status",
+      "example": "example_value"
+    },
+    "termsId": {
+      "type": "integer",
+      "description": "Payment terms identifier",
+      "example": "500123"
+    },
+    "lines": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/ArInvoiceLine"
+      },
+      "example": []
+    },
+    "orgId": {
+      "type": "integer",
+      "example": "500123"
+    },
+    "creationDate": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-01-15T10:30:00Z"
+    },
+    "lastUpdateDate": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-01-15T10:30:00Z"
+    }
+  }
+}

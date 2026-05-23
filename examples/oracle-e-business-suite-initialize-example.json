@@ -1,0 +1,98 @@
+{
+  "operationId": "initialize",
+  "method": "POST",
+  "path": "/initialize",
+  "summary": "Initialize Application Context",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "InitializeRequestExample",
+      "example": {
+        "data": {
+          "resp": {
+            "id": "abc123",
+            "applId": "500123",
+            "key": "example_value",
+            "applKey": "example_value"
+          },
+          "securityGroup": {
+            "id": "abc123",
+            "key": "example_value"
+          },
+          "org": {
+            "id": "abc123",
+            "key": "example_value"
+          }
+        }
+      }
+    },
+    {
+      "contentType": "application/xml",
+      "name": "InitializeRequestExample",
+      "example": {
+        "data": {
+          "resp": {
+            "id": "abc123",
+            "applId": "500123",
+            "key": "example_value",
+            "applKey": "example_value"
+          },
+          "securityGroup": {
+            "id": "abc123",
+            "key": "example_value"
+          },
+          "org": {
+            "id": "abc123",
+            "key": "example_value"
+          }
+        }
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Initialize200Example",
+      "example": {
+        "response": {
+          "data": "example_value"
+        }
+      }
+    },
+    {
+      "status": "200",
+      "contentType": "application/xml",
+      "name": "Initialize200Example",
+      "example": {
+        "response": {
+          "data": "example_value"
+        }
+      }
+    },
+    {
+      "status": "400",
+      "contentType": "application/json",
+      "name": "Initialize400Example",
+      "example": {
+        "error": {
+          "code": "example_value",
+          "message": "example_value",
+          "detail": "example_value"
+        }
+      }
+    },
+    {
+      "status": "401",
+      "contentType": "application/json",
+      "name": "Initialize401Example",
+      "example": {
+        "error": {
+          "code": "example_value",
+          "message": "example_value",
+          "detail": "example_value"
+        }
+      }
+    }
+  ]
+}

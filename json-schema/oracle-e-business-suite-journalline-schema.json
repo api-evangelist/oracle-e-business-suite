@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/JournalLine",
+  "title": "JournalLine",
+  "type": "object",
+  "properties": {
+    "jeLineNum": {
+      "type": "integer",
+      "description": "Journal line number",
+      "example": 10
+    },
+    "codeCombinatonId": {
+      "type": "integer",
+      "description": "Chart of accounts code combination identifier",
+      "example": "500123"
+    },
+    "accountedDr": {
+      "type": "number",
+      "format": "double",
+      "description": "Debit amount in functional currency",
+      "example": 42.5
+    },
+    "accountedCr": {
+      "type": "number",
+      "format": "double",
+      "description": "Credit amount in functional currency",
+      "example": 42.5
+    },
+    "enteredDr": {
+      "type": "number",
+      "format": "double",
+      "description": "Debit amount in entered currency",
+      "example": 42.5
+    },
+    "enteredCr": {
+      "type": "number",
+      "format": "double",
+      "description": "Credit amount in entered currency",
+      "example": 42.5
+    },
+    "description": {
+      "type": "string",
+      "description": "Line description",
+      "example": "A sample description."
+    }
+  }
+}

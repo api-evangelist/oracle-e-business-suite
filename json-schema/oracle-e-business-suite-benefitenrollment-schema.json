@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/BenefitEnrollment",
+  "title": "BenefitEnrollment",
+  "type": "object",
+  "properties": {
+    "enrollmentResultId": {
+      "type": "integer",
+      "description": "Enrollment result identifier",
+      "example": "500123"
+    },
+    "personId": {
+      "type": "integer",
+      "description": "Person identifier",
+      "example": "500123"
+    },
+    "planId": {
+      "type": "integer",
+      "description": "Benefit plan identifier",
+      "example": "500123"
+    },
+    "planName": {
+      "type": "string",
+      "description": "Plan name",
+      "example": "example_value"
+    },
+    "optionId": {
+      "type": "integer",
+      "description": "Option identifier",
+      "example": "500123"
+    },
+    "optionName": {
+      "type": "string",
+      "description": "Option name",
+      "example": "example_value"
+    },
+    "coverageLevelCode": {
+      "type": "string",
+      "description": "Coverage level",
+      "example": "example_value"
+    },
+    "effectiveStartDate": {
+      "type": "string",
+      "format": "date",
+      "example": "2026-01-15"
+    },
+    "effectiveEndDate": {
+      "type": "string",
+      "format": "date",
+      "example": "2026-01-15"
+    },
+    "enrollmentStartDate": {
+      "type": "string",
+      "format": "date",
+      "example": "2026-01-15"
+    },
+    "enrollmentEndDate": {
+      "type": "string",
+      "format": "date",
+      "example": "2026-01-15"
+    },
+    "benefitAmount": {
+      "type": "number",
+      "format": "double",
+      "description": "Benefit coverage amount",
+      "example": 42.5
+    }
+  }
+}

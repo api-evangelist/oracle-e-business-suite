@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SalesOrderCreate",
+  "title": "SalesOrderCreate",
+  "type": "object",
+  "required": [
+    "soldToOrgId",
+    "orderTypeId",
+    "lines"
+  ],
+  "properties": {
+    "soldToOrgId": {
+      "type": "integer",
+      "example": "500123"
+    },
+    "orderTypeId": {
+      "type": "integer",
+      "example": "500123"
+    },
+    "orderedDate": {
+      "type": "string",
+      "format": "date",
+      "example": "2026-01-15"
+    },
+    "transactionalCurrCode": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "shipToOrgId": {
+      "type": "integer",
+      "example": "500123"
+    },
+    "invoiceToOrgId": {
+      "type": "integer",
+      "example": "500123"
+    },
+    "salesrepId": {
+      "type": "integer",
+      "example": "500123"
+    },
+    "lines": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "inventoryItemId",
+          "orderedQuantity"
+        ],
+        "properties": {
+          "inventoryItemId": {
+            "type": "integer"
+          },
+          "orderedQuantity": {
+            "type": "number",
+            "format": "double"
+          },
+          "orderQuantityUom": {
+            "type": "string"
+          },
+          "unitSellingPrice": {
+            "type": "number",
+            "format": "double"
+          },
+          "scheduleShipDate": {
+            "type": "string",
+            "format": "date"
+          }
+        }
+      },
+      "example": []
+    }
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/OutboundTransaction",
+  "title": "OutboundTransaction",
+  "type": "object",
+  "properties": {
+    "transactionId": {
+      "type": "integer",
+      "description": "Transaction identifier",
+      "example": "500123"
+    },
+    "transactionType": {
+      "type": "string",
+      "description": "Outbound transaction type code",
+      "enum": [
+        "POO",
+        "POCO",
+        "INO",
+        "CDMO",
+        "PYO",
+        "SPSO",
+        "SSSO",
+        "ADVO",
+        "MVSTO"
+      ],
+      "example": "POO"
+    },
+    "transactionDescription": {
+      "type": "string",
+      "description": "Transaction description",
+      "example": "example_value"
+    },
+    "documentStandard": {
+      "type": "string",
+      "description": "Document standard (X12 or EDIFACT)",
+      "example": "example_value"
+    },
+    "documentNumber": {
+      "type": "string",
+      "description": "ASC X12/EDIFACT document number",
+      "example": "example_value"
+    },
+    "tradingPartnerId": {
+      "type": "integer",
+      "example": "500123"
+    },
+    "tradingPartnerName": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "tradingPartnerSiteId": {
+      "type": "integer",
+      "example": "500123"
+    },
+    "processStatus": {
+      "type": "string",
+      "enum": [
+        "PENDING",
+        "EXTRACTED",
+        "ERROR"
+      ],
+      "example": "PENDING"
+    },
+    "sourceDocumentId": {
+      "type": "integer",
+      "description": "Source document identifier in Oracle EBS",
+      "example": "500123"
+    },
+    "sourceDocumentNumber": {
+      "type": "string",
+      "description": "Source document number",
+      "example": "example_value"
+    },
+    "documentDate": {
+      "type": "string",
+      "format": "date",
+      "example": "2026-01-15"
+    },
+    "documentAmount": {
+      "type": "number",
+      "format": "double",
+      "example": 42.5
+    },
+    "currencyCode": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "errorMessage": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "creationDate": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-01-15T10:30:00Z"
+    },
+    "lastUpdateDate": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-01-15T10:30:00Z"
+    }
+  }
+}

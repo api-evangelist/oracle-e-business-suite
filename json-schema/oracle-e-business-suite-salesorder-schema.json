@@ -1,0 +1,110 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SalesOrder",
+  "title": "SalesOrder",
+  "type": "object",
+  "properties": {
+    "headerId": {
+      "type": "integer",
+      "description": "Order header identifier",
+      "example": "500123"
+    },
+    "orderNumber": {
+      "type": "integer",
+      "description": "Order number",
+      "example": 10
+    },
+    "orderedDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Order date",
+      "example": "2026-01-15"
+    },
+    "orderTypeId": {
+      "type": "integer",
+      "description": "Order type identifier",
+      "example": "500123"
+    },
+    "orderTypeName": {
+      "type": "string",
+      "description": "Order type name",
+      "example": "example_value"
+    },
+    "soldToOrgId": {
+      "type": "integer",
+      "description": "Customer identifier (sold-to)",
+      "example": "500123"
+    },
+    "customerName": {
+      "type": "string",
+      "description": "Customer name",
+      "example": "example_value"
+    },
+    "shipToOrgId": {
+      "type": "integer",
+      "description": "Ship-to organization identifier",
+      "example": "500123"
+    },
+    "invoiceToOrgId": {
+      "type": "integer",
+      "description": "Bill-to organization identifier",
+      "example": "500123"
+    },
+    "transactionalCurrCode": {
+      "type": "string",
+      "description": "Transaction currency code (ISO 4217)",
+      "example": "example_value"
+    },
+    "flowStatusCode": {
+      "type": "string",
+      "description": "Order flow status",
+      "enum": [
+        "ENTERED",
+        "BOOKED",
+        "CLOSED",
+        "CANCELLED"
+      ],
+      "example": "ENTERED"
+    },
+    "bookedFlag": {
+      "type": "string",
+      "enum": [
+        "Y",
+        "N"
+      ],
+      "example": "Y"
+    },
+    "totalAmount": {
+      "type": "number",
+      "format": "double",
+      "description": "Order total amount",
+      "example": 42.5
+    },
+    "salesrepId": {
+      "type": "integer",
+      "description": "Salesperson identifier",
+      "example": "500123"
+    },
+    "lines": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/SalesOrderLine"
+      },
+      "example": []
+    },
+    "orgId": {
+      "type": "integer",
+      "example": "500123"
+    },
+    "creationDate": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-01-15T10:30:00Z"
+    },
+    "lastUpdateDate": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-01-15T10:30:00Z"
+    }
+  }
+}

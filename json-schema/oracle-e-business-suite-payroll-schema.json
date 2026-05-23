@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Payroll",
+  "title": "Payroll",
+  "type": "object",
+  "properties": {
+    "payrollId": {
+      "type": "integer",
+      "description": "Payroll identifier",
+      "example": "500123"
+    },
+    "payrollName": {
+      "type": "string",
+      "description": "Payroll name",
+      "example": "example_value"
+    },
+    "periodType": {
+      "type": "string",
+      "description": "Payroll period type",
+      "enum": [
+        "Calendar Month",
+        "Semi-Month",
+        "Bi-Week",
+        "Week",
+        "Lunar Month"
+      ],
+      "example": "Calendar Month"
+    },
+    "numberOfYears": {
+      "type": "integer",
+      "description": "Number of years defined",
+      "example": 10
+    },
+    "firstPeriodEndDate": {
+      "type": "string",
+      "format": "date",
+      "example": "2026-01-15"
+    },
+    "effectiveStartDate": {
+      "type": "string",
+      "format": "date",
+      "example": "2026-01-15"
+    },
+    "effectiveEndDate": {
+      "type": "string",
+      "format": "date",
+      "example": "2026-01-15"
+    },
+    "businessGroupId": {
+      "type": "integer",
+      "example": "500123"
+    }
+  }
+}

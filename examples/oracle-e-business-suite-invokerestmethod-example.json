@@ -1,0 +1,102 @@
+{
+  "operationId": "invokeRestMethod",
+  "method": "POST",
+  "path": "/{serviceAlias}/{methodName}",
+  "summary": "Invoke a Rest Service Method",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "InvokerestmethodRequestExample",
+      "example": {
+        "RESTHeader": {
+          "Responsibility": "example_value",
+          "RespApplication": "example_value",
+          "SecurityGroup": "example_value",
+          "NLSLanguage": "example_value",
+          "Org_Id": "500123"
+        },
+        "InputParameters": "example_value"
+      }
+    },
+    {
+      "contentType": "application/xml",
+      "name": "InvokerestmethodRequestExample",
+      "example": {
+        "RESTHeader": {
+          "Responsibility": "example_value",
+          "RespApplication": "example_value",
+          "SecurityGroup": "example_value",
+          "NLSLanguage": "example_value",
+          "Org_Id": "500123"
+        },
+        "InputParameters": "example_value"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Invokerestmethod200Example",
+      "example": {
+        "OutputParameters": "example_value"
+      }
+    },
+    {
+      "status": "200",
+      "contentType": "application/xml",
+      "name": "Invokerestmethod200Example",
+      "example": {
+        "OutputParameters": "example_value"
+      }
+    },
+    {
+      "status": "400",
+      "contentType": "application/json",
+      "name": "Invokerestmethod400Example",
+      "example": {
+        "error": {
+          "code": "example_value",
+          "message": "example_value",
+          "detail": "example_value"
+        }
+      }
+    },
+    {
+      "status": "401",
+      "contentType": "application/json",
+      "name": "Invokerestmethod401Example",
+      "example": {
+        "error": {
+          "code": "example_value",
+          "message": "example_value",
+          "detail": "example_value"
+        }
+      }
+    },
+    {
+      "status": "404",
+      "contentType": "application/json",
+      "name": "Invokerestmethod404Example",
+      "example": {
+        "error": {
+          "code": "example_value",
+          "message": "example_value",
+          "detail": "example_value"
+        }
+      }
+    },
+    {
+      "status": "500",
+      "contentType": "application/json",
+      "name": "Invokerestmethod500Example",
+      "example": {
+        "error": {
+          "code": "example_value",
+          "message": "example_value",
+          "detail": "example_value"
+        }
+      }
+    }
+  ]
+}

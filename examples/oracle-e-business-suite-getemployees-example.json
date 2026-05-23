@@ -1,0 +1,49 @@
+{
+  "operationId": "getEmployees",
+  "method": "GET",
+  "path": "/hr/employees",
+  "summary": "Retrieve Employee Records",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getemployees200Example",
+      "example": {
+        "items": [
+          {
+            "personId": "500123",
+            "employeeNumber": "example_value",
+            "title": "Example Title",
+            "firstName": "example_value",
+            "middleNames": "example_value",
+            "lastName": "example_value",
+            "fullName": "example_value",
+            "knownAs": "example_value",
+            "emailAddress": "user@example.com",
+            "sex": "M",
+            "dateOfBirth": "2026-01-15",
+            "nationalIdentifier": "example_value",
+            "nationality": "example_value",
+            "maritalStatus": "example_value",
+            "effectiveStartDate": "2026-01-15",
+            "effectiveEndDate": "2026-01-15",
+            "hireDate": "2026-01-15",
+            "currentEmployeeFlag": "Y",
+            "businessGroupId": "500123",
+            "addresses": [
+              {}
+            ],
+            "phones": [
+              {}
+            ],
+            "creationDate": "2026-01-15T10:30:00Z",
+            "lastUpdateDate": "2026-01-15T10:30:00Z"
+          }
+        ],
+        "totalCount": 10,
+        "hasMore": true
+      }
+    }
+  ]
+}

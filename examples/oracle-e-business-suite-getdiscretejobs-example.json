@@ -1,0 +1,45 @@
+{
+  "operationId": "getDiscreteJobs",
+  "method": "GET",
+  "path": "/wip/discreteJobs",
+  "summary": "Retrieve Wip Discrete Jobs",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getdiscretejobs200Example",
+      "example": {
+        "items": [
+          {
+            "wipEntityId": "500123",
+            "wipEntityName": "example_value",
+            "organizationId": "500123",
+            "primaryItemId": "500123",
+            "primaryItemNumber": "example_value",
+            "statusType": 10,
+            "jobType": 10,
+            "startQuantity": 42.5,
+            "quantityCompleted": 42.5,
+            "quantityScrapped": 42.5,
+            "netQuantity": 42.5,
+            "scheduledStartDate": "2026-01-15T10:30:00Z",
+            "scheduledCompletionDate": "2026-01-15T10:30:00Z",
+            "dateReleased": "2026-01-15T10:30:00Z",
+            "dateCompleted": "2026-01-15T10:30:00Z",
+            "dateClosed": "2026-01-15T10:30:00Z",
+            "classCode": "example_value",
+            "bomRevision": "example_value",
+            "routingRevision": "example_value",
+            "description": "A sample description.",
+            "firmPlannedFlag": 10,
+            "creationDate": "2026-01-15T10:30:00Z",
+            "lastUpdateDate": "2026-01-15T10:30:00Z"
+          }
+        ],
+        "totalCount": 10,
+        "hasMore": true
+      }
+    }
+  ]
+}

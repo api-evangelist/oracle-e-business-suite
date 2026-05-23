@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ApInvoiceLine",
+  "title": "ApInvoiceLine",
+  "type": "object",
+  "properties": {
+    "lineNumber": {
+      "type": "integer",
+      "description": "Invoice line number",
+      "example": 10
+    },
+    "lineType": {
+      "type": "string",
+      "description": "Line type lookup code",
+      "enum": [
+        "ITEM",
+        "TAX",
+        "FREIGHT",
+        "MISCELLANEOUS"
+      ],
+      "example": "ITEM"
+    },
+    "amount": {
+      "type": "number",
+      "format": "double",
+      "description": "Line amount",
+      "example": 42.5
+    },
+    "description": {
+      "type": "string",
+      "description": "Line description",
+      "example": "A sample description."
+    },
+    "accountingDate": {
+      "type": "string",
+      "format": "date",
+      "example": "2026-01-15"
+    },
+    "distCodeCombinationId": {
+      "type": "integer",
+      "description": "Distribution account code combination ID",
+      "example": "500123"
+    },
+    "itemDescription": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "quantity": {
+      "type": "number",
+      "format": "double",
+      "example": 42.5
+    },
+    "unitPrice": {
+      "type": "number",
+      "format": "double",
+      "example": 42.5
+    }
+  }
+}

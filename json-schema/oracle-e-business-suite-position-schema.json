@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Position",
+  "title": "Position",
+  "type": "object",
+  "properties": {
+    "positionId": {
+      "type": "integer",
+      "description": "Position identifier",
+      "example": "500123"
+    },
+    "name": {
+      "type": "string",
+      "description": "Position name",
+      "example": "Example Title"
+    },
+    "jobId": {
+      "type": "integer",
+      "description": "Job identifier",
+      "example": "500123"
+    },
+    "organizationId": {
+      "type": "integer",
+      "description": "Organization identifier",
+      "example": "500123"
+    },
+    "effectiveStartDate": {
+      "type": "string",
+      "format": "date",
+      "example": "2026-01-15"
+    },
+    "effectiveEndDate": {
+      "type": "string",
+      "format": "date",
+      "example": "2026-01-15"
+    },
+    "status": {
+      "type": "string",
+      "description": "Position status",
+      "example": "example_value"
+    },
+    "availabilityStatusId": {
+      "type": "integer",
+      "example": "500123"
+    },
+    "businessGroupId": {
+      "type": "integer",
+      "example": "500123"
+    },
+    "locationId": {
+      "type": "integer",
+      "example": "500123"
+    }
+  }
+}

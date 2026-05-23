@@ -1,0 +1,216 @@
+{
+  "provider": "Oracle E-Business Suite",
+  "providerId": "oracle-e-business-suite",
+  "kind": "json-structure",
+  "description": "Structural overview of the Oracle E-Business Suite API surface; extracted from openapi/.",
+  "schemaCount": 16,
+  "operationCount": 11,
+  "schemas": [
+    {
+      "name": "PurchaseOrder",
+      "type": "object",
+      "propertyCount": 21,
+      "required": []
+    },
+    {
+      "name": "PurchaseOrderLine",
+      "type": "object",
+      "propertyCount": 14,
+      "required": []
+    },
+    {
+      "name": "PurchaseOrderShipment",
+      "type": "object",
+      "propertyCount": 10,
+      "required": []
+    },
+    {
+      "name": "PurchaseOrderCreate",
+      "type": "object",
+      "propertyCount": 10,
+      "required": [
+        "vendorId",
+        "vendorSiteId",
+        "currencyCode",
+        "lines"
+      ]
+    },
+    {
+      "name": "PurchaseOrderUpdate",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "Requisition",
+      "type": "object",
+      "propertyCount": 10,
+      "required": []
+    },
+    {
+      "name": "RequisitionLine",
+      "type": "object",
+      "propertyCount": 10,
+      "required": []
+    },
+    {
+      "name": "Supplier",
+      "type": "object",
+      "propertyCount": 15,
+      "required": []
+    },
+    {
+      "name": "SupplierSite",
+      "type": "object",
+      "propertyCount": 11,
+      "required": []
+    },
+    {
+      "name": "SalesOrder",
+      "type": "object",
+      "propertyCount": 18,
+      "required": []
+    },
+    {
+      "name": "SalesOrderLine",
+      "type": "object",
+      "propertyCount": 13,
+      "required": []
+    },
+    {
+      "name": "SalesOrderCreate",
+      "type": "object",
+      "propertyCount": 8,
+      "required": [
+        "soldToOrgId",
+        "orderTypeId",
+        "lines"
+      ]
+    },
+    {
+      "name": "InventoryItem",
+      "type": "object",
+      "propertyCount": 18,
+      "required": []
+    },
+    {
+      "name": "OnhandQuantity",
+      "type": "object",
+      "propertyCount": 9,
+      "required": []
+    },
+    {
+      "name": "Delivery",
+      "type": "object",
+      "propertyCount": 17,
+      "required": []
+    },
+    {
+      "name": "ErrorResponse",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    }
+  ],
+  "operations": [
+    {
+      "method": "GET",
+      "path": "/po/purchaseOrders",
+      "operationId": "getPurchaseOrders",
+      "summary": "Retrieve Purchase Orders",
+      "tags": [
+        "Purchasing"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/po/purchaseOrders",
+      "operationId": "createPurchaseOrder",
+      "summary": "Create a Purchase Order",
+      "tags": [
+        "Purchasing"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/po/purchaseOrders/{poHeaderId}",
+      "operationId": "getPurchaseOrderById",
+      "summary": "Retrieve a Specific Purchase Order",
+      "tags": [
+        "Purchasing"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/po/purchaseOrders/{poHeaderId}",
+      "operationId": "updatePurchaseOrder",
+      "summary": "Update a Purchase Order",
+      "tags": [
+        "Purchasing"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/po/requisitions",
+      "operationId": "getRequisitions",
+      "summary": "Retrieve Purchase Requisitions",
+      "tags": [
+        "Purchasing"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/po/suppliers",
+      "operationId": "getSuppliers",
+      "summary": "Retrieve Suppliers",
+      "tags": [
+        "Purchasing"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/oe/salesOrders",
+      "operationId": "getSalesOrders",
+      "summary": "Retrieve Sales Orders",
+      "tags": [
+        "Order Management"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/oe/salesOrders",
+      "operationId": "createSalesOrder",
+      "summary": "Create a Sales Order",
+      "tags": [
+        "Order Management"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/inv/items",
+      "operationId": "getInventoryItems",
+      "summary": "Retrieve Inventory Items",
+      "tags": [
+        "Inventory"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/inv/onhandQuantities",
+      "operationId": "getOnhandQuantities",
+      "summary": "Retrieve On-hand Inventory Quantities",
+      "tags": [
+        "Inventory"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/wsh/deliveries",
+      "operationId": "getDeliveries",
+      "summary": "Retrieve Shipping Deliveries",
+      "tags": [
+        "Shipping"
+      ]
+    }
+  ]
+}

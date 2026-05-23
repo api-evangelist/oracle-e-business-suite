@@ -1,0 +1,29 @@
+{
+  "operationId": "getCodeConversions",
+  "method": "GET",
+  "path": "/ece/codeConversions",
+  "summary": "Retrieve Code Conversion Mappings",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getcodeconversions200Example",
+      "example": {
+        "items": [
+          {
+            "codeConversionId": "500123",
+            "tradingPartnerId": "500123",
+            "transactionType": "example_value",
+            "codeCategory": "example_value",
+            "externalValue": "example_value",
+            "internalValue": "example_value",
+            "description": "A sample description."
+          }
+        ],
+        "totalCount": 10,
+        "hasMore": true
+      }
+    }
+  ]
+}

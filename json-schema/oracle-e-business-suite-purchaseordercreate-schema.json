@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/PurchaseOrderCreate",
+  "title": "PurchaseOrderCreate",
+  "type": "object",
+  "required": [
+    "vendorId",
+    "vendorSiteId",
+    "currencyCode",
+    "lines"
+  ],
+  "properties": {
+    "vendorId": {
+      "type": "integer",
+      "example": "500123"
+    },
+    "vendorSiteId": {
+      "type": "integer",
+      "example": "500123"
+    },
+    "currencyCode": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "typeLookupCode": {
+      "type": "string",
+      "default": "STANDARD",
+      "example": "example_value"
+    },
+    "description": {
+      "type": "string",
+      "example": "A sample description."
+    },
+    "buyerId": {
+      "type": "integer",
+      "example": "500123"
+    },
+    "shipToLocationId": {
+      "type": "integer",
+      "example": "500123"
+    },
+    "billToLocationId": {
+      "type": "integer",
+      "example": "500123"
+    },
+    "termsId": {
+      "type": "integer",
+      "example": "500123"
+    },
+    "lines": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "itemDescription",
+          "quantity",
+          "unitPrice"
+        ],
+        "properties": {
+          "lineNum": {
+            "type": "integer"
+          },
+          "itemId": {
+            "type": "integer"
+          },
+          "itemDescription": {
+            "type": "string"
+          },
+          "categoryId": {
+            "type": "integer"
+          },
+          "quantity": {
+            "type": "number",
+            "format": "double"
+          },
+          "unitMeasLookupCode": {
+            "type": "string"
+          },
+          "unitPrice": {
+            "type": "number",
+            "format": "double"
+          },
+          "needByDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "shipToOrganizationId": {
+            "type": "integer"
+          }
+        }
+      },
+      "example": []
+    }
+  }
+}

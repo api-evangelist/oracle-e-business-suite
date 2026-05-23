@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/DiscreteJobCreate",
+  "title": "DiscreteJobCreate",
+  "type": "object",
+  "required": [
+    "primaryItemId",
+    "organizationId",
+    "startQuantity",
+    "scheduledStartDate",
+    "scheduledCompletionDate",
+    "classCode"
+  ],
+  "properties": {
+    "wipEntityName": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "primaryItemId": {
+      "type": "integer",
+      "example": "500123"
+    },
+    "organizationId": {
+      "type": "integer",
+      "example": "500123"
+    },
+    "statusType": {
+      "type": "integer",
+      "default": 1,
+      "example": 10
+    },
+    "jobType": {
+      "type": "integer",
+      "default": 1,
+      "example": 10
+    },
+    "startQuantity": {
+      "type": "number",
+      "format": "double",
+      "example": 42.5
+    },
+    "scheduledStartDate": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-01-15T10:30:00Z"
+    },
+    "scheduledCompletionDate": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-01-15T10:30:00Z"
+    },
+    "classCode": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "bomRevision": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "routingRevision": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "description": {
+      "type": "string",
+      "example": "A sample description."
+    },
+    "firmPlannedFlag": {
+      "type": "integer",
+      "default": 2,
+      "example": 10
+    }
+  }
+}

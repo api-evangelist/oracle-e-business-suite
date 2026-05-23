@@ -1,0 +1,39 @@
+{
+  "operationId": "getOutboundTransactions",
+  "method": "GET",
+  "path": "/ece/transactions/outbound",
+  "summary": "Retrieve Outbound Edi Transactions",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getoutboundtransactions200Example",
+      "example": {
+        "items": [
+          {
+            "transactionId": "500123",
+            "transactionType": "POO",
+            "transactionDescription": "example_value",
+            "documentStandard": "example_value",
+            "documentNumber": "example_value",
+            "tradingPartnerId": "500123",
+            "tradingPartnerName": "example_value",
+            "tradingPartnerSiteId": "500123",
+            "processStatus": "PENDING",
+            "sourceDocumentId": "500123",
+            "sourceDocumentNumber": "example_value",
+            "documentDate": "2026-01-15",
+            "documentAmount": 42.5,
+            "currencyCode": "example_value",
+            "errorMessage": "example_value",
+            "creationDate": "2026-01-15T10:30:00Z",
+            "lastUpdateDate": "2026-01-15T10:30:00Z"
+          }
+        ],
+        "totalCount": 10,
+        "hasMore": true
+      }
+    }
+  ]
+}

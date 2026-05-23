@@ -1,0 +1,33 @@
+{
+  "operationId": "getRoutings",
+  "method": "GET",
+  "path": "/bom/routings",
+  "summary": "Retrieve Manufacturing Routings",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getroutings200Example",
+      "example": {
+        "items": [
+          {
+            "routingSequenceId": "500123",
+            "assemblyItemId": "500123",
+            "assemblyItemNumber": "example_value",
+            "organizationId": "500123",
+            "alternateDesignator": "example_value",
+            "routingType": 10,
+            "operations": [
+              {}
+            ],
+            "creationDate": "2026-01-15T10:30:00Z",
+            "lastUpdateDate": "2026-01-15T10:30:00Z"
+          }
+        ],
+        "totalCount": 10,
+        "hasMore": true
+      }
+    }
+  ]
+}

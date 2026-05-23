@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ArReceipt",
+  "title": "ArReceipt",
+  "type": "object",
+  "properties": {
+    "cashReceiptId": {
+      "type": "integer",
+      "description": "Cash receipt identifier",
+      "example": "500123"
+    },
+    "receiptNumber": {
+      "type": "string",
+      "description": "Receipt number",
+      "example": "example_value"
+    },
+    "amount": {
+      "type": "number",
+      "format": "double",
+      "description": "Receipt amount",
+      "example": 42.5
+    },
+    "currencyCode": {
+      "type": "string",
+      "description": "Receipt currency code",
+      "example": "example_value"
+    },
+    "receiptDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Receipt date",
+      "example": "2026-01-15"
+    },
+    "customerId": {
+      "type": "integer",
+      "description": "Customer identifier",
+      "example": "500123"
+    },
+    "customerName": {
+      "type": "string",
+      "description": "Customer name",
+      "example": "example_value"
+    },
+    "receiptMethodId": {
+      "type": "integer",
+      "description": "Receipt method identifier",
+      "example": "500123"
+    },
+    "status": {
+      "type": "string",
+      "description": "Receipt status",
+      "example": "example_value"
+    },
+    "orgId": {
+      "type": "integer",
+      "example": "500123"
+    }
+  }
+}

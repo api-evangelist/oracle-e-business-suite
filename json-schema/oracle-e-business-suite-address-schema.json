@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Address",
+  "title": "Address",
+  "type": "object",
+  "properties": {
+    "addressId": {
+      "type": "integer",
+      "description": "Address identifier",
+      "example": "500123"
+    },
+    "addressType": {
+      "type": "string",
+      "description": "Address type",
+      "example": "example_value"
+    },
+    "addressLine1": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "addressLine2": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "addressLine3": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "townOrCity": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "region1": {
+      "type": "string",
+      "description": "County/province",
+      "example": "example_value"
+    },
+    "region2": {
+      "type": "string",
+      "description": "State",
+      "example": "example_value"
+    },
+    "postalCode": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "country": {
+      "type": "string",
+      "description": "Country code",
+      "example": "example_value"
+    },
+    "primaryFlag": {
+      "type": "string",
+      "enum": [
+        "Y",
+        "N"
+      ],
+      "example": "Y"
+    },
+    "dateFrom": {
+      "type": "string",
+      "format": "date",
+      "example": "2026-01-15"
+    },
+    "dateTo": {
+      "type": "string",
+      "format": "date",
+      "example": "2026-01-15"
+    }
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/PurchaseOrderShipment",
+  "title": "PurchaseOrderShipment",
+  "type": "object",
+  "properties": {
+    "lineLocationId": {
+      "type": "integer",
+      "description": "Line location (shipment) identifier",
+      "example": "500123"
+    },
+    "shipmentNum": {
+      "type": "integer",
+      "description": "Shipment number",
+      "example": 10
+    },
+    "quantity": {
+      "type": "number",
+      "format": "double",
+      "description": "Shipment quantity",
+      "example": 42.5
+    },
+    "quantityReceived": {
+      "type": "number",
+      "format": "double",
+      "description": "Quantity received",
+      "example": 42.5
+    },
+    "quantityBilled": {
+      "type": "number",
+      "format": "double",
+      "description": "Quantity billed",
+      "example": 42.5
+    },
+    "needByDate": {
+      "type": "string",
+      "format": "date",
+      "example": "2026-01-15"
+    },
+    "promisedDate": {
+      "type": "string",
+      "format": "date",
+      "example": "2026-01-15"
+    },
+    "shipToOrganizationId": {
+      "type": "integer",
+      "description": "Ship-to organization identifier",
+      "example": "500123"
+    },
+    "shipToLocationId": {
+      "type": "integer",
+      "description": "Ship-to location identifier",
+      "example": "500123"
+    },
+    "closedCode": {
+      "type": "string",
+      "description": "Shipment close status",
+      "example": "example_value"
+    }
+  }
+}

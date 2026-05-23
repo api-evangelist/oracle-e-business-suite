@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SalesOrderLine",
+  "title": "SalesOrderLine",
+  "type": "object",
+  "properties": {
+    "lineId": {
+      "type": "integer",
+      "description": "Line identifier",
+      "example": "500123"
+    },
+    "lineNumber": {
+      "type": "integer",
+      "description": "Line number",
+      "example": 10
+    },
+    "orderedItem": {
+      "type": "string",
+      "description": "Ordered item number",
+      "example": "example_value"
+    },
+    "inventoryItemId": {
+      "type": "integer",
+      "description": "Inventory item identifier",
+      "example": "500123"
+    },
+    "orderedQuantity": {
+      "type": "number",
+      "format": "double",
+      "description": "Ordered quantity",
+      "example": 42.5
+    },
+    "orderQuantityUom": {
+      "type": "string",
+      "description": "Unit of measure",
+      "example": "example_value"
+    },
+    "unitSellingPrice": {
+      "type": "number",
+      "format": "double",
+      "description": "Unit selling price",
+      "example": 42.5
+    },
+    "unitListPrice": {
+      "type": "number",
+      "format": "double",
+      "description": "Unit list price",
+      "example": 42.5
+    },
+    "lineAmount": {
+      "type": "number",
+      "format": "double",
+      "example": 42.5
+    },
+    "scheduleShipDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Scheduled ship date",
+      "example": "2026-01-15"
+    },
+    "actualShipDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Actual ship date",
+      "example": "2026-01-15"
+    },
+    "flowStatusCode": {
+      "type": "string",
+      "description": "Line flow status",
+      "example": "example_value"
+    },
+    "shippedQuantity": {
+      "type": "number",
+      "format": "double",
+      "example": 42.5
+    }
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/EmployeeUpdate",
+  "title": "EmployeeUpdate",
+  "type": "object",
+  "required": [
+    "effectiveDate"
+  ],
+  "properties": {
+    "effectiveDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Date-track effective date for the update",
+      "example": "2026-01-15"
+    },
+    "dateTrackUpdateMode": {
+      "type": "string",
+      "description": "Date-track update mode",
+      "enum": [
+        "CORRECTION",
+        "UPDATE",
+        "UPDATE_CHANGE_INSERT",
+        "UPDATE_OVERRIDE"
+      ],
+      "default": "CORRECTION",
+      "example": "CORRECTION"
+    },
+    "title": {
+      "type": "string",
+      "example": "Example Title"
+    },
+    "firstName": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "middleNames": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "lastName": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "knownAs": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "emailAddress": {
+      "type": "string",
+      "format": "email",
+      "example": "user@example.com"
+    },
+    "maritalStatus": {
+      "type": "string",
+      "example": "example_value"
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "operationId": "getBenefitEnrollments",
+  "method": "GET",
+  "path": "/ben/benefits",
+  "summary": "Retrieve Benefit Enrollments",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getbenefitenrollments200Example",
+      "example": {
+        "items": [
+          {
+            "enrollmentResultId": "500123",
+            "personId": "500123",
+            "planId": "500123",
+            "planName": "example_value",
+            "optionId": "500123",
+            "optionName": "example_value",
+            "coverageLevelCode": "example_value",
+            "effectiveStartDate": "2026-01-15",
+            "effectiveEndDate": "2026-01-15",
+            "enrollmentStartDate": "2026-01-15",
+            "enrollmentEndDate": "2026-01-15",
+            "benefitAmount": 42.5
+          }
+        ],
+        "totalCount": 10,
+        "hasMore": true
+      }
+    }
+  ]
+}

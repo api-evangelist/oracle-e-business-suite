@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/TradingPartner",
+  "title": "TradingPartner",
+  "type": "object",
+  "properties": {
+    "tradingPartnerId": {
+      "type": "integer",
+      "description": "Trading partner identifier",
+      "example": "500123"
+    },
+    "tradingPartnerName": {
+      "type": "string",
+      "description": "Trading partner name",
+      "example": "example_value"
+    },
+    "tradingPartnerType": {
+      "type": "string",
+      "description": "Trading partner type",
+      "enum": [
+        "CUSTOMER",
+        "SUPPLIER"
+      ],
+      "example": "CUSTOMER"
+    },
+    "tradingPartnerSiteId": {
+      "type": "integer",
+      "description": "Trading partner site identifier",
+      "example": "500123"
+    },
+    "tradingPartnerSiteName": {
+      "type": "string",
+      "description": "Site name",
+      "example": "example_value"
+    },
+    "ediLocationCode": {
+      "type": "string",
+      "description": "EDI location code (DUNS, DUNS+4, etc.)",
+      "example": "example_value"
+    },
+    "ediTranslatorCode": {
+      "type": "string",
+      "description": "EDI translator code",
+      "example": "example_value"
+    },
+    "documentStandard": {
+      "type": "string",
+      "description": "Document standard",
+      "enum": [
+        "X12",
+        "EDIFACT"
+      ],
+      "example": "X12"
+    },
+    "enabledTransactions": {
+      "type": "array",
+      "description": "List of enabled EDI transactions for this partner",
+      "items": {
+        "$ref": "#/components/schemas/EnabledTransaction"
+      },
+      "example": []
+    },
+    "creationDate": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-01-15T10:30:00Z"
+    },
+    "lastUpdateDate": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-01-15T10:30:00Z"
+    }
+  }
+}

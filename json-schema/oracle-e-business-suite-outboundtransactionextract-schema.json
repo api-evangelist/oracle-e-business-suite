@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/OutboundTransactionExtract",
+  "title": "OutboundTransactionExtract",
+  "type": "object",
+  "required": [
+    "transactionType",
+    "tradingPartnerId"
+  ],
+  "properties": {
+    "transactionType": {
+      "type": "string",
+      "description": "Outbound transaction type",
+      "enum": [
+        "POO",
+        "POCO",
+        "INO",
+        "CDMO",
+        "PYO",
+        "SPSO",
+        "SSSO",
+        "ADVO",
+        "MVSTO"
+      ],
+      "example": "POO"
+    },
+    "tradingPartnerId": {
+      "type": "integer",
+      "example": "500123"
+    },
+    "tradingPartnerSiteId": {
+      "type": "integer",
+      "example": "500123"
+    },
+    "dateFrom": {
+      "type": "string",
+      "format": "date",
+      "description": "Extract documents from this date",
+      "example": "2026-01-15"
+    },
+    "dateTo": {
+      "type": "string",
+      "format": "date",
+      "description": "Extract documents to this date",
+      "example": "2026-01-15"
+    }
+  }
+}

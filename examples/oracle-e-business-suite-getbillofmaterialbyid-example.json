@@ -1,0 +1,42 @@
+{
+  "operationId": "getBillOfMaterialById",
+  "method": "GET",
+  "path": "/bom/billsOfMaterial/{billSequenceId}",
+  "summary": "Retrieve a Specific Bill of Material",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getbillofmaterialbyid200Example",
+      "example": {
+        "billSequenceId": "500123",
+        "assemblyItemId": "500123",
+        "assemblyItemNumber": "example_value",
+        "organizationId": "500123",
+        "alternateDesignator": "example_value",
+        "assemblyType": 10,
+        "commonBillSequenceId": "500123",
+        "specificAssemblyComment": "example_value",
+        "components": [
+          {
+            "componentSequenceId": "500123",
+            "componentItemId": "500123",
+            "componentItemNumber": "example_value",
+            "itemDescription": "example_value",
+            "operationSeqNum": 10,
+            "componentQuantity": 42.5,
+            "componentYieldFactor": 42.5,
+            "effectivityDate": "2026-01-15",
+            "disableDate": "2026-01-15",
+            "wipSupplyType": 10,
+            "optional": 10,
+            "quantityRelated": 10
+          }
+        ],
+        "creationDate": "2026-01-15T10:30:00Z",
+        "lastUpdateDate": "2026-01-15T10:30:00Z"
+      }
+    }
+  ]
+}

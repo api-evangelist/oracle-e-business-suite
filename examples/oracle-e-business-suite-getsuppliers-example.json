@@ -1,0 +1,39 @@
+{
+  "operationId": "getSuppliers",
+  "method": "GET",
+  "path": "/po/suppliers",
+  "summary": "Retrieve Suppliers",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getsuppliers200Example",
+      "example": {
+        "items": [
+          {
+            "vendorId": "500123",
+            "vendorName": "example_value",
+            "segment1": "example_value",
+            "vendorType": "example_value",
+            "taxPayerId": "500123",
+            "standardIndustryClass": "example_value",
+            "paymentCurrencyCode": "example_value",
+            "paymentMethodCode": "example_value",
+            "termsId": "500123",
+            "enabled": true,
+            "startDateActive": "2026-01-15",
+            "endDateActive": "2026-01-15",
+            "sites": [
+              {}
+            ],
+            "creationDate": "2026-01-15T10:30:00Z",
+            "lastUpdateDate": "2026-01-15T10:30:00Z"
+          }
+        ],
+        "totalCount": 10,
+        "hasMore": true
+      }
+    }
+  ]
+}

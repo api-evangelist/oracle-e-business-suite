@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/OperationResource",
+  "title": "OperationResource",
+  "type": "object",
+  "properties": {
+    "resourceSeqNum": {
+      "type": "integer",
+      "description": "Resource sequence number",
+      "example": 10
+    },
+    "resourceId": {
+      "type": "integer",
+      "description": "Resource identifier",
+      "example": "500123"
+    },
+    "resourceCode": {
+      "type": "string",
+      "description": "Resource code",
+      "example": "example_value"
+    },
+    "usageRateOrAmount": {
+      "type": "number",
+      "format": "double",
+      "description": "Resource usage rate or amount",
+      "example": 42.5
+    },
+    "basisType": {
+      "type": "integer",
+      "description": "Basis type (1=Item, 2=Lot, 3=Resource Units, 4=Resource Value)",
+      "example": 10
+    },
+    "scheduleFlag": {
+      "type": "integer",
+      "description": "Schedule flag",
+      "example": 10
+    },
+    "autochargeType": {
+      "type": "integer",
+      "description": "Auto-charge type",
+      "example": 10
+    }
+  }
+}

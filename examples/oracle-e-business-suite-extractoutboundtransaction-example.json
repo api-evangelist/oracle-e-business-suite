@@ -1,0 +1,31 @@
+{
+  "operationId": "extractOutboundTransaction",
+  "method": "POST",
+  "path": "/ece/transactions/outbound",
+  "summary": "Extract an Outbound Edi Transaction",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "ExtractoutboundtransactionRequestExample",
+      "example": {
+        "transactionType": "POO",
+        "tradingPartnerId": "500123",
+        "tradingPartnerSiteId": "500123",
+        "dateFrom": "2026-01-15",
+        "dateTo": "2026-01-15"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "201",
+      "contentType": "application/json",
+      "name": "Extractoutboundtransaction201Example",
+      "example": {
+        "requestId": "500123",
+        "status": "example_value",
+        "message": "example_value"
+      }
+    }
+  ]
+}

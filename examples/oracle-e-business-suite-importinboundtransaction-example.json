@@ -1,0 +1,31 @@
+{
+  "operationId": "importInboundTransaction",
+  "method": "POST",
+  "path": "/ece/transactions/inbound",
+  "summary": "Import an Inbound Edi Transaction",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "ImportinboundtransactionRequestExample",
+      "example": {
+        "transactionType": "INI",
+        "tradingPartnerId": "500123",
+        "tradingPartnerSiteId": "500123",
+        "documentDate": "2026-01-15",
+        "documentData": "example_value"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "201",
+      "contentType": "application/json",
+      "name": "Importinboundtransaction201Example",
+      "example": {
+        "transactionId": "500123",
+        "status": "example_value",
+        "message": "example_value"
+      }
+    }
+  ]
+}

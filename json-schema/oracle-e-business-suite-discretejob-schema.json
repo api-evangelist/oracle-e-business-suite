@@ -1,0 +1,132 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/DiscreteJob",
+  "title": "DiscreteJob",
+  "type": "object",
+  "properties": {
+    "wipEntityId": {
+      "type": "integer",
+      "description": "WIP entity identifier",
+      "example": "500123"
+    },
+    "wipEntityName": {
+      "type": "string",
+      "description": "Job name/number",
+      "example": "example_value"
+    },
+    "organizationId": {
+      "type": "integer",
+      "description": "Organization identifier",
+      "example": "500123"
+    },
+    "primaryItemId": {
+      "type": "integer",
+      "description": "Primary assembly item identifier",
+      "example": "500123"
+    },
+    "primaryItemNumber": {
+      "type": "string",
+      "description": "Primary assembly item number",
+      "example": "example_value"
+    },
+    "statusType": {
+      "type": "integer",
+      "description": "Job status (1=Unreleased, 3=Released, 4=Complete, 5=Complete-No Charges, 6=On Hold, 7=Cancelled, 12=Closed, 14=Pending Close, 15=Failed Close)",
+      "example": 10
+    },
+    "jobType": {
+      "type": "integer",
+      "description": "Job type (1=Standard, 3=Non-Standard)",
+      "example": 10
+    },
+    "startQuantity": {
+      "type": "number",
+      "format": "double",
+      "description": "Start quantity",
+      "example": 42.5
+    },
+    "quantityCompleted": {
+      "type": "number",
+      "format": "double",
+      "description": "Quantity completed",
+      "example": 42.5
+    },
+    "quantityScrapped": {
+      "type": "number",
+      "format": "double",
+      "description": "Quantity scrapped",
+      "example": 42.5
+    },
+    "netQuantity": {
+      "type": "number",
+      "format": "double",
+      "description": "Net quantity remaining",
+      "example": 42.5
+    },
+    "scheduledStartDate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Scheduled start date",
+      "example": "2026-01-15T10:30:00Z"
+    },
+    "scheduledCompletionDate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Scheduled completion date",
+      "example": "2026-01-15T10:30:00Z"
+    },
+    "dateReleased": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Date released",
+      "example": "2026-01-15T10:30:00Z"
+    },
+    "dateCompleted": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Date completed",
+      "example": "2026-01-15T10:30:00Z"
+    },
+    "dateClosed": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Date closed",
+      "example": "2026-01-15T10:30:00Z"
+    },
+    "classCode": {
+      "type": "string",
+      "description": "Accounting class code",
+      "example": "example_value"
+    },
+    "bomRevision": {
+      "type": "string",
+      "description": "BOM revision",
+      "example": "example_value"
+    },
+    "routingRevision": {
+      "type": "string",
+      "description": "Routing revision",
+      "example": "example_value"
+    },
+    "description": {
+      "type": "string",
+      "description": "Job description",
+      "example": "A sample description."
+    },
+    "firmPlannedFlag": {
+      "type": "integer",
+      "description": "Firm planned flag (1=Firm, 2=Not Firm)",
+      "example": 10
+    },
+    "creationDate": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-01-15T10:30:00Z"
+    },
+    "lastUpdateDate": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-01-15T10:30:00Z"
+    }
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SupplierSite",
+  "title": "SupplierSite",
+  "type": "object",
+  "properties": {
+    "vendorSiteId": {
+      "type": "integer",
+      "description": "Vendor site identifier",
+      "example": "500123"
+    },
+    "vendorSiteCode": {
+      "type": "string",
+      "description": "Vendor site code",
+      "example": "example_value"
+    },
+    "addressLine1": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "addressLine2": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "city": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "state": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "zip": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "country": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "purchasingSiteFlag": {
+      "type": "string",
+      "enum": [
+        "Y",
+        "N"
+      ],
+      "example": "Y"
+    },
+    "paymentSiteFlag": {
+      "type": "string",
+      "enum": [
+        "Y",
+        "N"
+      ],
+      "example": "Y"
+    },
+    "orgId": {
+      "type": "integer",
+      "example": "500123"
+    }
+  }
+}

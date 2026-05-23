@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/InboundTransaction",
+  "title": "InboundTransaction",
+  "type": "object",
+  "properties": {
+    "transactionId": {
+      "type": "integer",
+      "description": "Transaction identifier",
+      "example": "500123"
+    },
+    "transactionType": {
+      "type": "string",
+      "description": "Inbound transaction type code",
+      "enum": [
+        "INI",
+        "CATI",
+        "RRQI",
+        "ASNI",
+        "SBNI"
+      ],
+      "example": "INI"
+    },
+    "transactionDescription": {
+      "type": "string",
+      "description": "Transaction description",
+      "example": "example_value"
+    },
+    "documentStandard": {
+      "type": "string",
+      "description": "Document standard (X12 or EDIFACT)",
+      "example": "example_value"
+    },
+    "documentNumber": {
+      "type": "string",
+      "description": "ASC X12 document number (810, 832, 843, 856, 857)",
+      "example": "example_value"
+    },
+    "tradingPartnerId": {
+      "type": "integer",
+      "description": "Trading partner identifier",
+      "example": "500123"
+    },
+    "tradingPartnerName": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "tradingPartnerSiteId": {
+      "type": "integer",
+      "example": "500123"
+    },
+    "processStatus": {
+      "type": "string",
+      "description": "Processing status",
+      "enum": [
+        "PENDING",
+        "PROCESSED",
+        "ERROR"
+      ],
+      "example": "PENDING"
+    },
+    "documentDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Document date",
+      "example": "2026-01-15"
+    },
+    "documentAmount": {
+      "type": "number",
+      "format": "double",
+      "description": "Document total amount",
+      "example": 42.5
+    },
+    "currencyCode": {
+      "type": "string",
+      "description": "Currency code",
+      "example": "example_value"
+    },
+    "errorMessage": {
+      "type": "string",
+      "description": "Error message if processing failed",
+      "example": "example_value"
+    },
+    "creationDate": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-01-15T10:30:00Z"
+    },
+    "lastUpdateDate": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-01-15T10:30:00Z"
+    }
+  }
+}

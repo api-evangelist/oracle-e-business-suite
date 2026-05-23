@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Requisition",
+  "title": "Requisition",
+  "type": "object",
+  "properties": {
+    "requisitionHeaderId": {
+      "type": "integer",
+      "description": "Requisition header identifier",
+      "example": "500123"
+    },
+    "segment1": {
+      "type": "string",
+      "description": "Requisition number",
+      "example": "example_value"
+    },
+    "typeLookupCode": {
+      "type": "string",
+      "description": "Requisition type",
+      "enum": [
+        "PURCHASE",
+        "INTERNAL"
+      ],
+      "example": "PURCHASE"
+    },
+    "authorizationStatus": {
+      "type": "string",
+      "description": "Authorization status",
+      "example": "example_value"
+    },
+    "preparerId": {
+      "type": "integer",
+      "description": "Preparer identifier",
+      "example": "500123"
+    },
+    "description": {
+      "type": "string",
+      "description": "Requisition description",
+      "example": "A sample description."
+    },
+    "totalAmount": {
+      "type": "number",
+      "format": "double",
+      "example": 42.5
+    },
+    "creationDate": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-01-15T10:30:00Z"
+    },
+    "lines": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/RequisitionLine"
+      },
+      "example": []
+    },
+    "orgId": {
+      "type": "integer",
+      "example": "500123"
+    }
+  }
+}

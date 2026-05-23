@@ -1,0 +1,112 @@
+{
+  "operationId": "createEmployee",
+  "method": "POST",
+  "path": "/hr/employees",
+  "summary": "Create an Employee Record",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "CreateemployeeRequestExample",
+      "example": {
+        "title": "Example Title",
+        "firstName": "example_value",
+        "middleNames": "example_value",
+        "lastName": "example_value",
+        "knownAs": "example_value",
+        "emailAddress": "user@example.com",
+        "sex": "M",
+        "dateOfBirth": "2026-01-15",
+        "nationalIdentifier": "example_value",
+        "nationality": "example_value",
+        "maritalStatus": "example_value",
+        "hireDate": "2026-01-15",
+        "businessGroupId": "500123",
+        "jobId": "500123",
+        "positionId": "500123",
+        "organizationId": "500123",
+        "gradeId": "500123",
+        "locationId": "500123",
+        "payrollId": "500123"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "201",
+      "contentType": "application/json",
+      "name": "Createemployee201Example",
+      "example": {
+        "personId": "500123",
+        "employeeNumber": "example_value",
+        "title": "Example Title",
+        "firstName": "example_value",
+        "middleNames": "example_value",
+        "lastName": "example_value",
+        "fullName": "example_value",
+        "knownAs": "example_value",
+        "emailAddress": "user@example.com",
+        "sex": "M",
+        "dateOfBirth": "2026-01-15",
+        "nationalIdentifier": "example_value",
+        "nationality": "example_value",
+        "maritalStatus": "example_value",
+        "effectiveStartDate": "2026-01-15",
+        "effectiveEndDate": "2026-01-15",
+        "hireDate": "2026-01-15",
+        "currentEmployeeFlag": "Y",
+        "businessGroupId": "500123",
+        "assignment": {
+          "assignmentId": "500123",
+          "assignmentNumber": "example_value",
+          "assignmentType": "E",
+          "primaryFlag": "Y",
+          "jobId": "500123",
+          "jobName": "example_value",
+          "positionId": "500123",
+          "positionName": "example_value",
+          "gradeId": "500123",
+          "gradeName": "example_value",
+          "organizationId": "500123",
+          "organizationName": "example_value",
+          "locationId": "500123",
+          "locationCode": "example_value",
+          "supervisorId": "500123",
+          "payrollId": "500123",
+          "employmentCategory": "FR",
+          "normalHours": 42.5,
+          "frequency": "D",
+          "effectiveStartDate": "2026-01-15",
+          "effectiveEndDate": "2026-01-15"
+        },
+        "addresses": [
+          {
+            "addressId": "500123",
+            "addressType": "example_value",
+            "addressLine1": "example_value",
+            "addressLine2": "example_value",
+            "addressLine3": "example_value",
+            "townOrCity": "example_value",
+            "region1": "example_value",
+            "region2": "example_value",
+            "postalCode": "example_value",
+            "country": "example_value",
+            "primaryFlag": "Y",
+            "dateFrom": "2026-01-15",
+            "dateTo": "2026-01-15"
+          }
+        ],
+        "phones": [
+          {
+            "phoneId": "500123",
+            "phoneType": "W1",
+            "phoneNumber": "example_value",
+            "dateFrom": "2026-01-15",
+            "dateTo": "2026-01-15"
+          }
+        ],
+        "creationDate": "2026-01-15T10:30:00Z",
+        "lastUpdateDate": "2026-01-15T10:30:00Z"
+      }
+    }
+  ]
+}

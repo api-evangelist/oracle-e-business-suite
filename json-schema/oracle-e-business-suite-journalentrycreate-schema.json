@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/JournalEntryCreate",
+  "title": "JournalEntryCreate",
+  "type": "object",
+  "required": [
+    "ledgerId",
+    "periodName",
+    "journalName",
+    "journalCategory",
+    "journalSource",
+    "currencyCode",
+    "lines"
+  ],
+  "properties": {
+    "ledgerId": {
+      "type": "integer",
+      "example": "500123"
+    },
+    "periodName": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "journalName": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "journalCategory": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "journalSource": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "currencyCode": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "description": {
+      "type": "string",
+      "example": "A sample description."
+    },
+    "effectiveDate": {
+      "type": "string",
+      "format": "date",
+      "example": "2026-01-15"
+    },
+    "lines": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "codeCombinatonId"
+        ],
+        "properties": {
+          "codeCombinatonId": {
+            "type": "integer"
+          },
+          "accountedDr": {
+            "type": "number",
+            "format": "double"
+          },
+          "accountedCr": {
+            "type": "number",
+            "format": "double"
+          },
+          "enteredDr": {
+            "type": "number",
+            "format": "double"
+          },
+          "enteredCr": {
+            "type": "number",
+            "format": "double"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      },
+      "example": []
+    }
+  }
+}

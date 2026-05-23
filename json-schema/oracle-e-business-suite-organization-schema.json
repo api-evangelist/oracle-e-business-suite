@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Organization",
+  "title": "Organization",
+  "type": "object",
+  "properties": {
+    "organizationId": {
+      "type": "integer",
+      "description": "Organization identifier",
+      "example": "500123"
+    },
+    "name": {
+      "type": "string",
+      "description": "Organization name",
+      "example": "Example Title"
+    },
+    "businessGroupId": {
+      "type": "integer",
+      "description": "Business group identifier",
+      "example": "500123"
+    },
+    "dateFrom": {
+      "type": "string",
+      "format": "date",
+      "description": "Organization start date",
+      "example": "2026-01-15"
+    },
+    "dateTo": {
+      "type": "string",
+      "format": "date",
+      "description": "Organization end date",
+      "example": "2026-01-15"
+    },
+    "locationId": {
+      "type": "integer",
+      "description": "Location identifier",
+      "example": "500123"
+    },
+    "type": {
+      "type": "string",
+      "description": "Organization type",
+      "example": "example_value"
+    },
+    "internalExternalFlag": {
+      "type": "string",
+      "enum": [
+        "INT",
+        "EXT"
+      ],
+      "example": "INT"
+    }
+  }
+}

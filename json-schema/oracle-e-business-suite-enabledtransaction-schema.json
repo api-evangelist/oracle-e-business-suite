@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/EnabledTransaction",
+  "title": "EnabledTransaction",
+  "type": "object",
+  "properties": {
+    "transactionType": {
+      "type": "string",
+      "description": "Transaction type code",
+      "example": "example_value"
+    },
+    "transactionDescription": {
+      "type": "string",
+      "description": "Transaction description",
+      "example": "example_value"
+    },
+    "direction": {
+      "type": "string",
+      "description": "Transaction direction",
+      "enum": [
+        "INBOUND",
+        "OUTBOUND"
+      ],
+      "example": "INBOUND"
+    },
+    "documentId": {
+      "type": "string",
+      "description": "ASC X12 or EDIFACT document identifier",
+      "example": "500123"
+    },
+    "enabled": {
+      "type": "boolean",
+      "description": "Whether transaction is enabled",
+      "example": true
+    }
+  }
+}

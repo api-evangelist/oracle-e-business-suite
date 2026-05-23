@@ -1,0 +1,30 @@
+{
+  "operationId": "getPayrolls",
+  "method": "GET",
+  "path": "/pay/payrolls",
+  "summary": "Retrieve Payroll Definitions",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getpayrolls200Example",
+      "example": {
+        "items": [
+          {
+            "payrollId": "500123",
+            "payrollName": "example_value",
+            "periodType": "Calendar Month",
+            "numberOfYears": 10,
+            "firstPeriodEndDate": "2026-01-15",
+            "effectiveStartDate": "2026-01-15",
+            "effectiveEndDate": "2026-01-15",
+            "businessGroupId": "500123"
+          }
+        ],
+        "totalCount": 10,
+        "hasMore": true
+      }
+    }
+  ]
+}

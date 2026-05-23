@@ -1,0 +1,110 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/InventoryItem",
+  "title": "InventoryItem",
+  "type": "object",
+  "properties": {
+    "inventoryItemId": {
+      "type": "integer",
+      "description": "Inventory item identifier",
+      "example": "500123"
+    },
+    "segment1": {
+      "type": "string",
+      "description": "Item number",
+      "example": "example_value"
+    },
+    "description": {
+      "type": "string",
+      "description": "Item description",
+      "example": "A sample description."
+    },
+    "longDescription": {
+      "type": "string",
+      "description": "Extended item description",
+      "example": "example_value"
+    },
+    "primaryUomCode": {
+      "type": "string",
+      "description": "Primary unit of measure",
+      "example": "example_value"
+    },
+    "itemType": {
+      "type": "string",
+      "description": "Item type",
+      "example": "example_value"
+    },
+    "inventoryItemStatusCode": {
+      "type": "string",
+      "description": "Item status code",
+      "example": "example_value"
+    },
+    "organizationId": {
+      "type": "integer",
+      "description": "Inventory organization identifier",
+      "example": "500123"
+    },
+    "weightUomCode": {
+      "type": "string",
+      "description": "Weight unit of measure",
+      "example": "example_value"
+    },
+    "unitWeight": {
+      "type": "number",
+      "format": "double",
+      "description": "Unit weight",
+      "example": 42.5
+    },
+    "volumeUomCode": {
+      "type": "string",
+      "description": "Volume unit of measure",
+      "example": "example_value"
+    },
+    "unitVolume": {
+      "type": "number",
+      "format": "double",
+      "description": "Unit volume",
+      "example": 42.5
+    },
+    "listPrice": {
+      "type": "number",
+      "format": "double",
+      "description": "Item list price",
+      "example": 42.5
+    },
+    "purchasingEnabledFlag": {
+      "type": "string",
+      "enum": [
+        "Y",
+        "N"
+      ],
+      "example": "Y"
+    },
+    "customerOrderEnabledFlag": {
+      "type": "string",
+      "enum": [
+        "Y",
+        "N"
+      ],
+      "example": "Y"
+    },
+    "internalOrderEnabledFlag": {
+      "type": "string",
+      "enum": [
+        "Y",
+        "N"
+      ],
+      "example": "Y"
+    },
+    "creationDate": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-01-15T10:30:00Z"
+    },
+    "lastUpdateDate": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-01-15T10:30:00Z"
+    }
+  }
+}

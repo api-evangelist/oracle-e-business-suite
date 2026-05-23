@@ -1,0 +1,33 @@
+{
+  "operationId": "completeAssembly",
+  "method": "POST",
+  "path": "/wip/completions",
+  "summary": "Complete Wip Assembly",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "CompleteassemblyRequestExample",
+      "example": {
+        "wipEntityId": "500123",
+        "organizationId": "500123",
+        "transactionQuantity": 42.5,
+        "transactionUom": "example_value",
+        "subinventoryCode": "example_value",
+        "locatorId": "500123",
+        "transactionDate": "2026-01-15T10:30:00Z"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "201",
+      "contentType": "application/json",
+      "name": "Completeassembly201Example",
+      "example": {
+        "transactionId": "500123",
+        "status": "example_value",
+        "message": "example_value"
+      }
+    }
+  ]
+}

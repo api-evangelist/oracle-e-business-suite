@@ -1,0 +1,143 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/PurchaseOrder",
+  "title": "PurchaseOrder",
+  "type": "object",
+  "properties": {
+    "poHeaderId": {
+      "type": "integer",
+      "description": "Purchase order header identifier",
+      "example": "500123"
+    },
+    "segment1": {
+      "type": "string",
+      "description": "Purchase order number",
+      "example": "example_value"
+    },
+    "typeLookupCode": {
+      "type": "string",
+      "description": "Purchase order type",
+      "enum": [
+        "STANDARD",
+        "BLANKET",
+        "CONTRACT",
+        "PLANNED"
+      ],
+      "example": "STANDARD"
+    },
+    "vendorId": {
+      "type": "integer",
+      "description": "Supplier/vendor identifier",
+      "example": "500123"
+    },
+    "vendorName": {
+      "type": "string",
+      "description": "Supplier/vendor name",
+      "example": "example_value"
+    },
+    "vendorSiteId": {
+      "type": "integer",
+      "description": "Vendor site identifier",
+      "example": "500123"
+    },
+    "currencyCode": {
+      "type": "string",
+      "description": "Currency code (ISO 4217)",
+      "example": "example_value"
+    },
+    "authorizationStatus": {
+      "type": "string",
+      "description": "Authorization status",
+      "enum": [
+        "APPROVED",
+        "IN PROCESS",
+        "INCOMPLETE",
+        "PRE-APPROVED",
+        "REJECTED",
+        "REQUIRES REAPPROVAL"
+      ],
+      "example": "APPROVED"
+    },
+    "approvedFlag": {
+      "type": "string",
+      "description": "Approved flag",
+      "enum": [
+        "Y",
+        "N"
+      ],
+      "example": "Y"
+    },
+    "closedCode": {
+      "type": "string",
+      "description": "Close status",
+      "enum": [
+        "OPEN",
+        "CLOSED",
+        "FINALLY CLOSED",
+        "CLOSED FOR RECEIVING",
+        "CLOSED FOR INVOICE"
+      ],
+      "example": "OPEN"
+    },
+    "totalAmount": {
+      "type": "number",
+      "format": "double",
+      "description": "Total purchase order amount",
+      "example": 42.5
+    },
+    "creationDate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Creation date",
+      "example": "2026-01-15T10:30:00Z"
+    },
+    "approvedDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Approval date",
+      "example": "2026-01-15"
+    },
+    "buyerId": {
+      "type": "integer",
+      "description": "Buyer employee identifier",
+      "example": "500123"
+    },
+    "shipToLocationId": {
+      "type": "integer",
+      "description": "Ship-to location identifier",
+      "example": "500123"
+    },
+    "billToLocationId": {
+      "type": "integer",
+      "description": "Bill-to location identifier",
+      "example": "500123"
+    },
+    "termsId": {
+      "type": "integer",
+      "description": "Payment terms identifier",
+      "example": "500123"
+    },
+    "description": {
+      "type": "string",
+      "description": "Purchase order description",
+      "example": "A sample description."
+    },
+    "lines": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/PurchaseOrderLine"
+      },
+      "example": []
+    },
+    "orgId": {
+      "type": "integer",
+      "description": "Operating unit identifier",
+      "example": "500123"
+    },
+    "lastUpdateDate": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-01-15T10:30:00Z"
+    }
+  }
+}

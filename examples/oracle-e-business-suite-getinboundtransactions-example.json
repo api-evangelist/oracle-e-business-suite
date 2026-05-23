@@ -1,0 +1,37 @@
+{
+  "operationId": "getInboundTransactions",
+  "method": "GET",
+  "path": "/ece/transactions/inbound",
+  "summary": "Retrieve Inbound Edi Transactions",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getinboundtransactions200Example",
+      "example": {
+        "items": [
+          {
+            "transactionId": "500123",
+            "transactionType": "INI",
+            "transactionDescription": "example_value",
+            "documentStandard": "example_value",
+            "documentNumber": "example_value",
+            "tradingPartnerId": "500123",
+            "tradingPartnerName": "example_value",
+            "tradingPartnerSiteId": "500123",
+            "processStatus": "PENDING",
+            "documentDate": "2026-01-15",
+            "documentAmount": 42.5,
+            "currencyCode": "example_value",
+            "errorMessage": "example_value",
+            "creationDate": "2026-01-15T10:30:00Z",
+            "lastUpdateDate": "2026-01-15T10:30:00Z"
+          }
+        ],
+        "totalCount": 10,
+        "hasMore": true
+      }
+    }
+  ]
+}

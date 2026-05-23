@@ -1,0 +1,36 @@
+{
+  "operationId": "issueMaterial",
+  "method": "POST",
+  "path": "/wip/materialTransactions",
+  "summary": "Issue Material to Wip",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "IssuematerialRequestExample",
+      "example": {
+        "wipEntityId": "500123",
+        "organizationId": "500123",
+        "operationSeqNum": 10,
+        "inventoryItemId": "500123",
+        "transactionQuantity": 42.5,
+        "transactionUom": "example_value",
+        "transactionType": "WIP_ISSUE",
+        "subinventoryCode": "example_value",
+        "locatorId": "500123",
+        "transactionDate": "2026-01-15T10:30:00Z"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "201",
+      "contentType": "application/json",
+      "name": "Issuematerial201Example",
+      "example": {
+        "transactionId": "500123",
+        "status": "example_value",
+        "message": "example_value"
+      }
+    }
+  ]
+}

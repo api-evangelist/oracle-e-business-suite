@@ -1,0 +1,42 @@
+{
+  "operationId": "getSalesOrders",
+  "method": "GET",
+  "path": "/oe/salesOrders",
+  "summary": "Retrieve Sales Orders",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getsalesorders200Example",
+      "example": {
+        "items": [
+          {
+            "headerId": "500123",
+            "orderNumber": 10,
+            "orderedDate": "2026-01-15",
+            "orderTypeId": "500123",
+            "orderTypeName": "example_value",
+            "soldToOrgId": "500123",
+            "customerName": "example_value",
+            "shipToOrgId": "500123",
+            "invoiceToOrgId": "500123",
+            "transactionalCurrCode": "example_value",
+            "flowStatusCode": "ENTERED",
+            "bookedFlag": "Y",
+            "totalAmount": 42.5,
+            "salesrepId": "500123",
+            "lines": [
+              {}
+            ],
+            "orgId": "500123",
+            "creationDate": "2026-01-15T10:30:00Z",
+            "lastUpdateDate": "2026-01-15T10:30:00Z"
+          }
+        ],
+        "totalCount": 10,
+        "hasMore": true
+      }
+    }
+  ]
+}

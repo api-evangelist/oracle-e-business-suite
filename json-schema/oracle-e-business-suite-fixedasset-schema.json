@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/FixedAsset",
+  "title": "FixedAsset",
+  "type": "object",
+  "properties": {
+    "assetId": {
+      "type": "integer",
+      "description": "Asset identifier",
+      "example": "500123"
+    },
+    "assetNumber": {
+      "type": "string",
+      "description": "Asset number",
+      "example": "example_value"
+    },
+    "assetDescription": {
+      "type": "string",
+      "description": "Asset description",
+      "example": "example_value"
+    },
+    "assetCategoryId": {
+      "type": "integer",
+      "description": "Asset category identifier",
+      "example": "500123"
+    },
+    "assetType": {
+      "type": "string",
+      "description": "Asset type",
+      "enum": [
+        "CAPITALIZED",
+        "CIP",
+        "EXPENSED"
+      ],
+      "example": "CAPITALIZED"
+    },
+    "serialNumber": {
+      "type": "string",
+      "description": "Serial number",
+      "example": "example_value"
+    },
+    "tagNumber": {
+      "type": "string",
+      "description": "Tag number",
+      "example": "example_value"
+    },
+    "dateEffective": {
+      "type": "string",
+      "format": "date",
+      "example": "2026-01-15"
+    },
+    "dateInService": {
+      "type": "string",
+      "format": "date",
+      "description": "Date placed in service",
+      "example": "2026-01-15"
+    },
+    "cost": {
+      "type": "number",
+      "format": "double",
+      "description": "Asset cost",
+      "example": 42.5
+    },
+    "salvageValue": {
+      "type": "number",
+      "format": "double",
+      "description": "Salvage value",
+      "example": 42.5
+    },
+    "depreciationMethod": {
+      "type": "string",
+      "description": "Depreciation method",
+      "example": "example_value"
+    },
+    "lifeInMonths": {
+      "type": "integer",
+      "description": "Useful life in months",
+      "example": 10
+    },
+    "bookTypeCode": {
+      "type": "string",
+      "description": "Book type code (corporate or tax)",
+      "example": "example_value"
+    }
+  }
+}

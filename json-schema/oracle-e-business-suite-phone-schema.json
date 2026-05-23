@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Phone",
+  "title": "Phone",
+  "type": "object",
+  "properties": {
+    "phoneId": {
+      "type": "integer",
+      "example": "500123"
+    },
+    "phoneType": {
+      "type": "string",
+      "description": "Phone type",
+      "enum": [
+        "W1",
+        "H1",
+        "M",
+        "WF",
+        "HF"
+      ],
+      "example": "W1"
+    },
+    "phoneNumber": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "dateFrom": {
+      "type": "string",
+      "format": "date",
+      "example": "2026-01-15"
+    },
+    "dateTo": {
+      "type": "string",
+      "format": "date",
+      "example": "2026-01-15"
+    }
+  }
+}

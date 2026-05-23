@@ -1,0 +1,33 @@
+{
+  "operationId": "getPayments",
+  "method": "GET",
+  "path": "/ap/payments",
+  "summary": "Retrieve Ap Payments",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getpayments200Example",
+      "example": {
+        "items": [
+          {
+            "checkId": "500123",
+            "checkNumber": 10,
+            "amount": 42.5,
+            "currencyCode": "example_value",
+            "checkDate": "2026-01-15",
+            "vendorId": "500123",
+            "vendorName": "example_value",
+            "bankAccountId": "500123",
+            "paymentMethodCode": "example_value",
+            "status": "example_value",
+            "orgId": "500123"
+          }
+        ],
+        "totalCount": 10,
+        "hasMore": true
+      }
+    }
+  ]
+}

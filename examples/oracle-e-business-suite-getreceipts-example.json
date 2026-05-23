@@ -1,0 +1,32 @@
+{
+  "operationId": "getReceipts",
+  "method": "GET",
+  "path": "/ar/receipts",
+  "summary": "Retrieve Ar Receipts",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getreceipts200Example",
+      "example": {
+        "items": [
+          {
+            "cashReceiptId": "500123",
+            "receiptNumber": "example_value",
+            "amount": 42.5,
+            "currencyCode": "example_value",
+            "receiptDate": "2026-01-15",
+            "customerId": "500123",
+            "customerName": "example_value",
+            "receiptMethodId": "500123",
+            "status": "example_value",
+            "orgId": "500123"
+          }
+        ],
+        "totalCount": 10,
+        "hasMore": true
+      }
+    }
+  ]
+}

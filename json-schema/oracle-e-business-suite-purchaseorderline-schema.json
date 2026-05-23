@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/PurchaseOrderLine",
+  "title": "PurchaseOrderLine",
+  "type": "object",
+  "properties": {
+    "poLineId": {
+      "type": "integer",
+      "description": "Purchase order line identifier",
+      "example": "500123"
+    },
+    "lineNum": {
+      "type": "integer",
+      "description": "Line number",
+      "example": 10
+    },
+    "lineType": {
+      "type": "string",
+      "description": "Line type",
+      "example": "example_value"
+    },
+    "itemId": {
+      "type": "integer",
+      "description": "Inventory item identifier",
+      "example": "500123"
+    },
+    "itemDescription": {
+      "type": "string",
+      "description": "Item description",
+      "example": "example_value"
+    },
+    "categoryId": {
+      "type": "integer",
+      "description": "Item category identifier",
+      "example": "500123"
+    },
+    "quantity": {
+      "type": "number",
+      "format": "double",
+      "description": "Ordered quantity",
+      "example": 42.5
+    },
+    "unitMeasLookupCode": {
+      "type": "string",
+      "description": "Unit of measure",
+      "example": "example_value"
+    },
+    "unitPrice": {
+      "type": "number",
+      "format": "double",
+      "description": "Unit price",
+      "example": 42.5
+    },
+    "amount": {
+      "type": "number",
+      "format": "double",
+      "description": "Line amount",
+      "example": 42.5
+    },
+    "needByDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Need-by date",
+      "example": "2026-01-15"
+    },
+    "promisedDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Promised date",
+      "example": "2026-01-15"
+    },
+    "closedCode": {
+      "type": "string",
+      "description": "Line close status",
+      "example": "example_value"
+    },
+    "shipments": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/PurchaseOrderShipment"
+      },
+      "example": []
+    }
+  }
+}

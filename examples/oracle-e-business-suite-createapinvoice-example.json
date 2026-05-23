@@ -1,0 +1,79 @@
+{
+  "operationId": "createApInvoice",
+  "method": "POST",
+  "path": "/ap/invoices",
+  "summary": "Create an Ap Invoice",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "CreateapinvoiceRequestExample",
+      "example": {
+        "invoiceNum": "example_value",
+        "vendorId": "500123",
+        "vendorSiteId": "500123",
+        "invoiceAmount": 42.5,
+        "invoiceCurrencyCode": "example_value",
+        "invoiceDate": "2026-01-15",
+        "invoiceType": "STANDARD",
+        "description": "A sample description.",
+        "termsId": "500123",
+        "source": "example_value",
+        "lines": [
+          {
+            "lineNumber": 10,
+            "lineType": "example_value",
+            "amount": 42.5,
+            "description": "A sample description.",
+            "distCodeCombinationId": "500123"
+          }
+        ]
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "201",
+      "contentType": "application/json",
+      "name": "Createapinvoice201Example",
+      "example": {
+        "invoiceId": "500123",
+        "invoiceNum": "example_value",
+        "invoiceDate": "2026-01-15",
+        "vendorId": "500123",
+        "vendorName": "example_value",
+        "vendorSiteId": "500123",
+        "invoiceAmount": 42.5,
+        "invoiceCurrencyCode": "example_value",
+        "paymentCurrencyCode": "example_value",
+        "exchangeRate": 42.5,
+        "exchangeRateType": "example_value",
+        "exchangeDate": "2026-01-15",
+        "termsId": "500123",
+        "description": "A sample description.",
+        "invoiceType": "STANDARD",
+        "source": "example_value",
+        "paymentStatusFlag": "Y",
+        "approvalStatus": "APPROVED",
+        "amountPaid": "500123",
+        "lines": [
+          {
+            "lineNumber": 10,
+            "lineType": "ITEM",
+            "amount": 42.5,
+            "description": "A sample description.",
+            "accountingDate": "2026-01-15",
+            "distCodeCombinationId": "500123",
+            "itemDescription": "example_value",
+            "quantity": 42.5,
+            "unitPrice": 42.5
+          }
+        ],
+        "orgId": "500123",
+        "createdBy": 10,
+        "creationDate": "2026-01-15T10:30:00Z",
+        "lastUpdatedBy": 10,
+        "lastUpdateDate": "2026-01-15T10:30:00Z"
+      }
+    }
+  ]
+}

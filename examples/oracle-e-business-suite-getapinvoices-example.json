@@ -1,0 +1,49 @@
+{
+  "operationId": "getApInvoices",
+  "method": "GET",
+  "path": "/ap/invoices",
+  "summary": "Retrieve Ap Invoices",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getapinvoices200Example",
+      "example": {
+        "items": [
+          {
+            "invoiceId": "500123",
+            "invoiceNum": "example_value",
+            "invoiceDate": "2026-01-15",
+            "vendorId": "500123",
+            "vendorName": "example_value",
+            "vendorSiteId": "500123",
+            "invoiceAmount": 42.5,
+            "invoiceCurrencyCode": "example_value",
+            "paymentCurrencyCode": "example_value",
+            "exchangeRate": 42.5,
+            "exchangeRateType": "example_value",
+            "exchangeDate": "2026-01-15",
+            "termsId": "500123",
+            "description": "A sample description.",
+            "invoiceType": "STANDARD",
+            "source": "example_value",
+            "paymentStatusFlag": "Y",
+            "approvalStatus": "APPROVED",
+            "amountPaid": "500123",
+            "lines": [
+              {}
+            ],
+            "orgId": "500123",
+            "createdBy": 10,
+            "creationDate": "2026-01-15T10:30:00Z",
+            "lastUpdatedBy": 10,
+            "lastUpdateDate": "2026-01-15T10:30:00Z"
+          }
+        ],
+        "totalCount": 10,
+        "hasMore": true
+      }
+    }
+  ]
+}
