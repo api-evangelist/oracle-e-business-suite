@@ -2,20 +2,17 @@
   "repo": "oracle-e-business-suite",
   "feeds": [
     {
-      "source": "https://blogs.oracle.com/ebstech/",
-      "feed_url": "",
+      "source": "https://support.oracle.com",
+      "feed_url": "https://support.oracle.com",
       "title": "",
       "saved": 0,
-      "error": "no_feed"
+      "method": "none"
     },
     {
-      "source": "https://blogs.oracle.com/ebs/",
-      "feed_url": "",
-      "title": "",
-      "saved": 0,
-      "error": "no_feed"
+      "source": "https://blogs.oracle.com/ebstech/",
+      "error": "HTTPError"
     }
   ],
-  "fetched": "2026-05-17T20:48:52Z",
+  "fetched": "2026-06-01T23:35:02Z",
   "post_count": 0
 }
