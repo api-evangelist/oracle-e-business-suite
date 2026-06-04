@@ -1,0 +1,128 @@
+arazzo: 1.0.1
+info:
+  title: Oracle EBS Employee Onboarding
+  summary: Resolve organization and position, create an employee, then read the record back.
+  description: >-
+    An Oracle HRMS hire flow. The workflow looks up the target organization and
+    position, creates a new employee assigned to them, and reads the employee
+    back by person identifier to confirm the assignment was created. Each step
+    inlines its request so the onboarding chain can be executed without opening
+    the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: humanResourcesApi
+  url: ../openapi/human-resources-api.yml
+  type: openapi
+workflows:
+- workflowId: onboard-employee
+  summary: Resolve org and position, hire an employee, and confirm the record.
+  description: >-
+    Resolves an HR organization by name and a position by name, creates an
+    employee assigned to them, and reads the employee back to confirm the hire
+    and its assignment.
+  inputs:
+    type: object
+    required:
+    - businessGroupId
+    - organizationName
+    - positionName
+    - firstName
+    - lastName
+    - hireDate
+    properties:
+      businessGroupId:
+        type: integer
+        description: Business group identifier.
+      organizationName:
+        type: string
+        description: HR organization name to assign the employee to.
+      positionName:
+        type: string
+        description: Position name to assign the employee to.
+      firstName:
+        type: string
+        description: Employee first name.
+      lastName:
+        type: string
+        description: Employee last name.
+      hireDate:
+        type: string
+        description: Hire date in YYYY-MM-DD format.
+  steps:
+  - stepId: findOrganization
+    description: >-
+      Look up the HR organization by name within the business group, returning
+      the first match.
+    operationId: getOrganizations
+    parameters:
+    - name: name
+      in: query
+      value: $inputs.organizationName
+    - name: businessGroupId
+      in: query
+      value: $inputs.businessGroupId
+    - name: limit
+      in: query
+      value: 1
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      organizationId: $response.body#/items/0/organizationId
+  - stepId: findPosition
+    description: >-
+      Look up the position by name within the resolved organization, returning
+      the first match.
+    operationId: getPositions
+    parameters:
+    - name: name
+      in: query
+      value: $inputs.positionName
+    - name: organizationId
+      in: query
+      value: $steps.findOrganization.outputs.organizationId
+    - name: limit
+      in: query
+      value: 1
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      positionId: $response.body#/items/0/positionId
+      jobId: $response.body#/items/0/jobId
+  - stepId: createEmployee
+    description: >-
+      Create the employee record assigned to the resolved organization,
+      position, and job.
+    operationId: createEmployee
+    requestBody:
+      contentType: application/json
+      payload:
+        firstName: $inputs.firstName
+        lastName: $inputs.lastName
+        hireDate: $inputs.hireDate
+        businessGroupId: $inputs.businessGroupId
+        organizationId: $steps.findOrganization.outputs.organizationId
+        positionId: $steps.findPosition.outputs.positionId
+        jobId: $steps.findPosition.outputs.jobId
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      personId: $response.body#/personId
+      employeeNumber: $response.body#/employeeNumber
+  - stepId: confirmEmployee
+    description: >-
+      Read the employee back by person identifier to confirm the hire and
+      capture the created assignment.
+    operationId: getEmployeeById
+    parameters:
+    - name: personId
+      in: path
+      value: $steps.createEmployee.outputs.personId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      assignmentId: $response.body#/assignment/assignmentId
+      currentEmployeeFlag: $response.body#/currentEmployeeFlag
+  outputs:
+    personId: $steps.createEmployee.outputs.personId
+    employeeNumber: $steps.createEmployee.outputs.employeeNumber
+    assignmentId: $steps.confirmEmployee.outputs.assignmentId

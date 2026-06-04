@@ -1,0 +1,138 @@
+arazzo: 1.0.1
+info:
+  title: Oracle EBS Procure-to-Pay
+  summary: Resolve a supplier, raise a purchase order, confirm it, then record the matching AP invoice.
+  description: >-
+    A core Oracle E-Business Suite buy-side flow. The workflow first locates an
+    approved supplier by name, creates a standard purchase order against that
+    vendor, reads the created order back to capture its header identifier, and
+    finally books an Accounts Payable invoice referencing the same vendor and
+    amount. Each step inlines its request so the procure-to-pay chain can be
+    read and executed without opening the underlying OpenAPI descriptions.
+  version: 1.0.0
+sourceDescriptions:
+- name: supplyChainApi
+  url: ../openapi/supply-chain-api.yml
+  type: openapi
+- name: financialServicesApi
+  url: ../openapi/financial-services-api.yml
+  type: openapi
+workflows:
+- workflowId: procure-to-pay
+  summary: Find a supplier, create a purchase order, and book the AP invoice.
+  description: >-
+    Resolves a supplier by name, raises a standard purchase order for a single
+    line item, fetches the order to confirm it, and creates an Accounts Payable
+    invoice for the same vendor and amount.
+  inputs:
+    type: object
+    required:
+    - vendorName
+    - itemId
+    - quantity
+    - unitPrice
+    - currencyCode
+    - invoiceNum
+    - invoiceDate
+    properties:
+      vendorName:
+        type: string
+        description: Supplier name to search for (supports wildcards).
+      itemId:
+        type: integer
+        description: Inventory item identifier to purchase.
+      quantity:
+        type: number
+        description: Quantity to order.
+      unitPrice:
+        type: number
+        description: Unit price for the purchase order line.
+      currencyCode:
+        type: string
+        description: Currency code for the order and invoice.
+      invoiceNum:
+        type: string
+        description: Supplier invoice number to record in Accounts Payable.
+      invoiceDate:
+        type: string
+        description: Invoice date in YYYY-MM-DD format.
+  steps:
+  - stepId: findSupplier
+    description: >-
+      Search the supplier master for a vendor matching the supplied name,
+      returning the first match.
+    operationId: getSuppliers
+    parameters:
+    - name: vendorName
+      in: query
+      value: $inputs.vendorName
+    - name: limit
+      in: query
+      value: 1
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      vendorId: $response.body#/items/0/vendorId
+      vendorSiteId: $response.body#/items/0/sites/0/vendorSiteId
+      termsId: $response.body#/items/0/termsId
+  - stepId: createPurchaseOrder
+    description: >-
+      Create a standard purchase order for the resolved supplier with a single
+      line for the requested item, quantity, and price.
+    operationId: createPurchaseOrder
+    requestBody:
+      contentType: application/json
+      payload:
+        vendorId: $steps.findSupplier.outputs.vendorId
+        vendorSiteId: $steps.findSupplier.outputs.vendorSiteId
+        currencyCode: $inputs.currencyCode
+        typeLookupCode: STANDARD
+        termsId: $steps.findSupplier.outputs.termsId
+        lines:
+        - lineNum: 10
+          itemId: $inputs.itemId
+          quantity: $inputs.quantity
+          unitPrice: $inputs.unitPrice
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      poHeaderId: $response.body#/poHeaderId
+      totalAmount: $response.body#/totalAmount
+  - stepId: confirmPurchaseOrder
+    description: >-
+      Read the created purchase order back by its header identifier to confirm
+      it persisted and capture its authorization status.
+    operationId: getPurchaseOrderById
+    parameters:
+    - name: poHeaderId
+      in: path
+      value: $steps.createPurchaseOrder.outputs.poHeaderId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      authorizationStatus: $response.body#/authorizationStatus
+  - stepId: createInvoice
+    description: >-
+      Book an Accounts Payable invoice for the same vendor and order total so
+      the purchase can be paid.
+    operationId: createApInvoice
+    requestBody:
+      contentType: application/json
+      payload:
+        invoiceNum: $inputs.invoiceNum
+        vendorId: $steps.findSupplier.outputs.vendorId
+        vendorSiteId: $steps.findSupplier.outputs.vendorSiteId
+        invoiceAmount: $steps.createPurchaseOrder.outputs.totalAmount
+        invoiceCurrencyCode: $inputs.currencyCode
+        invoiceDate: $inputs.invoiceDate
+        invoiceType: STANDARD
+        termsId: $steps.findSupplier.outputs.termsId
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      invoiceId: $response.body#/invoiceId
+  outputs:
+    vendorId: $steps.findSupplier.outputs.vendorId
+    poHeaderId: $steps.createPurchaseOrder.outputs.poHeaderId
+    authorizationStatus: $steps.confirmPurchaseOrder.outputs.authorizationStatus
+    invoiceId: $steps.createInvoice.outputs.invoiceId

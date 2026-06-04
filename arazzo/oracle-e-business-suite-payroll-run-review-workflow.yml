@@ -1,0 +1,100 @@
+arazzo: 1.0.1
+info:
+  title: Oracle EBS Payroll Run Review
+  summary: Resolve a payroll definition, read its run results, and confirm an employee's benefit enrollment.
+  description: >-
+    An Oracle Payroll review flow. The workflow resolves a payroll definition by
+    name, reads its run/action results, and reads an employee's benefit
+    enrollments so payroll and benefits can be reconciled for a pay period. Each
+    step inlines its request so the review chain can be executed without opening
+    the OpenAPI source.
+  version: 1.0.0
+sourceDescriptions:
+- name: humanResourcesApi
+  url: ../openapi/human-resources-api.yml
+  type: openapi
+workflows:
+- workflowId: review-payroll-run
+  summary: Resolve a payroll, read its runs, and check employee benefit enrollment.
+  description: >-
+    Resolves a payroll definition by name within a business group, reads its
+    payroll run results, and reads an employee's benefit enrollments as of an
+    effective date.
+  inputs:
+    type: object
+    required:
+    - payrollName
+    - businessGroupId
+    - personId
+    - effectiveDate
+    properties:
+      payrollName:
+        type: string
+        description: Payroll definition name to resolve.
+      businessGroupId:
+        type: integer
+        description: Business group identifier.
+      personId:
+        type: integer
+        description: Employee person identifier to check benefits for.
+      effectiveDate:
+        type: string
+        description: Effective date in YYYY-MM-DD format.
+  steps:
+  - stepId: resolvePayroll
+    description: >-
+      Resolve the payroll definition by name within the business group,
+      returning the first match.
+    operationId: getPayrolls
+    parameters:
+    - name: payrollName
+      in: query
+      value: $inputs.payrollName
+    - name: businessGroupId
+      in: query
+      value: $inputs.businessGroupId
+    - name: limit
+      in: query
+      value: 1
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      payrollId: $response.body#/items/0/payrollId
+  - stepId: readPayrollRuns
+    description: >-
+      Read payroll run/action results for the resolved payroll as of the
+      effective date.
+    operationId: getPayrollRuns
+    parameters:
+    - name: payrollId
+      in: query
+      value: $steps.resolvePayroll.outputs.payrollId
+    - name: effectiveDate
+      in: query
+      value: $inputs.effectiveDate
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      payrollActionId: $response.body#/items/0/payrollActionId
+      actionStatus: $response.body#/items/0/actionStatus
+  - stepId: readBenefits
+    description: >-
+      Read the employee's benefit enrollments as of the effective date to
+      reconcile deductions against the payroll run.
+    operationId: getBenefitEnrollments
+    parameters:
+    - name: personId
+      in: query
+      value: $inputs.personId
+    - name: effectiveDate
+      in: query
+      value: $inputs.effectiveDate
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      enrollmentResultId: $response.body#/items/0/enrollmentResultId
+      planName: $response.body#/items/0/planName
+  outputs:
+    payrollId: $steps.resolvePayroll.outputs.payrollId
+    payrollActionId: $steps.readPayrollRuns.outputs.payrollActionId
+    enrollmentResultId: $steps.readBenefits.outputs.enrollmentResultId

@@ -1,0 +1,124 @@
+arazzo: 1.0.1
+info:
+  title: Oracle EBS Requisition-to-Purchase-Order
+  summary: Find an approved requisition, resolve its supplier, and convert it into a purchase order.
+  description: >-
+    An Oracle Purchasing flow that turns demand into a buy. The workflow locates
+    an approved purchase requisition, resolves the intended supplier by name,
+    creates a standard purchase order for the requested item, and reads the
+    order back to confirm it. Each step inlines its request so the
+    requisition-to-PO chain can be executed without opening the OpenAPI source.
+  version: 1.0.0
+sourceDescriptions:
+- name: supplyChainApi
+  url: ../openapi/supply-chain-api.yml
+  type: openapi
+workflows:
+- workflowId: requisition-to-purchase-order
+  summary: Convert an approved requisition into a purchase order for a supplier.
+  description: >-
+    Finds an approved requisition by number, resolves the supplier by name,
+    creates a standard purchase order for the item, and reads the order back to
+    confirm it.
+  inputs:
+    type: object
+    required:
+    - requisitionNumber
+    - vendorName
+    - itemId
+    - quantity
+    - unitPrice
+    - currencyCode
+    properties:
+      requisitionNumber:
+        type: string
+        description: Requisition number to convert.
+      vendorName:
+        type: string
+        description: Supplier name to resolve (supports wildcards).
+      itemId:
+        type: integer
+        description: Inventory item identifier to purchase.
+      quantity:
+        type: number
+        description: Quantity to order.
+      unitPrice:
+        type: number
+        description: Unit price.
+      currencyCode:
+        type: string
+        description: Currency code.
+  steps:
+  - stepId: findRequisition
+    description: >-
+      Locate the approved requisition by number, returning the first match.
+    operationId: getRequisitions
+    parameters:
+    - name: requisitionNumber
+      in: query
+      value: $inputs.requisitionNumber
+    - name: authorizationStatus
+      in: query
+      value: APPROVED
+    - name: limit
+      in: query
+      value: 1
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      requisitionHeaderId: $response.body#/items/0/requisitionHeaderId
+  - stepId: resolveSupplier
+    description: >-
+      Resolve the intended supplier by name, returning the first match.
+    operationId: getSuppliers
+    parameters:
+    - name: vendorName
+      in: query
+      value: $inputs.vendorName
+    - name: limit
+      in: query
+      value: 1
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      vendorId: $response.body#/items/0/vendorId
+      vendorSiteId: $response.body#/items/0/sites/0/vendorSiteId
+  - stepId: createPurchaseOrder
+    description: >-
+      Create a standard purchase order for the resolved supplier and the
+      requisitioned item.
+    operationId: createPurchaseOrder
+    requestBody:
+      contentType: application/json
+      payload:
+        vendorId: $steps.resolveSupplier.outputs.vendorId
+        vendorSiteId: $steps.resolveSupplier.outputs.vendorSiteId
+        currencyCode: $inputs.currencyCode
+        typeLookupCode: STANDARD
+        lines:
+        - lineNum: 10
+          itemId: $inputs.itemId
+          quantity: $inputs.quantity
+          unitPrice: $inputs.unitPrice
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      poHeaderId: $response.body#/poHeaderId
+  - stepId: confirmPurchaseOrder
+    description: >-
+      Read the created purchase order back by header identifier to confirm it
+      persisted.
+    operationId: getPurchaseOrderById
+    parameters:
+    - name: poHeaderId
+      in: path
+      value: $steps.createPurchaseOrder.outputs.poHeaderId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      authorizationStatus: $response.body#/authorizationStatus
+  outputs:
+    requisitionHeaderId: $steps.findRequisition.outputs.requisitionHeaderId
+    vendorId: $steps.resolveSupplier.outputs.vendorId
+    poHeaderId: $steps.createPurchaseOrder.outputs.poHeaderId
+    authorizationStatus: $steps.confirmPurchaseOrder.outputs.authorizationStatus

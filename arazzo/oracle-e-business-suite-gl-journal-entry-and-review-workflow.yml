@@ -1,0 +1,116 @@
+arazzo: 1.0.1
+info:
+  title: Oracle EBS GL Journal Entry and Review
+  summary: Create a General Ledger journal, then read it back from the period to confirm posting status.
+  description: >-
+    A General Ledger flow for Oracle EBS. The workflow creates a balanced
+    journal entry for a ledger and period, then lists journals in that period
+    to read the created entry back and confirm its unposted status. Each step
+    inlines its request so the entry-and-review chain can be executed without
+    opening the OpenAPI source.
+  version: 1.0.0
+sourceDescriptions:
+- name: financialServicesApi
+  url: ../openapi/financial-services-api.yml
+  type: openapi
+workflows:
+- workflowId: create-and-review-journal
+  summary: Create a GL journal entry and read it back from its period.
+  description: >-
+    Creates a two-line balanced journal for a ledger and period, then lists
+    journals in the same ledger and period to confirm the entry was recorded
+    and capture its status.
+  inputs:
+    type: object
+    required:
+    - ledgerId
+    - periodName
+    - journalName
+    - journalCategory
+    - journalSource
+    - currencyCode
+    - effectiveDate
+    - debitAccountId
+    - creditAccountId
+    - amount
+    properties:
+      ledgerId:
+        type: integer
+        description: Ledger identifier.
+      periodName:
+        type: string
+        description: Accounting period name (e.g. JAN-26).
+      journalName:
+        type: string
+        description: Journal name.
+      journalCategory:
+        type: string
+        description: Journal category.
+      journalSource:
+        type: string
+        description: Journal source.
+      currencyCode:
+        type: string
+        description: Currency code.
+      effectiveDate:
+        type: string
+        description: Effective date in YYYY-MM-DD format.
+      debitAccountId:
+        type: integer
+        description: Code combination identifier for the debit line.
+      creditAccountId:
+        type: integer
+        description: Code combination identifier for the credit line.
+      amount:
+        type: number
+        description: Entered amount for both the debit and credit lines.
+  steps:
+  - stepId: createJournal
+    description: >-
+      Create a balanced journal entry with one debit and one credit line for
+      the supplied accounts and amount.
+    operationId: createJournal
+    requestBody:
+      contentType: application/json
+      payload:
+        ledgerId: $inputs.ledgerId
+        periodName: $inputs.periodName
+        journalName: $inputs.journalName
+        journalCategory: $inputs.journalCategory
+        journalSource: $inputs.journalSource
+        currencyCode: $inputs.currencyCode
+        effectiveDate: $inputs.effectiveDate
+        lines:
+        - codeCombinatonId: $inputs.debitAccountId
+          enteredDr: $inputs.amount
+        - codeCombinatonId: $inputs.creditAccountId
+          enteredCr: $inputs.amount
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      jeHeaderId: $response.body#/jeHeaderId
+      status: $response.body#/status
+  - stepId: reviewPeriodJournals
+    description: >-
+      List journals for the same ledger and period to confirm the new entry is
+      present and capture its posting status.
+    operationId: getJournals
+    parameters:
+    - name: ledgerId
+      in: query
+      value: $inputs.ledgerId
+    - name: periodName
+      in: query
+      value: $inputs.periodName
+    - name: status
+      in: query
+      value: U
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      totalCount: $response.body#/totalCount
+      firstJournalStatus: $response.body#/items/0/status
+  outputs:
+    jeHeaderId: $steps.createJournal.outputs.jeHeaderId
+    journalStatus: $steps.createJournal.outputs.status
+    periodJournalCount: $steps.reviewPeriodJournals.outputs.totalCount

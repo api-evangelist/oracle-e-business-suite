@@ -1,0 +1,101 @@
+arazzo: 1.0.1
+info:
+  title: Oracle EBS Purchase Order Amendment
+  summary: Find an approved purchase order, read its current state, and amend a line.
+  description: >-
+    A change-management flow for Oracle Purchasing. The workflow searches for a
+    purchase order by number, reads it back to capture the line being changed,
+    and submits an update that revises quantity and price on that line. Each
+    step inlines its request so the amendment chain can be executed without
+    opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: supplyChainApi
+  url: ../openapi/supply-chain-api.yml
+  type: openapi
+workflows:
+- workflowId: amend-purchase-order
+  summary: Locate a purchase order by number and revise one of its lines.
+  description: >-
+    Searches for a purchase order by its number, reads it back to confirm the
+    target line, and submits an update revising the quantity, price, and
+    need-by date of that line.
+  inputs:
+    type: object
+    required:
+    - poNumber
+    - newQuantity
+    - newUnitPrice
+    - newNeedByDate
+    properties:
+      poNumber:
+        type: string
+        description: Purchase order number (segment1) to amend.
+      newQuantity:
+        type: number
+        description: Revised line quantity.
+      newUnitPrice:
+        type: number
+        description: Revised line unit price.
+      newNeedByDate:
+        type: string
+        description: Revised need-by date in YYYY-MM-DD format.
+  steps:
+  - stepId: findPurchaseOrder
+    description: >-
+      Search for an approved purchase order matching the supplied number,
+      returning the first match.
+    operationId: getPurchaseOrders
+    parameters:
+    - name: segment1
+      in: query
+      value: $inputs.poNumber
+    - name: authorizationStatus
+      in: query
+      value: APPROVED
+    - name: limit
+      in: query
+      value: 1
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      poHeaderId: $response.body#/items/0/poHeaderId
+  - stepId: readPurchaseOrder
+    description: >-
+      Read the matched purchase order by header identifier to capture the line
+      being amended.
+    operationId: getPurchaseOrderById
+    parameters:
+    - name: poHeaderId
+      in: path
+      value: $steps.findPurchaseOrder.outputs.poHeaderId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      poLineId: $response.body#/lines/0/poLineId
+  - stepId: updateLine
+    description: >-
+      Submit the purchase order update revising the captured line with the new
+      quantity, price, and need-by date.
+    operationId: updatePurchaseOrder
+    parameters:
+    - name: poHeaderId
+      in: path
+      value: $steps.findPurchaseOrder.outputs.poHeaderId
+    requestBody:
+      contentType: application/json
+      payload:
+        lines:
+        - poLineId: $steps.readPurchaseOrder.outputs.poLineId
+          quantity: $inputs.newQuantity
+          unitPrice: $inputs.newUnitPrice
+          needByDate: $inputs.newNeedByDate
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      authorizationStatus: $response.body#/authorizationStatus
+      lastUpdateDate: $response.body#/lastUpdateDate
+  outputs:
+    poHeaderId: $steps.findPurchaseOrder.outputs.poHeaderId
+    poLineId: $steps.readPurchaseOrder.outputs.poLineId
+    authorizationStatus: $steps.updateLine.outputs.authorizationStatus

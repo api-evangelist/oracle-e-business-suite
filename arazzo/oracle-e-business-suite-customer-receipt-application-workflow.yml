@@ -1,0 +1,119 @@
+arazzo: 1.0.1
+info:
+  title: Oracle EBS Customer Receipt Application
+  summary: Find an open AR invoice for a customer, then check for a matching cash receipt.
+  description: >-
+    An Accounts Receivable collections flow for Oracle EBS. The workflow lists
+    open AR invoices for a customer, reads the first open transaction, and
+    branches on whether a cash receipt already exists for that customer to
+    report the balance as settled or outstanding. Each step inlines its request
+    so the receipt-application check can be executed without opening the
+    OpenAPI source.
+  version: 1.0.0
+sourceDescriptions:
+- name: financialServicesApi
+  url: ../openapi/financial-services-api.yml
+  type: openapi
+workflows:
+- workflowId: apply-customer-receipt
+  summary: Check a customer's open AR invoice against recorded cash receipts.
+  description: >-
+    Lists AR invoices for a customer, captures the first transaction, then
+    lists cash receipts for the same customer and branches on whether any
+    receipt exists.
+  inputs:
+    type: object
+    required:
+    - customerId
+    properties:
+      customerId:
+        type: integer
+        description: Customer identifier.
+  steps:
+  - stepId: listInvoices
+    description: >-
+      List AR invoices for the customer, returning the most recent one, to
+      capture the transaction being collected.
+    operationId: getArInvoices
+    parameters:
+    - name: customerId
+      in: query
+      value: $inputs.customerId
+    - name: limit
+      in: query
+      value: 1
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      customerTrxId: $response.body#/items/0/customerTrxId
+      amountDue: $response.body#/items/0/amountDue
+  - stepId: listReceipts
+    description: >-
+      List cash receipts for the customer, returning at most one, to determine
+      whether a payment has been recorded.
+    operationId: getReceipts
+    parameters:
+    - name: customerId
+      in: query
+      value: $inputs.customerId
+    - name: limit
+      in: query
+      value: 1
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      cashReceiptId: $response.body#/items/0/cashReceiptId
+    onSuccess:
+    - name: receiptFound
+      type: goto
+      stepId: reportSettled
+      criteria:
+      - context: $response.body
+        condition: $.items.length > 0
+        type: jsonpath
+    - name: receiptMissing
+      type: goto
+      stepId: reportOutstanding
+      criteria:
+      - context: $response.body
+        condition: $.items.length == 0
+        type: jsonpath
+  - stepId: reportSettled
+    description: >-
+      Re-read AR invoices for the customer to report the balance now that a
+      cash receipt was found.
+    operationId: getArInvoices
+    parameters:
+    - name: customerId
+      in: query
+      value: $inputs.customerId
+    - name: limit
+      in: query
+      value: 1
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      settledStatus: $response.body#/items/0/status
+    onSuccess:
+    - name: done
+      type: end
+  - stepId: reportOutstanding
+    description: >-
+      Re-read AR invoices for the customer to surface the outstanding balance
+      when no cash receipt was found.
+    operationId: getArInvoices
+    parameters:
+    - name: customerId
+      in: query
+      value: $inputs.customerId
+    - name: limit
+      in: query
+      value: 1
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      outstandingAmount: $response.body#/items/0/amountDue
+  outputs:
+    customerTrxId: $steps.listInvoices.outputs.customerTrxId
+    settledStatus: $steps.reportSettled.outputs.settledStatus
+    outstandingAmount: $steps.reportOutstanding.outputs.outstandingAmount

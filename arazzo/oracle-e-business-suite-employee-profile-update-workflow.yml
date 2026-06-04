@@ -1,0 +1,95 @@
+arazzo: 1.0.1
+info:
+  title: Oracle EBS Employee Profile Update
+  summary: Find an employee by number, read the record, then date-tracked update their details.
+  description: >-
+    An Oracle HRMS maintenance flow. The workflow searches for an employee by
+    employee number, reads the full record by person identifier, and submits a
+    date-tracked correction to contact details. Each step inlines its request
+    so the profile update can be executed without opening the OpenAPI source.
+  version: 1.0.0
+sourceDescriptions:
+- name: humanResourcesApi
+  url: ../openapi/human-resources-api.yml
+  type: openapi
+workflows:
+- workflowId: update-employee-profile
+  summary: Locate an employee and apply a date-tracked profile correction.
+  description: >-
+    Searches for an employee by employee number, reads the record by person
+    identifier, and submits a date-tracked correction updating email and
+    marital status.
+  inputs:
+    type: object
+    required:
+    - employeeNumber
+    - effectiveDate
+    - emailAddress
+    - maritalStatus
+    properties:
+      employeeNumber:
+        type: string
+        description: Employee number to locate.
+      effectiveDate:
+        type: string
+        description: Effective date for the date-tracked update in YYYY-MM-DD format.
+      emailAddress:
+        type: string
+        description: New email address.
+      maritalStatus:
+        type: string
+        description: New marital status.
+  steps:
+  - stepId: findEmployee
+    description: >-
+      Search for the employee by employee number, returning the first match.
+    operationId: getEmployees
+    parameters:
+    - name: employeeNumber
+      in: query
+      value: $inputs.employeeNumber
+    - name: limit
+      in: query
+      value: 1
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      personId: $response.body#/items/0/personId
+  - stepId: readEmployee
+    description: >-
+      Read the employee record by person identifier to capture the current
+      values before applying the correction.
+    operationId: getEmployeeById
+    parameters:
+    - name: personId
+      in: path
+      value: $steps.findEmployee.outputs.personId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      currentEmail: $response.body#/emailAddress
+  - stepId: applyUpdate
+    description: >-
+      Submit a date-tracked correction updating the employee email and marital
+      status as of the effective date.
+    operationId: updateEmployee
+    parameters:
+    - name: personId
+      in: path
+      value: $steps.findEmployee.outputs.personId
+    requestBody:
+      contentType: application/json
+      payload:
+        effectiveDate: $inputs.effectiveDate
+        dateTrackUpdateMode: CORRECTION
+        emailAddress: $inputs.emailAddress
+        maritalStatus: $inputs.maritalStatus
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      updatedEmail: $response.body#/emailAddress
+      lastUpdateDate: $response.body#/lastUpdateDate
+  outputs:
+    personId: $steps.findEmployee.outputs.personId
+    previousEmail: $steps.readEmployee.outputs.currentEmail
+    updatedEmail: $steps.applyUpdate.outputs.updatedEmail

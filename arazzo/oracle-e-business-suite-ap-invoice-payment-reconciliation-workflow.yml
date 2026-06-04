@@ -1,0 +1,110 @@
+arazzo: 1.0.1
+info:
+  title: Oracle EBS AP Invoice Payment Reconciliation
+  summary: Read an AP invoice, then branch on whether a matching payment already exists.
+  description: >-
+    A reconciliation flow for Oracle Accounts Payable. The workflow reads a
+    specific AP invoice, lists payments for its vendor, and branches: when a
+    payment exists it reports the invoice as reconciled, and when none is found
+    it surfaces the still-open invoice for follow-up. Each step inlines its
+    request so the reconciliation can be executed without opening the OpenAPI
+    source.
+  version: 1.0.0
+sourceDescriptions:
+- name: financialServicesApi
+  url: ../openapi/financial-services-api.yml
+  type: openapi
+workflows:
+- workflowId: reconcile-ap-invoice-payment
+  summary: Read an AP invoice and check whether its vendor has a recorded payment.
+  description: >-
+    Fetches an AP invoice by identifier, lists payments for the same vendor,
+    and branches on whether any payment record exists to mark the invoice
+    reconciled or open.
+  inputs:
+    type: object
+    required:
+    - invoiceId
+    properties:
+      invoiceId:
+        type: integer
+        description: AP invoice identifier to reconcile.
+  steps:
+  - stepId: getInvoice
+    description: >-
+      Read the AP invoice by identifier to capture its vendor and amount.
+    operationId: getApInvoiceById
+    parameters:
+    - name: invoiceId
+      in: path
+      value: $inputs.invoiceId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      vendorId: $response.body#/vendorId
+      invoiceAmount: $response.body#/invoiceAmount
+      amountPaid: $response.body#/amountPaid
+  - stepId: listPayments
+    description: >-
+      List Accounts Payable payments for the invoice vendor, returning at most
+      one, to determine whether the invoice has been paid.
+    operationId: getPayments
+    parameters:
+    - name: vendorId
+      in: query
+      value: $steps.getInvoice.outputs.vendorId
+    - name: limit
+      in: query
+      value: 1
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      checkId: $response.body#/items/0/checkId
+    onSuccess:
+    - name: paymentFound
+      type: goto
+      stepId: markReconciled
+      criteria:
+      - context: $response.body
+        condition: $.items.length > 0
+        type: jsonpath
+    - name: paymentMissing
+      type: goto
+      stepId: markOpen
+      criteria:
+      - context: $response.body
+        condition: $.items.length == 0
+        type: jsonpath
+  - stepId: markReconciled
+    description: >-
+      Re-read the invoice to confirm its paid status now that a matching
+      payment was found for the vendor.
+    operationId: getApInvoiceById
+    parameters:
+    - name: invoiceId
+      in: path
+      value: $inputs.invoiceId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      paymentStatusFlag: $response.body#/paymentStatusFlag
+    onSuccess:
+    - name: done
+      type: end
+  - stepId: markOpen
+    description: >-
+      Re-read the invoice to surface its open balance when no matching payment
+      was found for the vendor.
+    operationId: getApInvoiceById
+    parameters:
+    - name: invoiceId
+      in: path
+      value: $inputs.invoiceId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      approvalStatus: $response.body#/approvalStatus
+  outputs:
+    vendorId: $steps.getInvoice.outputs.vendorId
+    paymentStatusFlag: $steps.markReconciled.outputs.paymentStatusFlag
+    openApprovalStatus: $steps.markOpen.outputs.approvalStatus

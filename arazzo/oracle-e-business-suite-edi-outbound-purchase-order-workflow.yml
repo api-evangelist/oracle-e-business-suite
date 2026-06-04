@@ -1,0 +1,144 @@
+arazzo: 1.0.1
+info:
+  title: Oracle EBS EDI Outbound Purchase Order
+  summary: Create a purchase order, resolve the supplier trading partner, then extract it as outbound EDI.
+  description: >-
+    A cross-module flow joining Oracle Purchasing and the e-Commerce Gateway.
+    The workflow raises a purchase order, resolves the supplier as an EDI
+    trading partner, initiates an outbound EDI extraction for the purchase
+    order document type, and lists outbound transactions to confirm the
+    extraction. Each step inlines its request so the outbound EDI chain can be
+    executed without opening the OpenAPI sources.
+  version: 1.0.0
+sourceDescriptions:
+- name: supplyChainApi
+  url: ../openapi/supply-chain-api.yml
+  type: openapi
+- name: ecommerceGatewayApi
+  url: ../openapi/ecommerce-gateway-api.yml
+  type: openapi
+workflows:
+- workflowId: extract-outbound-po
+  summary: Raise a PO, resolve its trading partner, and extract it as outbound EDI.
+  description: >-
+    Creates a purchase order for a supplier, resolves that supplier as a
+    trading partner, extracts the outbound purchase order EDI document, and
+    lists outbound transactions to confirm the extraction.
+  inputs:
+    type: object
+    required:
+    - vendorId
+    - vendorSiteId
+    - currencyCode
+    - itemId
+    - quantity
+    - unitPrice
+    - tradingPartnerName
+    - dateFrom
+    - dateTo
+    properties:
+      vendorId:
+        type: integer
+        description: Supplier/vendor identifier for the purchase order.
+      vendorSiteId:
+        type: integer
+        description: Supplier site identifier.
+      currencyCode:
+        type: string
+        description: Currency code for the order.
+      itemId:
+        type: integer
+        description: Inventory item to order.
+      quantity:
+        type: number
+        description: Quantity to order.
+      unitPrice:
+        type: number
+        description: Unit price.
+      tradingPartnerName:
+        type: string
+        description: Trading partner name matching the supplier (supports wildcards).
+      dateFrom:
+        type: string
+        description: Extraction date range start in YYYY-MM-DD format.
+      dateTo:
+        type: string
+        description: Extraction date range end in YYYY-MM-DD format.
+  steps:
+  - stepId: createPurchaseOrder
+    description: >-
+      Create a standard purchase order for the supplier with a single line.
+    operationId: createPurchaseOrder
+    requestBody:
+      contentType: application/json
+      payload:
+        vendorId: $inputs.vendorId
+        vendorSiteId: $inputs.vendorSiteId
+        currencyCode: $inputs.currencyCode
+        typeLookupCode: STANDARD
+        lines:
+        - lineNum: 10
+          itemId: $inputs.itemId
+          quantity: $inputs.quantity
+          unitPrice: $inputs.unitPrice
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      poHeaderId: $response.body#/poHeaderId
+  - stepId: resolveTradingPartner
+    description: >-
+      Resolve the supplier as an EDI trading partner by name, returning the
+      first match.
+    operationId: getTradingPartners
+    parameters:
+    - name: tradingPartnerName
+      in: query
+      value: $inputs.tradingPartnerName
+    - name: tradingPartnerType
+      in: query
+      value: SUPPLIER
+    - name: limit
+      in: query
+      value: 1
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      tradingPartnerId: $response.body#/items/0/tradingPartnerId
+      tradingPartnerSiteId: $response.body#/items/0/tradingPartnerSiteId
+  - stepId: extractOutbound
+    description: >-
+      Initiate an outbound purchase order (POO) EDI extraction for the resolved
+      trading partner over the supplied date range.
+    operationId: extractOutboundTransaction
+    requestBody:
+      contentType: application/json
+      payload:
+        transactionType: POO
+        tradingPartnerId: $steps.resolveTradingPartner.outputs.tradingPartnerId
+        tradingPartnerSiteId: $steps.resolveTradingPartner.outputs.tradingPartnerSiteId
+        dateFrom: $inputs.dateFrom
+        dateTo: $inputs.dateTo
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      requestId: $response.body#/requestId
+  - stepId: confirmOutbound
+    description: >-
+      List outbound POO transactions for the trading partner to confirm the
+      extraction was queued and capture its processing status.
+    operationId: getOutboundTransactions
+    parameters:
+    - name: transactionType
+      in: query
+      value: POO
+    - name: tradingPartnerId
+      in: query
+      value: $steps.resolveTradingPartner.outputs.tradingPartnerId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      processStatus: $response.body#/items/0/processStatus
+  outputs:
+    poHeaderId: $steps.createPurchaseOrder.outputs.poHeaderId
+    extractionRequestId: $steps.extractOutbound.outputs.requestId
+    processStatus: $steps.confirmOutbound.outputs.processStatus

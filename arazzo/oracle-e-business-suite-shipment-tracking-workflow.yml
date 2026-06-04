@@ -1,0 +1,84 @@
+arazzo: 1.0.1
+info:
+  title: Oracle EBS Shipment Tracking
+  summary: Find a customer's booked sales order, then locate its open shipping delivery.
+  description: >-
+    A logistics tracking flow joining Oracle Order Management and Shipping
+    Execution. The workflow finds a booked sales order for a customer, reads it
+    back to confirm its flow status, and lists open shipping deliveries to
+    surface the delivery handling the order. Each step inlines its request so
+    the tracking chain can be executed without opening the OpenAPI source.
+  version: 1.0.0
+sourceDescriptions:
+- name: supplyChainApi
+  url: ../openapi/supply-chain-api.yml
+  type: openapi
+workflows:
+- workflowId: track-shipment
+  summary: Locate a booked sales order and its open shipping delivery.
+  description: >-
+    Finds a booked sales order for a customer, reads it back by header
+    identifier, and lists open shipping deliveries to surface the delivery
+    handling the order.
+  inputs:
+    type: object
+    required:
+    - customerId
+    properties:
+      customerId:
+        type: integer
+        description: Customer identifier (sold-to).
+  steps:
+  - stepId: findOrder
+    description: >-
+      Find a booked sales order for the customer, returning the most recent
+      one.
+    operationId: getSalesOrders
+    parameters:
+    - name: customerId
+      in: query
+      value: $inputs.customerId
+    - name: flowStatusCode
+      in: query
+      value: BOOKED
+    - name: limit
+      in: query
+      value: 1
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      headerId: $response.body#/items/0/headerId
+      orderNumber: $response.body#/items/0/orderNumber
+  - stepId: confirmOrder
+    description: >-
+      Read the sales order back by header identifier to confirm its flow status
+      before tracking the shipment.
+    operationId: getSalesOrders
+    parameters:
+    - name: headerId
+      in: query
+      value: $steps.findOrder.outputs.headerId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      flowStatusCode: $response.body#/items/0/flowStatusCode
+  - stepId: listOpenDeliveries
+    description: >-
+      List open shipping deliveries to surface the delivery handling the order.
+    operationId: getDeliveries
+    parameters:
+    - name: statusCode
+      in: query
+      value: OP
+    - name: limit
+      in: query
+      value: 1
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      deliveryId: $response.body#/items/0/deliveryId
+      deliveryName: $response.body#/items/0/deliveryName
+  outputs:
+    headerId: $steps.findOrder.outputs.headerId
+    flowStatusCode: $steps.confirmOrder.outputs.flowStatusCode
+    deliveryId: $steps.listOpenDeliveries.outputs.deliveryId

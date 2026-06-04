@@ -1,0 +1,123 @@
+arazzo: 1.0.1
+info:
+  title: Oracle EBS Item Availability Check
+  summary: Resolve an item by number, read its on-hand quantity, and branch on stock availability.
+  description: >-
+    An Oracle Inventory availability flow. The workflow resolves an inventory
+    item by its number in an organization, reads on-hand quantities for it, and
+    branches on whether stock is present to report the item as available or out
+    of stock. Each step inlines its request so the availability check can be
+    executed without opening the OpenAPI source.
+  version: 1.0.0
+sourceDescriptions:
+- name: supplyChainApi
+  url: ../openapi/supply-chain-api.yml
+  type: openapi
+workflows:
+- workflowId: check-item-availability
+  summary: Resolve an item and branch on whether it has on-hand stock.
+  description: >-
+    Resolves an inventory item by number in an organization, reads its on-hand
+    quantities, and branches on whether any quantity exists.
+  inputs:
+    type: object
+    required:
+    - itemNumber
+    - organizationId
+    properties:
+      itemNumber:
+        type: string
+        description: Inventory item number (segment1) to resolve.
+      organizationId:
+        type: integer
+        description: Inventory organization identifier.
+  steps:
+  - stepId: resolveItem
+    description: >-
+      Resolve the inventory item by number within the organization, returning
+      the first match.
+    operationId: getInventoryItems
+    parameters:
+    - name: segment1
+      in: query
+      value: $inputs.itemNumber
+    - name: organizationId
+      in: query
+      value: $inputs.organizationId
+    - name: limit
+      in: query
+      value: 1
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      inventoryItemId: $response.body#/items/0/inventoryItemId
+  - stepId: readOnhand
+    description: >-
+      Read on-hand quantities for the resolved item in the organization and
+      branch on whether any stock is recorded.
+    operationId: getOnhandQuantities
+    parameters:
+    - name: inventoryItemId
+      in: query
+      value: $steps.resolveItem.outputs.inventoryItemId
+    - name: organizationId
+      in: query
+      value: $inputs.organizationId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      onhandQuantity: $response.body#/items/0/transactionQuantity
+    onSuccess:
+    - name: inStock
+      type: goto
+      stepId: reportAvailable
+      criteria:
+      - context: $response.body
+        condition: $.items.length > 0
+        type: jsonpath
+    - name: outOfStock
+      type: goto
+      stepId: reportOutOfStock
+      criteria:
+      - context: $response.body
+        condition: $.items.length == 0
+        type: jsonpath
+  - stepId: reportAvailable
+    description: >-
+      Read the item master record to report its details now that on-hand stock
+      was confirmed.
+    operationId: getInventoryItems
+    parameters:
+    - name: inventoryItemId
+      in: query
+      value: $steps.resolveItem.outputs.inventoryItemId
+    - name: organizationId
+      in: query
+      value: $inputs.organizationId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      itemStatus: $response.body#/items/0/inventoryItemStatusCode
+    onSuccess:
+    - name: done
+      type: end
+  - stepId: reportOutOfStock
+    description: >-
+      Read the item master record to surface its details when no on-hand stock
+      was found.
+    operationId: getInventoryItems
+    parameters:
+    - name: inventoryItemId
+      in: query
+      value: $steps.resolveItem.outputs.inventoryItemId
+    - name: organizationId
+      in: query
+      value: $inputs.organizationId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      purchasingEnabled: $response.body#/items/0/purchasingEnabledFlag
+  outputs:
+    inventoryItemId: $steps.resolveItem.outputs.inventoryItemId
+    onhandQuantity: $steps.readOnhand.outputs.onhandQuantity
+    itemStatus: $steps.reportAvailable.outputs.itemStatus

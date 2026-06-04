@@ -1,0 +1,141 @@
+arazzo: 1.0.1
+info:
+  title: Oracle EBS Order-to-Cash
+  summary: Check item availability, create a sales order, confirm it, then raise the AR invoice.
+  description: >-
+    A sell-side Oracle E-Business Suite flow. The workflow verifies on-hand
+    inventory for the ordered item, books an Order Management sales order for a
+    customer, reads the order back to confirm its flow status, and creates the
+    matching Accounts Receivable invoice. Every step inlines its request so the
+    order-to-cash chain can be executed without opening the OpenAPI sources.
+  version: 1.0.0
+sourceDescriptions:
+- name: supplyChainApi
+  url: ../openapi/supply-chain-api.yml
+  type: openapi
+- name: financialServicesApi
+  url: ../openapi/financial-services-api.yml
+  type: openapi
+workflows:
+- workflowId: order-to-cash
+  summary: Verify stock, create a sales order, and bill the customer.
+  description: >-
+    Confirms on-hand quantity for the ordered item, creates a sales order for a
+    customer, reads it back to confirm the flow status, and books an Accounts
+    Receivable invoice for the same customer and item.
+  inputs:
+    type: object
+    required:
+    - inventoryItemId
+    - organizationId
+    - soldToOrgId
+    - orderTypeId
+    - currencyCode
+    - quantity
+    - unitSellingPrice
+    - orderedDate
+    - trxDate
+    properties:
+      inventoryItemId:
+        type: integer
+        description: Inventory item identifier to sell.
+      organizationId:
+        type: integer
+        description: Inventory organization to check stock in.
+      soldToOrgId:
+        type: integer
+        description: Sold-to customer identifier.
+      orderTypeId:
+        type: integer
+        description: Order type identifier.
+      currencyCode:
+        type: string
+        description: Transactional currency code.
+      quantity:
+        type: number
+        description: Quantity ordered.
+      unitSellingPrice:
+        type: number
+        description: Unit selling price.
+      orderedDate:
+        type: string
+        description: Order date in YYYY-MM-DD format.
+      trxDate:
+        type: string
+        description: AR transaction date in YYYY-MM-DD format.
+  steps:
+  - stepId: checkOnhand
+    description: >-
+      Read on-hand quantities for the item in the organization to confirm there
+      is stock available before booking the order.
+    operationId: getOnhandQuantities
+    parameters:
+    - name: inventoryItemId
+      in: query
+      value: $inputs.inventoryItemId
+    - name: organizationId
+      in: query
+      value: $inputs.organizationId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      onhand: $response.body#/items/0/transactionQuantity
+  - stepId: createSalesOrder
+    description: >-
+      Book an Order Management sales order for the customer with a single line
+      for the requested item and quantity.
+    operationId: createSalesOrder
+    requestBody:
+      contentType: application/json
+      payload:
+        soldToOrgId: $inputs.soldToOrgId
+        orderTypeId: $inputs.orderTypeId
+        orderedDate: $inputs.orderedDate
+        transactionalCurrCode: $inputs.currencyCode
+        lines:
+        - inventoryItemId: $inputs.inventoryItemId
+          orderedQuantity: $inputs.quantity
+          unitSellingPrice: $inputs.unitSellingPrice
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      headerId: $response.body#/headerId
+      totalAmount: $response.body#/totalAmount
+  - stepId: confirmOrder
+    description: >-
+      Read the sales order back by header identifier to confirm it persisted
+      and capture its flow status.
+    operationId: getSalesOrders
+    parameters:
+    - name: headerId
+      in: query
+      value: $steps.createSalesOrder.outputs.headerId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      flowStatusCode: $response.body#/items/0/flowStatusCode
+  - stepId: createReceivable
+    description: >-
+      Create an Accounts Receivable invoice for the same customer and item so
+      the order can be billed.
+    operationId: createArInvoice
+    requestBody:
+      contentType: application/json
+      payload:
+        customerId: $inputs.soldToOrgId
+        trxDate: $inputs.trxDate
+        invoiceCurrencyCode: $inputs.currencyCode
+        lines:
+        - lineNumber: 10
+          quantity: $inputs.quantity
+          unitSellingPrice: $inputs.unitSellingPrice
+          inventoryItemId: $inputs.inventoryItemId
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      customerTrxId: $response.body#/customerTrxId
+  outputs:
+    onhand: $steps.checkOnhand.outputs.onhand
+    headerId: $steps.createSalesOrder.outputs.headerId
+    flowStatusCode: $steps.confirmOrder.outputs.flowStatusCode
+    customerTrxId: $steps.createReceivable.outputs.customerTrxId

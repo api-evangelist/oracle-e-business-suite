@@ -1,0 +1,144 @@
+arazzo: 1.0.1
+info:
+  title: Oracle EBS Discrete Job Execution
+  summary: Create a WIP discrete job, issue material to it, then complete the assembly into inventory.
+  description: >-
+    A Work in Process shop-floor flow for Oracle Manufacturing. The workflow
+    creates a discrete job for an assembly, reads it back to capture its WIP
+    entity identifier, issues component material to the job, and records the
+    assembly completion that moves finished units into inventory. Each step
+    inlines its request so the execution chain can be run without opening the
+    OpenAPI source.
+  version: 1.0.0
+sourceDescriptions:
+- name: manufacturingApi
+  url: ../openapi/manufacturing-api.yml
+  type: openapi
+workflows:
+- workflowId: execute-discrete-job
+  summary: Create a discrete job, issue material, and complete the assembly.
+  description: >-
+    Creates a WIP discrete job for an assembly item, reads it back to confirm
+    its entity identifier, issues a component to the job, and records the
+    assembly completion into a subinventory.
+  inputs:
+    type: object
+    required:
+    - wipEntityName
+    - primaryItemId
+    - organizationId
+    - startQuantity
+    - scheduledStartDate
+    - scheduledCompletionDate
+    - componentItemId
+    - componentQuantity
+    - uom
+    - subinventoryCode
+    - transactionDate
+    properties:
+      wipEntityName:
+        type: string
+        description: Job name/number to create.
+      primaryItemId:
+        type: integer
+        description: Primary assembly item identifier.
+      organizationId:
+        type: integer
+        description: Manufacturing organization identifier.
+      startQuantity:
+        type: number
+        description: Quantity of assemblies to build.
+      scheduledStartDate:
+        type: string
+        description: Scheduled start date-time (ISO 8601).
+      scheduledCompletionDate:
+        type: string
+        description: Scheduled completion date-time (ISO 8601).
+      componentItemId:
+        type: integer
+        description: Component inventory item to issue to the job.
+      componentQuantity:
+        type: number
+        description: Quantity of the component to issue.
+      uom:
+        type: string
+        description: Unit of measure for the transactions.
+      subinventoryCode:
+        type: string
+        description: Subinventory to issue from and complete into.
+      transactionDate:
+        type: string
+        description: Transaction date-time (ISO 8601).
+  steps:
+  - stepId: createJob
+    description: >-
+      Create a WIP discrete job for the assembly item with the requested start
+      quantity and schedule.
+    operationId: createDiscreteJob
+    requestBody:
+      contentType: application/json
+      payload:
+        wipEntityName: $inputs.wipEntityName
+        primaryItemId: $inputs.primaryItemId
+        organizationId: $inputs.organizationId
+        startQuantity: $inputs.startQuantity
+        scheduledStartDate: $inputs.scheduledStartDate
+        scheduledCompletionDate: $inputs.scheduledCompletionDate
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      wipEntityId: $response.body#/wipEntityId
+  - stepId: confirmJob
+    description: >-
+      Read the discrete job back by entity identifier to confirm it was
+      created and capture its status.
+    operationId: getDiscreteJobById
+    parameters:
+    - name: wipEntityId
+      in: path
+      value: $steps.createJob.outputs.wipEntityId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      statusType: $response.body#/statusType
+  - stepId: issueComponent
+    description: >-
+      Issue the component material to the job from the subinventory.
+    operationId: issueMaterial
+    requestBody:
+      contentType: application/json
+      payload:
+        wipEntityId: $steps.createJob.outputs.wipEntityId
+        organizationId: $inputs.organizationId
+        inventoryItemId: $inputs.componentItemId
+        transactionQuantity: $inputs.componentQuantity
+        transactionUom: $inputs.uom
+        transactionType: WIP_ISSUE
+        subinventoryCode: $inputs.subinventoryCode
+        transactionDate: $inputs.transactionDate
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      issueTransactionId: $response.body#/transactionId
+  - stepId: completeAssembly
+    description: >-
+      Record the assembly completion moving finished units from WIP into the
+      subinventory.
+    operationId: completeAssembly
+    requestBody:
+      contentType: application/json
+      payload:
+        wipEntityId: $steps.createJob.outputs.wipEntityId
+        organizationId: $inputs.organizationId
+        transactionQuantity: $inputs.startQuantity
+        transactionUom: $inputs.uom
+        subinventoryCode: $inputs.subinventoryCode
+        transactionDate: $inputs.transactionDate
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      completionTransactionId: $response.body#/transactionId
+  outputs:
+    wipEntityId: $steps.createJob.outputs.wipEntityId
+    issueTransactionId: $steps.issueComponent.outputs.issueTransactionId
+    completionTransactionId: $steps.completeAssembly.outputs.completionTransactionId

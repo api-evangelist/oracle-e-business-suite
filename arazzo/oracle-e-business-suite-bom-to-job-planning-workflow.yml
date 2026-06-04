@@ -1,0 +1,124 @@
+arazzo: 1.0.1
+info:
+  title: Oracle EBS BOM-to-Job Planning
+  summary: Resolve a bill of material and routing for an assembly, then plan a discrete job from them.
+  description: >-
+    A manufacturing planning flow for Oracle EBS. The workflow finds the bill
+    of material for an assembly item, reads its full component list, confirms a
+    routing exists, and creates a discrete job to build the assembly. Each step
+    inlines its request so the planning chain can be executed without opening
+    the OpenAPI source.
+  version: 1.0.0
+sourceDescriptions:
+- name: manufacturingApi
+  url: ../openapi/manufacturing-api.yml
+  type: openapi
+workflows:
+- workflowId: plan-job-from-bom
+  summary: Resolve the BOM and routing for an assembly and create a build job.
+  description: >-
+    Finds the bill of material for an assembly item, reads its components,
+    confirms a routing exists, and creates a discrete job to build the
+    assembly.
+  inputs:
+    type: object
+    required:
+    - assemblyItemId
+    - organizationId
+    - wipEntityName
+    - startQuantity
+    - scheduledStartDate
+    - scheduledCompletionDate
+    properties:
+      assemblyItemId:
+        type: integer
+        description: Assembly item identifier.
+      organizationId:
+        type: integer
+        description: Manufacturing organization identifier.
+      wipEntityName:
+        type: string
+        description: Job name/number to create.
+      startQuantity:
+        type: number
+        description: Quantity of assemblies to build.
+      scheduledStartDate:
+        type: string
+        description: Scheduled start date-time (ISO 8601).
+      scheduledCompletionDate:
+        type: string
+        description: Scheduled completion date-time (ISO 8601).
+  steps:
+  - stepId: findBom
+    description: >-
+      Find the bill of material for the assembly item in the organization,
+      returning the first match.
+    operationId: getBillsOfMaterial
+    parameters:
+    - name: assemblyItemId
+      in: query
+      value: $inputs.assemblyItemId
+    - name: organizationId
+      in: query
+      value: $inputs.organizationId
+    - name: limit
+      in: query
+      value: 1
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      billSequenceId: $response.body#/items/0/billSequenceId
+  - stepId: readBomComponents
+    description: >-
+      Read the bill of material by sequence identifier to capture its full
+      component list for the build.
+    operationId: getBillOfMaterialById
+    parameters:
+    - name: billSequenceId
+      in: path
+      value: $steps.findBom.outputs.billSequenceId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      firstComponentItemId: $response.body#/components/0/componentItemId
+  - stepId: findRouting
+    description: >-
+      Confirm a manufacturing routing exists for the assembly in the
+      organization before scheduling the job.
+    operationId: getRoutings
+    parameters:
+    - name: assemblyItemId
+      in: query
+      value: $inputs.assemblyItemId
+    - name: organizationId
+      in: query
+      value: $inputs.organizationId
+    - name: limit
+      in: query
+      value: 1
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      routingSequenceId: $response.body#/items/0/routingSequenceId
+  - stepId: createJob
+    description: >-
+      Create a discrete job to build the assembly per its resolved bill of
+      material and routing.
+    operationId: createDiscreteJob
+    requestBody:
+      contentType: application/json
+      payload:
+        wipEntityName: $inputs.wipEntityName
+        primaryItemId: $inputs.assemblyItemId
+        organizationId: $inputs.organizationId
+        startQuantity: $inputs.startQuantity
+        scheduledStartDate: $inputs.scheduledStartDate
+        scheduledCompletionDate: $inputs.scheduledCompletionDate
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      wipEntityId: $response.body#/wipEntityId
+  outputs:
+    billSequenceId: $steps.findBom.outputs.billSequenceId
+    routingSequenceId: $steps.findRouting.outputs.routingSequenceId
+    wipEntityId: $steps.createJob.outputs.wipEntityId

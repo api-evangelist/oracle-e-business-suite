@@ -1,0 +1,96 @@
+arazzo: 1.0.1
+info:
+  title: Oracle EBS EDI Inbound Invoice Processing
+  summary: Resolve a trading partner, import an inbound EDI invoice, then confirm it landed.
+  description: >-
+    An e-Commerce Gateway inbound flow for Oracle EBS. The workflow resolves a
+    supplier trading partner, imports an inbound EDI invoice document for that
+    partner, and lists inbound transactions to confirm the document was
+    received and capture its processing status. Each step inlines its request
+    so the EDI ingest chain can be executed without opening the OpenAPI source.
+  version: 1.0.0
+sourceDescriptions:
+- name: ecommerceGatewayApi
+  url: ../openapi/ecommerce-gateway-api.yml
+  type: openapi
+workflows:
+- workflowId: process-inbound-edi-invoice
+  summary: Resolve a trading partner and import an inbound EDI invoice.
+  description: >-
+    Resolves a supplier trading partner by name, imports an inbound EDI invoice
+    document, and lists inbound transactions for the partner to confirm receipt
+    and capture the processing status.
+  inputs:
+    type: object
+    required:
+    - tradingPartnerName
+    - documentDate
+    - documentData
+    properties:
+      tradingPartnerName:
+        type: string
+        description: Trading partner name to resolve (supports wildcards).
+      documentDate:
+        type: string
+        description: Document date in YYYY-MM-DD format.
+      documentData:
+        type: string
+        description: The raw EDI document payload to import.
+  steps:
+  - stepId: findTradingPartner
+    description: >-
+      Resolve the supplier trading partner by name, returning the first match.
+    operationId: getTradingPartners
+    parameters:
+    - name: tradingPartnerName
+      in: query
+      value: $inputs.tradingPartnerName
+    - name: tradingPartnerType
+      in: query
+      value: SUPPLIER
+    - name: limit
+      in: query
+      value: 1
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      tradingPartnerId: $response.body#/items/0/tradingPartnerId
+      tradingPartnerSiteId: $response.body#/items/0/tradingPartnerSiteId
+  - stepId: importInvoice
+    description: >-
+      Import the inbound EDI invoice document (transaction type INI) for the
+      resolved trading partner.
+    operationId: importInboundTransaction
+    requestBody:
+      contentType: application/json
+      payload:
+        transactionType: INI
+        tradingPartnerId: $steps.findTradingPartner.outputs.tradingPartnerId
+        tradingPartnerSiteId: $steps.findTradingPartner.outputs.tradingPartnerSiteId
+        documentDate: $inputs.documentDate
+        documentData: $inputs.documentData
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      transactionId: $response.body#/transactionId
+  - stepId: confirmInbound
+    description: >-
+      List inbound invoice transactions for the trading partner to confirm the
+      imported document is present and capture its processing status.
+    operationId: getInboundTransactions
+    parameters:
+    - name: transactionType
+      in: query
+      value: INI
+    - name: tradingPartnerId
+      in: query
+      value: $steps.findTradingPartner.outputs.tradingPartnerId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      processStatus: $response.body#/items/0/processStatus
+      totalCount: $response.body#/totalCount
+  outputs:
+    tradingPartnerId: $steps.findTradingPartner.outputs.tradingPartnerId
+    importedTransactionId: $steps.importInvoice.outputs.transactionId
+    processStatus: $steps.confirmInbound.outputs.processStatus

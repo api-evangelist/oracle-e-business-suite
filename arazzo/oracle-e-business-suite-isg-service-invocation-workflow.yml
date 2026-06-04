@@ -1,0 +1,155 @@
+arazzo: 1.0.1
+info:
+  title: Oracle EBS ISG Service Invocation
+  summary: Log in, initialize application context, discover a service, invoke a method, then log out.
+  description: >-
+    The end-to-end Integrated SOA Gateway session lifecycle for Oracle EBS. The
+    workflow authenticates to obtain an access token, initializes the
+    responsibility and organization context, retrieves the service WADL to
+    confirm the method, invokes the deployed REST method, and finally logs out
+    to invalidate the token. Each step inlines its request so the gateway
+    session flow can be executed without opening the OpenAPI source.
+  version: 1.0.0
+sourceDescriptions:
+- name: isgRestApi
+  url: ../openapi/isg-rest-api.yml
+  type: openapi
+workflows:
+- workflowId: invoke-isg-service
+  summary: Run a full ISG session - login, initialize, discover, invoke, logout.
+  description: >-
+    Authenticates to the Integrated SOA Gateway, initializes the application
+    context, retrieves the service WADL, invokes a deployed REST method, and
+    logs out to close the session.
+  inputs:
+    type: object
+    required:
+    - respId
+    - applId
+    - respKey
+    - applKey
+    - securityGroupId
+    - securityGroupKey
+    - orgId
+    - orgKey
+    - serviceAlias
+    - methodName
+    - inputParameters
+    properties:
+      respId:
+        type: string
+        description: Responsibility identifier for the application context.
+      applId:
+        type: string
+        description: Application identifier.
+      respKey:
+        type: string
+        description: Responsibility key.
+      applKey:
+        type: string
+        description: Application key.
+      securityGroupId:
+        type: string
+        description: Security group identifier.
+      securityGroupKey:
+        type: string
+        description: Security group key.
+      orgId:
+        type: string
+        description: Operating unit / organization identifier.
+      orgKey:
+        type: string
+        description: Organization key.
+      serviceAlias:
+        type: string
+        description: Alias of the deployed REST service to invoke.
+      methodName:
+        type: string
+        description: REST method name to invoke on the service.
+      inputParameters:
+        type: string
+        description: Method input parameters payload.
+  steps:
+  - stepId: login
+    description: >-
+      Authenticate with HTTP Basic Authentication to obtain a session access
+      token.
+    operationId: login
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      accessToken: $response.body#/response/data/accessToken
+      userName: $response.body#/response/data/userName
+  - stepId: initializeContext
+    description: >-
+      Initialize the responsibility, security group, and organization context
+      for the authenticated session.
+    operationId: initialize
+    requestBody:
+      contentType: application/json
+      payload:
+        data:
+          resp:
+            id: $inputs.respId
+            applId: $inputs.applId
+            key: $inputs.respKey
+            applKey: $inputs.applKey
+          securityGroup:
+            id: $inputs.securityGroupId
+            key: $inputs.securityGroupKey
+          org:
+            id: $inputs.orgId
+            key: $inputs.orgKey
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      initData: $response.body#/response/data
+  - stepId: discoverService
+    description: >-
+      Retrieve the WADL description of the target service to confirm the method
+      is available before invoking it.
+    operationId: getServiceWADL
+    parameters:
+    - name: serviceAlias
+      in: path
+      value: $inputs.serviceAlias
+    - name: WADL
+      in: query
+      value: ''
+    successCriteria:
+    - condition: $statusCode == 200
+  - stepId: invokeMethod
+    description: >-
+      Invoke the deployed REST method on the service with the supplied input
+      parameters and context header.
+    operationId: invokeRestMethod
+    parameters:
+    - name: serviceAlias
+      in: path
+      value: $inputs.serviceAlias
+    - name: methodName
+      in: path
+      value: $inputs.methodName
+    requestBody:
+      contentType: application/json
+      payload:
+        RESTHeader:
+          Org_Id: $inputs.orgId
+        InputParameters: $inputs.inputParameters
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      result: $response.body
+  - stepId: logout
+    description: >-
+      Log out to invalidate the session access token now that the method call
+      is complete.
+    operationId: logout
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      logoutData: $response.body#/response/data
+  outputs:
+    accessToken: $steps.login.outputs.accessToken
+    result: $steps.invokeMethod.outputs.result
+    logoutData: $steps.logout.outputs.logoutData
