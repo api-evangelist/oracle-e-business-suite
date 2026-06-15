@@ -1,0 +1,2293 @@
+{
+  "item": [
+    {
+      "id": "3eefe3e4-45a1-4f0d-a79a-248cfde5ae84",
+      "name": "Bills of Material",
+      "description": {
+        "content": "BOM and routing management",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "40f5c3d6-da0c-4f65-a6ed-ef5a8828abea",
+          "name": "Retrieve Bills of Material",
+          "request": {
+            "name": "Retrieve Bills of Material",
+            "description": {
+              "content": "Retrieves Bill of Material (BOM) header and component records. Maps to the BOM_STRUCTURES_B and BOM_COMPONENTS_B tables through the BOM_BO_PUB PL/SQL API.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bom",
+                "billsOfMaterial"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "billSequenceId",
+                  "value": "<integer>",
+                  "description": "Bill sequence identifier"
+                },
+                {
+                  "disabled": false,
+                  "key": "assemblyItemId",
+                  "value": "<integer>",
+                  "description": "Assembly item identifier"
+                },
+                {
+                  "disabled": false,
+                  "key": "organizationId",
+                  "value": "<integer>",
+                  "description": "Organization identifier"
+                },
+                {
+                  "disabled": false,
+                  "key": "alternateDesignator",
+                  "value": "<string>",
+                  "description": "Alternate BOM designator"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25",
+                  "description": "Maximum number of records to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "Number of records to skip for pagination"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "The Oracle EBS instance hostname",
+                  "type": "any",
+                  "value": "{{instance}}",
+                  "key": "instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "accessToken"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e95bb632-0093-4af7-b018-52d05a2eaf10",
+              "name": "List of bills of material",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bom",
+                    "billsOfMaterial"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "billSequenceId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "assemblyItemId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "organizationId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "alternateDesignator",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"billSequenceId\": \"500123\",\n      \"assemblyItemId\": \"500123\",\n      \"assemblyItemNumber\": \"example_value\",\n      \"organizationId\": \"500123\",\n      \"alternateDesignator\": \"example_value\",\n      \"assemblyType\": 10,\n      \"commonBillSequenceId\": \"500123\",\n      \"specificAssemblyComment\": \"example_value\",\n      \"components\": [\n        {}\n      ],\n      \"creationDate\": \"2026-01-15T10:30:00Z\",\n      \"lastUpdateDate\": \"2026-01-15T10:30:00Z\"\n    }\n  ],\n  \"totalCount\": 10,\n  \"hasMore\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "67ebfd19-a99f-4e76-9ae0-ac5d48bb2caa",
+              "name": "Authentication required or token expired",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bom",
+                    "billsOfMaterial"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "billSequenceId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "assemblyItemId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "organizationId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "alternateDesignator",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"detail\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f45d5e88-d220-49f5-8798-974db2759705",
+          "name": "Retrieve a Specific Bill of Material",
+          "request": {
+            "name": "Retrieve a Specific Bill of Material",
+            "description": {
+              "content": "Retrieves a bill of material with all its components.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bom",
+                "billsOfMaterial",
+                ":billSequenceId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "billSequenceId",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "The Oracle EBS instance hostname",
+                  "type": "any",
+                  "value": "{{instance}}",
+                  "key": "instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "accessToken"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "38175a5b-d48c-4e2a-9012-9831a2d7b618",
+              "name": "Bill of material details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bom",
+                    "billsOfMaterial",
+                    ":billSequenceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "billSequenceId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"billSequenceId\": \"500123\",\n  \"assemblyItemId\": \"500123\",\n  \"assemblyItemNumber\": \"example_value\",\n  \"organizationId\": \"500123\",\n  \"alternateDesignator\": \"example_value\",\n  \"assemblyType\": 10,\n  \"commonBillSequenceId\": \"500123\",\n  \"specificAssemblyComment\": \"example_value\",\n  \"components\": [\n    {\n      \"componentSequenceId\": \"500123\",\n      \"componentItemId\": \"500123\",\n      \"componentItemNumber\": \"example_value\",\n      \"itemDescription\": \"example_value\",\n      \"operationSeqNum\": 10,\n      \"componentQuantity\": 42.5,\n      \"componentYieldFactor\": 42.5,\n      \"effectivityDate\": \"2026-01-15\",\n      \"disableDate\": \"2026-01-15\",\n      \"wipSupplyType\": 10,\n      \"optional\": 10,\n      \"quantityRelated\": 10\n    }\n  ],\n  \"creationDate\": \"2026-01-15T10:30:00Z\",\n  \"lastUpdateDate\": \"2026-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "52f9ccea-1ffd-411b-a606-cd1033becd97",
+              "name": "Authentication required or token expired",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bom",
+                    "billsOfMaterial",
+                    ":billSequenceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "billSequenceId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"detail\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f8b52d93-1a8b-44f0-8b50-35e22c0d825d",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bom",
+                    "billsOfMaterial",
+                    ":billSequenceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "billSequenceId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"detail\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "55112bfc-47bb-40ab-b2dd-2bbb46b0f3d2",
+          "name": "Retrieve Manufacturing Routings",
+          "request": {
+            "name": "Retrieve Manufacturing Routings",
+            "description": {
+              "content": "Retrieves manufacturing routing records. Maps to the BOM_OPERATIONAL_ROUTINGS, BOM_OPERATION_SEQUENCES, and BOM_OPERATION_RESOURCES tables.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bom",
+                "routings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "routingSequenceId",
+                  "value": "<integer>",
+                  "description": "Routing sequence identifier"
+                },
+                {
+                  "disabled": false,
+                  "key": "assemblyItemId",
+                  "value": "<integer>",
+                  "description": "Assembly item identifier"
+                },
+                {
+                  "disabled": false,
+                  "key": "organizationId",
+                  "value": "<integer>",
+                  "description": "Organization identifier"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25",
+                  "description": "Maximum number of records to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "Number of records to skip for pagination"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "The Oracle EBS instance hostname",
+                  "type": "any",
+                  "value": "{{instance}}",
+                  "key": "instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "accessToken"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "00deaee2-9e5a-4fff-b806-6af78b59b365",
+              "name": "List of routings",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bom",
+                    "routings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "routingSequenceId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "assemblyItemId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "organizationId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"routingSequenceId\": \"500123\",\n      \"assemblyItemId\": \"500123\",\n      \"assemblyItemNumber\": \"example_value\",\n      \"organizationId\": \"500123\",\n      \"alternateDesignator\": \"example_value\",\n      \"routingType\": 10,\n      \"operations\": [\n        {}\n      ],\n      \"creationDate\": \"2026-01-15T10:30:00Z\",\n      \"lastUpdateDate\": \"2026-01-15T10:30:00Z\"\n    }\n  ],\n  \"totalCount\": 10,\n  \"hasMore\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0bf242a1-409e-47f0-9ff2-c1db4aebd3ca",
+              "name": "Authentication required or token expired",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bom",
+                    "routings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "routingSequenceId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "assemblyItemId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "organizationId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"detail\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "e334410c-108a-46cd-aa18-3965381ed474",
+      "name": "Work in Process",
+      "description": {
+        "content": "WIP job, operation, and transaction management",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c6d2cec6-01d6-4125-a5fe-271116922b1b",
+          "name": "Retrieve Wip Discrete Jobs",
+          "request": {
+            "name": "Retrieve Wip Discrete Jobs",
+            "description": {
+              "content": "Retrieves Work in Process discrete manufacturing job records. Maps to the WIP_DISCRETE_JOBS table through the WIP_DISCRETE_JOBS_PUB API.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "wip",
+                "discreteJobs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "wipEntityId",
+                  "value": "<integer>",
+                  "description": "WIP entity identifier"
+                },
+                {
+                  "disabled": false,
+                  "key": "wipEntityName",
+                  "value": "<string>",
+                  "description": "Job name/number"
+                },
+                {
+                  "disabled": false,
+                  "key": "primaryItemId",
+                  "value": "<integer>",
+                  "description": "Primary assembly item identifier"
+                },
+                {
+                  "disabled": false,
+                  "key": "organizationId",
+                  "value": "<integer>",
+                  "description": "Organization identifier"
+                },
+                {
+                  "disabled": false,
+                  "key": "statusType",
+                  "value": "<integer>",
+                  "description": "Job status"
+                },
+                {
+                  "disabled": false,
+                  "key": "scheduledStartDateFrom",
+                  "value": "<date>",
+                  "description": "Scheduled start date range (YYYY-MM-DD)"
+                },
+                {
+                  "disabled": false,
+                  "key": "scheduledStartDateTo",
+                  "value": "<date>",
+                  "description": "Scheduled start date range end (YYYY-MM-DD)"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25",
+                  "description": "Maximum number of records to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "Number of records to skip for pagination"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "The Oracle EBS instance hostname",
+                  "type": "any",
+                  "value": "{{instance}}",
+                  "key": "instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "accessToken"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "0ca237e2-8c22-488b-8134-c30d18a92067",
+              "name": "List of discrete jobs",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wip",
+                    "discreteJobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "wipEntityId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "wipEntityName",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "primaryItemId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "organizationId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "statusType",
+                      "value": "1"
+                    },
+                    {
+                      "key": "scheduledStartDateFrom",
+                      "value": "2026-01-15"
+                    },
+                    {
+                      "key": "scheduledStartDateTo",
+                      "value": "2026-01-15"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"wipEntityId\": \"500123\",\n      \"wipEntityName\": \"example_value\",\n      \"organizationId\": \"500123\",\n      \"primaryItemId\": \"500123\",\n      \"primaryItemNumber\": \"example_value\",\n      \"statusType\": 10,\n      \"jobType\": 10,\n      \"startQuantity\": 42.5,\n      \"quantityCompleted\": 42.5,\n      \"quantityScrapped\": 42.5,\n      \"netQuantity\": 42.5,\n      \"scheduledStartDate\": \"2026-01-15T10:30:00Z\",\n      \"scheduledCompletionDate\": \"2026-01-15T10:30:00Z\",\n      \"dateReleased\": \"2026-01-15T10:30:00Z\",\n      \"dateCompleted\": \"2026-01-15T10:30:00Z\",\n      \"dateClosed\": \"2026-01-15T10:30:00Z\",\n      \"classCode\": \"example_value\",\n      \"bomRevision\": \"example_value\",\n      \"routingRevision\": \"example_value\",\n      \"description\": \"A sample description.\",\n      \"firmPlannedFlag\": 10,\n      \"creationDate\": \"2026-01-15T10:30:00Z\",\n      \"lastUpdateDate\": \"2026-01-15T10:30:00Z\"\n    }\n  ],\n  \"totalCount\": 10,\n  \"hasMore\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "24f06b87-2af4-4500-aa08-c497c6242a3e",
+              "name": "Authentication required or token expired",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wip",
+                    "discreteJobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "wipEntityId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "wipEntityName",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "primaryItemId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "organizationId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "statusType",
+                      "value": "1"
+                    },
+                    {
+                      "key": "scheduledStartDateFrom",
+                      "value": "2026-01-15"
+                    },
+                    {
+                      "key": "scheduledStartDateTo",
+                      "value": "2026-01-15"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"detail\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9b1512fc-7afe-460a-8b4b-acfc1174c04f",
+          "name": "Create a Wip Discrete Job",
+          "request": {
+            "name": "Create a Wip Discrete Job",
+            "description": {
+              "content": "Creates a new WIP discrete manufacturing job using the WIP_JOB_SCHEDULE_INTERFACE table and WIP Mass Load concurrent program.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "wip",
+                "discreteJobs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The Oracle EBS instance hostname",
+                  "type": "any",
+                  "value": "{{instance}}",
+                  "key": "instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "accessToken"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"primaryItemId\": \"<integer>\",\n  \"organizationId\": \"<integer>\",\n  \"startQuantity\": \"<double>\",\n  \"scheduledStartDate\": \"<dateTime>\",\n  \"scheduledCompletionDate\": \"<dateTime>\",\n  \"classCode\": \"<string>\",\n  \"wipEntityName\": \"<string>\",\n  \"statusType\": 1,\n  \"jobType\": 1,\n  \"bomRevision\": \"<string>\",\n  \"routingRevision\": \"<string>\",\n  \"description\": \"<string>\",\n  \"firmPlannedFlag\": 2\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "13020d6c-7be6-4361-8030-55184163cab8",
+              "name": "Discrete job created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wip",
+                    "discreteJobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"wipEntityName\": \"example_value\",\n  \"primaryItemId\": \"500123\",\n  \"organizationId\": \"500123\",\n  \"statusType\": 10,\n  \"jobType\": 10,\n  \"startQuantity\": 42.5,\n  \"scheduledStartDate\": \"2026-01-15T10:30:00Z\",\n  \"scheduledCompletionDate\": \"2026-01-15T10:30:00Z\",\n  \"classCode\": \"example_value\",\n  \"bomRevision\": \"example_value\",\n  \"routingRevision\": \"example_value\",\n  \"description\": \"A sample description.\",\n  \"firmPlannedFlag\": 10\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"wipEntityId\": \"500123\",\n  \"wipEntityName\": \"example_value\",\n  \"organizationId\": \"500123\",\n  \"primaryItemId\": \"500123\",\n  \"primaryItemNumber\": \"example_value\",\n  \"statusType\": 10,\n  \"jobType\": 10,\n  \"startQuantity\": 42.5,\n  \"quantityCompleted\": 42.5,\n  \"quantityScrapped\": 42.5,\n  \"netQuantity\": 42.5,\n  \"scheduledStartDate\": \"2026-01-15T10:30:00Z\",\n  \"scheduledCompletionDate\": \"2026-01-15T10:30:00Z\",\n  \"dateReleased\": \"2026-01-15T10:30:00Z\",\n  \"dateCompleted\": \"2026-01-15T10:30:00Z\",\n  \"dateClosed\": \"2026-01-15T10:30:00Z\",\n  \"classCode\": \"example_value\",\n  \"bomRevision\": \"example_value\",\n  \"routingRevision\": \"example_value\",\n  \"description\": \"A sample description.\",\n  \"firmPlannedFlag\": 10,\n  \"creationDate\": \"2026-01-15T10:30:00Z\",\n  \"lastUpdateDate\": \"2026-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "17fb0dcb-7456-4d70-85c1-c49a843d330c",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wip",
+                    "discreteJobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"wipEntityName\": \"example_value\",\n  \"primaryItemId\": \"500123\",\n  \"organizationId\": \"500123\",\n  \"statusType\": 10,\n  \"jobType\": 10,\n  \"startQuantity\": 42.5,\n  \"scheduledStartDate\": \"2026-01-15T10:30:00Z\",\n  \"scheduledCompletionDate\": \"2026-01-15T10:30:00Z\",\n  \"classCode\": \"example_value\",\n  \"bomRevision\": \"example_value\",\n  \"routingRevision\": \"example_value\",\n  \"description\": \"A sample description.\",\n  \"firmPlannedFlag\": 10\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"detail\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "da83b7e5-38f3-4e56-850d-d41d3a9c2062",
+              "name": "Authentication required or token expired",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wip",
+                    "discreteJobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"wipEntityName\": \"example_value\",\n  \"primaryItemId\": \"500123\",\n  \"organizationId\": \"500123\",\n  \"statusType\": 10,\n  \"jobType\": 10,\n  \"startQuantity\": 42.5,\n  \"scheduledStartDate\": \"2026-01-15T10:30:00Z\",\n  \"scheduledCompletionDate\": \"2026-01-15T10:30:00Z\",\n  \"classCode\": \"example_value\",\n  \"bomRevision\": \"example_value\",\n  \"routingRevision\": \"example_value\",\n  \"description\": \"A sample description.\",\n  \"firmPlannedFlag\": 10\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"detail\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1f3249e8-0b42-464a-9456-80a35c2f9aa4",
+          "name": "Retrieve a Specific Discrete Job",
+          "request": {
+            "name": "Retrieve a Specific Discrete Job",
+            "description": {
+              "content": "Retrieves a WIP discrete job by its entity identifier.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "wip",
+                "discreteJobs",
+                ":wipEntityId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "wipEntityId",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "The Oracle EBS instance hostname",
+                  "type": "any",
+                  "value": "{{instance}}",
+                  "key": "instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "accessToken"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "257ed522-6b8c-43da-9f81-e5a55ccf227c",
+              "name": "Discrete job details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wip",
+                    "discreteJobs",
+                    ":wipEntityId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "wipEntityId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"wipEntityId\": \"500123\",\n  \"wipEntityName\": \"example_value\",\n  \"organizationId\": \"500123\",\n  \"primaryItemId\": \"500123\",\n  \"primaryItemNumber\": \"example_value\",\n  \"statusType\": 10,\n  \"jobType\": 10,\n  \"startQuantity\": 42.5,\n  \"quantityCompleted\": 42.5,\n  \"quantityScrapped\": 42.5,\n  \"netQuantity\": 42.5,\n  \"scheduledStartDate\": \"2026-01-15T10:30:00Z\",\n  \"scheduledCompletionDate\": \"2026-01-15T10:30:00Z\",\n  \"dateReleased\": \"2026-01-15T10:30:00Z\",\n  \"dateCompleted\": \"2026-01-15T10:30:00Z\",\n  \"dateClosed\": \"2026-01-15T10:30:00Z\",\n  \"classCode\": \"example_value\",\n  \"bomRevision\": \"example_value\",\n  \"routingRevision\": \"example_value\",\n  \"description\": \"A sample description.\",\n  \"firmPlannedFlag\": 10,\n  \"creationDate\": \"2026-01-15T10:30:00Z\",\n  \"lastUpdateDate\": \"2026-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "497a08b8-36aa-43c8-b075-1cb6c19212fd",
+              "name": "Authentication required or token expired",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wip",
+                    "discreteJobs",
+                    ":wipEntityId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "wipEntityId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"detail\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a4703c21-8a3b-495c-9cf4-ffba5a6d845a",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wip",
+                    "discreteJobs",
+                    ":wipEntityId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "wipEntityId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"detail\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "57c4c583-d846-4197-a06a-a6cb06d14d75",
+          "name": "Retrieve Wip Operations",
+          "request": {
+            "name": "Retrieve Wip Operations",
+            "description": {
+              "content": "Retrieves work order operation records. Maps to the WIP_OPERATIONS table for tracking operation-level progress.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "wip",
+                "operations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "wipEntityId",
+                  "value": "<integer>",
+                  "description": "WIP entity identifier"
+                },
+                {
+                  "disabled": false,
+                  "key": "operationSeqNum",
+                  "value": "<integer>",
+                  "description": "Operation sequence number"
+                },
+                {
+                  "disabled": false,
+                  "key": "organizationId",
+                  "value": "<integer>",
+                  "description": "Organization identifier"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25",
+                  "description": "Maximum number of records to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "Number of records to skip for pagination"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "The Oracle EBS instance hostname",
+                  "type": "any",
+                  "value": "{{instance}}",
+                  "key": "instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "accessToken"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9772f315-7437-4dde-a946-ff25579dbc77",
+              "name": "List of WIP operations",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wip",
+                    "operations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "wipEntityId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "operationSeqNum",
+                      "value": "10"
+                    },
+                    {
+                      "key": "organizationId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"wipEntityId\": \"500123\",\n      \"operationSeqNum\": 10,\n      \"organizationId\": \"500123\",\n      \"departmentId\": \"500123\",\n      \"departmentCode\": \"example_value\",\n      \"operationDescription\": \"example_value\",\n      \"scheduledQuantity\": 42.5,\n      \"quantityInQueue\": 42.5,\n      \"quantityRunning\": 42.5,\n      \"quantityCompleted\": 42.5,\n      \"quantityScrapped\": 42.5,\n      \"firstUnitStartDate\": \"2026-01-15T10:30:00Z\",\n      \"lastUnitCompletionDate\": \"2026-01-15T10:30:00Z\",\n      \"countPointType\": 10,\n      \"backflushFlag\": 10\n    }\n  ],\n  \"totalCount\": 10,\n  \"hasMore\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6ee42ace-8303-4a55-9113-9fe472403459",
+              "name": "Authentication required or token expired",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wip",
+                    "operations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "wipEntityId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "operationSeqNum",
+                      "value": "10"
+                    },
+                    {
+                      "key": "organizationId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"detail\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9dc2e00f-bc5b-4e50-b637-f7e6891d3549",
+          "name": "Complete Wip Assembly",
+          "request": {
+            "name": "Complete Wip Assembly",
+            "description": {
+              "content": "Records WIP assembly completion transactions. Uses the WIP_COMPLETION PL/SQL API to move completed assemblies from WIP into inventory.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "wip",
+                "completions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The Oracle EBS instance hostname",
+                  "type": "any",
+                  "value": "{{instance}}",
+                  "key": "instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "accessToken"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"wipEntityId\": \"<integer>\",\n  \"organizationId\": \"<integer>\",\n  \"transactionQuantity\": \"<double>\",\n  \"transactionUom\": \"<string>\",\n  \"subinventoryCode\": \"<string>\",\n  \"locatorId\": \"<integer>\",\n  \"transactionDate\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "91dfacfd-d718-42d8-9463-72a2f84d9e17",
+              "name": "Completion transaction recorded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wip",
+                    "completions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"wipEntityId\": \"500123\",\n  \"organizationId\": \"500123\",\n  \"transactionQuantity\": 42.5,\n  \"transactionUom\": \"example_value\",\n  \"subinventoryCode\": \"example_value\",\n  \"locatorId\": \"500123\",\n  \"transactionDate\": \"2026-01-15T10:30:00Z\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"transactionId\": \"500123\",\n  \"status\": \"example_value\",\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2f3ee801-31c8-4dfe-b9fd-bb429c39bf7a",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wip",
+                    "completions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"wipEntityId\": \"500123\",\n  \"organizationId\": \"500123\",\n  \"transactionQuantity\": 42.5,\n  \"transactionUom\": \"example_value\",\n  \"subinventoryCode\": \"example_value\",\n  \"locatorId\": \"500123\",\n  \"transactionDate\": \"2026-01-15T10:30:00Z\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"detail\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3517510b-e97c-4fce-96c2-c9dcdc325390",
+              "name": "Authentication required or token expired",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wip",
+                    "completions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"wipEntityId\": \"500123\",\n  \"organizationId\": \"500123\",\n  \"transactionQuantity\": 42.5,\n  \"transactionUom\": \"example_value\",\n  \"subinventoryCode\": \"example_value\",\n  \"locatorId\": \"500123\",\n  \"transactionDate\": \"2026-01-15T10:30:00Z\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"detail\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "82699c79-954d-4742-aff3-265e484c76dd",
+          "name": "Issue Material to Wip",
+          "request": {
+            "name": "Issue Material to Wip",
+            "description": {
+              "content": "Records material issue/return transactions for WIP jobs. Uses the WIP material transaction interface (WIP_MOVE_TXN_INTERFACE).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "wip",
+                "materialTransactions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The Oracle EBS instance hostname",
+                  "type": "any",
+                  "value": "{{instance}}",
+                  "key": "instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "accessToken"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"wipEntityId\": \"<integer>\",\n  \"organizationId\": \"<integer>\",\n  \"inventoryItemId\": \"<integer>\",\n  \"transactionQuantity\": \"<double>\",\n  \"transactionType\": \"<string>\",\n  \"operationSeqNum\": \"<integer>\",\n  \"transactionUom\": \"<string>\",\n  \"subinventoryCode\": \"<string>\",\n  \"locatorId\": \"<integer>\",\n  \"transactionDate\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "93b40779-19b3-4a70-8804-6b5ff4252b00",
+              "name": "Material transaction recorded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wip",
+                    "materialTransactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"wipEntityId\": \"500123\",\n  \"organizationId\": \"500123\",\n  \"operationSeqNum\": 10,\n  \"inventoryItemId\": \"500123\",\n  \"transactionQuantity\": 42.5,\n  \"transactionUom\": \"example_value\",\n  \"transactionType\": \"WIP_ISSUE\",\n  \"subinventoryCode\": \"example_value\",\n  \"locatorId\": \"500123\",\n  \"transactionDate\": \"2026-01-15T10:30:00Z\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"transactionId\": \"500123\",\n  \"status\": \"example_value\",\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e38a42c1-88a6-4ab0-bfe8-1a036f8b8dd3",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wip",
+                    "materialTransactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"wipEntityId\": \"500123\",\n  \"organizationId\": \"500123\",\n  \"operationSeqNum\": 10,\n  \"inventoryItemId\": \"500123\",\n  \"transactionQuantity\": 42.5,\n  \"transactionUom\": \"example_value\",\n  \"transactionType\": \"WIP_ISSUE\",\n  \"subinventoryCode\": \"example_value\",\n  \"locatorId\": \"500123\",\n  \"transactionDate\": \"2026-01-15T10:30:00Z\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"detail\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a50baaf8-647f-4dbc-a10d-986062d84e2b",
+              "name": "Authentication required or token expired",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wip",
+                    "materialTransactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"wipEntityId\": \"500123\",\n  \"organizationId\": \"500123\",\n  \"operationSeqNum\": 10,\n  \"inventoryItemId\": \"500123\",\n  \"transactionQuantity\": 42.5,\n  \"transactionUom\": \"example_value\",\n  \"transactionType\": \"WIP_ISSUE\",\n  \"subinventoryCode\": \"example_value\",\n  \"locatorId\": \"500123\",\n  \"transactionDate\": \"2026-01-15T10:30:00Z\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"detail\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "The Oracle EBS instance hostname",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "ebs-host",
+      "key": "instance"
+    },
+    {
+      "type": "string",
+      "value": "https://{{instance}}.oracle.com/webservices/rest",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "3dba5aad-bb4c-4fa3-a663-c3308840d3c8",
+    "name": "Oracle EBS Manufacturing API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "RESTful APIs for Oracle E-Business Suite manufacturing modules including Bills of Material (BOM), Work in Process (WIP), and Work Orders. Provides programmatic access to manufacturing execution and planning functions deployed as REST services through the Integrated SOA Gateway.\n\nContact Support:\n Name: Oracle Support\n Email: support@oracle.com",
+      "type": "text/plain"
+    }
+  }
+}

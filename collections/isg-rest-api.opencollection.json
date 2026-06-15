@@ -1,0 +1,178 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Oracle EBS Integrated SOA Gateway REST API",
+    "version": "12.2.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Authentication",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Authenticate and Obtain Access Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.oracle.com/webservices/rest/login",
+            "headers": [
+              {
+                "name": "Accept-Language",
+                "value": "en-GB,en-US;q=0.8,en;q=0.6"
+              },
+              {
+                "name": "Content-Type",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Authenticates a user using HTTP Basic Authentication and returns a session access token for subsequent REST service calls. The access token is returned both as a cookie and in the response body."
+        },
+        {
+          "info": {
+            "name": "Initialize Application Context",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{instance}.oracle.com/webservices/rest/initialize",
+            "headers": [
+              {
+                "name": "Accept-Language",
+                "value": "en-GB,en-US;q=0.8,en;q=0.6"
+              },
+              {
+                "name": "Content-Type",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "accessToken",
+              "value": "{{accessToken}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Initializes the application context including responsibility, security group, and organization for the authenticated session. Must be called after login and before invoking any custom REST services."
+        },
+        {
+          "info": {
+            "name": "Terminate Session and Invalidate Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.oracle.com/webservices/rest/logout",
+            "auth": {
+              "type": "apikey",
+              "key": "accessToken",
+              "value": "{{accessToken}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Logs out the current user and invalidates the session access token. Should be called when the client is finished making REST service calls."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Service Discovery",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve Wadl Description for a Deployed Service",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.oracle.com/webservices/rest/:serviceAlias",
+            "params": [
+              {
+                "name": "serviceAlias",
+                "value": "approvals",
+                "type": "path",
+                "description": "The alias of the deployed REST service"
+              },
+              {
+                "name": "WADL",
+                "value": "",
+                "type": "query",
+                "description": "Flag to request the WADL description"
+              }
+            ]
+          },
+          "docs": "Returns the WADL (Web Application Description Language) document describing the available methods, parameters, and data types for the specified deployed REST service."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Service Invocation",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Invoke a Rest Service Method",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{instance}.oracle.com/webservices/rest/:serviceAlias/:methodName",
+            "headers": [
+              {
+                "name": "Accept-Language",
+                "value": "en-GB,en-US;q=0.8,en;q=0.6"
+              },
+              {
+                "name": "Content-Type",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "serviceAlias",
+                "value": "purchaseOrders",
+                "type": "path",
+                "description": "The alias of the deployed REST service"
+              },
+              {
+                "name": "methodName",
+                "value": "createPurchaseOrder",
+                "type": "path",
+                "description": "The REST method name to invoke"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "accessToken",
+              "value": "{{accessToken}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Invokes a specific method on a deployed REST service. The service alias and method name correspond to the PL/SQL API, Java Bean Service, Application Module Service, or other interface type deployed through the Integration Repository. Request and response payloads vary by service."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,516 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Oracle EBS Financial Services API",
+    "version": "12.2.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "General Ledger",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve Journal Entries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.oracle.com/webservices/rest/gl/journals",
+            "params": [
+              {
+                "name": "ledgerId",
+                "value": "500123",
+                "type": "query",
+                "description": "Ledger identifier"
+              },
+              {
+                "name": "periodName",
+                "value": "example_value",
+                "type": "query",
+                "description": "Accounting period name"
+              },
+              {
+                "name": "journalCategory",
+                "value": "example_value",
+                "type": "query",
+                "description": "Journal category name"
+              },
+              {
+                "name": "status",
+                "value": "U",
+                "type": "query",
+                "description": "Journal status"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "accessToken",
+              "value": "{{accessToken}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Retrieves General Ledger journal entries based on the provided filter criteria. Maps to the GL_JE_HEADERS and GL_JE_LINES interface tables."
+        },
+        {
+          "info": {
+            "name": "Create a Journal Entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{instance}.oracle.com/webservices/rest/gl/journals",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "accessToken",
+              "value": "{{accessToken}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Creates a new General Ledger journal entry. Maps to the GL_INTERFACE table and GL_JOURNAL_IMPORT concurrent program."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Accounts Payable",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve Ap Invoices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.oracle.com/webservices/rest/ap/invoices",
+            "params": [
+              {
+                "name": "invoiceId",
+                "value": "500123",
+                "type": "query",
+                "description": "Invoice identifier"
+              },
+              {
+                "name": "invoiceNum",
+                "value": "example_value",
+                "type": "query",
+                "description": "Invoice number"
+              },
+              {
+                "name": "vendorId",
+                "value": "500123",
+                "type": "query",
+                "description": "Supplier/vendor identifier"
+              },
+              {
+                "name": "invoiceDateFrom",
+                "value": "2026-01-15",
+                "type": "query",
+                "description": "Invoice date range start (YYYY-MM-DD)"
+              },
+              {
+                "name": "invoiceDateTo",
+                "value": "2026-01-15",
+                "type": "query",
+                "description": "Invoice date range end (YYYY-MM-DD)"
+              },
+              {
+                "name": "invoiceStatus",
+                "value": "APPROVED",
+                "type": "query",
+                "description": "Invoice approval status"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "accessToken",
+              "value": "{{accessToken}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Retrieves Accounts Payable invoices. Maps to the AP_INVOICES_ALL and AP_INVOICE_LINES_ALL tables through the AP_INVOICES_PKG PL/SQL API."
+        },
+        {
+          "info": {
+            "name": "Create an Ap Invoice",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{instance}.oracle.com/webservices/rest/ap/invoices",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "accessToken",
+              "value": "{{accessToken}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Creates a new Accounts Payable invoice. Uses the AP_INVOICES_INTERFACE and AP_INVOICE_LINES_INTERFACE tables, then initiates the Payables Open Interface Import program."
+        },
+        {
+          "info": {
+            "name": "Retrieve a Specific Ap Invoice",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.oracle.com/webservices/rest/ap/invoices/:invoiceId",
+            "params": [
+              {
+                "name": "invoiceId",
+                "value": "500123",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "accessToken",
+              "value": "{{accessToken}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Retrieves an Accounts Payable invoice by its identifier."
+        },
+        {
+          "info": {
+            "name": "Retrieve Ap Payments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.oracle.com/webservices/rest/ap/payments",
+            "params": [
+              {
+                "name": "checkId",
+                "value": "500123",
+                "type": "query",
+                "description": "Payment check identifier"
+              },
+              {
+                "name": "vendorId",
+                "value": "500123",
+                "type": "query",
+                "description": "Supplier/vendor identifier"
+              },
+              {
+                "name": "paymentDateFrom",
+                "value": "2026-01-15",
+                "type": "query",
+                "description": "Payment date range start (YYYY-MM-DD)"
+              },
+              {
+                "name": "paymentDateTo",
+                "value": "2026-01-15",
+                "type": "query",
+                "description": "Payment date range end (YYYY-MM-DD)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "accessToken",
+              "value": "{{accessToken}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Retrieves Accounts Payable payment records. Maps to the AP_CHECKS_ALL and AP_INVOICE_PAYMENTS_ALL tables."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Accounts Receivable",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve Ar Invoices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.oracle.com/webservices/rest/ar/invoices",
+            "params": [
+              {
+                "name": "customerTrxId",
+                "value": "500123",
+                "type": "query",
+                "description": "Customer transaction identifier"
+              },
+              {
+                "name": "trxNumber",
+                "value": "example_value",
+                "type": "query",
+                "description": "Transaction number"
+              },
+              {
+                "name": "customerId",
+                "value": "500123",
+                "type": "query",
+                "description": "Customer identifier"
+              },
+              {
+                "name": "trxDateFrom",
+                "value": "2026-01-15",
+                "type": "query",
+                "description": "Transaction date range start (YYYY-MM-DD)"
+              },
+              {
+                "name": "trxDateTo",
+                "value": "2026-01-15",
+                "type": "query",
+                "description": "Transaction date range end (YYYY-MM-DD)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "accessToken",
+              "value": "{{accessToken}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Retrieves Accounts Receivable invoices and transactions. Maps to the RA_CUSTOMER_TRX_ALL and RA_CUSTOMER_TRX_LINES_ALL tables."
+        },
+        {
+          "info": {
+            "name": "Create an Ar Invoice",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{instance}.oracle.com/webservices/rest/ar/invoices",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "accessToken",
+              "value": "{{accessToken}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Creates a new Accounts Receivable invoice/transaction using the RA_INTERFACE_LINES_ALL interface table and AutoInvoice concurrent program."
+        },
+        {
+          "info": {
+            "name": "Retrieve Ar Receipts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.oracle.com/webservices/rest/ar/receipts",
+            "params": [
+              {
+                "name": "cashReceiptId",
+                "value": "500123",
+                "type": "query",
+                "description": "Cash receipt identifier"
+              },
+              {
+                "name": "receiptNumber",
+                "value": "example_value",
+                "type": "query",
+                "description": "Receipt number"
+              },
+              {
+                "name": "customerId",
+                "value": "500123",
+                "type": "query",
+                "description": "Customer identifier"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "accessToken",
+              "value": "{{accessToken}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Retrieves Accounts Receivable cash receipts. Maps to the AR_CASH_RECEIPTS_ALL table through the AR_RECEIPT_API_PUB PL/SQL API."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Fixed Assets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve Fixed Assets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.oracle.com/webservices/rest/fa/assets",
+            "params": [
+              {
+                "name": "assetId",
+                "value": "500123",
+                "type": "query",
+                "description": "Asset identifier"
+              },
+              {
+                "name": "assetNumber",
+                "value": "example_value",
+                "type": "query",
+                "description": "Asset number"
+              },
+              {
+                "name": "assetCategory",
+                "value": "example_value",
+                "type": "query",
+                "description": "Asset category"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "accessToken",
+              "value": "{{accessToken}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Retrieves Fixed Assets records. Maps to the FA_ADDITIONS_B and FA_BOOKS tables through the Fixed Assets API."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Cash Management",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve Bank Accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.oracle.com/webservices/rest/ce/bankAccounts",
+            "params": [
+              {
+                "name": "bankAccountId",
+                "value": "500123",
+                "type": "query",
+                "description": "Bank account identifier"
+              },
+              {
+                "name": "bankAccountName",
+                "value": "example_value",
+                "type": "query",
+                "description": "Bank account name"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "accessToken",
+              "value": "{{accessToken}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Retrieves Cash Management bank account records. Maps to the CE_BANK_ACCOUNTS table through the Cash Management APIs."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

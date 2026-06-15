@@ -1,0 +1,2516 @@
+{
+  "info": {
+    "_postman_id": "58096c49-4564-4c3a-9719-935eed69232b",
+    "name": "Oracle EBS Human Resources API",
+    "description": "RESTful APIs for Oracle E-Business Suite Human Resources Management System (HRMS) including employee management, payroll processing, workforce administration, compensation, and benefits. These PL/SQL APIs are deployed as REST services through the Integrated SOA Gateway.\n\nContact Support:\n Name: Oracle Support\n Email: support@oracle.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:01:41.000Z",
+    "updatedAt": "2026-06-05T15:01:41.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-58096c49-4564-4c3a-9719-935eed69232b"
+  },
+  "item": [
+    {
+      "name": "hr",
+      "item": [
+        {
+          "name": "employees",
+          "item": [
+            {
+              "name": "{personId}",
+              "item": [
+                {
+                  "name": "Retrieve an Employee by Person Id",
+                  "id": "788a780c-4828-4cfd-8558-568c3180203d",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "apikey",
+                      "apikey": [
+                        {
+                          "key": "key",
+                          "value": "accessToken",
+                          "type": "string"
+                        },
+                        {
+                          "key": "value",
+                          "value": "{{apiKey}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "in",
+                          "value": "header",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/hr/employees/:personId?effectiveDate=<date>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "hr",
+                        "employees",
+                        ":personId"
+                      ],
+                      "query": [
+                        {
+                          "description": "Effective date for date-tracked records (YYYY-MM-DD)",
+                          "key": "effectiveDate",
+                          "value": "<date>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "c9a411a9-64fc-4351-810d-1f3823d45720",
+                          "key": "personId",
+                          "value": "<integer>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Retrieves a specific employee record by person identifier."
+                  },
+                  "response": [
+                    {
+                      "id": "5bd31c69-cb7d-46eb-9d09-705554ad9b51",
+                      "name": "Employee details",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "accessToken",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/hr/employees/:personId?effectiveDate=<date>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "hr",
+                            "employees",
+                            ":personId"
+                          ],
+                          "query": [
+                            {
+                              "description": "Effective date for date-tracked records (YYYY-MM-DD)",
+                              "key": "effectiveDate",
+                              "value": "<date>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "personId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"personId\": \"<integer>\",\n  \"employeeNumber\": \"<string>\",\n  \"title\": \"<string>\",\n  \"firstName\": \"<string>\",\n  \"middleNames\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"fullName\": \"<string>\",\n  \"knownAs\": \"<string>\",\n  \"emailAddress\": \"<email>\",\n  \"sex\": \"M\",\n  \"dateOfBirth\": \"<date>\",\n  \"nationalIdentifier\": \"<string>\",\n  \"nationality\": \"<string>\",\n  \"maritalStatus\": \"<string>\",\n  \"effectiveStartDate\": \"<date>\",\n  \"effectiveEndDate\": \"<date>\",\n  \"hireDate\": \"<date>\",\n  \"currentEmployeeFlag\": \"N\",\n  \"businessGroupId\": \"<integer>\",\n  \"assignment\": {\n    \"assignmentId\": \"<integer>\",\n    \"assignmentNumber\": \"<string>\",\n    \"assignmentType\": \"C\",\n    \"primaryFlag\": \"Y\",\n    \"jobId\": \"<integer>\",\n    \"jobName\": \"<string>\",\n    \"positionId\": \"<integer>\",\n    \"positionName\": \"<string>\",\n    \"gradeId\": \"<integer>\",\n    \"gradeName\": \"<string>\",\n    \"organizationId\": \"<integer>\",\n    \"organizationName\": \"<string>\",\n    \"locationId\": \"<integer>\",\n    \"locationCode\": \"<string>\",\n    \"supervisorId\": \"<integer>\",\n    \"payrollId\": \"<integer>\",\n    \"employmentCategory\": \"PT\",\n    \"normalHours\": \"<double>\",\n    \"frequency\": \"Y\",\n    \"effectiveStartDate\": \"<date>\",\n    \"effectiveEndDate\": \"<date>\"\n  },\n  \"addresses\": [\n    {\n      \"addressId\": \"<integer>\",\n      \"addressType\": \"<string>\",\n      \"addressLine1\": \"<string>\",\n      \"addressLine2\": \"<string>\",\n      \"addressLine3\": \"<string>\",\n      \"townOrCity\": \"<string>\",\n      \"region1\": \"<string>\",\n      \"region2\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"country\": \"<string>\",\n      \"primaryFlag\": \"Y\",\n      \"dateFrom\": \"<date>\",\n      \"dateTo\": \"<date>\"\n    },\n    {\n      \"addressId\": \"<integer>\",\n      \"addressType\": \"<string>\",\n      \"addressLine1\": \"<string>\",\n      \"addressLine2\": \"<string>\",\n      \"addressLine3\": \"<string>\",\n      \"townOrCity\": \"<string>\",\n      \"region1\": \"<string>\",\n      \"region2\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"country\": \"<string>\",\n      \"primaryFlag\": \"Y\",\n      \"dateFrom\": \"<date>\",\n      \"dateTo\": \"<date>\"\n    }\n  ],\n  \"phones\": [\n    {\n      \"phoneId\": \"<integer>\",\n      \"phoneType\": \"WF\",\n      \"phoneNumber\": \"<string>\",\n      \"dateFrom\": \"<date>\",\n      \"dateTo\": \"<date>\"\n    },\n    {\n      \"phoneId\": \"<integer>\",\n      \"phoneType\": \"W1\",\n      \"phoneNumber\": \"<string>\",\n      \"dateFrom\": \"<date>\",\n      \"dateTo\": \"<date>\"\n    }\n  ],\n  \"creationDate\": \"<dateTime>\",\n  \"lastUpdateDate\": \"<dateTime>\"\n}",
+                      "createdAt": "2026-06-05T15:01:41.000Z",
+                      "updatedAt": "2026-06-05T15:01:41.000Z",
+                      "uid": "35240-5bd31c69-cb7d-46eb-9d09-705554ad9b51"
+                    },
+                    {
+                      "id": "0ef6fcfe-054f-46d9-8df3-f445b7b14a3d",
+                      "name": "Authentication required or token expired",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "accessToken",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/hr/employees/:personId?effectiveDate=<date>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "hr",
+                            "employees",
+                            ":personId"
+                          ],
+                          "query": [
+                            {
+                              "description": "Effective date for date-tracked records (YYYY-MM-DD)",
+                              "key": "effectiveDate",
+                              "value": "<date>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "personId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:01:41.000Z",
+                      "updatedAt": "2026-06-05T15:01:41.000Z",
+                      "uid": "35240-0ef6fcfe-054f-46d9-8df3-f445b7b14a3d"
+                    },
+                    {
+                      "id": "97aa6d9a-dfd1-41e1-8acc-8827f7644b72",
+                      "name": "Resource not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "accessToken",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/hr/employees/:personId?effectiveDate=<date>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "hr",
+                            "employees",
+                            ":personId"
+                          ],
+                          "query": [
+                            {
+                              "description": "Effective date for date-tracked records (YYYY-MM-DD)",
+                              "key": "effectiveDate",
+                              "value": "<date>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "personId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:01:41.000Z",
+                      "updatedAt": "2026-06-05T15:01:41.000Z",
+                      "uid": "35240-97aa6d9a-dfd1-41e1-8acc-8827f7644b72"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:01:41.000Z",
+                  "updatedAt": "2026-06-05T15:01:41.000Z",
+                  "uid": "35240-788a780c-4828-4cfd-8558-568c3180203d"
+                },
+                {
+                  "name": "Update an Employee Record",
+                  "id": "0416faff-f051-4488-a525-062822410bea",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "apikey",
+                      "apikey": [
+                        {
+                          "key": "key",
+                          "value": "accessToken",
+                          "type": "string"
+                        },
+                        {
+                          "key": "value",
+                          "value": "{{apiKey}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "in",
+                          "value": "header",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"effectiveDate\": \"<date>\",\n  \"dateTrackUpdateMode\": \"CORRECTION\",\n  \"title\": \"<string>\",\n  \"firstName\": \"<string>\",\n  \"middleNames\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"knownAs\": \"<string>\",\n  \"emailAddress\": \"<email>\",\n  \"maritalStatus\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/hr/employees/:personId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "hr",
+                        "employees",
+                        ":personId"
+                      ],
+                      "variable": [
+                        {
+                          "id": "d25bc102-7b81-43ac-b708-b4c05246473b",
+                          "key": "personId",
+                          "value": "<integer>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Updates an existing employee record using the HR_PERSON_API.UPDATE_PERSON PL/SQL procedure with date-track support."
+                  },
+                  "response": [
+                    {
+                      "id": "7d450f05-f188-41b7-a5e2-4b1b20e45a2e",
+                      "name": "Employee updated successfully",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "accessToken",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"effectiveDate\": \"<date>\",\n  \"dateTrackUpdateMode\": \"CORRECTION\",\n  \"title\": \"<string>\",\n  \"firstName\": \"<string>\",\n  \"middleNames\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"knownAs\": \"<string>\",\n  \"emailAddress\": \"<email>\",\n  \"maritalStatus\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/hr/employees/:personId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "hr",
+                            "employees",
+                            ":personId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "personId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"personId\": \"<integer>\",\n  \"employeeNumber\": \"<string>\",\n  \"title\": \"<string>\",\n  \"firstName\": \"<string>\",\n  \"middleNames\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"fullName\": \"<string>\",\n  \"knownAs\": \"<string>\",\n  \"emailAddress\": \"<email>\",\n  \"sex\": \"M\",\n  \"dateOfBirth\": \"<date>\",\n  \"nationalIdentifier\": \"<string>\",\n  \"nationality\": \"<string>\",\n  \"maritalStatus\": \"<string>\",\n  \"effectiveStartDate\": \"<date>\",\n  \"effectiveEndDate\": \"<date>\",\n  \"hireDate\": \"<date>\",\n  \"currentEmployeeFlag\": \"N\",\n  \"businessGroupId\": \"<integer>\",\n  \"assignment\": {\n    \"assignmentId\": \"<integer>\",\n    \"assignmentNumber\": \"<string>\",\n    \"assignmentType\": \"C\",\n    \"primaryFlag\": \"Y\",\n    \"jobId\": \"<integer>\",\n    \"jobName\": \"<string>\",\n    \"positionId\": \"<integer>\",\n    \"positionName\": \"<string>\",\n    \"gradeId\": \"<integer>\",\n    \"gradeName\": \"<string>\",\n    \"organizationId\": \"<integer>\",\n    \"organizationName\": \"<string>\",\n    \"locationId\": \"<integer>\",\n    \"locationCode\": \"<string>\",\n    \"supervisorId\": \"<integer>\",\n    \"payrollId\": \"<integer>\",\n    \"employmentCategory\": \"PT\",\n    \"normalHours\": \"<double>\",\n    \"frequency\": \"Y\",\n    \"effectiveStartDate\": \"<date>\",\n    \"effectiveEndDate\": \"<date>\"\n  },\n  \"addresses\": [\n    {\n      \"addressId\": \"<integer>\",\n      \"addressType\": \"<string>\",\n      \"addressLine1\": \"<string>\",\n      \"addressLine2\": \"<string>\",\n      \"addressLine3\": \"<string>\",\n      \"townOrCity\": \"<string>\",\n      \"region1\": \"<string>\",\n      \"region2\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"country\": \"<string>\",\n      \"primaryFlag\": \"Y\",\n      \"dateFrom\": \"<date>\",\n      \"dateTo\": \"<date>\"\n    },\n    {\n      \"addressId\": \"<integer>\",\n      \"addressType\": \"<string>\",\n      \"addressLine1\": \"<string>\",\n      \"addressLine2\": \"<string>\",\n      \"addressLine3\": \"<string>\",\n      \"townOrCity\": \"<string>\",\n      \"region1\": \"<string>\",\n      \"region2\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"country\": \"<string>\",\n      \"primaryFlag\": \"Y\",\n      \"dateFrom\": \"<date>\",\n      \"dateTo\": \"<date>\"\n    }\n  ],\n  \"phones\": [\n    {\n      \"phoneId\": \"<integer>\",\n      \"phoneType\": \"WF\",\n      \"phoneNumber\": \"<string>\",\n      \"dateFrom\": \"<date>\",\n      \"dateTo\": \"<date>\"\n    },\n    {\n      \"phoneId\": \"<integer>\",\n      \"phoneType\": \"W1\",\n      \"phoneNumber\": \"<string>\",\n      \"dateFrom\": \"<date>\",\n      \"dateTo\": \"<date>\"\n    }\n  ],\n  \"creationDate\": \"<dateTime>\",\n  \"lastUpdateDate\": \"<dateTime>\"\n}",
+                      "createdAt": "2026-06-05T15:01:41.000Z",
+                      "updatedAt": "2026-06-05T15:01:41.000Z",
+                      "uid": "35240-7d450f05-f188-41b7-a5e2-4b1b20e45a2e"
+                    },
+                    {
+                      "id": "e36b83a8-71f3-4a86-a1a1-8187775176d1",
+                      "name": "Invalid request parameters",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "accessToken",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"effectiveDate\": \"<date>\",\n  \"dateTrackUpdateMode\": \"CORRECTION\",\n  \"title\": \"<string>\",\n  \"firstName\": \"<string>\",\n  \"middleNames\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"knownAs\": \"<string>\",\n  \"emailAddress\": \"<email>\",\n  \"maritalStatus\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/hr/employees/:personId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "hr",
+                            "employees",
+                            ":personId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "personId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:01:41.000Z",
+                      "updatedAt": "2026-06-05T15:01:41.000Z",
+                      "uid": "35240-e36b83a8-71f3-4a86-a1a1-8187775176d1"
+                    },
+                    {
+                      "id": "2ccf3420-9bf5-4065-8c67-5503fc97ca21",
+                      "name": "Authentication required or token expired",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "accessToken",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"effectiveDate\": \"<date>\",\n  \"dateTrackUpdateMode\": \"CORRECTION\",\n  \"title\": \"<string>\",\n  \"firstName\": \"<string>\",\n  \"middleNames\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"knownAs\": \"<string>\",\n  \"emailAddress\": \"<email>\",\n  \"maritalStatus\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/hr/employees/:personId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "hr",
+                            "employees",
+                            ":personId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "personId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:01:41.000Z",
+                      "updatedAt": "2026-06-05T15:01:41.000Z",
+                      "uid": "35240-2ccf3420-9bf5-4065-8c67-5503fc97ca21"
+                    },
+                    {
+                      "id": "1c3d7e4c-0943-43f9-83de-0d5674e4b964",
+                      "name": "Resource not found",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "accessToken",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"effectiveDate\": \"<date>\",\n  \"dateTrackUpdateMode\": \"CORRECTION\",\n  \"title\": \"<string>\",\n  \"firstName\": \"<string>\",\n  \"middleNames\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"knownAs\": \"<string>\",\n  \"emailAddress\": \"<email>\",\n  \"maritalStatus\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/hr/employees/:personId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "hr",
+                            "employees",
+                            ":personId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "personId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:01:41.000Z",
+                      "updatedAt": "2026-06-05T15:01:41.000Z",
+                      "uid": "35240-1c3d7e4c-0943-43f9-83de-0d5674e4b964"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:01:41.000Z",
+                  "updatedAt": "2026-06-05T15:01:41.000Z",
+                  "uid": "35240-0416faff-f051-4488-a525-062822410bea"
+                }
+              ],
+              "id": "2cafcf1c-a45e-4097-93ca-868c6405d162",
+              "createdAt": "2026-06-05T15:01:41.000Z",
+              "updatedAt": "2026-06-05T15:01:41.000Z",
+              "uid": "35240-2cafcf1c-a45e-4097-93ca-868c6405d162"
+            },
+            {
+              "name": "Retrieve Employee Records",
+              "id": "d52c6698-e8fd-4393-b9f1-17f911ce07db",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "accessToken",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/hr/employees?personId=<integer>&employeeNumber=<string>&fullName=<string>&businessGroupId=<integer>&effectiveDate=<date>&limit=25&offset=0",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "hr",
+                    "employees"
+                  ],
+                  "query": [
+                    {
+                      "description": "Person identifier",
+                      "key": "personId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Employee number",
+                      "key": "employeeNumber",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Full name (supports wildcards)",
+                      "key": "fullName",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Business group identifier",
+                      "key": "businessGroupId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Effective date for date-tracked records (YYYY-MM-DD)",
+                      "key": "effectiveDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "description": "Maximum number of records to return",
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Number of records to skip for pagination",
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ]
+                },
+                "description": "Retrieves employee records from Oracle HRMS. Maps to the PER_ALL_PEOPLE_F and PER_ALL_ASSIGNMENTS_F tables through the HR_EMPLOYEE_API PL/SQL package."
+              },
+              "response": [
+                {
+                  "id": "ee82737a-26d0-4044-b12f-086f55e4425c",
+                  "name": "List of employees",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/hr/employees?personId=<integer>&employeeNumber=<string>&fullName=<string>&businessGroupId=<integer>&effectiveDate=<date>&limit=25&offset=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "hr",
+                        "employees"
+                      ],
+                      "query": [
+                        {
+                          "description": "Person identifier",
+                          "key": "personId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Employee number",
+                          "key": "employeeNumber",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Full name (supports wildcards)",
+                          "key": "fullName",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Business group identifier",
+                          "key": "businessGroupId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Effective date for date-tracked records (YYYY-MM-DD)",
+                          "key": "effectiveDate",
+                          "value": "<date>"
+                        },
+                        {
+                          "description": "Maximum number of records to return",
+                          "key": "limit",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Number of records to skip for pagination",
+                          "key": "offset",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"items\": [\n    {\n      \"personId\": \"<integer>\",\n      \"employeeNumber\": \"<string>\",\n      \"title\": \"<string>\",\n      \"firstName\": \"<string>\",\n      \"middleNames\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"fullName\": \"<string>\",\n      \"knownAs\": \"<string>\",\n      \"emailAddress\": \"<email>\",\n      \"sex\": \"M\",\n      \"dateOfBirth\": \"<date>\",\n      \"nationalIdentifier\": \"<string>\",\n      \"nationality\": \"<string>\",\n      \"maritalStatus\": \"<string>\",\n      \"effectiveStartDate\": \"<date>\",\n      \"effectiveEndDate\": \"<date>\",\n      \"hireDate\": \"<date>\",\n      \"currentEmployeeFlag\": \"N\",\n      \"businessGroupId\": \"<integer>\",\n      \"assignment\": {\n        \"assignmentId\": \"<integer>\",\n        \"assignmentNumber\": \"<string>\",\n        \"assignmentType\": \"C\",\n        \"primaryFlag\": \"Y\",\n        \"jobId\": \"<integer>\",\n        \"jobName\": \"<string>\",\n        \"positionId\": \"<integer>\",\n        \"positionName\": \"<string>\",\n        \"gradeId\": \"<integer>\",\n        \"gradeName\": \"<string>\",\n        \"organizationId\": \"<integer>\",\n        \"organizationName\": \"<string>\",\n        \"locationId\": \"<integer>\",\n        \"locationCode\": \"<string>\",\n        \"supervisorId\": \"<integer>\",\n        \"payrollId\": \"<integer>\",\n        \"employmentCategory\": \"PR\",\n        \"normalHours\": \"<double>\",\n        \"frequency\": \"W\",\n        \"effectiveStartDate\": \"<date>\",\n        \"effectiveEndDate\": \"<date>\"\n      },\n      \"addresses\": [\n        {\n          \"addressId\": \"<integer>\",\n          \"addressType\": \"<string>\",\n          \"addressLine1\": \"<string>\",\n          \"addressLine2\": \"<string>\",\n          \"addressLine3\": \"<string>\",\n          \"townOrCity\": \"<string>\",\n          \"region1\": \"<string>\",\n          \"region2\": \"<string>\",\n          \"postalCode\": \"<string>\",\n          \"country\": \"<string>\",\n          \"primaryFlag\": \"Y\",\n          \"dateFrom\": \"<date>\",\n          \"dateTo\": \"<date>\"\n        },\n        {\n          \"addressId\": \"<integer>\",\n          \"addressType\": \"<string>\",\n          \"addressLine1\": \"<string>\",\n          \"addressLine2\": \"<string>\",\n          \"addressLine3\": \"<string>\",\n          \"townOrCity\": \"<string>\",\n          \"region1\": \"<string>\",\n          \"region2\": \"<string>\",\n          \"postalCode\": \"<string>\",\n          \"country\": \"<string>\",\n          \"primaryFlag\": \"Y\",\n          \"dateFrom\": \"<date>\",\n          \"dateTo\": \"<date>\"\n        }\n      ],\n      \"phones\": [\n        {\n          \"phoneId\": \"<integer>\",\n          \"phoneType\": \"H1\",\n          \"phoneNumber\": \"<string>\",\n          \"dateFrom\": \"<date>\",\n          \"dateTo\": \"<date>\"\n        },\n        {\n          \"phoneId\": \"<integer>\",\n          \"phoneType\": \"M\",\n          \"phoneNumber\": \"<string>\",\n          \"dateFrom\": \"<date>\",\n          \"dateTo\": \"<date>\"\n        }\n      ],\n      \"creationDate\": \"<dateTime>\",\n      \"lastUpdateDate\": \"<dateTime>\"\n    },\n    {\n      \"personId\": \"<integer>\",\n      \"employeeNumber\": \"<string>\",\n      \"title\": \"<string>\",\n      \"firstName\": \"<string>\",\n      \"middleNames\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"fullName\": \"<string>\",\n      \"knownAs\": \"<string>\",\n      \"emailAddress\": \"<email>\",\n      \"sex\": \"F\",\n      \"dateOfBirth\": \"<date>\",\n      \"nationalIdentifier\": \"<string>\",\n      \"nationality\": \"<string>\",\n      \"maritalStatus\": \"<string>\",\n      \"effectiveStartDate\": \"<date>\",\n      \"effectiveEndDate\": \"<date>\",\n      \"hireDate\": \"<date>\",\n      \"currentEmployeeFlag\": \"Y\",\n      \"businessGroupId\": \"<integer>\",\n      \"assignment\": {\n        \"assignmentId\": \"<integer>\",\n        \"assignmentNumber\": \"<string>\",\n        \"assignmentType\": \"E\",\n        \"primaryFlag\": \"Y\",\n        \"jobId\": \"<integer>\",\n        \"jobName\": \"<string>\",\n        \"positionId\": \"<integer>\",\n        \"positionName\": \"<string>\",\n        \"gradeId\": \"<integer>\",\n        \"gradeName\": \"<string>\",\n        \"organizationId\": \"<integer>\",\n        \"organizationName\": \"<string>\",\n        \"locationId\": \"<integer>\",\n        \"locationCode\": \"<string>\",\n        \"supervisorId\": \"<integer>\",\n        \"payrollId\": \"<integer>\",\n        \"employmentCategory\": \"PT\",\n        \"normalHours\": \"<double>\",\n        \"frequency\": \"Y\",\n        \"effectiveStartDate\": \"<date>\",\n        \"effectiveEndDate\": \"<date>\"\n      },\n      \"addresses\": [\n        {\n          \"addressId\": \"<integer>\",\n          \"addressType\": \"<string>\",\n          \"addressLine1\": \"<string>\",\n          \"addressLine2\": \"<string>\",\n          \"addressLine3\": \"<string>\",\n          \"townOrCity\": \"<string>\",\n          \"region1\": \"<string>\",\n          \"region2\": \"<string>\",\n          \"postalCode\": \"<string>\",\n          \"country\": \"<string>\",\n          \"primaryFlag\": \"N\",\n          \"dateFrom\": \"<date>\",\n          \"dateTo\": \"<date>\"\n        },\n        {\n          \"addressId\": \"<integer>\",\n          \"addressType\": \"<string>\",\n          \"addressLine1\": \"<string>\",\n          \"addressLine2\": \"<string>\",\n          \"addressLine3\": \"<string>\",\n          \"townOrCity\": \"<string>\",\n          \"region1\": \"<string>\",\n          \"region2\": \"<string>\",\n          \"postalCode\": \"<string>\",\n          \"country\": \"<string>\",\n          \"primaryFlag\": \"Y\",\n          \"dateFrom\": \"<date>\",\n          \"dateTo\": \"<date>\"\n        }\n      ],\n      \"phones\": [\n        {\n          \"phoneId\": \"<integer>\",\n          \"phoneType\": \"M\",\n          \"phoneNumber\": \"<string>\",\n          \"dateFrom\": \"<date>\",\n          \"dateTo\": \"<date>\"\n        },\n        {\n          \"phoneId\": \"<integer>\",\n          \"phoneType\": \"H1\",\n          \"phoneNumber\": \"<string>\",\n          \"dateFrom\": \"<date>\",\n          \"dateTo\": \"<date>\"\n        }\n      ],\n      \"creationDate\": \"<dateTime>\",\n      \"lastUpdateDate\": \"<dateTime>\"\n    }\n  ],\n  \"totalCount\": \"<integer>\",\n  \"hasMore\": \"<boolean>\"\n}",
+                  "createdAt": "2026-06-05T15:01:41.000Z",
+                  "updatedAt": "2026-06-05T15:01:41.000Z",
+                  "uid": "35240-ee82737a-26d0-4044-b12f-086f55e4425c"
+                },
+                {
+                  "id": "ea23ac80-d85a-4a94-b269-5d00ad7e74f3",
+                  "name": "Authentication required or token expired",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/hr/employees?personId=<integer>&employeeNumber=<string>&fullName=<string>&businessGroupId=<integer>&effectiveDate=<date>&limit=25&offset=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "hr",
+                        "employees"
+                      ],
+                      "query": [
+                        {
+                          "description": "Person identifier",
+                          "key": "personId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Employee number",
+                          "key": "employeeNumber",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Full name (supports wildcards)",
+                          "key": "fullName",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Business group identifier",
+                          "key": "businessGroupId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Effective date for date-tracked records (YYYY-MM-DD)",
+                          "key": "effectiveDate",
+                          "value": "<date>"
+                        },
+                        {
+                          "description": "Maximum number of records to return",
+                          "key": "limit",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Number of records to skip for pagination",
+                          "key": "offset",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-06-05T15:01:41.000Z",
+                  "updatedAt": "2026-06-05T15:01:41.000Z",
+                  "uid": "35240-ea23ac80-d85a-4a94-b269-5d00ad7e74f3"
+                }
+              ],
+              "createdAt": "2026-06-05T15:01:41.000Z",
+              "updatedAt": "2026-06-05T15:01:41.000Z",
+              "uid": "35240-d52c6698-e8fd-4393-b9f1-17f911ce07db"
+            },
+            {
+              "name": "Create an Employee Record",
+              "id": "4f0c45ae-c3ea-4708-bed6-a8ad35f8a95b",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "accessToken",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"hireDate\": \"<date>\",\n  \"businessGroupId\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"middleNames\": \"<string>\",\n  \"knownAs\": \"<string>\",\n  \"emailAddress\": \"<email>\",\n  \"sex\": \"M\",\n  \"dateOfBirth\": \"<date>\",\n  \"nationalIdentifier\": \"<string>\",\n  \"nationality\": \"<string>\",\n  \"maritalStatus\": \"<string>\",\n  \"jobId\": \"<integer>\",\n  \"positionId\": \"<integer>\",\n  \"organizationId\": \"<integer>\",\n  \"gradeId\": \"<integer>\",\n  \"locationId\": \"<integer>\",\n  \"payrollId\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/hr/employees",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "hr",
+                    "employees"
+                  ]
+                },
+                "description": "Creates a new employee record using the HR_EMPLOYEE_API.CREATE_EMPLOYEE PL/SQL procedure. This creates entries in PER_ALL_PEOPLE_F, PER_ALL_ASSIGNMENTS_F, and related tables."
+              },
+              "response": [
+                {
+                  "id": "6dd29143-49c7-490b-9669-c3edeec8c82e",
+                  "name": "Employee created successfully",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"hireDate\": \"<date>\",\n  \"businessGroupId\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"middleNames\": \"<string>\",\n  \"knownAs\": \"<string>\",\n  \"emailAddress\": \"<email>\",\n  \"sex\": \"M\",\n  \"dateOfBirth\": \"<date>\",\n  \"nationalIdentifier\": \"<string>\",\n  \"nationality\": \"<string>\",\n  \"maritalStatus\": \"<string>\",\n  \"jobId\": \"<integer>\",\n  \"positionId\": \"<integer>\",\n  \"organizationId\": \"<integer>\",\n  \"gradeId\": \"<integer>\",\n  \"locationId\": \"<integer>\",\n  \"payrollId\": \"<integer>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/hr/employees",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "hr",
+                        "employees"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"personId\": \"<integer>\",\n  \"employeeNumber\": \"<string>\",\n  \"title\": \"<string>\",\n  \"firstName\": \"<string>\",\n  \"middleNames\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"fullName\": \"<string>\",\n  \"knownAs\": \"<string>\",\n  \"emailAddress\": \"<email>\",\n  \"sex\": \"M\",\n  \"dateOfBirth\": \"<date>\",\n  \"nationalIdentifier\": \"<string>\",\n  \"nationality\": \"<string>\",\n  \"maritalStatus\": \"<string>\",\n  \"effectiveStartDate\": \"<date>\",\n  \"effectiveEndDate\": \"<date>\",\n  \"hireDate\": \"<date>\",\n  \"currentEmployeeFlag\": \"N\",\n  \"businessGroupId\": \"<integer>\",\n  \"assignment\": {\n    \"assignmentId\": \"<integer>\",\n    \"assignmentNumber\": \"<string>\",\n    \"assignmentType\": \"C\",\n    \"primaryFlag\": \"Y\",\n    \"jobId\": \"<integer>\",\n    \"jobName\": \"<string>\",\n    \"positionId\": \"<integer>\",\n    \"positionName\": \"<string>\",\n    \"gradeId\": \"<integer>\",\n    \"gradeName\": \"<string>\",\n    \"organizationId\": \"<integer>\",\n    \"organizationName\": \"<string>\",\n    \"locationId\": \"<integer>\",\n    \"locationCode\": \"<string>\",\n    \"supervisorId\": \"<integer>\",\n    \"payrollId\": \"<integer>\",\n    \"employmentCategory\": \"PT\",\n    \"normalHours\": \"<double>\",\n    \"frequency\": \"Y\",\n    \"effectiveStartDate\": \"<date>\",\n    \"effectiveEndDate\": \"<date>\"\n  },\n  \"addresses\": [\n    {\n      \"addressId\": \"<integer>\",\n      \"addressType\": \"<string>\",\n      \"addressLine1\": \"<string>\",\n      \"addressLine2\": \"<string>\",\n      \"addressLine3\": \"<string>\",\n      \"townOrCity\": \"<string>\",\n      \"region1\": \"<string>\",\n      \"region2\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"country\": \"<string>\",\n      \"primaryFlag\": \"Y\",\n      \"dateFrom\": \"<date>\",\n      \"dateTo\": \"<date>\"\n    },\n    {\n      \"addressId\": \"<integer>\",\n      \"addressType\": \"<string>\",\n      \"addressLine1\": \"<string>\",\n      \"addressLine2\": \"<string>\",\n      \"addressLine3\": \"<string>\",\n      \"townOrCity\": \"<string>\",\n      \"region1\": \"<string>\",\n      \"region2\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"country\": \"<string>\",\n      \"primaryFlag\": \"Y\",\n      \"dateFrom\": \"<date>\",\n      \"dateTo\": \"<date>\"\n    }\n  ],\n  \"phones\": [\n    {\n      \"phoneId\": \"<integer>\",\n      \"phoneType\": \"WF\",\n      \"phoneNumber\": \"<string>\",\n      \"dateFrom\": \"<date>\",\n      \"dateTo\": \"<date>\"\n    },\n    {\n      \"phoneId\": \"<integer>\",\n      \"phoneType\": \"W1\",\n      \"phoneNumber\": \"<string>\",\n      \"dateFrom\": \"<date>\",\n      \"dateTo\": \"<date>\"\n    }\n  ],\n  \"creationDate\": \"<dateTime>\",\n  \"lastUpdateDate\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-06-05T15:01:41.000Z",
+                  "updatedAt": "2026-06-05T15:01:41.000Z",
+                  "uid": "35240-6dd29143-49c7-490b-9669-c3edeec8c82e"
+                },
+                {
+                  "id": "91b1d354-822d-411a-83ab-45efc77333b9",
+                  "name": "Invalid request parameters",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"hireDate\": \"<date>\",\n  \"businessGroupId\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"middleNames\": \"<string>\",\n  \"knownAs\": \"<string>\",\n  \"emailAddress\": \"<email>\",\n  \"sex\": \"M\",\n  \"dateOfBirth\": \"<date>\",\n  \"nationalIdentifier\": \"<string>\",\n  \"nationality\": \"<string>\",\n  \"maritalStatus\": \"<string>\",\n  \"jobId\": \"<integer>\",\n  \"positionId\": \"<integer>\",\n  \"organizationId\": \"<integer>\",\n  \"gradeId\": \"<integer>\",\n  \"locationId\": \"<integer>\",\n  \"payrollId\": \"<integer>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/hr/employees",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "hr",
+                        "employees"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-06-05T15:01:41.000Z",
+                  "updatedAt": "2026-06-05T15:01:41.000Z",
+                  "uid": "35240-91b1d354-822d-411a-83ab-45efc77333b9"
+                },
+                {
+                  "id": "5c774e35-caed-4834-8b98-1603e763bff3",
+                  "name": "Authentication required or token expired",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"hireDate\": \"<date>\",\n  \"businessGroupId\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"middleNames\": \"<string>\",\n  \"knownAs\": \"<string>\",\n  \"emailAddress\": \"<email>\",\n  \"sex\": \"M\",\n  \"dateOfBirth\": \"<date>\",\n  \"nationalIdentifier\": \"<string>\",\n  \"nationality\": \"<string>\",\n  \"maritalStatus\": \"<string>\",\n  \"jobId\": \"<integer>\",\n  \"positionId\": \"<integer>\",\n  \"organizationId\": \"<integer>\",\n  \"gradeId\": \"<integer>\",\n  \"locationId\": \"<integer>\",\n  \"payrollId\": \"<integer>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/hr/employees",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "hr",
+                        "employees"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-06-05T15:01:41.000Z",
+                  "updatedAt": "2026-06-05T15:01:41.000Z",
+                  "uid": "35240-5c774e35-caed-4834-8b98-1603e763bff3"
+                }
+              ],
+              "createdAt": "2026-06-05T15:01:41.000Z",
+              "updatedAt": "2026-06-05T15:01:41.000Z",
+              "uid": "35240-4f0c45ae-c3ea-4708-bed6-a8ad35f8a95b"
+            }
+          ],
+          "id": "3194d542-be8b-4e97-81bf-a745e677dad9",
+          "createdAt": "2026-06-05T15:01:41.000Z",
+          "updatedAt": "2026-06-05T15:01:41.000Z",
+          "uid": "35240-3194d542-be8b-4e97-81bf-a745e677dad9"
+        },
+        {
+          "name": "assignments",
+          "item": [
+            {
+              "name": "Retrieve Employee Assignments",
+              "id": "b52d010e-fc45-42cb-8d45-015aec30c248",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "accessToken",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/hr/assignments?assignmentId=<integer>&personId=<integer>&organizationId=<integer>&effectiveDate=<date>&limit=25&offset=0",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "hr",
+                    "assignments"
+                  ],
+                  "query": [
+                    {
+                      "description": "Assignment identifier",
+                      "key": "assignmentId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Person identifier",
+                      "key": "personId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "HR organization identifier",
+                      "key": "organizationId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Effective date (YYYY-MM-DD)",
+                      "key": "effectiveDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "description": "Maximum number of records to return",
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Number of records to skip for pagination",
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ]
+                },
+                "description": "Retrieves employee assignment records. Maps to the PER_ALL_ASSIGNMENTS_F table through the HR_ASSIGNMENT_API package."
+              },
+              "response": [
+                {
+                  "id": "035409c1-26ce-46bd-ba30-723d42677c93",
+                  "name": "List of assignments",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/hr/assignments?assignmentId=<integer>&personId=<integer>&organizationId=<integer>&effectiveDate=<date>&limit=25&offset=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "hr",
+                        "assignments"
+                      ],
+                      "query": [
+                        {
+                          "description": "Assignment identifier",
+                          "key": "assignmentId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Person identifier",
+                          "key": "personId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "HR organization identifier",
+                          "key": "organizationId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Effective date (YYYY-MM-DD)",
+                          "key": "effectiveDate",
+                          "value": "<date>"
+                        },
+                        {
+                          "description": "Maximum number of records to return",
+                          "key": "limit",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Number of records to skip for pagination",
+                          "key": "offset",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"items\": [\n    {\n      \"assignmentId\": \"<integer>\",\n      \"assignmentNumber\": \"<string>\",\n      \"assignmentType\": \"C\",\n      \"primaryFlag\": \"Y\",\n      \"jobId\": \"<integer>\",\n      \"jobName\": \"<string>\",\n      \"positionId\": \"<integer>\",\n      \"positionName\": \"<string>\",\n      \"gradeId\": \"<integer>\",\n      \"gradeName\": \"<string>\",\n      \"organizationId\": \"<integer>\",\n      \"organizationName\": \"<string>\",\n      \"locationId\": \"<integer>\",\n      \"locationCode\": \"<string>\",\n      \"supervisorId\": \"<integer>\",\n      \"payrollId\": \"<integer>\",\n      \"employmentCategory\": \"PR\",\n      \"normalHours\": \"<double>\",\n      \"frequency\": \"Y\",\n      \"effectiveStartDate\": \"<date>\",\n      \"effectiveEndDate\": \"<date>\"\n    },\n    {\n      \"assignmentId\": \"<integer>\",\n      \"assignmentNumber\": \"<string>\",\n      \"assignmentType\": \"E\",\n      \"primaryFlag\": \"Y\",\n      \"jobId\": \"<integer>\",\n      \"jobName\": \"<string>\",\n      \"positionId\": \"<integer>\",\n      \"positionName\": \"<string>\",\n      \"gradeId\": \"<integer>\",\n      \"gradeName\": \"<string>\",\n      \"organizationId\": \"<integer>\",\n      \"organizationName\": \"<string>\",\n      \"locationId\": \"<integer>\",\n      \"locationCode\": \"<string>\",\n      \"supervisorId\": \"<integer>\",\n      \"payrollId\": \"<integer>\",\n      \"employmentCategory\": \"PT\",\n      \"normalHours\": \"<double>\",\n      \"frequency\": \"Y\",\n      \"effectiveStartDate\": \"<date>\",\n      \"effectiveEndDate\": \"<date>\"\n    }\n  ],\n  \"totalCount\": \"<integer>\",\n  \"hasMore\": \"<boolean>\"\n}",
+                  "createdAt": "2026-06-05T15:01:41.000Z",
+                  "updatedAt": "2026-06-05T15:01:41.000Z",
+                  "uid": "35240-035409c1-26ce-46bd-ba30-723d42677c93"
+                },
+                {
+                  "id": "c4bc0bb6-3a2b-442b-9c65-c3eff90ac668",
+                  "name": "Authentication required or token expired",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/hr/assignments?assignmentId=<integer>&personId=<integer>&organizationId=<integer>&effectiveDate=<date>&limit=25&offset=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "hr",
+                        "assignments"
+                      ],
+                      "query": [
+                        {
+                          "description": "Assignment identifier",
+                          "key": "assignmentId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Person identifier",
+                          "key": "personId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "HR organization identifier",
+                          "key": "organizationId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Effective date (YYYY-MM-DD)",
+                          "key": "effectiveDate",
+                          "value": "<date>"
+                        },
+                        {
+                          "description": "Maximum number of records to return",
+                          "key": "limit",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Number of records to skip for pagination",
+                          "key": "offset",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-06-05T15:01:41.000Z",
+                  "updatedAt": "2026-06-05T15:01:41.000Z",
+                  "uid": "35240-c4bc0bb6-3a2b-442b-9c65-c3eff90ac668"
+                }
+              ],
+              "createdAt": "2026-06-05T15:01:41.000Z",
+              "updatedAt": "2026-06-05T15:01:41.000Z",
+              "uid": "35240-b52d010e-fc45-42cb-8d45-015aec30c248"
+            }
+          ],
+          "id": "ac5d96e2-21bd-4c1c-b7b6-5fa6aef37f65",
+          "createdAt": "2026-06-05T15:01:41.000Z",
+          "updatedAt": "2026-06-05T15:01:41.000Z",
+          "uid": "35240-ac5d96e2-21bd-4c1c-b7b6-5fa6aef37f65"
+        },
+        {
+          "name": "organizations",
+          "item": [
+            {
+              "name": "Retrieve Hr Organizations",
+              "id": "82c4b17f-342d-45a7-8858-5df1f443233b",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "accessToken",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/hr/organizations?organizationId=<integer>&name=<string>&businessGroupId=<integer>&limit=25&offset=0",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "hr",
+                    "organizations"
+                  ],
+                  "query": [
+                    {
+                      "description": "Organization identifier",
+                      "key": "organizationId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Organization name (supports wildcards)",
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Business group identifier",
+                      "key": "businessGroupId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Maximum number of records to return",
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Number of records to skip for pagination",
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ]
+                },
+                "description": "Retrieves HR organization records. Maps to the HR_ALL_ORGANIZATION_UNITS and HR_ORGANIZATION_INFORMATION tables."
+              },
+              "response": [
+                {
+                  "id": "ce9b4e71-7dda-41de-90e2-9e4f9464ba4a",
+                  "name": "List of organizations",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/hr/organizations?organizationId=<integer>&name=<string>&businessGroupId=<integer>&limit=25&offset=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "hr",
+                        "organizations"
+                      ],
+                      "query": [
+                        {
+                          "description": "Organization identifier",
+                          "key": "organizationId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Organization name (supports wildcards)",
+                          "key": "name",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Business group identifier",
+                          "key": "businessGroupId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Maximum number of records to return",
+                          "key": "limit",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Number of records to skip for pagination",
+                          "key": "offset",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"items\": [\n    {\n      \"organizationId\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"businessGroupId\": \"<integer>\",\n      \"dateFrom\": \"<date>\",\n      \"dateTo\": \"<date>\",\n      \"locationId\": \"<integer>\",\n      \"type\": \"<string>\",\n      \"internalExternalFlag\": \"EXT\"\n    },\n    {\n      \"organizationId\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"businessGroupId\": \"<integer>\",\n      \"dateFrom\": \"<date>\",\n      \"dateTo\": \"<date>\",\n      \"locationId\": \"<integer>\",\n      \"type\": \"<string>\",\n      \"internalExternalFlag\": \"EXT\"\n    }\n  ],\n  \"totalCount\": \"<integer>\",\n  \"hasMore\": \"<boolean>\"\n}",
+                  "createdAt": "2026-06-05T15:01:41.000Z",
+                  "updatedAt": "2026-06-05T15:01:41.000Z",
+                  "uid": "35240-ce9b4e71-7dda-41de-90e2-9e4f9464ba4a"
+                },
+                {
+                  "id": "2c321535-ce18-450e-9218-722e4aea350d",
+                  "name": "Authentication required or token expired",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/hr/organizations?organizationId=<integer>&name=<string>&businessGroupId=<integer>&limit=25&offset=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "hr",
+                        "organizations"
+                      ],
+                      "query": [
+                        {
+                          "description": "Organization identifier",
+                          "key": "organizationId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Organization name (supports wildcards)",
+                          "key": "name",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Business group identifier",
+                          "key": "businessGroupId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Maximum number of records to return",
+                          "key": "limit",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Number of records to skip for pagination",
+                          "key": "offset",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-06-05T15:01:41.000Z",
+                  "updatedAt": "2026-06-05T15:01:41.000Z",
+                  "uid": "35240-2c321535-ce18-450e-9218-722e4aea350d"
+                }
+              ],
+              "createdAt": "2026-06-05T15:01:41.000Z",
+              "updatedAt": "2026-06-05T15:01:41.000Z",
+              "uid": "35240-82c4b17f-342d-45a7-8858-5df1f443233b"
+            }
+          ],
+          "id": "f5ae4701-0cfa-4e03-88d5-7ccbf954c1d5",
+          "createdAt": "2026-06-05T15:01:41.000Z",
+          "updatedAt": "2026-06-05T15:01:41.000Z",
+          "uid": "35240-f5ae4701-0cfa-4e03-88d5-7ccbf954c1d5"
+        },
+        {
+          "name": "positions",
+          "item": [
+            {
+              "name": "Retrieve Hr Positions",
+              "id": "3402c9b0-9a3c-4512-9315-e615893be199",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "accessToken",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/hr/positions?positionId=<integer>&name=<string>&organizationId=<integer>&effectiveDate=<date>&limit=25&offset=0",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "hr",
+                    "positions"
+                  ],
+                  "query": [
+                    {
+                      "description": "Position identifier",
+                      "key": "positionId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Position name (supports wildcards)",
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Organization identifier",
+                      "key": "organizationId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Effective date (YYYY-MM-DD)",
+                      "key": "effectiveDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "description": "Maximum number of records to return",
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Number of records to skip for pagination",
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ]
+                },
+                "description": "Retrieves position records. Maps to the HR_ALL_POSITIONS_F table through the HR_POSITION_API package."
+              },
+              "response": [
+                {
+                  "id": "85ed2bab-ae1c-4c63-9236-021c146d191b",
+                  "name": "List of positions",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/hr/positions?positionId=<integer>&name=<string>&organizationId=<integer>&effectiveDate=<date>&limit=25&offset=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "hr",
+                        "positions"
+                      ],
+                      "query": [
+                        {
+                          "description": "Position identifier",
+                          "key": "positionId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Position name (supports wildcards)",
+                          "key": "name",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Organization identifier",
+                          "key": "organizationId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Effective date (YYYY-MM-DD)",
+                          "key": "effectiveDate",
+                          "value": "<date>"
+                        },
+                        {
+                          "description": "Maximum number of records to return",
+                          "key": "limit",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Number of records to skip for pagination",
+                          "key": "offset",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"items\": [\n    {\n      \"positionId\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"jobId\": \"<integer>\",\n      \"organizationId\": \"<integer>\",\n      \"effectiveStartDate\": \"<date>\",\n      \"effectiveEndDate\": \"<date>\",\n      \"status\": \"<string>\",\n      \"availabilityStatusId\": \"<integer>\",\n      \"businessGroupId\": \"<integer>\",\n      \"locationId\": \"<integer>\"\n    },\n    {\n      \"positionId\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"jobId\": \"<integer>\",\n      \"organizationId\": \"<integer>\",\n      \"effectiveStartDate\": \"<date>\",\n      \"effectiveEndDate\": \"<date>\",\n      \"status\": \"<string>\",\n      \"availabilityStatusId\": \"<integer>\",\n      \"businessGroupId\": \"<integer>\",\n      \"locationId\": \"<integer>\"\n    }\n  ],\n  \"totalCount\": \"<integer>\",\n  \"hasMore\": \"<boolean>\"\n}",
+                  "createdAt": "2026-06-05T15:01:41.000Z",
+                  "updatedAt": "2026-06-05T15:01:41.000Z",
+                  "uid": "35240-85ed2bab-ae1c-4c63-9236-021c146d191b"
+                },
+                {
+                  "id": "3f8bacf9-6dab-422e-94c3-4292b268677b",
+                  "name": "Authentication required or token expired",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/hr/positions?positionId=<integer>&name=<string>&organizationId=<integer>&effectiveDate=<date>&limit=25&offset=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "hr",
+                        "positions"
+                      ],
+                      "query": [
+                        {
+                          "description": "Position identifier",
+                          "key": "positionId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Position name (supports wildcards)",
+                          "key": "name",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Organization identifier",
+                          "key": "organizationId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Effective date (YYYY-MM-DD)",
+                          "key": "effectiveDate",
+                          "value": "<date>"
+                        },
+                        {
+                          "description": "Maximum number of records to return",
+                          "key": "limit",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Number of records to skip for pagination",
+                          "key": "offset",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-06-05T15:01:41.000Z",
+                  "updatedAt": "2026-06-05T15:01:41.000Z",
+                  "uid": "35240-3f8bacf9-6dab-422e-94c3-4292b268677b"
+                }
+              ],
+              "createdAt": "2026-06-05T15:01:41.000Z",
+              "updatedAt": "2026-06-05T15:01:41.000Z",
+              "uid": "35240-3402c9b0-9a3c-4512-9315-e615893be199"
+            }
+          ],
+          "id": "4eaab72e-c59a-41b8-ba85-bafbd4f04d66",
+          "createdAt": "2026-06-05T15:01:41.000Z",
+          "updatedAt": "2026-06-05T15:01:41.000Z",
+          "uid": "35240-4eaab72e-c59a-41b8-ba85-bafbd4f04d66"
+        }
+      ],
+      "id": "a5cbe7f6-a6af-4c24-9f6e-9798438042f3",
+      "createdAt": "2026-06-05T15:01:41.000Z",
+      "updatedAt": "2026-06-05T15:01:41.000Z",
+      "uid": "35240-a5cbe7f6-a6af-4c24-9f6e-9798438042f3"
+    },
+    {
+      "name": "pay",
+      "item": [
+        {
+          "name": "payrolls",
+          "item": [
+            {
+              "name": "Retrieve Payroll Definitions",
+              "id": "51c343bf-0274-4f49-87d9-fff8b0eb5e58",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "accessToken",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/pay/payrolls?payrollId=<integer>&payrollName=<string>&businessGroupId=<integer>&limit=25&offset=0",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "pay",
+                    "payrolls"
+                  ],
+                  "query": [
+                    {
+                      "description": "Payroll identifier",
+                      "key": "payrollId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Payroll name",
+                      "key": "payrollName",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Business group identifier",
+                      "key": "businessGroupId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Maximum number of records to return",
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Number of records to skip for pagination",
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ]
+                },
+                "description": "Retrieves payroll definitions from Oracle Payroll. Maps to the PAY_ALL_PAYROLLS_F table."
+              },
+              "response": [
+                {
+                  "id": "74648bee-c94c-4cf4-9ea0-d7f8e33c6fce",
+                  "name": "List of payroll definitions",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/pay/payrolls?payrollId=<integer>&payrollName=<string>&businessGroupId=<integer>&limit=25&offset=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "pay",
+                        "payrolls"
+                      ],
+                      "query": [
+                        {
+                          "description": "Payroll identifier",
+                          "key": "payrollId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Payroll name",
+                          "key": "payrollName",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Business group identifier",
+                          "key": "businessGroupId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Maximum number of records to return",
+                          "key": "limit",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Number of records to skip for pagination",
+                          "key": "offset",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"items\": [\n    {\n      \"payrollId\": \"<integer>\",\n      \"payrollName\": \"<string>\",\n      \"periodType\": \"Semi-Month\",\n      \"numberOfYears\": \"<integer>\",\n      \"firstPeriodEndDate\": \"<date>\",\n      \"effectiveStartDate\": \"<date>\",\n      \"effectiveEndDate\": \"<date>\",\n      \"businessGroupId\": \"<integer>\"\n    },\n    {\n      \"payrollId\": \"<integer>\",\n      \"payrollName\": \"<string>\",\n      \"periodType\": \"Bi-Week\",\n      \"numberOfYears\": \"<integer>\",\n      \"firstPeriodEndDate\": \"<date>\",\n      \"effectiveStartDate\": \"<date>\",\n      \"effectiveEndDate\": \"<date>\",\n      \"businessGroupId\": \"<integer>\"\n    }\n  ],\n  \"totalCount\": \"<integer>\",\n  \"hasMore\": \"<boolean>\"\n}",
+                  "createdAt": "2026-06-05T15:01:41.000Z",
+                  "updatedAt": "2026-06-05T15:01:41.000Z",
+                  "uid": "35240-74648bee-c94c-4cf4-9ea0-d7f8e33c6fce"
+                },
+                {
+                  "id": "07f57b30-6cd5-44d6-bd45-040a1d4e0118",
+                  "name": "Authentication required or token expired",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/pay/payrolls?payrollId=<integer>&payrollName=<string>&businessGroupId=<integer>&limit=25&offset=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "pay",
+                        "payrolls"
+                      ],
+                      "query": [
+                        {
+                          "description": "Payroll identifier",
+                          "key": "payrollId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Payroll name",
+                          "key": "payrollName",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Business group identifier",
+                          "key": "businessGroupId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Maximum number of records to return",
+                          "key": "limit",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Number of records to skip for pagination",
+                          "key": "offset",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-06-05T15:01:41.000Z",
+                  "updatedAt": "2026-06-05T15:01:41.000Z",
+                  "uid": "35240-07f57b30-6cd5-44d6-bd45-040a1d4e0118"
+                }
+              ],
+              "createdAt": "2026-06-05T15:01:41.000Z",
+              "updatedAt": "2026-06-05T15:01:41.000Z",
+              "uid": "35240-51c343bf-0274-4f49-87d9-fff8b0eb5e58"
+            }
+          ],
+          "id": "ac6ca7ce-b80f-48ce-939d-714f854b9f12",
+          "createdAt": "2026-06-05T15:01:41.000Z",
+          "updatedAt": "2026-06-05T15:01:41.000Z",
+          "uid": "35240-ac6ca7ce-b80f-48ce-939d-714f854b9f12"
+        },
+        {
+          "name": "payrollRuns",
+          "item": [
+            {
+              "name": "Retrieve Payroll Run Results",
+              "id": "02e2a6d8-8d9a-4459-adb3-dce3c39d5ada",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "accessToken",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/pay/payrollRuns?payrollActionId=<integer>&payrollId=<integer>&effectiveDate=<date>&limit=25&offset=0",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "pay",
+                    "payrollRuns"
+                  ],
+                  "query": [
+                    {
+                      "description": "Payroll action identifier",
+                      "key": "payrollActionId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Payroll identifier",
+                      "key": "payrollId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Effective date (YYYY-MM-DD)",
+                      "key": "effectiveDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "description": "Maximum number of records to return",
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Number of records to skip for pagination",
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ]
+                },
+                "description": "Retrieves payroll run and action results. Maps to the PAY_PAYROLL_ACTIONS, PAY_ASSIGNMENT_ACTIONS, and PAY_RUN_RESULTS tables."
+              },
+              "response": [
+                {
+                  "id": "96aec69f-4f9b-4d4c-8798-66949ef75ea4",
+                  "name": "List of payroll runs",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/pay/payrollRuns?payrollActionId=<integer>&payrollId=<integer>&effectiveDate=<date>&limit=25&offset=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "pay",
+                        "payrollRuns"
+                      ],
+                      "query": [
+                        {
+                          "description": "Payroll action identifier",
+                          "key": "payrollActionId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Payroll identifier",
+                          "key": "payrollId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Effective date (YYYY-MM-DD)",
+                          "key": "effectiveDate",
+                          "value": "<date>"
+                        },
+                        {
+                          "description": "Maximum number of records to return",
+                          "key": "limit",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Number of records to skip for pagination",
+                          "key": "offset",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"items\": [\n    {\n      \"payrollActionId\": \"<integer>\",\n      \"payrollId\": \"<integer>\",\n      \"actionType\": \"<string>\",\n      \"actionStatus\": \"P\",\n      \"effectiveDate\": \"<date>\",\n      \"dateEarned\": \"<date>\",\n      \"periodOfServiceId\": \"<integer>\",\n      \"businessGroupId\": \"<integer>\"\n    },\n    {\n      \"payrollActionId\": \"<integer>\",\n      \"payrollId\": \"<integer>\",\n      \"actionType\": \"<string>\",\n      \"actionStatus\": \"P\",\n      \"effectiveDate\": \"<date>\",\n      \"dateEarned\": \"<date>\",\n      \"periodOfServiceId\": \"<integer>\",\n      \"businessGroupId\": \"<integer>\"\n    }\n  ],\n  \"totalCount\": \"<integer>\",\n  \"hasMore\": \"<boolean>\"\n}",
+                  "createdAt": "2026-06-05T15:01:41.000Z",
+                  "updatedAt": "2026-06-05T15:01:41.000Z",
+                  "uid": "35240-96aec69f-4f9b-4d4c-8798-66949ef75ea4"
+                },
+                {
+                  "id": "d427be6d-0f1f-4a01-8c09-5fdf6c89e4ba",
+                  "name": "Authentication required or token expired",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/pay/payrollRuns?payrollActionId=<integer>&payrollId=<integer>&effectiveDate=<date>&limit=25&offset=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "pay",
+                        "payrollRuns"
+                      ],
+                      "query": [
+                        {
+                          "description": "Payroll action identifier",
+                          "key": "payrollActionId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Payroll identifier",
+                          "key": "payrollId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Effective date (YYYY-MM-DD)",
+                          "key": "effectiveDate",
+                          "value": "<date>"
+                        },
+                        {
+                          "description": "Maximum number of records to return",
+                          "key": "limit",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Number of records to skip for pagination",
+                          "key": "offset",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-06-05T15:01:41.000Z",
+                  "updatedAt": "2026-06-05T15:01:41.000Z",
+                  "uid": "35240-d427be6d-0f1f-4a01-8c09-5fdf6c89e4ba"
+                }
+              ],
+              "createdAt": "2026-06-05T15:01:41.000Z",
+              "updatedAt": "2026-06-05T15:01:41.000Z",
+              "uid": "35240-02e2a6d8-8d9a-4459-adb3-dce3c39d5ada"
+            }
+          ],
+          "id": "f069e45e-5064-4605-96b8-395ba2d514f2",
+          "createdAt": "2026-06-05T15:01:41.000Z",
+          "updatedAt": "2026-06-05T15:01:41.000Z",
+          "uid": "35240-f069e45e-5064-4605-96b8-395ba2d514f2"
+        }
+      ],
+      "id": "5d00080d-6ad5-4cc2-a2c8-a55a532f1092",
+      "createdAt": "2026-06-05T15:01:41.000Z",
+      "updatedAt": "2026-06-05T15:01:41.000Z",
+      "uid": "35240-5d00080d-6ad5-4cc2-a2c8-a55a532f1092"
+    },
+    {
+      "name": "ben",
+      "item": [
+        {
+          "name": "benefits",
+          "item": [
+            {
+              "name": "Retrieve Benefit Enrollments",
+              "id": "e0b0abcd-3889-451f-954a-ea965f534a5f",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "accessToken",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/ben/benefits?personId=<integer>&planId=<integer>&effectiveDate=<date>&limit=25&offset=0",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "ben",
+                    "benefits"
+                  ],
+                  "query": [
+                    {
+                      "description": "Person identifier",
+                      "key": "personId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Benefit plan identifier",
+                      "key": "planId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Effective date (YYYY-MM-DD)",
+                      "key": "effectiveDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "description": "Maximum number of records to return",
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Number of records to skip for pagination",
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ]
+                },
+                "description": "Retrieves employee benefit enrollment records. Maps to the BEN_PRTT_ENRT_RSLT_F table through the Benefits API."
+              },
+              "response": [
+                {
+                  "id": "09a94584-9eaf-40a0-821d-81d879b487a1",
+                  "name": "List of benefit enrollments",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/ben/benefits?personId=<integer>&planId=<integer>&effectiveDate=<date>&limit=25&offset=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "ben",
+                        "benefits"
+                      ],
+                      "query": [
+                        {
+                          "description": "Person identifier",
+                          "key": "personId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Benefit plan identifier",
+                          "key": "planId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Effective date (YYYY-MM-DD)",
+                          "key": "effectiveDate",
+                          "value": "<date>"
+                        },
+                        {
+                          "description": "Maximum number of records to return",
+                          "key": "limit",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Number of records to skip for pagination",
+                          "key": "offset",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"items\": [\n    {\n      \"enrollmentResultId\": \"<integer>\",\n      \"personId\": \"<integer>\",\n      \"planId\": \"<integer>\",\n      \"planName\": \"<string>\",\n      \"optionId\": \"<integer>\",\n      \"optionName\": \"<string>\",\n      \"coverageLevelCode\": \"<string>\",\n      \"effectiveStartDate\": \"<date>\",\n      \"effectiveEndDate\": \"<date>\",\n      \"enrollmentStartDate\": \"<date>\",\n      \"enrollmentEndDate\": \"<date>\",\n      \"benefitAmount\": \"<double>\"\n    },\n    {\n      \"enrollmentResultId\": \"<integer>\",\n      \"personId\": \"<integer>\",\n      \"planId\": \"<integer>\",\n      \"planName\": \"<string>\",\n      \"optionId\": \"<integer>\",\n      \"optionName\": \"<string>\",\n      \"coverageLevelCode\": \"<string>\",\n      \"effectiveStartDate\": \"<date>\",\n      \"effectiveEndDate\": \"<date>\",\n      \"enrollmentStartDate\": \"<date>\",\n      \"enrollmentEndDate\": \"<date>\",\n      \"benefitAmount\": \"<double>\"\n    }\n  ],\n  \"totalCount\": \"<integer>\",\n  \"hasMore\": \"<boolean>\"\n}",
+                  "createdAt": "2026-06-05T15:01:41.000Z",
+                  "updatedAt": "2026-06-05T15:01:41.000Z",
+                  "uid": "35240-09a94584-9eaf-40a0-821d-81d879b487a1"
+                },
+                {
+                  "id": "3f11b522-c1e5-45dd-9b9c-c55fe54ec2cf",
+                  "name": "Authentication required or token expired",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/ben/benefits?personId=<integer>&planId=<integer>&effectiveDate=<date>&limit=25&offset=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "ben",
+                        "benefits"
+                      ],
+                      "query": [
+                        {
+                          "description": "Person identifier",
+                          "key": "personId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Benefit plan identifier",
+                          "key": "planId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Effective date (YYYY-MM-DD)",
+                          "key": "effectiveDate",
+                          "value": "<date>"
+                        },
+                        {
+                          "description": "Maximum number of records to return",
+                          "key": "limit",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Number of records to skip for pagination",
+                          "key": "offset",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-06-05T15:01:41.000Z",
+                  "updatedAt": "2026-06-05T15:01:41.000Z",
+                  "uid": "35240-3f11b522-c1e5-45dd-9b9c-c55fe54ec2cf"
+                }
+              ],
+              "createdAt": "2026-06-05T15:01:41.000Z",
+              "updatedAt": "2026-06-05T15:01:41.000Z",
+              "uid": "35240-e0b0abcd-3889-451f-954a-ea965f534a5f"
+            }
+          ],
+          "id": "bca15bbf-de54-42ac-a1d8-3095e297085f",
+          "createdAt": "2026-06-05T15:01:41.000Z",
+          "updatedAt": "2026-06-05T15:01:41.000Z",
+          "uid": "35240-bca15bbf-de54-42ac-a1d8-3095e297085f"
+        }
+      ],
+      "id": "52da9d9f-97d6-4b78-86b0-e2c3addd13f5",
+      "createdAt": "2026-06-05T15:01:41.000Z",
+      "updatedAt": "2026-06-05T15:01:41.000Z",
+      "uid": "35240-52da9d9f-97d6-4b78-86b0-e2c3addd13f5"
+    }
+  ],
+  "variable": [
+    {
+      "key": "instance",
+      "value": "ebs-host"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{instance}}.oracle.com/webservices/rest"
+    }
+  ]
+}

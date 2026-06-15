@@ -1,0 +1,1719 @@
+{
+  "info": {
+    "_postman_id": "1efec09b-c135-490f-ade4-2f03bd79d1c9",
+    "name": "Oracle EBS e-Commerce Gateway API",
+    "description": "RESTful APIs for Oracle E-Business Suite e-Commerce Gateway providing EDI (Electronic Data Interchange) transaction support. Enables exchange of standard ASC X12 and EDIFACT documents with trading partners through flat ASCII file integration with third-party EDI translators. Supports inbound and outbound document processing for purchase orders, invoices, ship notices, and other business documents.\n\nContact Support:\n Name: Oracle Support\n Email: support@oracle.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:01:44.000Z",
+    "updatedAt": "2026-06-05T15:01:44.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-1efec09b-c135-490f-ade4-2f03bd79d1c9"
+  },
+  "item": [
+    {
+      "name": "ece",
+      "item": [
+        {
+          "name": "tradingPartners",
+          "item": [
+            {
+              "name": "{tradingPartnerId}",
+              "item": [
+                {
+                  "name": "Retrieve a Specific Trading Partner",
+                  "id": "d14f3e60-4d97-43ac-8377-b19624628889",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "apikey",
+                      "apikey": [
+                        {
+                          "key": "key",
+                          "value": "accessToken",
+                          "type": "string"
+                        },
+                        {
+                          "key": "value",
+                          "value": "{{apiKey}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "in",
+                          "value": "header",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/ece/tradingPartners/:tradingPartnerId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "ece",
+                        "tradingPartners",
+                        ":tradingPartnerId"
+                      ],
+                      "variable": [
+                        {
+                          "id": "b2a887ca-c1af-4850-92a1-38827783662f",
+                          "key": "tradingPartnerId",
+                          "value": "<integer>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Retrieves a trading partner by identifier with full detail."
+                  },
+                  "response": [
+                    {
+                      "id": "0f2f1719-e07d-4661-b0c3-5cdcc679ee83",
+                      "name": "Trading partner details",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "accessToken",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/ece/tradingPartners/:tradingPartnerId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "ece",
+                            "tradingPartners",
+                            ":tradingPartnerId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "tradingPartnerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"tradingPartnerId\": \"<integer>\",\n  \"tradingPartnerName\": \"<string>\",\n  \"tradingPartnerType\": \"SUPPLIER\",\n  \"tradingPartnerSiteId\": \"<integer>\",\n  \"tradingPartnerSiteName\": \"<string>\",\n  \"ediLocationCode\": \"<string>\",\n  \"ediTranslatorCode\": \"<string>\",\n  \"documentStandard\": \"EDIFACT\",\n  \"enabledTransactions\": [\n    {\n      \"transactionType\": \"<string>\",\n      \"transactionDescription\": \"<string>\",\n      \"direction\": \"INBOUND\",\n      \"documentId\": \"<string>\",\n      \"enabled\": \"<boolean>\"\n    },\n    {\n      \"transactionType\": \"<string>\",\n      \"transactionDescription\": \"<string>\",\n      \"direction\": \"OUTBOUND\",\n      \"documentId\": \"<string>\",\n      \"enabled\": \"<boolean>\"\n    }\n  ],\n  \"creationDate\": \"<dateTime>\",\n  \"lastUpdateDate\": \"<dateTime>\"\n}",
+                      "createdAt": "2026-06-05T15:01:44.000Z",
+                      "updatedAt": "2026-06-05T15:01:44.000Z",
+                      "uid": "35240-0f2f1719-e07d-4661-b0c3-5cdcc679ee83"
+                    },
+                    {
+                      "id": "de9bbb0c-22d1-45cb-bd3e-3f6dfa78f4a4",
+                      "name": "Authentication required or token expired",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "accessToken",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/ece/tradingPartners/:tradingPartnerId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "ece",
+                            "tradingPartners",
+                            ":tradingPartnerId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "tradingPartnerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:01:44.000Z",
+                      "updatedAt": "2026-06-05T15:01:44.000Z",
+                      "uid": "35240-de9bbb0c-22d1-45cb-bd3e-3f6dfa78f4a4"
+                    },
+                    {
+                      "id": "e4173377-89c2-4d37-bed4-c2be744f54dd",
+                      "name": "Resource not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "accessToken",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/ece/tradingPartners/:tradingPartnerId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "ece",
+                            "tradingPartners",
+                            ":tradingPartnerId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "tradingPartnerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:01:44.000Z",
+                      "updatedAt": "2026-06-05T15:01:44.000Z",
+                      "uid": "35240-e4173377-89c2-4d37-bed4-c2be744f54dd"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:01:44.000Z",
+                  "updatedAt": "2026-06-05T15:01:44.000Z",
+                  "uid": "35240-d14f3e60-4d97-43ac-8377-b19624628889"
+                }
+              ],
+              "id": "83ce8136-80f6-4107-ab7e-053b1516763b",
+              "createdAt": "2026-06-05T15:01:44.000Z",
+              "updatedAt": "2026-06-05T15:01:44.000Z",
+              "uid": "35240-83ce8136-80f6-4107-ab7e-053b1516763b"
+            },
+            {
+              "name": "Retrieve Trading Partners",
+              "id": "3312c1af-7717-450c-b9ee-69f4578d2cf7",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "accessToken",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/ece/tradingPartners?tradingPartnerId=<integer>&tradingPartnerName=<string>&tradingPartnerType=CUSTOMER&limit=25&offset=0",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "ece",
+                    "tradingPartners"
+                  ],
+                  "query": [
+                    {
+                      "description": "Trading partner identifier",
+                      "key": "tradingPartnerId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Trading partner name (supports wildcards)",
+                      "key": "tradingPartnerName",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Trading partner type",
+                      "key": "tradingPartnerType",
+                      "value": "CUSTOMER"
+                    },
+                    {
+                      "description": "Maximum number of records to return",
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Number of records to skip for pagination",
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ]
+                },
+                "description": "Retrieves e-Commerce Gateway trading partner definitions including enabled EDI transactions and code conversion mappings."
+              },
+              "response": [
+                {
+                  "id": "f92b9c8e-cb14-4f23-9184-a87d056468af",
+                  "name": "List of trading partners",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/ece/tradingPartners?tradingPartnerId=<integer>&tradingPartnerName=<string>&tradingPartnerType=CUSTOMER&limit=25&offset=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "ece",
+                        "tradingPartners"
+                      ],
+                      "query": [
+                        {
+                          "description": "Trading partner identifier",
+                          "key": "tradingPartnerId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Trading partner name (supports wildcards)",
+                          "key": "tradingPartnerName",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Trading partner type",
+                          "key": "tradingPartnerType",
+                          "value": "CUSTOMER"
+                        },
+                        {
+                          "description": "Maximum number of records to return",
+                          "key": "limit",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Number of records to skip for pagination",
+                          "key": "offset",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"items\": [\n    {\n      \"tradingPartnerId\": \"<integer>\",\n      \"tradingPartnerName\": \"<string>\",\n      \"tradingPartnerType\": \"SUPPLIER\",\n      \"tradingPartnerSiteId\": \"<integer>\",\n      \"tradingPartnerSiteName\": \"<string>\",\n      \"ediLocationCode\": \"<string>\",\n      \"ediTranslatorCode\": \"<string>\",\n      \"documentStandard\": \"EDIFACT\",\n      \"enabledTransactions\": [\n        {\n          \"transactionType\": \"<string>\",\n          \"transactionDescription\": \"<string>\",\n          \"direction\": \"OUTBOUND\",\n          \"documentId\": \"<string>\",\n          \"enabled\": \"<boolean>\"\n        },\n        {\n          \"transactionType\": \"<string>\",\n          \"transactionDescription\": \"<string>\",\n          \"direction\": \"OUTBOUND\",\n          \"documentId\": \"<string>\",\n          \"enabled\": \"<boolean>\"\n        }\n      ],\n      \"creationDate\": \"<dateTime>\",\n      \"lastUpdateDate\": \"<dateTime>\"\n    },\n    {\n      \"tradingPartnerId\": \"<integer>\",\n      \"tradingPartnerName\": \"<string>\",\n      \"tradingPartnerType\": \"CUSTOMER\",\n      \"tradingPartnerSiteId\": \"<integer>\",\n      \"tradingPartnerSiteName\": \"<string>\",\n      \"ediLocationCode\": \"<string>\",\n      \"ediTranslatorCode\": \"<string>\",\n      \"documentStandard\": \"X12\",\n      \"enabledTransactions\": [\n        {\n          \"transactionType\": \"<string>\",\n          \"transactionDescription\": \"<string>\",\n          \"direction\": \"INBOUND\",\n          \"documentId\": \"<string>\",\n          \"enabled\": \"<boolean>\"\n        },\n        {\n          \"transactionType\": \"<string>\",\n          \"transactionDescription\": \"<string>\",\n          \"direction\": \"OUTBOUND\",\n          \"documentId\": \"<string>\",\n          \"enabled\": \"<boolean>\"\n        }\n      ],\n      \"creationDate\": \"<dateTime>\",\n      \"lastUpdateDate\": \"<dateTime>\"\n    }\n  ],\n  \"totalCount\": \"<integer>\",\n  \"hasMore\": \"<boolean>\"\n}",
+                  "createdAt": "2026-06-05T15:01:44.000Z",
+                  "updatedAt": "2026-06-05T15:01:44.000Z",
+                  "uid": "35240-f92b9c8e-cb14-4f23-9184-a87d056468af"
+                },
+                {
+                  "id": "8d8271c5-40d7-43e2-88c6-22b7dd7b32d8",
+                  "name": "Authentication required or token expired",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/ece/tradingPartners?tradingPartnerId=<integer>&tradingPartnerName=<string>&tradingPartnerType=CUSTOMER&limit=25&offset=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "ece",
+                        "tradingPartners"
+                      ],
+                      "query": [
+                        {
+                          "description": "Trading partner identifier",
+                          "key": "tradingPartnerId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Trading partner name (supports wildcards)",
+                          "key": "tradingPartnerName",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Trading partner type",
+                          "key": "tradingPartnerType",
+                          "value": "CUSTOMER"
+                        },
+                        {
+                          "description": "Maximum number of records to return",
+                          "key": "limit",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Number of records to skip for pagination",
+                          "key": "offset",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-06-05T15:01:44.000Z",
+                  "updatedAt": "2026-06-05T15:01:44.000Z",
+                  "uid": "35240-8d8271c5-40d7-43e2-88c6-22b7dd7b32d8"
+                }
+              ],
+              "createdAt": "2026-06-05T15:01:44.000Z",
+              "updatedAt": "2026-06-05T15:01:44.000Z",
+              "uid": "35240-3312c1af-7717-450c-b9ee-69f4578d2cf7"
+            }
+          ],
+          "id": "69a87847-7b3b-4150-aeec-4077ac6b487a",
+          "createdAt": "2026-06-05T15:01:44.000Z",
+          "updatedAt": "2026-06-05T15:01:44.000Z",
+          "uid": "35240-69a87847-7b3b-4150-aeec-4077ac6b487a"
+        },
+        {
+          "name": "transactions",
+          "item": [
+            {
+              "name": "inbound",
+              "item": [
+                {
+                  "name": "Retrieve Inbound Edi Transactions",
+                  "id": "fcf3c9cb-7cee-40ed-be46-8670eb5fb89e",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "apikey",
+                      "apikey": [
+                        {
+                          "key": "key",
+                          "value": "accessToken",
+                          "type": "string"
+                        },
+                        {
+                          "key": "value",
+                          "value": "{{apiKey}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "in",
+                          "value": "header",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/ece/transactions/inbound?transactionType=RRQI&tradingPartnerId=<integer>&processStatus=PROCESSED&creationDateFrom=<date>&creationDateTo=<date>&limit=25&offset=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "ece",
+                        "transactions",
+                        "inbound"
+                      ],
+                      "query": [
+                        {
+                          "description": "EDI transaction type code",
+                          "key": "transactionType",
+                          "value": "RRQI"
+                        },
+                        {
+                          "description": "Trading partner identifier",
+                          "key": "tradingPartnerId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Processing status",
+                          "key": "processStatus",
+                          "value": "PROCESSED"
+                        },
+                        {
+                          "description": "Creation date range start (YYYY-MM-DD)",
+                          "key": "creationDateFrom",
+                          "value": "<date>"
+                        },
+                        {
+                          "description": "Creation date range end (YYYY-MM-DD)",
+                          "key": "creationDateTo",
+                          "value": "<date>"
+                        },
+                        {
+                          "description": "Maximum number of records to return",
+                          "key": "limit",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Number of records to skip for pagination",
+                          "key": "offset",
+                          "value": "0"
+                        }
+                      ]
+                    },
+                    "description": "Retrieves inbound EDI transaction records that have been imported through the e-Commerce Gateway. Includes invoice, ship notice, price catalog, and quote response documents."
+                  },
+                  "response": [
+                    {
+                      "id": "ce15081e-87c4-4c1c-8fe2-59f94bea2b80",
+                      "name": "List of inbound transactions",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "accessToken",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/ece/transactions/inbound?transactionType=RRQI&tradingPartnerId=<integer>&processStatus=PROCESSED&creationDateFrom=<date>&creationDateTo=<date>&limit=25&offset=0",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "ece",
+                            "transactions",
+                            "inbound"
+                          ],
+                          "query": [
+                            {
+                              "description": "EDI transaction type code",
+                              "key": "transactionType",
+                              "value": "RRQI"
+                            },
+                            {
+                              "description": "Trading partner identifier",
+                              "key": "tradingPartnerId",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Processing status",
+                              "key": "processStatus",
+                              "value": "PROCESSED"
+                            },
+                            {
+                              "description": "Creation date range start (YYYY-MM-DD)",
+                              "key": "creationDateFrom",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "Creation date range end (YYYY-MM-DD)",
+                              "key": "creationDateTo",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "Maximum number of records to return",
+                              "key": "limit",
+                              "value": "25"
+                            },
+                            {
+                              "description": "Number of records to skip for pagination",
+                              "key": "offset",
+                              "value": "0"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"items\": [\n    {\n      \"transactionId\": \"<integer>\",\n      \"transactionType\": \"CATI\",\n      \"transactionDescription\": \"<string>\",\n      \"documentStandard\": \"<string>\",\n      \"documentNumber\": \"<string>\",\n      \"tradingPartnerId\": \"<integer>\",\n      \"tradingPartnerName\": \"<string>\",\n      \"tradingPartnerSiteId\": \"<integer>\",\n      \"processStatus\": \"PROCESSED\",\n      \"documentDate\": \"<date>\",\n      \"documentAmount\": \"<double>\",\n      \"currencyCode\": \"<string>\",\n      \"errorMessage\": \"<string>\",\n      \"creationDate\": \"<dateTime>\",\n      \"lastUpdateDate\": \"<dateTime>\"\n    },\n    {\n      \"transactionId\": \"<integer>\",\n      \"transactionType\": \"CATI\",\n      \"transactionDescription\": \"<string>\",\n      \"documentStandard\": \"<string>\",\n      \"documentNumber\": \"<string>\",\n      \"tradingPartnerId\": \"<integer>\",\n      \"tradingPartnerName\": \"<string>\",\n      \"tradingPartnerSiteId\": \"<integer>\",\n      \"processStatus\": \"PENDING\",\n      \"documentDate\": \"<date>\",\n      \"documentAmount\": \"<double>\",\n      \"currencyCode\": \"<string>\",\n      \"errorMessage\": \"<string>\",\n      \"creationDate\": \"<dateTime>\",\n      \"lastUpdateDate\": \"<dateTime>\"\n    }\n  ],\n  \"totalCount\": \"<integer>\",\n  \"hasMore\": \"<boolean>\"\n}",
+                      "createdAt": "2026-06-05T15:01:44.000Z",
+                      "updatedAt": "2026-06-05T15:01:44.000Z",
+                      "uid": "35240-ce15081e-87c4-4c1c-8fe2-59f94bea2b80"
+                    },
+                    {
+                      "id": "1750f667-9cb4-4af7-9280-db47a09ffbc2",
+                      "name": "Authentication required or token expired",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "accessToken",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/ece/transactions/inbound?transactionType=RRQI&tradingPartnerId=<integer>&processStatus=PROCESSED&creationDateFrom=<date>&creationDateTo=<date>&limit=25&offset=0",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "ece",
+                            "transactions",
+                            "inbound"
+                          ],
+                          "query": [
+                            {
+                              "description": "EDI transaction type code",
+                              "key": "transactionType",
+                              "value": "RRQI"
+                            },
+                            {
+                              "description": "Trading partner identifier",
+                              "key": "tradingPartnerId",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Processing status",
+                              "key": "processStatus",
+                              "value": "PROCESSED"
+                            },
+                            {
+                              "description": "Creation date range start (YYYY-MM-DD)",
+                              "key": "creationDateFrom",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "Creation date range end (YYYY-MM-DD)",
+                              "key": "creationDateTo",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "Maximum number of records to return",
+                              "key": "limit",
+                              "value": "25"
+                            },
+                            {
+                              "description": "Number of records to skip for pagination",
+                              "key": "offset",
+                              "value": "0"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:01:44.000Z",
+                      "updatedAt": "2026-06-05T15:01:44.000Z",
+                      "uid": "35240-1750f667-9cb4-4af7-9280-db47a09ffbc2"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:01:44.000Z",
+                  "updatedAt": "2026-06-05T15:01:44.000Z",
+                  "uid": "35240-fcf3c9cb-7cee-40ed-be46-8670eb5fb89e"
+                },
+                {
+                  "name": "Import an Inbound Edi Transaction",
+                  "id": "5ceafab8-4a8b-4a75-b406-502b7689f8c8",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "apikey",
+                      "apikey": [
+                        {
+                          "key": "key",
+                          "value": "accessToken",
+                          "type": "string"
+                        },
+                        {
+                          "key": "value",
+                          "value": "{{apiKey}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "in",
+                          "value": "header",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"transactionType\": \"SBNI\",\n  \"tradingPartnerId\": \"<integer>\",\n  \"tradingPartnerSiteId\": \"<integer>\",\n  \"documentDate\": \"<date>\",\n  \"documentData\": {\n    \"deserunt_a_\": 90685762,\n    \"ad_9f\": true,\n    \"Excepteur7_5\": 79228736\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/ece/transactions/inbound",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "ece",
+                        "transactions",
+                        "inbound"
+                      ]
+                    },
+                    "description": "Imports an inbound EDI transaction into Oracle EBS through the e-Commerce Gateway. The transaction data is validated, code conversion is applied, and data is loaded into the appropriate Oracle application open interface tables."
+                  },
+                  "response": [
+                    {
+                      "id": "dc98eada-2c9c-4e74-a910-e43003d36096",
+                      "name": "Inbound transaction imported successfully",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "accessToken",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"transactionType\": \"SBNI\",\n  \"tradingPartnerId\": \"<integer>\",\n  \"tradingPartnerSiteId\": \"<integer>\",\n  \"documentDate\": \"<date>\",\n  \"documentData\": {\n    \"deserunt_a_\": 90685762,\n    \"ad_9f\": true,\n    \"Excepteur7_5\": 79228736\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/ece/transactions/inbound",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "ece",
+                            "transactions",
+                            "inbound"
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"transactionId\": \"<integer>\",\n  \"status\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:01:44.000Z",
+                      "updatedAt": "2026-06-05T15:01:44.000Z",
+                      "uid": "35240-dc98eada-2c9c-4e74-a910-e43003d36096"
+                    },
+                    {
+                      "id": "45d21461-7746-4113-9735-d4b5d48305a8",
+                      "name": "Invalid request parameters",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "accessToken",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"transactionType\": \"SBNI\",\n  \"tradingPartnerId\": \"<integer>\",\n  \"tradingPartnerSiteId\": \"<integer>\",\n  \"documentDate\": \"<date>\",\n  \"documentData\": {\n    \"deserunt_a_\": 90685762,\n    \"ad_9f\": true,\n    \"Excepteur7_5\": 79228736\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/ece/transactions/inbound",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "ece",
+                            "transactions",
+                            "inbound"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:01:44.000Z",
+                      "updatedAt": "2026-06-05T15:01:44.000Z",
+                      "uid": "35240-45d21461-7746-4113-9735-d4b5d48305a8"
+                    },
+                    {
+                      "id": "65326b07-dd34-4110-80ce-def6d3abd71f",
+                      "name": "Authentication required or token expired",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "accessToken",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"transactionType\": \"SBNI\",\n  \"tradingPartnerId\": \"<integer>\",\n  \"tradingPartnerSiteId\": \"<integer>\",\n  \"documentDate\": \"<date>\",\n  \"documentData\": {\n    \"deserunt_a_\": 90685762,\n    \"ad_9f\": true,\n    \"Excepteur7_5\": 79228736\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/ece/transactions/inbound",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "ece",
+                            "transactions",
+                            "inbound"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:01:44.000Z",
+                      "updatedAt": "2026-06-05T15:01:44.000Z",
+                      "uid": "35240-65326b07-dd34-4110-80ce-def6d3abd71f"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:01:44.000Z",
+                  "updatedAt": "2026-06-05T15:01:44.000Z",
+                  "uid": "35240-5ceafab8-4a8b-4a75-b406-502b7689f8c8"
+                }
+              ],
+              "id": "7cf612d7-abfd-4c73-82ab-d550f22306ed",
+              "createdAt": "2026-06-05T15:01:44.000Z",
+              "updatedAt": "2026-06-05T15:01:44.000Z",
+              "uid": "35240-7cf612d7-abfd-4c73-82ab-d550f22306ed"
+            },
+            {
+              "name": "outbound",
+              "item": [
+                {
+                  "name": "Retrieve Outbound Edi Transactions",
+                  "id": "590998ef-1c0e-41bf-ad50-7ccdbe7bf87b",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "apikey",
+                      "apikey": [
+                        {
+                          "key": "key",
+                          "value": "accessToken",
+                          "type": "string"
+                        },
+                        {
+                          "key": "value",
+                          "value": "{{apiKey}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "in",
+                          "value": "header",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/ece/transactions/outbound?transactionType=POCO&tradingPartnerId=<integer>&processStatus=EXTRACTED&creationDateFrom=<date>&creationDateTo=<date>&limit=25&offset=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "ece",
+                        "transactions",
+                        "outbound"
+                      ],
+                      "query": [
+                        {
+                          "description": "EDI transaction type code",
+                          "key": "transactionType",
+                          "value": "POCO"
+                        },
+                        {
+                          "description": "Trading partner identifier",
+                          "key": "tradingPartnerId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Processing status",
+                          "key": "processStatus",
+                          "value": "EXTRACTED"
+                        },
+                        {
+                          "description": "Creation date range start (YYYY-MM-DD)",
+                          "key": "creationDateFrom",
+                          "value": "<date>"
+                        },
+                        {
+                          "description": "Creation date range end (YYYY-MM-DD)",
+                          "key": "creationDateTo",
+                          "value": "<date>"
+                        },
+                        {
+                          "description": "Maximum number of records to return",
+                          "key": "limit",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Number of records to skip for pagination",
+                          "key": "offset",
+                          "value": "0"
+                        }
+                      ]
+                    },
+                    "description": "Retrieves outbound EDI transaction records that have been extracted from Oracle EBS for transmission to trading partners. Includes purchase orders, invoices, payments, and schedule documents."
+                  },
+                  "response": [
+                    {
+                      "id": "54dd55e0-03db-426d-acad-575124ac7f06",
+                      "name": "List of outbound transactions",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "accessToken",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/ece/transactions/outbound?transactionType=POCO&tradingPartnerId=<integer>&processStatus=EXTRACTED&creationDateFrom=<date>&creationDateTo=<date>&limit=25&offset=0",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "ece",
+                            "transactions",
+                            "outbound"
+                          ],
+                          "query": [
+                            {
+                              "description": "EDI transaction type code",
+                              "key": "transactionType",
+                              "value": "POCO"
+                            },
+                            {
+                              "description": "Trading partner identifier",
+                              "key": "tradingPartnerId",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Processing status",
+                              "key": "processStatus",
+                              "value": "EXTRACTED"
+                            },
+                            {
+                              "description": "Creation date range start (YYYY-MM-DD)",
+                              "key": "creationDateFrom",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "Creation date range end (YYYY-MM-DD)",
+                              "key": "creationDateTo",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "Maximum number of records to return",
+                              "key": "limit",
+                              "value": "25"
+                            },
+                            {
+                              "description": "Number of records to skip for pagination",
+                              "key": "offset",
+                              "value": "0"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"items\": [\n    {\n      \"transactionId\": \"<integer>\",\n      \"transactionType\": \"MVSTO\",\n      \"transactionDescription\": \"<string>\",\n      \"documentStandard\": \"<string>\",\n      \"documentNumber\": \"<string>\",\n      \"tradingPartnerId\": \"<integer>\",\n      \"tradingPartnerName\": \"<string>\",\n      \"tradingPartnerSiteId\": \"<integer>\",\n      \"processStatus\": \"ERROR\",\n      \"sourceDocumentId\": \"<integer>\",\n      \"sourceDocumentNumber\": \"<string>\",\n      \"documentDate\": \"<date>\",\n      \"documentAmount\": \"<double>\",\n      \"currencyCode\": \"<string>\",\n      \"errorMessage\": \"<string>\",\n      \"creationDate\": \"<dateTime>\",\n      \"lastUpdateDate\": \"<dateTime>\"\n    },\n    {\n      \"transactionId\": \"<integer>\",\n      \"transactionType\": \"MVSTO\",\n      \"transactionDescription\": \"<string>\",\n      \"documentStandard\": \"<string>\",\n      \"documentNumber\": \"<string>\",\n      \"tradingPartnerId\": \"<integer>\",\n      \"tradingPartnerName\": \"<string>\",\n      \"tradingPartnerSiteId\": \"<integer>\",\n      \"processStatus\": \"PENDING\",\n      \"sourceDocumentId\": \"<integer>\",\n      \"sourceDocumentNumber\": \"<string>\",\n      \"documentDate\": \"<date>\",\n      \"documentAmount\": \"<double>\",\n      \"currencyCode\": \"<string>\",\n      \"errorMessage\": \"<string>\",\n      \"creationDate\": \"<dateTime>\",\n      \"lastUpdateDate\": \"<dateTime>\"\n    }\n  ],\n  \"totalCount\": \"<integer>\",\n  \"hasMore\": \"<boolean>\"\n}",
+                      "createdAt": "2026-06-05T15:01:44.000Z",
+                      "updatedAt": "2026-06-05T15:01:44.000Z",
+                      "uid": "35240-54dd55e0-03db-426d-acad-575124ac7f06"
+                    },
+                    {
+                      "id": "dbe6cfa0-1160-4dc3-b79c-c396614412df",
+                      "name": "Authentication required or token expired",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "accessToken",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/ece/transactions/outbound?transactionType=POCO&tradingPartnerId=<integer>&processStatus=EXTRACTED&creationDateFrom=<date>&creationDateTo=<date>&limit=25&offset=0",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "ece",
+                            "transactions",
+                            "outbound"
+                          ],
+                          "query": [
+                            {
+                              "description": "EDI transaction type code",
+                              "key": "transactionType",
+                              "value": "POCO"
+                            },
+                            {
+                              "description": "Trading partner identifier",
+                              "key": "tradingPartnerId",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Processing status",
+                              "key": "processStatus",
+                              "value": "EXTRACTED"
+                            },
+                            {
+                              "description": "Creation date range start (YYYY-MM-DD)",
+                              "key": "creationDateFrom",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "Creation date range end (YYYY-MM-DD)",
+                              "key": "creationDateTo",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "Maximum number of records to return",
+                              "key": "limit",
+                              "value": "25"
+                            },
+                            {
+                              "description": "Number of records to skip for pagination",
+                              "key": "offset",
+                              "value": "0"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:01:44.000Z",
+                      "updatedAt": "2026-06-05T15:01:44.000Z",
+                      "uid": "35240-dbe6cfa0-1160-4dc3-b79c-c396614412df"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:01:44.000Z",
+                  "updatedAt": "2026-06-05T15:01:44.000Z",
+                  "uid": "35240-590998ef-1c0e-41bf-ad50-7ccdbe7bf87b"
+                },
+                {
+                  "name": "Extract an Outbound Edi Transaction",
+                  "id": "494c36f1-ab24-4248-a723-db666be7d80c",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "apikey",
+                      "apikey": [
+                        {
+                          "key": "key",
+                          "value": "accessToken",
+                          "type": "string"
+                        },
+                        {
+                          "key": "value",
+                          "value": "{{apiKey}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "in",
+                          "value": "header",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"transactionType\": \"POCO\",\n  \"tradingPartnerId\": \"<integer>\",\n  \"tradingPartnerSiteId\": \"<integer>\",\n  \"dateFrom\": \"<date>\",\n  \"dateTo\": \"<date>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/ece/transactions/outbound",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "ece",
+                        "transactions",
+                        "outbound"
+                      ]
+                    },
+                    "description": "Initiates extraction of outbound EDI transaction data from Oracle EBS application tables. The extracted data is formatted into the standard interface data file format for the specified transaction type and trading partner."
+                  },
+                  "response": [
+                    {
+                      "id": "3819c4d6-d7f2-4859-a896-48f424463bc9",
+                      "name": "Outbound extraction initiated",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "accessToken",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"transactionType\": \"POCO\",\n  \"tradingPartnerId\": \"<integer>\",\n  \"tradingPartnerSiteId\": \"<integer>\",\n  \"dateFrom\": \"<date>\",\n  \"dateTo\": \"<date>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/ece/transactions/outbound",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "ece",
+                            "transactions",
+                            "outbound"
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"requestId\": \"<integer>\",\n  \"status\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:01:44.000Z",
+                      "updatedAt": "2026-06-05T15:01:44.000Z",
+                      "uid": "35240-3819c4d6-d7f2-4859-a896-48f424463bc9"
+                    },
+                    {
+                      "id": "91c557ad-a235-4fd2-baf4-5e0f9f2b7a26",
+                      "name": "Invalid request parameters",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "accessToken",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"transactionType\": \"POCO\",\n  \"tradingPartnerId\": \"<integer>\",\n  \"tradingPartnerSiteId\": \"<integer>\",\n  \"dateFrom\": \"<date>\",\n  \"dateTo\": \"<date>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/ece/transactions/outbound",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "ece",
+                            "transactions",
+                            "outbound"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:01:44.000Z",
+                      "updatedAt": "2026-06-05T15:01:44.000Z",
+                      "uid": "35240-91c557ad-a235-4fd2-baf4-5e0f9f2b7a26"
+                    },
+                    {
+                      "id": "d1391b6c-fec8-43e7-b62c-d84af0171402",
+                      "name": "Authentication required or token expired",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "accessToken",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"transactionType\": \"POCO\",\n  \"tradingPartnerId\": \"<integer>\",\n  \"tradingPartnerSiteId\": \"<integer>\",\n  \"dateFrom\": \"<date>\",\n  \"dateTo\": \"<date>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/ece/transactions/outbound",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "ece",
+                            "transactions",
+                            "outbound"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:01:44.000Z",
+                      "updatedAt": "2026-06-05T15:01:44.000Z",
+                      "uid": "35240-d1391b6c-fec8-43e7-b62c-d84af0171402"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:01:44.000Z",
+                  "updatedAt": "2026-06-05T15:01:44.000Z",
+                  "uid": "35240-494c36f1-ab24-4248-a723-db666be7d80c"
+                }
+              ],
+              "id": "104d2d2d-e9d5-458e-a5a3-379005cf6bdd",
+              "createdAt": "2026-06-05T15:01:44.000Z",
+              "updatedAt": "2026-06-05T15:01:44.000Z",
+              "uid": "35240-104d2d2d-e9d5-458e-a5a3-379005cf6bdd"
+            }
+          ],
+          "id": "6667f97d-c97a-4f1f-8dba-13eb4da16598",
+          "createdAt": "2026-06-05T15:01:44.000Z",
+          "updatedAt": "2026-06-05T15:01:44.000Z",
+          "uid": "35240-6667f97d-c97a-4f1f-8dba-13eb4da16598"
+        },
+        {
+          "name": "codeConversions",
+          "item": [
+            {
+              "name": "Retrieve Code Conversion Mappings",
+              "id": "be7ac6e9-0452-4dec-8af8-8f68ab0597a4",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "accessToken",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/ece/codeConversions?tradingPartnerId=<integer>&transactionType=<string>&codeCategory=<string>&limit=25&offset=0",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "ece",
+                    "codeConversions"
+                  ],
+                  "query": [
+                    {
+                      "description": "Trading partner identifier",
+                      "key": "tradingPartnerId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Transaction type code",
+                      "key": "transactionType",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Code category",
+                      "key": "codeCategory",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Maximum number of records to return",
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Number of records to skip for pagination",
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ]
+                },
+                "description": "Retrieves e-Commerce Gateway code conversion mappings that translate between trading partner external codes and Oracle EBS internal codes."
+              },
+              "response": [
+                {
+                  "id": "2cd47ce5-b091-416b-845d-77b25e98a4a9",
+                  "name": "List of code conversion mappings",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/ece/codeConversions?tradingPartnerId=<integer>&transactionType=<string>&codeCategory=<string>&limit=25&offset=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "ece",
+                        "codeConversions"
+                      ],
+                      "query": [
+                        {
+                          "description": "Trading partner identifier",
+                          "key": "tradingPartnerId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Transaction type code",
+                          "key": "transactionType",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Code category",
+                          "key": "codeCategory",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Maximum number of records to return",
+                          "key": "limit",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Number of records to skip for pagination",
+                          "key": "offset",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"items\": [\n    {\n      \"codeConversionId\": \"<integer>\",\n      \"tradingPartnerId\": \"<integer>\",\n      \"transactionType\": \"<string>\",\n      \"codeCategory\": \"<string>\",\n      \"externalValue\": \"<string>\",\n      \"internalValue\": \"<string>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"codeConversionId\": \"<integer>\",\n      \"tradingPartnerId\": \"<integer>\",\n      \"transactionType\": \"<string>\",\n      \"codeCategory\": \"<string>\",\n      \"externalValue\": \"<string>\",\n      \"internalValue\": \"<string>\",\n      \"description\": \"<string>\"\n    }\n  ],\n  \"totalCount\": \"<integer>\",\n  \"hasMore\": \"<boolean>\"\n}",
+                  "createdAt": "2026-06-05T15:01:44.000Z",
+                  "updatedAt": "2026-06-05T15:01:44.000Z",
+                  "uid": "35240-2cd47ce5-b091-416b-845d-77b25e98a4a9"
+                },
+                {
+                  "id": "eeff6cdf-e727-4807-b07d-226ce2e6c2e0",
+                  "name": "Authentication required or token expired",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/ece/codeConversions?tradingPartnerId=<integer>&transactionType=<string>&codeCategory=<string>&limit=25&offset=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "ece",
+                        "codeConversions"
+                      ],
+                      "query": [
+                        {
+                          "description": "Trading partner identifier",
+                          "key": "tradingPartnerId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Transaction type code",
+                          "key": "transactionType",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Code category",
+                          "key": "codeCategory",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Maximum number of records to return",
+                          "key": "limit",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Number of records to skip for pagination",
+                          "key": "offset",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-06-05T15:01:44.000Z",
+                  "updatedAt": "2026-06-05T15:01:44.000Z",
+                  "uid": "35240-eeff6cdf-e727-4807-b07d-226ce2e6c2e0"
+                }
+              ],
+              "createdAt": "2026-06-05T15:01:44.000Z",
+              "updatedAt": "2026-06-05T15:01:44.000Z",
+              "uid": "35240-be7ac6e9-0452-4dec-8af8-8f68ab0597a4"
+            }
+          ],
+          "id": "55108467-08f6-4b4f-8c32-827f6b3b686f",
+          "createdAt": "2026-06-05T15:01:44.000Z",
+          "updatedAt": "2026-06-05T15:01:44.000Z",
+          "uid": "35240-55108467-08f6-4b4f-8c32-827f6b3b686f"
+        }
+      ],
+      "id": "520b89bd-0a51-4c20-92df-5b3163750fe7",
+      "createdAt": "2026-06-05T15:01:44.000Z",
+      "updatedAt": "2026-06-05T15:01:44.000Z",
+      "uid": "35240-520b89bd-0a51-4c20-92df-5b3163750fe7"
+    }
+  ],
+  "variable": [
+    {
+      "key": "instance",
+      "value": "ebs-host"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{instance}}.oracle.com/webservices/rest"
+    }
+  ]
+}

@@ -1,0 +1,2809 @@
+{
+  "info": {
+    "_postman_id": "386599d6-0aaf-4e08-aedb-32463d396a45",
+    "name": "Oracle EBS Supply Chain Management API",
+    "description": "RESTful APIs for Oracle E-Business Suite supply chain management modules including Purchasing, Order Management, Inventory, and Logistics. These PL/SQL APIs are deployed as REST services through the Integrated SOA Gateway.\n\nContact Support:\n Name: Oracle Support\n Email: support@oracle.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:01:39.000Z",
+    "updatedAt": "2026-06-05T15:01:39.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-386599d6-0aaf-4e08-aedb-32463d396a45"
+  },
+  "item": [
+    {
+      "name": "po",
+      "item": [
+        {
+          "name": "purchaseOrders",
+          "item": [
+            {
+              "name": "{poHeaderId}",
+              "item": [
+                {
+                  "name": "Retrieve a Specific Purchase Order",
+                  "id": "128cd1d8-76a3-4e36-816f-d46475072ef9",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "apikey",
+                      "apikey": [
+                        {
+                          "key": "key",
+                          "value": "accessToken",
+                          "type": "string"
+                        },
+                        {
+                          "key": "value",
+                          "value": "{{apiKey}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "in",
+                          "value": "header",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/po/purchaseOrders/:poHeaderId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "po",
+                        "purchaseOrders",
+                        ":poHeaderId"
+                      ],
+                      "variable": [
+                        {
+                          "id": "88310665-a254-4ce4-be9c-38d53bb76df0",
+                          "key": "poHeaderId",
+                          "value": "<integer>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Retrieves a purchase order by its header identifier."
+                  },
+                  "response": [
+                    {
+                      "id": "ec9956be-b514-480b-bc3d-8d51753d3faf",
+                      "name": "Purchase order details",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "accessToken",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/po/purchaseOrders/:poHeaderId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "po",
+                            "purchaseOrders",
+                            ":poHeaderId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "poHeaderId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"poHeaderId\": \"<integer>\",\n  \"segment1\": \"<string>\",\n  \"typeLookupCode\": \"PLANNED\",\n  \"vendorId\": \"<integer>\",\n  \"vendorName\": \"<string>\",\n  \"vendorSiteId\": \"<integer>\",\n  \"currencyCode\": \"<string>\",\n  \"authorizationStatus\": \"IN PROCESS\",\n  \"approvedFlag\": \"Y\",\n  \"closedCode\": \"OPEN\",\n  \"totalAmount\": \"<double>\",\n  \"creationDate\": \"<dateTime>\",\n  \"approvedDate\": \"<date>\",\n  \"buyerId\": \"<integer>\",\n  \"shipToLocationId\": \"<integer>\",\n  \"billToLocationId\": \"<integer>\",\n  \"termsId\": \"<integer>\",\n  \"description\": \"<string>\",\n  \"lines\": [\n    {\n      \"poLineId\": \"<integer>\",\n      \"lineNum\": \"<integer>\",\n      \"lineType\": \"<string>\",\n      \"itemId\": \"<integer>\",\n      \"itemDescription\": \"<string>\",\n      \"categoryId\": \"<integer>\",\n      \"quantity\": \"<double>\",\n      \"unitMeasLookupCode\": \"<string>\",\n      \"unitPrice\": \"<double>\",\n      \"amount\": \"<double>\",\n      \"needByDate\": \"<date>\",\n      \"promisedDate\": \"<date>\",\n      \"closedCode\": \"<string>\",\n      \"shipments\": [\n        {\n          \"lineLocationId\": \"<integer>\",\n          \"shipmentNum\": \"<integer>\",\n          \"quantity\": \"<double>\",\n          \"quantityReceived\": \"<double>\",\n          \"quantityBilled\": \"<double>\",\n          \"needByDate\": \"<date>\",\n          \"promisedDate\": \"<date>\",\n          \"shipToOrganizationId\": \"<integer>\",\n          \"shipToLocationId\": \"<integer>\",\n          \"closedCode\": \"<string>\"\n        },\n        {\n          \"lineLocationId\": \"<integer>\",\n          \"shipmentNum\": \"<integer>\",\n          \"quantity\": \"<double>\",\n          \"quantityReceived\": \"<double>\",\n          \"quantityBilled\": \"<double>\",\n          \"needByDate\": \"<date>\",\n          \"promisedDate\": \"<date>\",\n          \"shipToOrganizationId\": \"<integer>\",\n          \"shipToLocationId\": \"<integer>\",\n          \"closedCode\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"poLineId\": \"<integer>\",\n      \"lineNum\": \"<integer>\",\n      \"lineType\": \"<string>\",\n      \"itemId\": \"<integer>\",\n      \"itemDescription\": \"<string>\",\n      \"categoryId\": \"<integer>\",\n      \"quantity\": \"<double>\",\n      \"unitMeasLookupCode\": \"<string>\",\n      \"unitPrice\": \"<double>\",\n      \"amount\": \"<double>\",\n      \"needByDate\": \"<date>\",\n      \"promisedDate\": \"<date>\",\n      \"closedCode\": \"<string>\",\n      \"shipments\": [\n        {\n          \"lineLocationId\": \"<integer>\",\n          \"shipmentNum\": \"<integer>\",\n          \"quantity\": \"<double>\",\n          \"quantityReceived\": \"<double>\",\n          \"quantityBilled\": \"<double>\",\n          \"needByDate\": \"<date>\",\n          \"promisedDate\": \"<date>\",\n          \"shipToOrganizationId\": \"<integer>\",\n          \"shipToLocationId\": \"<integer>\",\n          \"closedCode\": \"<string>\"\n        },\n        {\n          \"lineLocationId\": \"<integer>\",\n          \"shipmentNum\": \"<integer>\",\n          \"quantity\": \"<double>\",\n          \"quantityReceived\": \"<double>\",\n          \"quantityBilled\": \"<double>\",\n          \"needByDate\": \"<date>\",\n          \"promisedDate\": \"<date>\",\n          \"shipToOrganizationId\": \"<integer>\",\n          \"shipToLocationId\": \"<integer>\",\n          \"closedCode\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"orgId\": \"<integer>\",\n  \"lastUpdateDate\": \"<dateTime>\"\n}",
+                      "createdAt": "2026-06-05T15:01:40.000Z",
+                      "updatedAt": "2026-06-05T15:01:40.000Z",
+                      "uid": "35240-ec9956be-b514-480b-bc3d-8d51753d3faf"
+                    },
+                    {
+                      "id": "73a79116-e941-498c-8d69-a9fad61eafcf",
+                      "name": "Authentication required or token expired",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "accessToken",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/po/purchaseOrders/:poHeaderId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "po",
+                            "purchaseOrders",
+                            ":poHeaderId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "poHeaderId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:01:40.000Z",
+                      "updatedAt": "2026-06-05T15:01:40.000Z",
+                      "uid": "35240-73a79116-e941-498c-8d69-a9fad61eafcf"
+                    },
+                    {
+                      "id": "2dcc90d9-e9cf-42be-a8a4-1dd211087172",
+                      "name": "Resource not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "accessToken",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/po/purchaseOrders/:poHeaderId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "po",
+                            "purchaseOrders",
+                            ":poHeaderId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "poHeaderId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:01:40.000Z",
+                      "updatedAt": "2026-06-05T15:01:40.000Z",
+                      "uid": "35240-2dcc90d9-e9cf-42be-a8a4-1dd211087172"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:01:39.000Z",
+                  "updatedAt": "2026-06-05T15:01:39.000Z",
+                  "uid": "35240-128cd1d8-76a3-4e36-816f-d46475072ef9"
+                },
+                {
+                  "name": "Update a Purchase Order",
+                  "id": "14d2e685-eb6d-4da2-89fe-934ac073e109",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "apikey",
+                      "apikey": [
+                        {
+                          "key": "key",
+                          "value": "accessToken",
+                          "type": "string"
+                        },
+                        {
+                          "key": "value",
+                          "value": "{{apiKey}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "in",
+                          "value": "header",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"description\": \"<string>\",\n  \"lines\": [\n    {\n      \"poLineId\": \"<integer>\",\n      \"quantity\": \"<double>\",\n      \"unitPrice\": \"<double>\",\n      \"needByDate\": \"<date>\",\n      \"cancelFlag\": \"<boolean>\"\n    },\n    {\n      \"poLineId\": \"<integer>\",\n      \"quantity\": \"<double>\",\n      \"unitPrice\": \"<double>\",\n      \"needByDate\": \"<date>\",\n      \"cancelFlag\": \"<boolean>\"\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/po/purchaseOrders/:poHeaderId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "po",
+                        "purchaseOrders",
+                        ":poHeaderId"
+                      ],
+                      "variable": [
+                        {
+                          "id": "cccf9fc0-2c4f-410b-a9c6-5871d3ed17b4",
+                          "key": "poHeaderId",
+                          "value": "<integer>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Updates an existing purchase order. Uses the PO_CHANGE_API1_S PL/SQL package for modifications to approved purchase orders."
+                  },
+                  "response": [
+                    {
+                      "id": "c05eb679-dc8c-4e41-851e-3e964a91218c",
+                      "name": "Purchase order updated successfully",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "accessToken",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"description\": \"<string>\",\n  \"lines\": [\n    {\n      \"poLineId\": \"<integer>\",\n      \"quantity\": \"<double>\",\n      \"unitPrice\": \"<double>\",\n      \"needByDate\": \"<date>\",\n      \"cancelFlag\": \"<boolean>\"\n    },\n    {\n      \"poLineId\": \"<integer>\",\n      \"quantity\": \"<double>\",\n      \"unitPrice\": \"<double>\",\n      \"needByDate\": \"<date>\",\n      \"cancelFlag\": \"<boolean>\"\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/po/purchaseOrders/:poHeaderId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "po",
+                            "purchaseOrders",
+                            ":poHeaderId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "poHeaderId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"poHeaderId\": \"<integer>\",\n  \"segment1\": \"<string>\",\n  \"typeLookupCode\": \"PLANNED\",\n  \"vendorId\": \"<integer>\",\n  \"vendorName\": \"<string>\",\n  \"vendorSiteId\": \"<integer>\",\n  \"currencyCode\": \"<string>\",\n  \"authorizationStatus\": \"IN PROCESS\",\n  \"approvedFlag\": \"Y\",\n  \"closedCode\": \"OPEN\",\n  \"totalAmount\": \"<double>\",\n  \"creationDate\": \"<dateTime>\",\n  \"approvedDate\": \"<date>\",\n  \"buyerId\": \"<integer>\",\n  \"shipToLocationId\": \"<integer>\",\n  \"billToLocationId\": \"<integer>\",\n  \"termsId\": \"<integer>\",\n  \"description\": \"<string>\",\n  \"lines\": [\n    {\n      \"poLineId\": \"<integer>\",\n      \"lineNum\": \"<integer>\",\n      \"lineType\": \"<string>\",\n      \"itemId\": \"<integer>\",\n      \"itemDescription\": \"<string>\",\n      \"categoryId\": \"<integer>\",\n      \"quantity\": \"<double>\",\n      \"unitMeasLookupCode\": \"<string>\",\n      \"unitPrice\": \"<double>\",\n      \"amount\": \"<double>\",\n      \"needByDate\": \"<date>\",\n      \"promisedDate\": \"<date>\",\n      \"closedCode\": \"<string>\",\n      \"shipments\": [\n        {\n          \"lineLocationId\": \"<integer>\",\n          \"shipmentNum\": \"<integer>\",\n          \"quantity\": \"<double>\",\n          \"quantityReceived\": \"<double>\",\n          \"quantityBilled\": \"<double>\",\n          \"needByDate\": \"<date>\",\n          \"promisedDate\": \"<date>\",\n          \"shipToOrganizationId\": \"<integer>\",\n          \"shipToLocationId\": \"<integer>\",\n          \"closedCode\": \"<string>\"\n        },\n        {\n          \"lineLocationId\": \"<integer>\",\n          \"shipmentNum\": \"<integer>\",\n          \"quantity\": \"<double>\",\n          \"quantityReceived\": \"<double>\",\n          \"quantityBilled\": \"<double>\",\n          \"needByDate\": \"<date>\",\n          \"promisedDate\": \"<date>\",\n          \"shipToOrganizationId\": \"<integer>\",\n          \"shipToLocationId\": \"<integer>\",\n          \"closedCode\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"poLineId\": \"<integer>\",\n      \"lineNum\": \"<integer>\",\n      \"lineType\": \"<string>\",\n      \"itemId\": \"<integer>\",\n      \"itemDescription\": \"<string>\",\n      \"categoryId\": \"<integer>\",\n      \"quantity\": \"<double>\",\n      \"unitMeasLookupCode\": \"<string>\",\n      \"unitPrice\": \"<double>\",\n      \"amount\": \"<double>\",\n      \"needByDate\": \"<date>\",\n      \"promisedDate\": \"<date>\",\n      \"closedCode\": \"<string>\",\n      \"shipments\": [\n        {\n          \"lineLocationId\": \"<integer>\",\n          \"shipmentNum\": \"<integer>\",\n          \"quantity\": \"<double>\",\n          \"quantityReceived\": \"<double>\",\n          \"quantityBilled\": \"<double>\",\n          \"needByDate\": \"<date>\",\n          \"promisedDate\": \"<date>\",\n          \"shipToOrganizationId\": \"<integer>\",\n          \"shipToLocationId\": \"<integer>\",\n          \"closedCode\": \"<string>\"\n        },\n        {\n          \"lineLocationId\": \"<integer>\",\n          \"shipmentNum\": \"<integer>\",\n          \"quantity\": \"<double>\",\n          \"quantityReceived\": \"<double>\",\n          \"quantityBilled\": \"<double>\",\n          \"needByDate\": \"<date>\",\n          \"promisedDate\": \"<date>\",\n          \"shipToOrganizationId\": \"<integer>\",\n          \"shipToLocationId\": \"<integer>\",\n          \"closedCode\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"orgId\": \"<integer>\",\n  \"lastUpdateDate\": \"<dateTime>\"\n}",
+                      "createdAt": "2026-06-05T15:01:40.000Z",
+                      "updatedAt": "2026-06-05T15:01:40.000Z",
+                      "uid": "35240-c05eb679-dc8c-4e41-851e-3e964a91218c"
+                    },
+                    {
+                      "id": "e47444ad-95d1-4269-a4fc-db91e0a3a8bd",
+                      "name": "Invalid request parameters",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "accessToken",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"description\": \"<string>\",\n  \"lines\": [\n    {\n      \"poLineId\": \"<integer>\",\n      \"quantity\": \"<double>\",\n      \"unitPrice\": \"<double>\",\n      \"needByDate\": \"<date>\",\n      \"cancelFlag\": \"<boolean>\"\n    },\n    {\n      \"poLineId\": \"<integer>\",\n      \"quantity\": \"<double>\",\n      \"unitPrice\": \"<double>\",\n      \"needByDate\": \"<date>\",\n      \"cancelFlag\": \"<boolean>\"\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/po/purchaseOrders/:poHeaderId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "po",
+                            "purchaseOrders",
+                            ":poHeaderId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "poHeaderId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:01:40.000Z",
+                      "updatedAt": "2026-06-05T15:01:40.000Z",
+                      "uid": "35240-e47444ad-95d1-4269-a4fc-db91e0a3a8bd"
+                    },
+                    {
+                      "id": "c82f29bb-30a6-4c21-aa18-c47382fcb2be",
+                      "name": "Authentication required or token expired",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "accessToken",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"description\": \"<string>\",\n  \"lines\": [\n    {\n      \"poLineId\": \"<integer>\",\n      \"quantity\": \"<double>\",\n      \"unitPrice\": \"<double>\",\n      \"needByDate\": \"<date>\",\n      \"cancelFlag\": \"<boolean>\"\n    },\n    {\n      \"poLineId\": \"<integer>\",\n      \"quantity\": \"<double>\",\n      \"unitPrice\": \"<double>\",\n      \"needByDate\": \"<date>\",\n      \"cancelFlag\": \"<boolean>\"\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/po/purchaseOrders/:poHeaderId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "po",
+                            "purchaseOrders",
+                            ":poHeaderId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "poHeaderId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:01:40.000Z",
+                      "updatedAt": "2026-06-05T15:01:40.000Z",
+                      "uid": "35240-c82f29bb-30a6-4c21-aa18-c47382fcb2be"
+                    },
+                    {
+                      "id": "9a27900a-0ad7-418b-a99d-af58465561bd",
+                      "name": "Resource not found",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "accessToken",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"description\": \"<string>\",\n  \"lines\": [\n    {\n      \"poLineId\": \"<integer>\",\n      \"quantity\": \"<double>\",\n      \"unitPrice\": \"<double>\",\n      \"needByDate\": \"<date>\",\n      \"cancelFlag\": \"<boolean>\"\n    },\n    {\n      \"poLineId\": \"<integer>\",\n      \"quantity\": \"<double>\",\n      \"unitPrice\": \"<double>\",\n      \"needByDate\": \"<date>\",\n      \"cancelFlag\": \"<boolean>\"\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/po/purchaseOrders/:poHeaderId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "po",
+                            "purchaseOrders",
+                            ":poHeaderId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "poHeaderId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:01:40.000Z",
+                      "updatedAt": "2026-06-05T15:01:40.000Z",
+                      "uid": "35240-9a27900a-0ad7-418b-a99d-af58465561bd"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:01:39.000Z",
+                  "updatedAt": "2026-06-05T15:01:39.000Z",
+                  "uid": "35240-14d2e685-eb6d-4da2-89fe-934ac073e109"
+                }
+              ],
+              "id": "9c3614bc-2c41-4f15-8ac8-1a81063cba26",
+              "createdAt": "2026-06-05T15:01:39.000Z",
+              "updatedAt": "2026-06-05T15:01:39.000Z",
+              "uid": "35240-9c3614bc-2c41-4f15-8ac8-1a81063cba26"
+            },
+            {
+              "name": "Retrieve Purchase Orders",
+              "id": "0974f5c8-8cc6-4188-9632-3308aeac8eb0",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "accessToken",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/po/purchaseOrders?poHeaderId=<integer>&segment1=<string>&vendorId=<integer>&authorizationStatus=INCOMPLETE&creationDateFrom=<date>&creationDateTo=<date>&typeLookupCode=BLANKET&limit=25&offset=0",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "po",
+                    "purchaseOrders"
+                  ],
+                  "query": [
+                    {
+                      "description": "Purchase order header identifier",
+                      "key": "poHeaderId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Purchase order number",
+                      "key": "segment1",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Supplier/vendor identifier",
+                      "key": "vendorId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Authorization status",
+                      "key": "authorizationStatus",
+                      "value": "INCOMPLETE"
+                    },
+                    {
+                      "description": "Creation date range start (YYYY-MM-DD)",
+                      "key": "creationDateFrom",
+                      "value": "<date>"
+                    },
+                    {
+                      "description": "Creation date range end (YYYY-MM-DD)",
+                      "key": "creationDateTo",
+                      "value": "<date>"
+                    },
+                    {
+                      "description": "Purchase order type",
+                      "key": "typeLookupCode",
+                      "value": "BLANKET"
+                    },
+                    {
+                      "description": "Maximum number of records to return",
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Number of records to skip for pagination",
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ]
+                },
+                "description": "Retrieves purchase order records. Maps to the PO_HEADERS_ALL, PO_LINES_ALL, PO_LINE_LOCATIONS_ALL, and PO_DISTRIBUTIONS_ALL tables through the PO_PURCHASE_ORDERS_PKG PL/SQL API."
+              },
+              "response": [
+                {
+                  "id": "8249ab53-cb48-4c2e-b0e5-4c38202222ad",
+                  "name": "List of purchase orders",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/po/purchaseOrders?poHeaderId=<integer>&segment1=<string>&vendorId=<integer>&authorizationStatus=INCOMPLETE&creationDateFrom=<date>&creationDateTo=<date>&typeLookupCode=BLANKET&limit=25&offset=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "po",
+                        "purchaseOrders"
+                      ],
+                      "query": [
+                        {
+                          "description": "Purchase order header identifier",
+                          "key": "poHeaderId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Purchase order number",
+                          "key": "segment1",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Supplier/vendor identifier",
+                          "key": "vendorId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Authorization status",
+                          "key": "authorizationStatus",
+                          "value": "INCOMPLETE"
+                        },
+                        {
+                          "description": "Creation date range start (YYYY-MM-DD)",
+                          "key": "creationDateFrom",
+                          "value": "<date>"
+                        },
+                        {
+                          "description": "Creation date range end (YYYY-MM-DD)",
+                          "key": "creationDateTo",
+                          "value": "<date>"
+                        },
+                        {
+                          "description": "Purchase order type",
+                          "key": "typeLookupCode",
+                          "value": "BLANKET"
+                        },
+                        {
+                          "description": "Maximum number of records to return",
+                          "key": "limit",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Number of records to skip for pagination",
+                          "key": "offset",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"items\": [\n    {\n      \"poHeaderId\": \"<integer>\",\n      \"segment1\": \"<string>\",\n      \"typeLookupCode\": \"STANDARD\",\n      \"vendorId\": \"<integer>\",\n      \"vendorName\": \"<string>\",\n      \"vendorSiteId\": \"<integer>\",\n      \"currencyCode\": \"<string>\",\n      \"authorizationStatus\": \"INCOMPLETE\",\n      \"approvedFlag\": \"Y\",\n      \"closedCode\": \"OPEN\",\n      \"totalAmount\": \"<double>\",\n      \"creationDate\": \"<dateTime>\",\n      \"approvedDate\": \"<date>\",\n      \"buyerId\": \"<integer>\",\n      \"shipToLocationId\": \"<integer>\",\n      \"billToLocationId\": \"<integer>\",\n      \"termsId\": \"<integer>\",\n      \"description\": \"<string>\",\n      \"lines\": [\n        {\n          \"poLineId\": \"<integer>\",\n          \"lineNum\": \"<integer>\",\n          \"lineType\": \"<string>\",\n          \"itemId\": \"<integer>\",\n          \"itemDescription\": \"<string>\",\n          \"categoryId\": \"<integer>\",\n          \"quantity\": \"<double>\",\n          \"unitMeasLookupCode\": \"<string>\",\n          \"unitPrice\": \"<double>\",\n          \"amount\": \"<double>\",\n          \"needByDate\": \"<date>\",\n          \"promisedDate\": \"<date>\",\n          \"closedCode\": \"<string>\",\n          \"shipments\": [\n            {\n              \"lineLocationId\": \"<integer>\",\n              \"shipmentNum\": \"<integer>\",\n              \"quantity\": \"<double>\",\n              \"quantityReceived\": \"<double>\",\n              \"quantityBilled\": \"<double>\",\n              \"needByDate\": \"<date>\",\n              \"promisedDate\": \"<date>\",\n              \"shipToOrganizationId\": \"<integer>\",\n              \"shipToLocationId\": \"<integer>\",\n              \"closedCode\": \"<string>\"\n            },\n            {\n              \"lineLocationId\": \"<integer>\",\n              \"shipmentNum\": \"<integer>\",\n              \"quantity\": \"<double>\",\n              \"quantityReceived\": \"<double>\",\n              \"quantityBilled\": \"<double>\",\n              \"needByDate\": \"<date>\",\n              \"promisedDate\": \"<date>\",\n              \"shipToOrganizationId\": \"<integer>\",\n              \"shipToLocationId\": \"<integer>\",\n              \"closedCode\": \"<string>\"\n            }\n          ]\n        },\n        {\n          \"poLineId\": \"<integer>\",\n          \"lineNum\": \"<integer>\",\n          \"lineType\": \"<string>\",\n          \"itemId\": \"<integer>\",\n          \"itemDescription\": \"<string>\",\n          \"categoryId\": \"<integer>\",\n          \"quantity\": \"<double>\",\n          \"unitMeasLookupCode\": \"<string>\",\n          \"unitPrice\": \"<double>\",\n          \"amount\": \"<double>\",\n          \"needByDate\": \"<date>\",\n          \"promisedDate\": \"<date>\",\n          \"closedCode\": \"<string>\",\n          \"shipments\": [\n            {\n              \"lineLocationId\": \"<integer>\",\n              \"shipmentNum\": \"<integer>\",\n              \"quantity\": \"<double>\",\n              \"quantityReceived\": \"<double>\",\n              \"quantityBilled\": \"<double>\",\n              \"needByDate\": \"<date>\",\n              \"promisedDate\": \"<date>\",\n              \"shipToOrganizationId\": \"<integer>\",\n              \"shipToLocationId\": \"<integer>\",\n              \"closedCode\": \"<string>\"\n            },\n            {\n              \"lineLocationId\": \"<integer>\",\n              \"shipmentNum\": \"<integer>\",\n              \"quantity\": \"<double>\",\n              \"quantityReceived\": \"<double>\",\n              \"quantityBilled\": \"<double>\",\n              \"needByDate\": \"<date>\",\n              \"promisedDate\": \"<date>\",\n              \"shipToOrganizationId\": \"<integer>\",\n              \"shipToLocationId\": \"<integer>\",\n              \"closedCode\": \"<string>\"\n            }\n          ]\n        }\n      ],\n      \"orgId\": \"<integer>\",\n      \"lastUpdateDate\": \"<dateTime>\"\n    },\n    {\n      \"poHeaderId\": \"<integer>\",\n      \"segment1\": \"<string>\",\n      \"typeLookupCode\": \"STANDARD\",\n      \"vendorId\": \"<integer>\",\n      \"vendorName\": \"<string>\",\n      \"vendorSiteId\": \"<integer>\",\n      \"currencyCode\": \"<string>\",\n      \"authorizationStatus\": \"APPROVED\",\n      \"approvedFlag\": \"Y\",\n      \"closedCode\": \"FINALLY CLOSED\",\n      \"totalAmount\": \"<double>\",\n      \"creationDate\": \"<dateTime>\",\n      \"approvedDate\": \"<date>\",\n      \"buyerId\": \"<integer>\",\n      \"shipToLocationId\": \"<integer>\",\n      \"billToLocationId\": \"<integer>\",\n      \"termsId\": \"<integer>\",\n      \"description\": \"<string>\",\n      \"lines\": [\n        {\n          \"poLineId\": \"<integer>\",\n          \"lineNum\": \"<integer>\",\n          \"lineType\": \"<string>\",\n          \"itemId\": \"<integer>\",\n          \"itemDescription\": \"<string>\",\n          \"categoryId\": \"<integer>\",\n          \"quantity\": \"<double>\",\n          \"unitMeasLookupCode\": \"<string>\",\n          \"unitPrice\": \"<double>\",\n          \"amount\": \"<double>\",\n          \"needByDate\": \"<date>\",\n          \"promisedDate\": \"<date>\",\n          \"closedCode\": \"<string>\",\n          \"shipments\": [\n            {\n              \"lineLocationId\": \"<integer>\",\n              \"shipmentNum\": \"<integer>\",\n              \"quantity\": \"<double>\",\n              \"quantityReceived\": \"<double>\",\n              \"quantityBilled\": \"<double>\",\n              \"needByDate\": \"<date>\",\n              \"promisedDate\": \"<date>\",\n              \"shipToOrganizationId\": \"<integer>\",\n              \"shipToLocationId\": \"<integer>\",\n              \"closedCode\": \"<string>\"\n            },\n            {\n              \"lineLocationId\": \"<integer>\",\n              \"shipmentNum\": \"<integer>\",\n              \"quantity\": \"<double>\",\n              \"quantityReceived\": \"<double>\",\n              \"quantityBilled\": \"<double>\",\n              \"needByDate\": \"<date>\",\n              \"promisedDate\": \"<date>\",\n              \"shipToOrganizationId\": \"<integer>\",\n              \"shipToLocationId\": \"<integer>\",\n              \"closedCode\": \"<string>\"\n            }\n          ]\n        },\n        {\n          \"poLineId\": \"<integer>\",\n          \"lineNum\": \"<integer>\",\n          \"lineType\": \"<string>\",\n          \"itemId\": \"<integer>\",\n          \"itemDescription\": \"<string>\",\n          \"categoryId\": \"<integer>\",\n          \"quantity\": \"<double>\",\n          \"unitMeasLookupCode\": \"<string>\",\n          \"unitPrice\": \"<double>\",\n          \"amount\": \"<double>\",\n          \"needByDate\": \"<date>\",\n          \"promisedDate\": \"<date>\",\n          \"closedCode\": \"<string>\",\n          \"shipments\": [\n            {\n              \"lineLocationId\": \"<integer>\",\n              \"shipmentNum\": \"<integer>\",\n              \"quantity\": \"<double>\",\n              \"quantityReceived\": \"<double>\",\n              \"quantityBilled\": \"<double>\",\n              \"needByDate\": \"<date>\",\n              \"promisedDate\": \"<date>\",\n              \"shipToOrganizationId\": \"<integer>\",\n              \"shipToLocationId\": \"<integer>\",\n              \"closedCode\": \"<string>\"\n            },\n            {\n              \"lineLocationId\": \"<integer>\",\n              \"shipmentNum\": \"<integer>\",\n              \"quantity\": \"<double>\",\n              \"quantityReceived\": \"<double>\",\n              \"quantityBilled\": \"<double>\",\n              \"needByDate\": \"<date>\",\n              \"promisedDate\": \"<date>\",\n              \"shipToOrganizationId\": \"<integer>\",\n              \"shipToLocationId\": \"<integer>\",\n              \"closedCode\": \"<string>\"\n            }\n          ]\n        }\n      ],\n      \"orgId\": \"<integer>\",\n      \"lastUpdateDate\": \"<dateTime>\"\n    }\n  ],\n  \"totalCount\": \"<integer>\",\n  \"hasMore\": \"<boolean>\"\n}",
+                  "createdAt": "2026-06-05T15:01:40.000Z",
+                  "updatedAt": "2026-06-05T15:01:40.000Z",
+                  "uid": "35240-8249ab53-cb48-4c2e-b0e5-4c38202222ad"
+                },
+                {
+                  "id": "3f358985-d8eb-4a42-a99f-f895e342227c",
+                  "name": "Authentication required or token expired",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/po/purchaseOrders?poHeaderId=<integer>&segment1=<string>&vendorId=<integer>&authorizationStatus=INCOMPLETE&creationDateFrom=<date>&creationDateTo=<date>&typeLookupCode=BLANKET&limit=25&offset=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "po",
+                        "purchaseOrders"
+                      ],
+                      "query": [
+                        {
+                          "description": "Purchase order header identifier",
+                          "key": "poHeaderId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Purchase order number",
+                          "key": "segment1",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Supplier/vendor identifier",
+                          "key": "vendorId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Authorization status",
+                          "key": "authorizationStatus",
+                          "value": "INCOMPLETE"
+                        },
+                        {
+                          "description": "Creation date range start (YYYY-MM-DD)",
+                          "key": "creationDateFrom",
+                          "value": "<date>"
+                        },
+                        {
+                          "description": "Creation date range end (YYYY-MM-DD)",
+                          "key": "creationDateTo",
+                          "value": "<date>"
+                        },
+                        {
+                          "description": "Purchase order type",
+                          "key": "typeLookupCode",
+                          "value": "BLANKET"
+                        },
+                        {
+                          "description": "Maximum number of records to return",
+                          "key": "limit",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Number of records to skip for pagination",
+                          "key": "offset",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-06-05T15:01:40.000Z",
+                  "updatedAt": "2026-06-05T15:01:40.000Z",
+                  "uid": "35240-3f358985-d8eb-4a42-a99f-f895e342227c"
+                }
+              ],
+              "createdAt": "2026-06-05T15:01:39.000Z",
+              "updatedAt": "2026-06-05T15:01:39.000Z",
+              "uid": "35240-0974f5c8-8cc6-4188-9632-3308aeac8eb0"
+            },
+            {
+              "name": "Create a Purchase Order",
+              "id": "41f9a6a2-9243-4744-a63f-05a4b8f9641a",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "accessToken",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"vendorId\": \"<integer>\",\n  \"vendorSiteId\": \"<integer>\",\n  \"currencyCode\": \"<string>\",\n  \"lines\": [\n    {\n      \"itemDescription\": \"<string>\",\n      \"quantity\": \"<double>\",\n      \"unitPrice\": \"<double>\",\n      \"lineNum\": \"<integer>\",\n      \"itemId\": \"<integer>\",\n      \"categoryId\": \"<integer>\",\n      \"unitMeasLookupCode\": \"<string>\",\n      \"needByDate\": \"<date>\",\n      \"shipToOrganizationId\": \"<integer>\"\n    },\n    {\n      \"itemDescription\": \"<string>\",\n      \"quantity\": \"<double>\",\n      \"unitPrice\": \"<double>\",\n      \"lineNum\": \"<integer>\",\n      \"itemId\": \"<integer>\",\n      \"categoryId\": \"<integer>\",\n      \"unitMeasLookupCode\": \"<string>\",\n      \"needByDate\": \"<date>\",\n      \"shipToOrganizationId\": \"<integer>\"\n    }\n  ],\n  \"typeLookupCode\": \"STANDARD\",\n  \"description\": \"<string>\",\n  \"buyerId\": \"<integer>\",\n  \"shipToLocationId\": \"<integer>\",\n  \"billToLocationId\": \"<integer>\",\n  \"termsId\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/po/purchaseOrders",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "po",
+                    "purchaseOrders"
+                  ]
+                },
+                "description": "Creates a new purchase order. Uses the PO_HEADERS_INTERFACE, PO_LINES_INTERFACE, and PO_DISTRIBUTIONS_INTERFACE tables, then initiates the Import Standard Purchase Orders concurrent program."
+              },
+              "response": [
+                {
+                  "id": "e5f9330e-6f1e-40f7-97a3-47cf4d9a8bfa",
+                  "name": "Purchase order created successfully",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"vendorId\": \"<integer>\",\n  \"vendorSiteId\": \"<integer>\",\n  \"currencyCode\": \"<string>\",\n  \"lines\": [\n    {\n      \"itemDescription\": \"<string>\",\n      \"quantity\": \"<double>\",\n      \"unitPrice\": \"<double>\",\n      \"lineNum\": \"<integer>\",\n      \"itemId\": \"<integer>\",\n      \"categoryId\": \"<integer>\",\n      \"unitMeasLookupCode\": \"<string>\",\n      \"needByDate\": \"<date>\",\n      \"shipToOrganizationId\": \"<integer>\"\n    },\n    {\n      \"itemDescription\": \"<string>\",\n      \"quantity\": \"<double>\",\n      \"unitPrice\": \"<double>\",\n      \"lineNum\": \"<integer>\",\n      \"itemId\": \"<integer>\",\n      \"categoryId\": \"<integer>\",\n      \"unitMeasLookupCode\": \"<string>\",\n      \"needByDate\": \"<date>\",\n      \"shipToOrganizationId\": \"<integer>\"\n    }\n  ],\n  \"typeLookupCode\": \"STANDARD\",\n  \"description\": \"<string>\",\n  \"buyerId\": \"<integer>\",\n  \"shipToLocationId\": \"<integer>\",\n  \"billToLocationId\": \"<integer>\",\n  \"termsId\": \"<integer>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/po/purchaseOrders",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "po",
+                        "purchaseOrders"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"poHeaderId\": \"<integer>\",\n  \"segment1\": \"<string>\",\n  \"typeLookupCode\": \"PLANNED\",\n  \"vendorId\": \"<integer>\",\n  \"vendorName\": \"<string>\",\n  \"vendorSiteId\": \"<integer>\",\n  \"currencyCode\": \"<string>\",\n  \"authorizationStatus\": \"IN PROCESS\",\n  \"approvedFlag\": \"Y\",\n  \"closedCode\": \"OPEN\",\n  \"totalAmount\": \"<double>\",\n  \"creationDate\": \"<dateTime>\",\n  \"approvedDate\": \"<date>\",\n  \"buyerId\": \"<integer>\",\n  \"shipToLocationId\": \"<integer>\",\n  \"billToLocationId\": \"<integer>\",\n  \"termsId\": \"<integer>\",\n  \"description\": \"<string>\",\n  \"lines\": [\n    {\n      \"poLineId\": \"<integer>\",\n      \"lineNum\": \"<integer>\",\n      \"lineType\": \"<string>\",\n      \"itemId\": \"<integer>\",\n      \"itemDescription\": \"<string>\",\n      \"categoryId\": \"<integer>\",\n      \"quantity\": \"<double>\",\n      \"unitMeasLookupCode\": \"<string>\",\n      \"unitPrice\": \"<double>\",\n      \"amount\": \"<double>\",\n      \"needByDate\": \"<date>\",\n      \"promisedDate\": \"<date>\",\n      \"closedCode\": \"<string>\",\n      \"shipments\": [\n        {\n          \"lineLocationId\": \"<integer>\",\n          \"shipmentNum\": \"<integer>\",\n          \"quantity\": \"<double>\",\n          \"quantityReceived\": \"<double>\",\n          \"quantityBilled\": \"<double>\",\n          \"needByDate\": \"<date>\",\n          \"promisedDate\": \"<date>\",\n          \"shipToOrganizationId\": \"<integer>\",\n          \"shipToLocationId\": \"<integer>\",\n          \"closedCode\": \"<string>\"\n        },\n        {\n          \"lineLocationId\": \"<integer>\",\n          \"shipmentNum\": \"<integer>\",\n          \"quantity\": \"<double>\",\n          \"quantityReceived\": \"<double>\",\n          \"quantityBilled\": \"<double>\",\n          \"needByDate\": \"<date>\",\n          \"promisedDate\": \"<date>\",\n          \"shipToOrganizationId\": \"<integer>\",\n          \"shipToLocationId\": \"<integer>\",\n          \"closedCode\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"poLineId\": \"<integer>\",\n      \"lineNum\": \"<integer>\",\n      \"lineType\": \"<string>\",\n      \"itemId\": \"<integer>\",\n      \"itemDescription\": \"<string>\",\n      \"categoryId\": \"<integer>\",\n      \"quantity\": \"<double>\",\n      \"unitMeasLookupCode\": \"<string>\",\n      \"unitPrice\": \"<double>\",\n      \"amount\": \"<double>\",\n      \"needByDate\": \"<date>\",\n      \"promisedDate\": \"<date>\",\n      \"closedCode\": \"<string>\",\n      \"shipments\": [\n        {\n          \"lineLocationId\": \"<integer>\",\n          \"shipmentNum\": \"<integer>\",\n          \"quantity\": \"<double>\",\n          \"quantityReceived\": \"<double>\",\n          \"quantityBilled\": \"<double>\",\n          \"needByDate\": \"<date>\",\n          \"promisedDate\": \"<date>\",\n          \"shipToOrganizationId\": \"<integer>\",\n          \"shipToLocationId\": \"<integer>\",\n          \"closedCode\": \"<string>\"\n        },\n        {\n          \"lineLocationId\": \"<integer>\",\n          \"shipmentNum\": \"<integer>\",\n          \"quantity\": \"<double>\",\n          \"quantityReceived\": \"<double>\",\n          \"quantityBilled\": \"<double>\",\n          \"needByDate\": \"<date>\",\n          \"promisedDate\": \"<date>\",\n          \"shipToOrganizationId\": \"<integer>\",\n          \"shipToLocationId\": \"<integer>\",\n          \"closedCode\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"orgId\": \"<integer>\",\n  \"lastUpdateDate\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-06-05T15:01:40.000Z",
+                  "updatedAt": "2026-06-05T15:01:40.000Z",
+                  "uid": "35240-e5f9330e-6f1e-40f7-97a3-47cf4d9a8bfa"
+                },
+                {
+                  "id": "f8149051-a0a5-458a-b60e-ccee4c41c02d",
+                  "name": "Invalid request parameters",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"vendorId\": \"<integer>\",\n  \"vendorSiteId\": \"<integer>\",\n  \"currencyCode\": \"<string>\",\n  \"lines\": [\n    {\n      \"itemDescription\": \"<string>\",\n      \"quantity\": \"<double>\",\n      \"unitPrice\": \"<double>\",\n      \"lineNum\": \"<integer>\",\n      \"itemId\": \"<integer>\",\n      \"categoryId\": \"<integer>\",\n      \"unitMeasLookupCode\": \"<string>\",\n      \"needByDate\": \"<date>\",\n      \"shipToOrganizationId\": \"<integer>\"\n    },\n    {\n      \"itemDescription\": \"<string>\",\n      \"quantity\": \"<double>\",\n      \"unitPrice\": \"<double>\",\n      \"lineNum\": \"<integer>\",\n      \"itemId\": \"<integer>\",\n      \"categoryId\": \"<integer>\",\n      \"unitMeasLookupCode\": \"<string>\",\n      \"needByDate\": \"<date>\",\n      \"shipToOrganizationId\": \"<integer>\"\n    }\n  ],\n  \"typeLookupCode\": \"STANDARD\",\n  \"description\": \"<string>\",\n  \"buyerId\": \"<integer>\",\n  \"shipToLocationId\": \"<integer>\",\n  \"billToLocationId\": \"<integer>\",\n  \"termsId\": \"<integer>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/po/purchaseOrders",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "po",
+                        "purchaseOrders"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-06-05T15:01:40.000Z",
+                  "updatedAt": "2026-06-05T15:01:40.000Z",
+                  "uid": "35240-f8149051-a0a5-458a-b60e-ccee4c41c02d"
+                },
+                {
+                  "id": "9152f5ee-0e72-4420-ad88-c218f90d4fc5",
+                  "name": "Authentication required or token expired",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"vendorId\": \"<integer>\",\n  \"vendorSiteId\": \"<integer>\",\n  \"currencyCode\": \"<string>\",\n  \"lines\": [\n    {\n      \"itemDescription\": \"<string>\",\n      \"quantity\": \"<double>\",\n      \"unitPrice\": \"<double>\",\n      \"lineNum\": \"<integer>\",\n      \"itemId\": \"<integer>\",\n      \"categoryId\": \"<integer>\",\n      \"unitMeasLookupCode\": \"<string>\",\n      \"needByDate\": \"<date>\",\n      \"shipToOrganizationId\": \"<integer>\"\n    },\n    {\n      \"itemDescription\": \"<string>\",\n      \"quantity\": \"<double>\",\n      \"unitPrice\": \"<double>\",\n      \"lineNum\": \"<integer>\",\n      \"itemId\": \"<integer>\",\n      \"categoryId\": \"<integer>\",\n      \"unitMeasLookupCode\": \"<string>\",\n      \"needByDate\": \"<date>\",\n      \"shipToOrganizationId\": \"<integer>\"\n    }\n  ],\n  \"typeLookupCode\": \"STANDARD\",\n  \"description\": \"<string>\",\n  \"buyerId\": \"<integer>\",\n  \"shipToLocationId\": \"<integer>\",\n  \"billToLocationId\": \"<integer>\",\n  \"termsId\": \"<integer>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/po/purchaseOrders",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "po",
+                        "purchaseOrders"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-06-05T15:01:40.000Z",
+                  "updatedAt": "2026-06-05T15:01:40.000Z",
+                  "uid": "35240-9152f5ee-0e72-4420-ad88-c218f90d4fc5"
+                }
+              ],
+              "createdAt": "2026-06-05T15:01:39.000Z",
+              "updatedAt": "2026-06-05T15:01:39.000Z",
+              "uid": "35240-41f9a6a2-9243-4744-a63f-05a4b8f9641a"
+            }
+          ],
+          "id": "2468662a-fd76-4629-b6c1-4527828c1c2a",
+          "createdAt": "2026-06-05T15:01:39.000Z",
+          "updatedAt": "2026-06-05T15:01:39.000Z",
+          "uid": "35240-2468662a-fd76-4629-b6c1-4527828c1c2a"
+        },
+        {
+          "name": "requisitions",
+          "item": [
+            {
+              "name": "Retrieve Purchase Requisitions",
+              "id": "55ee0a24-35bd-4e8c-bfbd-382f0c57fbad",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "accessToken",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/po/requisitions?requisitionHeaderId=<integer>&requisitionNumber=<string>&authorizationStatus=IN PROCESS&limit=25&offset=0",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "po",
+                    "requisitions"
+                  ],
+                  "query": [
+                    {
+                      "description": "Requisition header identifier",
+                      "key": "requisitionHeaderId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Requisition number",
+                      "key": "requisitionNumber",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Authorization status",
+                      "key": "authorizationStatus",
+                      "value": "IN PROCESS"
+                    },
+                    {
+                      "description": "Maximum number of records to return",
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Number of records to skip for pagination",
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ]
+                },
+                "description": "Retrieves purchase requisition records. Maps to the PO_REQUISITION_HEADERS_ALL and PO_REQUISITION_LINES_ALL tables."
+              },
+              "response": [
+                {
+                  "id": "51cefd8b-e362-4dcc-b481-d75083468fad",
+                  "name": "List of requisitions",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/po/requisitions?requisitionHeaderId=<integer>&requisitionNumber=<string>&authorizationStatus=IN PROCESS&limit=25&offset=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "po",
+                        "requisitions"
+                      ],
+                      "query": [
+                        {
+                          "description": "Requisition header identifier",
+                          "key": "requisitionHeaderId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Requisition number",
+                          "key": "requisitionNumber",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Authorization status",
+                          "key": "authorizationStatus",
+                          "value": "IN PROCESS"
+                        },
+                        {
+                          "description": "Maximum number of records to return",
+                          "key": "limit",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Number of records to skip for pagination",
+                          "key": "offset",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"items\": [\n    {\n      \"requisitionHeaderId\": \"<integer>\",\n      \"segment1\": \"<string>\",\n      \"typeLookupCode\": \"INTERNAL\",\n      \"authorizationStatus\": \"<string>\",\n      \"preparerId\": \"<integer>\",\n      \"description\": \"<string>\",\n      \"totalAmount\": \"<double>\",\n      \"creationDate\": \"<dateTime>\",\n      \"lines\": [\n        {\n          \"requisitionLineId\": \"<integer>\",\n          \"lineNum\": \"<integer>\",\n          \"itemId\": \"<integer>\",\n          \"itemDescription\": \"<string>\",\n          \"categoryId\": \"<integer>\",\n          \"quantity\": \"<double>\",\n          \"unitMeasLookupCode\": \"<string>\",\n          \"unitPrice\": \"<double>\",\n          \"needByDate\": \"<date>\",\n          \"suggestedVendorId\": \"<integer>\"\n        },\n        {\n          \"requisitionLineId\": \"<integer>\",\n          \"lineNum\": \"<integer>\",\n          \"itemId\": \"<integer>\",\n          \"itemDescription\": \"<string>\",\n          \"categoryId\": \"<integer>\",\n          \"quantity\": \"<double>\",\n          \"unitMeasLookupCode\": \"<string>\",\n          \"unitPrice\": \"<double>\",\n          \"needByDate\": \"<date>\",\n          \"suggestedVendorId\": \"<integer>\"\n        }\n      ],\n      \"orgId\": \"<integer>\"\n    },\n    {\n      \"requisitionHeaderId\": \"<integer>\",\n      \"segment1\": \"<string>\",\n      \"typeLookupCode\": \"PURCHASE\",\n      \"authorizationStatus\": \"<string>\",\n      \"preparerId\": \"<integer>\",\n      \"description\": \"<string>\",\n      \"totalAmount\": \"<double>\",\n      \"creationDate\": \"<dateTime>\",\n      \"lines\": [\n        {\n          \"requisitionLineId\": \"<integer>\",\n          \"lineNum\": \"<integer>\",\n          \"itemId\": \"<integer>\",\n          \"itemDescription\": \"<string>\",\n          \"categoryId\": \"<integer>\",\n          \"quantity\": \"<double>\",\n          \"unitMeasLookupCode\": \"<string>\",\n          \"unitPrice\": \"<double>\",\n          \"needByDate\": \"<date>\",\n          \"suggestedVendorId\": \"<integer>\"\n        },\n        {\n          \"requisitionLineId\": \"<integer>\",\n          \"lineNum\": \"<integer>\",\n          \"itemId\": \"<integer>\",\n          \"itemDescription\": \"<string>\",\n          \"categoryId\": \"<integer>\",\n          \"quantity\": \"<double>\",\n          \"unitMeasLookupCode\": \"<string>\",\n          \"unitPrice\": \"<double>\",\n          \"needByDate\": \"<date>\",\n          \"suggestedVendorId\": \"<integer>\"\n        }\n      ],\n      \"orgId\": \"<integer>\"\n    }\n  ],\n  \"totalCount\": \"<integer>\",\n  \"hasMore\": \"<boolean>\"\n}",
+                  "createdAt": "2026-06-05T15:01:40.000Z",
+                  "updatedAt": "2026-06-05T15:01:40.000Z",
+                  "uid": "35240-51cefd8b-e362-4dcc-b481-d75083468fad"
+                },
+                {
+                  "id": "978e1f80-8a61-41b4-a589-68fcd4763e09",
+                  "name": "Authentication required or token expired",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/po/requisitions?requisitionHeaderId=<integer>&requisitionNumber=<string>&authorizationStatus=IN PROCESS&limit=25&offset=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "po",
+                        "requisitions"
+                      ],
+                      "query": [
+                        {
+                          "description": "Requisition header identifier",
+                          "key": "requisitionHeaderId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Requisition number",
+                          "key": "requisitionNumber",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Authorization status",
+                          "key": "authorizationStatus",
+                          "value": "IN PROCESS"
+                        },
+                        {
+                          "description": "Maximum number of records to return",
+                          "key": "limit",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Number of records to skip for pagination",
+                          "key": "offset",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-06-05T15:01:40.000Z",
+                  "updatedAt": "2026-06-05T15:01:40.000Z",
+                  "uid": "35240-978e1f80-8a61-41b4-a589-68fcd4763e09"
+                }
+              ],
+              "createdAt": "2026-06-05T15:01:39.000Z",
+              "updatedAt": "2026-06-05T15:01:39.000Z",
+              "uid": "35240-55ee0a24-35bd-4e8c-bfbd-382f0c57fbad"
+            }
+          ],
+          "id": "10298fda-3fc0-4b02-a027-c633a9e4e9fc",
+          "createdAt": "2026-06-05T15:01:39.000Z",
+          "updatedAt": "2026-06-05T15:01:39.000Z",
+          "uid": "35240-10298fda-3fc0-4b02-a027-c633a9e4e9fc"
+        },
+        {
+          "name": "suppliers",
+          "item": [
+            {
+              "name": "Retrieve Suppliers",
+              "id": "490e164d-5b09-4b62-bb54-2db2a5f05e96",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "accessToken",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/po/suppliers?vendorId=<integer>&vendorName=<string>&segment1=<string>&vendorType=<string>&limit=25&offset=0",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "po",
+                    "suppliers"
+                  ],
+                  "query": [
+                    {
+                      "description": "Vendor identifier",
+                      "key": "vendorId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Vendor name (supports wildcards)",
+                      "key": "vendorName",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Vendor number",
+                      "key": "segment1",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Vendor type",
+                      "key": "vendorType",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Maximum number of records to return",
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Number of records to skip for pagination",
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ]
+                },
+                "description": "Retrieves supplier/vendor records. Maps to the AP_SUPPLIERS and AP_SUPPLIER_SITES_ALL tables through the AP_VENDOR_PUB_PKG API."
+              },
+              "response": [
+                {
+                  "id": "4ae3aebb-1767-48b4-9b69-75c4f0c92624",
+                  "name": "List of suppliers",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/po/suppliers?vendorId=<integer>&vendorName=<string>&segment1=<string>&vendorType=<string>&limit=25&offset=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "po",
+                        "suppliers"
+                      ],
+                      "query": [
+                        {
+                          "description": "Vendor identifier",
+                          "key": "vendorId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Vendor name (supports wildcards)",
+                          "key": "vendorName",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Vendor number",
+                          "key": "segment1",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Vendor type",
+                          "key": "vendorType",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Maximum number of records to return",
+                          "key": "limit",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Number of records to skip for pagination",
+                          "key": "offset",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"items\": [\n    {\n      \"vendorId\": \"<integer>\",\n      \"vendorName\": \"<string>\",\n      \"segment1\": \"<string>\",\n      \"vendorType\": \"<string>\",\n      \"taxPayerId\": \"<string>\",\n      \"standardIndustryClass\": \"<string>\",\n      \"paymentCurrencyCode\": \"<string>\",\n      \"paymentMethodCode\": \"<string>\",\n      \"termsId\": \"<integer>\",\n      \"enabled\": \"<boolean>\",\n      \"startDateActive\": \"<date>\",\n      \"endDateActive\": \"<date>\",\n      \"sites\": [\n        {\n          \"vendorSiteId\": \"<integer>\",\n          \"vendorSiteCode\": \"<string>\",\n          \"addressLine1\": \"<string>\",\n          \"addressLine2\": \"<string>\",\n          \"city\": \"<string>\",\n          \"state\": \"<string>\",\n          \"zip\": \"<string>\",\n          \"country\": \"<string>\",\n          \"purchasingSiteFlag\": \"N\",\n          \"paymentSiteFlag\": \"N\",\n          \"orgId\": \"<integer>\"\n        },\n        {\n          \"vendorSiteId\": \"<integer>\",\n          \"vendorSiteCode\": \"<string>\",\n          \"addressLine1\": \"<string>\",\n          \"addressLine2\": \"<string>\",\n          \"city\": \"<string>\",\n          \"state\": \"<string>\",\n          \"zip\": \"<string>\",\n          \"country\": \"<string>\",\n          \"purchasingSiteFlag\": \"N\",\n          \"paymentSiteFlag\": \"N\",\n          \"orgId\": \"<integer>\"\n        }\n      ],\n      \"creationDate\": \"<dateTime>\",\n      \"lastUpdateDate\": \"<dateTime>\"\n    },\n    {\n      \"vendorId\": \"<integer>\",\n      \"vendorName\": \"<string>\",\n      \"segment1\": \"<string>\",\n      \"vendorType\": \"<string>\",\n      \"taxPayerId\": \"<string>\",\n      \"standardIndustryClass\": \"<string>\",\n      \"paymentCurrencyCode\": \"<string>\",\n      \"paymentMethodCode\": \"<string>\",\n      \"termsId\": \"<integer>\",\n      \"enabled\": \"<boolean>\",\n      \"startDateActive\": \"<date>\",\n      \"endDateActive\": \"<date>\",\n      \"sites\": [\n        {\n          \"vendorSiteId\": \"<integer>\",\n          \"vendorSiteCode\": \"<string>\",\n          \"addressLine1\": \"<string>\",\n          \"addressLine2\": \"<string>\",\n          \"city\": \"<string>\",\n          \"state\": \"<string>\",\n          \"zip\": \"<string>\",\n          \"country\": \"<string>\",\n          \"purchasingSiteFlag\": \"Y\",\n          \"paymentSiteFlag\": \"N\",\n          \"orgId\": \"<integer>\"\n        },\n        {\n          \"vendorSiteId\": \"<integer>\",\n          \"vendorSiteCode\": \"<string>\",\n          \"addressLine1\": \"<string>\",\n          \"addressLine2\": \"<string>\",\n          \"city\": \"<string>\",\n          \"state\": \"<string>\",\n          \"zip\": \"<string>\",\n          \"country\": \"<string>\",\n          \"purchasingSiteFlag\": \"N\",\n          \"paymentSiteFlag\": \"Y\",\n          \"orgId\": \"<integer>\"\n        }\n      ],\n      \"creationDate\": \"<dateTime>\",\n      \"lastUpdateDate\": \"<dateTime>\"\n    }\n  ],\n  \"totalCount\": \"<integer>\",\n  \"hasMore\": \"<boolean>\"\n}",
+                  "createdAt": "2026-06-05T15:01:40.000Z",
+                  "updatedAt": "2026-06-05T15:01:40.000Z",
+                  "uid": "35240-4ae3aebb-1767-48b4-9b69-75c4f0c92624"
+                },
+                {
+                  "id": "d2b3ee5a-ac1a-4338-ae1f-a6551c08c07a",
+                  "name": "Authentication required or token expired",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/po/suppliers?vendorId=<integer>&vendorName=<string>&segment1=<string>&vendorType=<string>&limit=25&offset=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "po",
+                        "suppliers"
+                      ],
+                      "query": [
+                        {
+                          "description": "Vendor identifier",
+                          "key": "vendorId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Vendor name (supports wildcards)",
+                          "key": "vendorName",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Vendor number",
+                          "key": "segment1",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Vendor type",
+                          "key": "vendorType",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Maximum number of records to return",
+                          "key": "limit",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Number of records to skip for pagination",
+                          "key": "offset",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-06-05T15:01:40.000Z",
+                  "updatedAt": "2026-06-05T15:01:40.000Z",
+                  "uid": "35240-d2b3ee5a-ac1a-4338-ae1f-a6551c08c07a"
+                }
+              ],
+              "createdAt": "2026-06-05T15:01:39.000Z",
+              "updatedAt": "2026-06-05T15:01:39.000Z",
+              "uid": "35240-490e164d-5b09-4b62-bb54-2db2a5f05e96"
+            }
+          ],
+          "id": "4ccba033-9853-470c-9880-bc9de69f9294",
+          "createdAt": "2026-06-05T15:01:39.000Z",
+          "updatedAt": "2026-06-05T15:01:39.000Z",
+          "uid": "35240-4ccba033-9853-470c-9880-bc9de69f9294"
+        }
+      ],
+      "id": "fbf478de-49a3-4b0f-ac9e-710a2b4afc43",
+      "createdAt": "2026-06-05T15:01:39.000Z",
+      "updatedAt": "2026-06-05T15:01:39.000Z",
+      "uid": "35240-fbf478de-49a3-4b0f-ac9e-710a2b4afc43"
+    },
+    {
+      "name": "oe",
+      "item": [
+        {
+          "name": "salesOrders",
+          "item": [
+            {
+              "name": "Retrieve Sales Orders",
+              "id": "a347ab2d-703c-4e01-a5d7-940a48d99db1",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "accessToken",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/oe/salesOrders?headerId=<integer>&orderNumber=<integer>&customerId=<integer>&flowStatusCode=ENTERED&orderedDateFrom=<date>&orderedDateTo=<date>&limit=25&offset=0",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "oe",
+                    "salesOrders"
+                  ],
+                  "query": [
+                    {
+                      "description": "Order header identifier",
+                      "key": "headerId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Order number",
+                      "key": "orderNumber",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Customer identifier (sold-to)",
+                      "key": "customerId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Order flow status",
+                      "key": "flowStatusCode",
+                      "value": "ENTERED"
+                    },
+                    {
+                      "description": "Order date range start (YYYY-MM-DD)",
+                      "key": "orderedDateFrom",
+                      "value": "<date>"
+                    },
+                    {
+                      "description": "Order date range end (YYYY-MM-DD)",
+                      "key": "orderedDateTo",
+                      "value": "<date>"
+                    },
+                    {
+                      "description": "Maximum number of records to return",
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Number of records to skip for pagination",
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ]
+                },
+                "description": "Retrieves Order Management sales order records. Maps to the OE_ORDER_HEADERS_ALL and OE_ORDER_LINES_ALL tables through the OE_ORDER_PUB PL/SQL API."
+              },
+              "response": [
+                {
+                  "id": "8ceb4a1d-f4e2-4bbd-8222-1a33414bc9a2",
+                  "name": "List of sales orders",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/oe/salesOrders?headerId=<integer>&orderNumber=<integer>&customerId=<integer>&flowStatusCode=ENTERED&orderedDateFrom=<date>&orderedDateTo=<date>&limit=25&offset=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "oe",
+                        "salesOrders"
+                      ],
+                      "query": [
+                        {
+                          "description": "Order header identifier",
+                          "key": "headerId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Order number",
+                          "key": "orderNumber",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Customer identifier (sold-to)",
+                          "key": "customerId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Order flow status",
+                          "key": "flowStatusCode",
+                          "value": "ENTERED"
+                        },
+                        {
+                          "description": "Order date range start (YYYY-MM-DD)",
+                          "key": "orderedDateFrom",
+                          "value": "<date>"
+                        },
+                        {
+                          "description": "Order date range end (YYYY-MM-DD)",
+                          "key": "orderedDateTo",
+                          "value": "<date>"
+                        },
+                        {
+                          "description": "Maximum number of records to return",
+                          "key": "limit",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Number of records to skip for pagination",
+                          "key": "offset",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"items\": [\n    {\n      \"headerId\": \"<integer>\",\n      \"orderNumber\": \"<integer>\",\n      \"orderedDate\": \"<date>\",\n      \"orderTypeId\": \"<integer>\",\n      \"orderTypeName\": \"<string>\",\n      \"soldToOrgId\": \"<integer>\",\n      \"customerName\": \"<string>\",\n      \"shipToOrgId\": \"<integer>\",\n      \"invoiceToOrgId\": \"<integer>\",\n      \"transactionalCurrCode\": \"<string>\",\n      \"flowStatusCode\": \"CANCELLED\",\n      \"bookedFlag\": \"Y\",\n      \"totalAmount\": \"<double>\",\n      \"salesrepId\": \"<integer>\",\n      \"lines\": [\n        {\n          \"lineId\": \"<integer>\",\n          \"lineNumber\": \"<integer>\",\n          \"orderedItem\": \"<string>\",\n          \"inventoryItemId\": \"<integer>\",\n          \"orderedQuantity\": \"<double>\",\n          \"orderQuantityUom\": \"<string>\",\n          \"unitSellingPrice\": \"<double>\",\n          \"unitListPrice\": \"<double>\",\n          \"lineAmount\": \"<double>\",\n          \"scheduleShipDate\": \"<date>\",\n          \"actualShipDate\": \"<date>\",\n          \"flowStatusCode\": \"<string>\",\n          \"shippedQuantity\": \"<double>\"\n        },\n        {\n          \"lineId\": \"<integer>\",\n          \"lineNumber\": \"<integer>\",\n          \"orderedItem\": \"<string>\",\n          \"inventoryItemId\": \"<integer>\",\n          \"orderedQuantity\": \"<double>\",\n          \"orderQuantityUom\": \"<string>\",\n          \"unitSellingPrice\": \"<double>\",\n          \"unitListPrice\": \"<double>\",\n          \"lineAmount\": \"<double>\",\n          \"scheduleShipDate\": \"<date>\",\n          \"actualShipDate\": \"<date>\",\n          \"flowStatusCode\": \"<string>\",\n          \"shippedQuantity\": \"<double>\"\n        }\n      ],\n      \"orgId\": \"<integer>\",\n      \"creationDate\": \"<dateTime>\",\n      \"lastUpdateDate\": \"<dateTime>\"\n    },\n    {\n      \"headerId\": \"<integer>\",\n      \"orderNumber\": \"<integer>\",\n      \"orderedDate\": \"<date>\",\n      \"orderTypeId\": \"<integer>\",\n      \"orderTypeName\": \"<string>\",\n      \"soldToOrgId\": \"<integer>\",\n      \"customerName\": \"<string>\",\n      \"shipToOrgId\": \"<integer>\",\n      \"invoiceToOrgId\": \"<integer>\",\n      \"transactionalCurrCode\": \"<string>\",\n      \"flowStatusCode\": \"ENTERED\",\n      \"bookedFlag\": \"N\",\n      \"totalAmount\": \"<double>\",\n      \"salesrepId\": \"<integer>\",\n      \"lines\": [\n        {\n          \"lineId\": \"<integer>\",\n          \"lineNumber\": \"<integer>\",\n          \"orderedItem\": \"<string>\",\n          \"inventoryItemId\": \"<integer>\",\n          \"orderedQuantity\": \"<double>\",\n          \"orderQuantityUom\": \"<string>\",\n          \"unitSellingPrice\": \"<double>\",\n          \"unitListPrice\": \"<double>\",\n          \"lineAmount\": \"<double>\",\n          \"scheduleShipDate\": \"<date>\",\n          \"actualShipDate\": \"<date>\",\n          \"flowStatusCode\": \"<string>\",\n          \"shippedQuantity\": \"<double>\"\n        },\n        {\n          \"lineId\": \"<integer>\",\n          \"lineNumber\": \"<integer>\",\n          \"orderedItem\": \"<string>\",\n          \"inventoryItemId\": \"<integer>\",\n          \"orderedQuantity\": \"<double>\",\n          \"orderQuantityUom\": \"<string>\",\n          \"unitSellingPrice\": \"<double>\",\n          \"unitListPrice\": \"<double>\",\n          \"lineAmount\": \"<double>\",\n          \"scheduleShipDate\": \"<date>\",\n          \"actualShipDate\": \"<date>\",\n          \"flowStatusCode\": \"<string>\",\n          \"shippedQuantity\": \"<double>\"\n        }\n      ],\n      \"orgId\": \"<integer>\",\n      \"creationDate\": \"<dateTime>\",\n      \"lastUpdateDate\": \"<dateTime>\"\n    }\n  ],\n  \"totalCount\": \"<integer>\",\n  \"hasMore\": \"<boolean>\"\n}",
+                  "createdAt": "2026-06-05T15:01:40.000Z",
+                  "updatedAt": "2026-06-05T15:01:40.000Z",
+                  "uid": "35240-8ceb4a1d-f4e2-4bbd-8222-1a33414bc9a2"
+                },
+                {
+                  "id": "edbe12c1-995c-46e3-9a6b-9c4e085c9d08",
+                  "name": "Authentication required or token expired",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/oe/salesOrders?headerId=<integer>&orderNumber=<integer>&customerId=<integer>&flowStatusCode=ENTERED&orderedDateFrom=<date>&orderedDateTo=<date>&limit=25&offset=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "oe",
+                        "salesOrders"
+                      ],
+                      "query": [
+                        {
+                          "description": "Order header identifier",
+                          "key": "headerId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Order number",
+                          "key": "orderNumber",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Customer identifier (sold-to)",
+                          "key": "customerId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Order flow status",
+                          "key": "flowStatusCode",
+                          "value": "ENTERED"
+                        },
+                        {
+                          "description": "Order date range start (YYYY-MM-DD)",
+                          "key": "orderedDateFrom",
+                          "value": "<date>"
+                        },
+                        {
+                          "description": "Order date range end (YYYY-MM-DD)",
+                          "key": "orderedDateTo",
+                          "value": "<date>"
+                        },
+                        {
+                          "description": "Maximum number of records to return",
+                          "key": "limit",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Number of records to skip for pagination",
+                          "key": "offset",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-06-05T15:01:40.000Z",
+                  "updatedAt": "2026-06-05T15:01:40.000Z",
+                  "uid": "35240-edbe12c1-995c-46e3-9a6b-9c4e085c9d08"
+                }
+              ],
+              "createdAt": "2026-06-05T15:01:39.000Z",
+              "updatedAt": "2026-06-05T15:01:39.000Z",
+              "uid": "35240-a347ab2d-703c-4e01-a5d7-940a48d99db1"
+            },
+            {
+              "name": "Create a Sales Order",
+              "id": "29f7adf9-c59a-439b-935f-ccef47d146e6",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "accessToken",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"soldToOrgId\": \"<integer>\",\n  \"orderTypeId\": \"<integer>\",\n  \"lines\": [\n    {\n      \"inventoryItemId\": \"<integer>\",\n      \"orderedQuantity\": \"<double>\",\n      \"orderQuantityUom\": \"<string>\",\n      \"unitSellingPrice\": \"<double>\",\n      \"scheduleShipDate\": \"<date>\"\n    },\n    {\n      \"inventoryItemId\": \"<integer>\",\n      \"orderedQuantity\": \"<double>\",\n      \"orderQuantityUom\": \"<string>\",\n      \"unitSellingPrice\": \"<double>\",\n      \"scheduleShipDate\": \"<date>\"\n    }\n  ],\n  \"orderedDate\": \"<date>\",\n  \"transactionalCurrCode\": \"<string>\",\n  \"shipToOrgId\": \"<integer>\",\n  \"invoiceToOrgId\": \"<integer>\",\n  \"salesrepId\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/oe/salesOrders",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "oe",
+                    "salesOrders"
+                  ]
+                },
+                "description": "Creates a new sales order using the OE_ORDER_PUB.PROCESS_ORDER PL/SQL API or the Order Import open interface."
+              },
+              "response": [
+                {
+                  "id": "3e33b77a-e09d-43bd-97ea-0a5ac187a0d1",
+                  "name": "Sales order created successfully",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"soldToOrgId\": \"<integer>\",\n  \"orderTypeId\": \"<integer>\",\n  \"lines\": [\n    {\n      \"inventoryItemId\": \"<integer>\",\n      \"orderedQuantity\": \"<double>\",\n      \"orderQuantityUom\": \"<string>\",\n      \"unitSellingPrice\": \"<double>\",\n      \"scheduleShipDate\": \"<date>\"\n    },\n    {\n      \"inventoryItemId\": \"<integer>\",\n      \"orderedQuantity\": \"<double>\",\n      \"orderQuantityUom\": \"<string>\",\n      \"unitSellingPrice\": \"<double>\",\n      \"scheduleShipDate\": \"<date>\"\n    }\n  ],\n  \"orderedDate\": \"<date>\",\n  \"transactionalCurrCode\": \"<string>\",\n  \"shipToOrgId\": \"<integer>\",\n  \"invoiceToOrgId\": \"<integer>\",\n  \"salesrepId\": \"<integer>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/oe/salesOrders",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "oe",
+                        "salesOrders"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"headerId\": \"<integer>\",\n  \"orderNumber\": \"<integer>\",\n  \"orderedDate\": \"<date>\",\n  \"orderTypeId\": \"<integer>\",\n  \"orderTypeName\": \"<string>\",\n  \"soldToOrgId\": \"<integer>\",\n  \"customerName\": \"<string>\",\n  \"shipToOrgId\": \"<integer>\",\n  \"invoiceToOrgId\": \"<integer>\",\n  \"transactionalCurrCode\": \"<string>\",\n  \"flowStatusCode\": \"CLOSED\",\n  \"bookedFlag\": \"Y\",\n  \"totalAmount\": \"<double>\",\n  \"salesrepId\": \"<integer>\",\n  \"lines\": [\n    {\n      \"lineId\": \"<integer>\",\n      \"lineNumber\": \"<integer>\",\n      \"orderedItem\": \"<string>\",\n      \"inventoryItemId\": \"<integer>\",\n      \"orderedQuantity\": \"<double>\",\n      \"orderQuantityUom\": \"<string>\",\n      \"unitSellingPrice\": \"<double>\",\n      \"unitListPrice\": \"<double>\",\n      \"lineAmount\": \"<double>\",\n      \"scheduleShipDate\": \"<date>\",\n      \"actualShipDate\": \"<date>\",\n      \"flowStatusCode\": \"<string>\",\n      \"shippedQuantity\": \"<double>\"\n    },\n    {\n      \"lineId\": \"<integer>\",\n      \"lineNumber\": \"<integer>\",\n      \"orderedItem\": \"<string>\",\n      \"inventoryItemId\": \"<integer>\",\n      \"orderedQuantity\": \"<double>\",\n      \"orderQuantityUom\": \"<string>\",\n      \"unitSellingPrice\": \"<double>\",\n      \"unitListPrice\": \"<double>\",\n      \"lineAmount\": \"<double>\",\n      \"scheduleShipDate\": \"<date>\",\n      \"actualShipDate\": \"<date>\",\n      \"flowStatusCode\": \"<string>\",\n      \"shippedQuantity\": \"<double>\"\n    }\n  ],\n  \"orgId\": \"<integer>\",\n  \"creationDate\": \"<dateTime>\",\n  \"lastUpdateDate\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-06-05T15:01:40.000Z",
+                  "updatedAt": "2026-06-05T15:01:40.000Z",
+                  "uid": "35240-3e33b77a-e09d-43bd-97ea-0a5ac187a0d1"
+                },
+                {
+                  "id": "03c42ab6-ecbe-47f8-9dea-ba67c9b27723",
+                  "name": "Invalid request parameters",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"soldToOrgId\": \"<integer>\",\n  \"orderTypeId\": \"<integer>\",\n  \"lines\": [\n    {\n      \"inventoryItemId\": \"<integer>\",\n      \"orderedQuantity\": \"<double>\",\n      \"orderQuantityUom\": \"<string>\",\n      \"unitSellingPrice\": \"<double>\",\n      \"scheduleShipDate\": \"<date>\"\n    },\n    {\n      \"inventoryItemId\": \"<integer>\",\n      \"orderedQuantity\": \"<double>\",\n      \"orderQuantityUom\": \"<string>\",\n      \"unitSellingPrice\": \"<double>\",\n      \"scheduleShipDate\": \"<date>\"\n    }\n  ],\n  \"orderedDate\": \"<date>\",\n  \"transactionalCurrCode\": \"<string>\",\n  \"shipToOrgId\": \"<integer>\",\n  \"invoiceToOrgId\": \"<integer>\",\n  \"salesrepId\": \"<integer>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/oe/salesOrders",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "oe",
+                        "salesOrders"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-06-05T15:01:40.000Z",
+                  "updatedAt": "2026-06-05T15:01:40.000Z",
+                  "uid": "35240-03c42ab6-ecbe-47f8-9dea-ba67c9b27723"
+                },
+                {
+                  "id": "11ee2bb7-afc6-4078-b72a-86d77562fb6a",
+                  "name": "Authentication required or token expired",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"soldToOrgId\": \"<integer>\",\n  \"orderTypeId\": \"<integer>\",\n  \"lines\": [\n    {\n      \"inventoryItemId\": \"<integer>\",\n      \"orderedQuantity\": \"<double>\",\n      \"orderQuantityUom\": \"<string>\",\n      \"unitSellingPrice\": \"<double>\",\n      \"scheduleShipDate\": \"<date>\"\n    },\n    {\n      \"inventoryItemId\": \"<integer>\",\n      \"orderedQuantity\": \"<double>\",\n      \"orderQuantityUom\": \"<string>\",\n      \"unitSellingPrice\": \"<double>\",\n      \"scheduleShipDate\": \"<date>\"\n    }\n  ],\n  \"orderedDate\": \"<date>\",\n  \"transactionalCurrCode\": \"<string>\",\n  \"shipToOrgId\": \"<integer>\",\n  \"invoiceToOrgId\": \"<integer>\",\n  \"salesrepId\": \"<integer>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/oe/salesOrders",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "oe",
+                        "salesOrders"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-06-05T15:01:40.000Z",
+                  "updatedAt": "2026-06-05T15:01:40.000Z",
+                  "uid": "35240-11ee2bb7-afc6-4078-b72a-86d77562fb6a"
+                }
+              ],
+              "createdAt": "2026-06-05T15:01:39.000Z",
+              "updatedAt": "2026-06-05T15:01:39.000Z",
+              "uid": "35240-29f7adf9-c59a-439b-935f-ccef47d146e6"
+            }
+          ],
+          "id": "1b72c8a4-0176-49ec-9924-33e6f2035c9b",
+          "createdAt": "2026-06-05T15:01:39.000Z",
+          "updatedAt": "2026-06-05T15:01:39.000Z",
+          "uid": "35240-1b72c8a4-0176-49ec-9924-33e6f2035c9b"
+        }
+      ],
+      "id": "b2450af4-0768-4842-869f-8a590a31c2a7",
+      "createdAt": "2026-06-05T15:01:39.000Z",
+      "updatedAt": "2026-06-05T15:01:39.000Z",
+      "uid": "35240-b2450af4-0768-4842-869f-8a590a31c2a7"
+    },
+    {
+      "name": "inv",
+      "item": [
+        {
+          "name": "items",
+          "item": [
+            {
+              "name": "Retrieve Inventory Items",
+              "id": "d25c9891-4144-4116-a5f5-6b6f695e08d3",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "accessToken",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/inv/items?inventoryItemId=<integer>&segment1=<string>&organizationId=<integer>&itemType=<string>&limit=25&offset=0",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "inv",
+                    "items"
+                  ],
+                  "query": [
+                    {
+                      "description": "Inventory item identifier",
+                      "key": "inventoryItemId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Item number",
+                      "key": "segment1",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Inventory organization identifier",
+                      "key": "organizationId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Item type",
+                      "key": "itemType",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Maximum number of records to return",
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Number of records to skip for pagination",
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ]
+                },
+                "description": "Retrieves Inventory item master records. Maps to the MTL_SYSTEM_ITEMS_B table through the Inventory Items API."
+              },
+              "response": [
+                {
+                  "id": "12951e22-a90d-4e3e-9c4f-4391c1c1cb71",
+                  "name": "List of inventory items",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/inv/items?inventoryItemId=<integer>&segment1=<string>&organizationId=<integer>&itemType=<string>&limit=25&offset=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "inv",
+                        "items"
+                      ],
+                      "query": [
+                        {
+                          "description": "Inventory item identifier",
+                          "key": "inventoryItemId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Item number",
+                          "key": "segment1",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Inventory organization identifier",
+                          "key": "organizationId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Item type",
+                          "key": "itemType",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Maximum number of records to return",
+                          "key": "limit",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Number of records to skip for pagination",
+                          "key": "offset",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"items\": [\n    {\n      \"inventoryItemId\": \"<integer>\",\n      \"segment1\": \"<string>\",\n      \"description\": \"<string>\",\n      \"longDescription\": \"<string>\",\n      \"primaryUomCode\": \"<string>\",\n      \"itemType\": \"<string>\",\n      \"inventoryItemStatusCode\": \"<string>\",\n      \"organizationId\": \"<integer>\",\n      \"weightUomCode\": \"<string>\",\n      \"unitWeight\": \"<double>\",\n      \"volumeUomCode\": \"<string>\",\n      \"unitVolume\": \"<double>\",\n      \"listPrice\": \"<double>\",\n      \"purchasingEnabledFlag\": \"N\",\n      \"customerOrderEnabledFlag\": \"Y\",\n      \"internalOrderEnabledFlag\": \"Y\",\n      \"creationDate\": \"<dateTime>\",\n      \"lastUpdateDate\": \"<dateTime>\"\n    },\n    {\n      \"inventoryItemId\": \"<integer>\",\n      \"segment1\": \"<string>\",\n      \"description\": \"<string>\",\n      \"longDescription\": \"<string>\",\n      \"primaryUomCode\": \"<string>\",\n      \"itemType\": \"<string>\",\n      \"inventoryItemStatusCode\": \"<string>\",\n      \"organizationId\": \"<integer>\",\n      \"weightUomCode\": \"<string>\",\n      \"unitWeight\": \"<double>\",\n      \"volumeUomCode\": \"<string>\",\n      \"unitVolume\": \"<double>\",\n      \"listPrice\": \"<double>\",\n      \"purchasingEnabledFlag\": \"Y\",\n      \"customerOrderEnabledFlag\": \"Y\",\n      \"internalOrderEnabledFlag\": \"Y\",\n      \"creationDate\": \"<dateTime>\",\n      \"lastUpdateDate\": \"<dateTime>\"\n    }\n  ],\n  \"totalCount\": \"<integer>\",\n  \"hasMore\": \"<boolean>\"\n}",
+                  "createdAt": "2026-06-05T15:01:40.000Z",
+                  "updatedAt": "2026-06-05T15:01:40.000Z",
+                  "uid": "35240-12951e22-a90d-4e3e-9c4f-4391c1c1cb71"
+                },
+                {
+                  "id": "718169fe-fc9c-459a-8ca5-588d1348120d",
+                  "name": "Authentication required or token expired",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/inv/items?inventoryItemId=<integer>&segment1=<string>&organizationId=<integer>&itemType=<string>&limit=25&offset=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "inv",
+                        "items"
+                      ],
+                      "query": [
+                        {
+                          "description": "Inventory item identifier",
+                          "key": "inventoryItemId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Item number",
+                          "key": "segment1",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Inventory organization identifier",
+                          "key": "organizationId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Item type",
+                          "key": "itemType",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Maximum number of records to return",
+                          "key": "limit",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Number of records to skip for pagination",
+                          "key": "offset",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-06-05T15:01:40.000Z",
+                  "updatedAt": "2026-06-05T15:01:40.000Z",
+                  "uid": "35240-718169fe-fc9c-459a-8ca5-588d1348120d"
+                }
+              ],
+              "createdAt": "2026-06-05T15:01:39.000Z",
+              "updatedAt": "2026-06-05T15:01:39.000Z",
+              "uid": "35240-d25c9891-4144-4116-a5f5-6b6f695e08d3"
+            }
+          ],
+          "id": "1073759b-2acf-4ad7-b6ce-482967155f11",
+          "createdAt": "2026-06-05T15:01:39.000Z",
+          "updatedAt": "2026-06-05T15:01:39.000Z",
+          "uid": "35240-1073759b-2acf-4ad7-b6ce-482967155f11"
+        },
+        {
+          "name": "onhandQuantities",
+          "item": [
+            {
+              "name": "Retrieve On-hand Inventory Quantities",
+              "id": "7662eef4-cd93-486f-a5f0-bc95efef91a9",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "accessToken",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/inv/onhandQuantities?inventoryItemId=<integer>&organizationId=<integer>&subinventoryCode=<string>&limit=25&offset=0",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "inv",
+                    "onhandQuantities"
+                  ],
+                  "query": [
+                    {
+                      "description": "Inventory item identifier",
+                      "key": "inventoryItemId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Inventory organization identifier",
+                      "key": "organizationId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Subinventory code",
+                      "key": "subinventoryCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Maximum number of records to return",
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Number of records to skip for pagination",
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ]
+                },
+                "description": "Retrieves on-hand quantity information for inventory items. Maps to the MTL_ONHAND_QUANTITIES_DETAIL table."
+              },
+              "response": [
+                {
+                  "id": "e8e7aa43-a5a7-48a8-960c-5443dde564d4",
+                  "name": "On-hand quantity records",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/inv/onhandQuantities?inventoryItemId=<integer>&organizationId=<integer>&subinventoryCode=<string>&limit=25&offset=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "inv",
+                        "onhandQuantities"
+                      ],
+                      "query": [
+                        {
+                          "description": "Inventory item identifier",
+                          "key": "inventoryItemId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Inventory organization identifier",
+                          "key": "organizationId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Subinventory code",
+                          "key": "subinventoryCode",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Maximum number of records to return",
+                          "key": "limit",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Number of records to skip for pagination",
+                          "key": "offset",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"items\": [\n    {\n      \"inventoryItemId\": \"<integer>\",\n      \"organizationId\": \"<integer>\",\n      \"subinventoryCode\": \"<string>\",\n      \"locatorId\": \"<integer>\",\n      \"lotNumber\": \"<string>\",\n      \"serialNumber\": \"<string>\",\n      \"transactionQuantity\": \"<double>\",\n      \"transactionUomCode\": \"<string>\",\n      \"lastUpdateDate\": \"<dateTime>\"\n    },\n    {\n      \"inventoryItemId\": \"<integer>\",\n      \"organizationId\": \"<integer>\",\n      \"subinventoryCode\": \"<string>\",\n      \"locatorId\": \"<integer>\",\n      \"lotNumber\": \"<string>\",\n      \"serialNumber\": \"<string>\",\n      \"transactionQuantity\": \"<double>\",\n      \"transactionUomCode\": \"<string>\",\n      \"lastUpdateDate\": \"<dateTime>\"\n    }\n  ],\n  \"totalCount\": \"<integer>\",\n  \"hasMore\": \"<boolean>\"\n}",
+                  "createdAt": "2026-06-05T15:01:40.000Z",
+                  "updatedAt": "2026-06-05T15:01:40.000Z",
+                  "uid": "35240-e8e7aa43-a5a7-48a8-960c-5443dde564d4"
+                },
+                {
+                  "id": "dcbc61b3-9ac6-48e7-a7b4-a0b1dad2b659",
+                  "name": "Authentication required or token expired",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/inv/onhandQuantities?inventoryItemId=<integer>&organizationId=<integer>&subinventoryCode=<string>&limit=25&offset=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "inv",
+                        "onhandQuantities"
+                      ],
+                      "query": [
+                        {
+                          "description": "Inventory item identifier",
+                          "key": "inventoryItemId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Inventory organization identifier",
+                          "key": "organizationId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Subinventory code",
+                          "key": "subinventoryCode",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Maximum number of records to return",
+                          "key": "limit",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Number of records to skip for pagination",
+                          "key": "offset",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-06-05T15:01:40.000Z",
+                  "updatedAt": "2026-06-05T15:01:40.000Z",
+                  "uid": "35240-dcbc61b3-9ac6-48e7-a7b4-a0b1dad2b659"
+                }
+              ],
+              "createdAt": "2026-06-05T15:01:39.000Z",
+              "updatedAt": "2026-06-05T15:01:39.000Z",
+              "uid": "35240-7662eef4-cd93-486f-a5f0-bc95efef91a9"
+            }
+          ],
+          "id": "378a0406-3259-45ef-8802-ca938f647c5a",
+          "createdAt": "2026-06-05T15:01:39.000Z",
+          "updatedAt": "2026-06-05T15:01:39.000Z",
+          "uid": "35240-378a0406-3259-45ef-8802-ca938f647c5a"
+        }
+      ],
+      "id": "35a6ce58-fb5b-4a01-9175-55de656b232a",
+      "createdAt": "2026-06-05T15:01:39.000Z",
+      "updatedAt": "2026-06-05T15:01:39.000Z",
+      "uid": "35240-35a6ce58-fb5b-4a01-9175-55de656b232a"
+    },
+    {
+      "name": "wsh",
+      "item": [
+        {
+          "name": "deliveries",
+          "item": [
+            {
+              "name": "Retrieve Shipping Deliveries",
+              "id": "058f8d94-248d-4b6c-a265-da5715972b10",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "accessToken",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/wsh/deliveries?deliveryId=<integer>&deliveryName=<string>&statusCode=PA&limit=25&offset=0",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "wsh",
+                    "deliveries"
+                  ],
+                  "query": [
+                    {
+                      "description": "Delivery identifier",
+                      "key": "deliveryId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Delivery name/number",
+                      "key": "deliveryName",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Delivery status",
+                      "key": "statusCode",
+                      "value": "PA"
+                    },
+                    {
+                      "description": "Maximum number of records to return",
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Number of records to skip for pagination",
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ]
+                },
+                "description": "Retrieves shipping delivery records from Oracle Shipping Execution. Maps to the WSH_NEW_DELIVERIES and WSH_DELIVERY_DETAILS tables."
+              },
+              "response": [
+                {
+                  "id": "9879ef3e-9dfb-430e-9322-41db0cdb6863",
+                  "name": "List of shipping deliveries",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/wsh/deliveries?deliveryId=<integer>&deliveryName=<string>&statusCode=PA&limit=25&offset=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "wsh",
+                        "deliveries"
+                      ],
+                      "query": [
+                        {
+                          "description": "Delivery identifier",
+                          "key": "deliveryId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Delivery name/number",
+                          "key": "deliveryName",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Delivery status",
+                          "key": "statusCode",
+                          "value": "PA"
+                        },
+                        {
+                          "description": "Maximum number of records to return",
+                          "key": "limit",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Number of records to skip for pagination",
+                          "key": "offset",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"items\": [\n    {\n      \"deliveryId\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"statusCode\": \"CO\",\n      \"initialPickupDate\": \"<date>\",\n      \"ultimateDropoffDate\": \"<date>\",\n      \"customerId\": \"<integer>\",\n      \"shipToLocationId\": \"<integer>\",\n      \"carrierId\": \"<integer>\",\n      \"shipMethodCode\": \"<string>\",\n      \"waybill\": \"<string>\",\n      \"grossWeight\": \"<double>\",\n      \"weightUomCode\": \"<string>\",\n      \"volume\": \"<double>\",\n      \"volumeUomCode\": \"<string>\",\n      \"organizationId\": \"<integer>\",\n      \"creationDate\": \"<dateTime>\",\n      \"lastUpdateDate\": \"<dateTime>\"\n    },\n    {\n      \"deliveryId\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"statusCode\": \"OP\",\n      \"initialPickupDate\": \"<date>\",\n      \"ultimateDropoffDate\": \"<date>\",\n      \"customerId\": \"<integer>\",\n      \"shipToLocationId\": \"<integer>\",\n      \"carrierId\": \"<integer>\",\n      \"shipMethodCode\": \"<string>\",\n      \"waybill\": \"<string>\",\n      \"grossWeight\": \"<double>\",\n      \"weightUomCode\": \"<string>\",\n      \"volume\": \"<double>\",\n      \"volumeUomCode\": \"<string>\",\n      \"organizationId\": \"<integer>\",\n      \"creationDate\": \"<dateTime>\",\n      \"lastUpdateDate\": \"<dateTime>\"\n    }\n  ],\n  \"totalCount\": \"<integer>\",\n  \"hasMore\": \"<boolean>\"\n}",
+                  "createdAt": "2026-06-05T15:01:40.000Z",
+                  "updatedAt": "2026-06-05T15:01:40.000Z",
+                  "uid": "35240-9879ef3e-9dfb-430e-9322-41db0cdb6863"
+                },
+                {
+                  "id": "36ba08c5-5023-43cf-8446-efe579edc10b",
+                  "name": "Authentication required or token expired",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/wsh/deliveries?deliveryId=<integer>&deliveryName=<string>&statusCode=PA&limit=25&offset=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "wsh",
+                        "deliveries"
+                      ],
+                      "query": [
+                        {
+                          "description": "Delivery identifier",
+                          "key": "deliveryId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Delivery name/number",
+                          "key": "deliveryName",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Delivery status",
+                          "key": "statusCode",
+                          "value": "PA"
+                        },
+                        {
+                          "description": "Maximum number of records to return",
+                          "key": "limit",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Number of records to skip for pagination",
+                          "key": "offset",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-06-05T15:01:40.000Z",
+                  "updatedAt": "2026-06-05T15:01:40.000Z",
+                  "uid": "35240-36ba08c5-5023-43cf-8446-efe579edc10b"
+                }
+              ],
+              "createdAt": "2026-06-05T15:01:39.000Z",
+              "updatedAt": "2026-06-05T15:01:39.000Z",
+              "uid": "35240-058f8d94-248d-4b6c-a265-da5715972b10"
+            }
+          ],
+          "id": "a36bd3be-81da-41fb-9cfe-947f65fe0490",
+          "createdAt": "2026-06-05T15:01:39.000Z",
+          "updatedAt": "2026-06-05T15:01:39.000Z",
+          "uid": "35240-a36bd3be-81da-41fb-9cfe-947f65fe0490"
+        }
+      ],
+      "id": "52f617aa-9e68-434c-a182-75860f0fb632",
+      "createdAt": "2026-06-05T15:01:39.000Z",
+      "updatedAt": "2026-06-05T15:01:39.000Z",
+      "uid": "35240-52f617aa-9e68-434c-a182-75860f0fb632"
+    }
+  ],
+  "variable": [
+    {
+      "key": "instance",
+      "value": "ebs-host"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{instance}}.oracle.com/webservices/rest"
+    }
+  ]
+}

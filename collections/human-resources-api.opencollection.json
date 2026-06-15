@@ -1,0 +1,488 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Oracle EBS Human Resources API",
+    "version": "12.2.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Employee Management",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve Employee Records",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.oracle.com/webservices/rest/hr/employees",
+            "params": [
+              {
+                "name": "personId",
+                "value": "500123",
+                "type": "query",
+                "description": "Person identifier"
+              },
+              {
+                "name": "employeeNumber",
+                "value": "example_value",
+                "type": "query",
+                "description": "Employee number"
+              },
+              {
+                "name": "fullName",
+                "value": "example_value",
+                "type": "query",
+                "description": "Full name (supports wildcards)"
+              },
+              {
+                "name": "businessGroupId",
+                "value": "500123",
+                "type": "query",
+                "description": "Business group identifier"
+              },
+              {
+                "name": "effectiveDate",
+                "value": "2026-01-15",
+                "type": "query",
+                "description": "Effective date for date-tracked records (YYYY-MM-DD)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "accessToken",
+              "value": "{{accessToken}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Retrieves employee records from Oracle HRMS. Maps to the PER_ALL_PEOPLE_F and PER_ALL_ASSIGNMENTS_F tables through the HR_EMPLOYEE_API PL/SQL package."
+        },
+        {
+          "info": {
+            "name": "Create an Employee Record",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{instance}.oracle.com/webservices/rest/hr/employees",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "accessToken",
+              "value": "{{accessToken}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Creates a new employee record using the HR_EMPLOYEE_API.CREATE_EMPLOYEE PL/SQL procedure. This creates entries in PER_ALL_PEOPLE_F, PER_ALL_ASSIGNMENTS_F, and related tables."
+        },
+        {
+          "info": {
+            "name": "Retrieve an Employee by Person Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.oracle.com/webservices/rest/hr/employees/:personId",
+            "params": [
+              {
+                "name": "personId",
+                "value": "500123",
+                "type": "path"
+              },
+              {
+                "name": "effectiveDate",
+                "value": "2026-01-15",
+                "type": "query",
+                "description": "Effective date for date-tracked records (YYYY-MM-DD)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "accessToken",
+              "value": "{{accessToken}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Retrieves a specific employee record by person identifier."
+        },
+        {
+          "info": {
+            "name": "Update an Employee Record",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{instance}.oracle.com/webservices/rest/hr/employees/:personId",
+            "params": [
+              {
+                "name": "personId",
+                "value": "500123",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "accessToken",
+              "value": "{{accessToken}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Updates an existing employee record using the HR_PERSON_API.UPDATE_PERSON PL/SQL procedure with date-track support."
+        },
+        {
+          "info": {
+            "name": "Retrieve Employee Assignments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.oracle.com/webservices/rest/hr/assignments",
+            "params": [
+              {
+                "name": "assignmentId",
+                "value": "500123",
+                "type": "query",
+                "description": "Assignment identifier"
+              },
+              {
+                "name": "personId",
+                "value": "500123",
+                "type": "query",
+                "description": "Person identifier"
+              },
+              {
+                "name": "organizationId",
+                "value": "500123",
+                "type": "query",
+                "description": "HR organization identifier"
+              },
+              {
+                "name": "effectiveDate",
+                "value": "2026-01-15",
+                "type": "query",
+                "description": "Effective date (YYYY-MM-DD)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "accessToken",
+              "value": "{{accessToken}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Retrieves employee assignment records. Maps to the PER_ALL_ASSIGNMENTS_F table through the HR_ASSIGNMENT_API package."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Organization",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve Hr Organizations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.oracle.com/webservices/rest/hr/organizations",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "500123",
+                "type": "query",
+                "description": "Organization identifier"
+              },
+              {
+                "name": "name",
+                "value": "Example Title",
+                "type": "query",
+                "description": "Organization name (supports wildcards)"
+              },
+              {
+                "name": "businessGroupId",
+                "value": "500123",
+                "type": "query",
+                "description": "Business group identifier"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "accessToken",
+              "value": "{{accessToken}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Retrieves HR organization records. Maps to the HR_ALL_ORGANIZATION_UNITS and HR_ORGANIZATION_INFORMATION tables."
+        },
+        {
+          "info": {
+            "name": "Retrieve Hr Positions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.oracle.com/webservices/rest/hr/positions",
+            "params": [
+              {
+                "name": "positionId",
+                "value": "500123",
+                "type": "query",
+                "description": "Position identifier"
+              },
+              {
+                "name": "name",
+                "value": "Example Title",
+                "type": "query",
+                "description": "Position name (supports wildcards)"
+              },
+              {
+                "name": "organizationId",
+                "value": "500123",
+                "type": "query",
+                "description": "Organization identifier"
+              },
+              {
+                "name": "effectiveDate",
+                "value": "2026-01-15",
+                "type": "query",
+                "description": "Effective date (YYYY-MM-DD)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "accessToken",
+              "value": "{{accessToken}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Retrieves position records. Maps to the HR_ALL_POSITIONS_F table through the HR_POSITION_API package."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Payroll",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve Payroll Definitions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.oracle.com/webservices/rest/pay/payrolls",
+            "params": [
+              {
+                "name": "payrollId",
+                "value": "500123",
+                "type": "query",
+                "description": "Payroll identifier"
+              },
+              {
+                "name": "payrollName",
+                "value": "example_value",
+                "type": "query",
+                "description": "Payroll name"
+              },
+              {
+                "name": "businessGroupId",
+                "value": "500123",
+                "type": "query",
+                "description": "Business group identifier"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "accessToken",
+              "value": "{{accessToken}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Retrieves payroll definitions from Oracle Payroll. Maps to the PAY_ALL_PAYROLLS_F table."
+        },
+        {
+          "info": {
+            "name": "Retrieve Payroll Run Results",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.oracle.com/webservices/rest/pay/payrollRuns",
+            "params": [
+              {
+                "name": "payrollActionId",
+                "value": "500123",
+                "type": "query",
+                "description": "Payroll action identifier"
+              },
+              {
+                "name": "payrollId",
+                "value": "500123",
+                "type": "query",
+                "description": "Payroll identifier"
+              },
+              {
+                "name": "effectiveDate",
+                "value": "2026-01-15",
+                "type": "query",
+                "description": "Effective date (YYYY-MM-DD)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "accessToken",
+              "value": "{{accessToken}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Retrieves payroll run and action results. Maps to the PAY_PAYROLL_ACTIONS, PAY_ASSIGNMENT_ACTIONS, and PAY_RUN_RESULTS tables."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Benefits",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve Benefit Enrollments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.oracle.com/webservices/rest/ben/benefits",
+            "params": [
+              {
+                "name": "personId",
+                "value": "500123",
+                "type": "query",
+                "description": "Person identifier"
+              },
+              {
+                "name": "planId",
+                "value": "500123",
+                "type": "query",
+                "description": "Benefit plan identifier"
+              },
+              {
+                "name": "effectiveDate",
+                "value": "2026-01-15",
+                "type": "query",
+                "description": "Effective date (YYYY-MM-DD)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "accessToken",
+              "value": "{{accessToken}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Retrieves employee benefit enrollment records. Maps to the BEN_PRTT_ENRT_RSLT_F table through the Benefits API."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,2683 @@
+{
+  "info": {
+    "_postman_id": "c3e8d2e8-2006-45d4-8759-3bdd2067be41",
+    "name": "Oracle EBS Financial Services API",
+    "description": "RESTful APIs for Oracle E-Business Suite financial management modules including General Ledger, Accounts Payable, Accounts Receivable, Fixed Assets, and Cash Management. These PL/SQL APIs are deployed as REST services through the Integrated SOA Gateway.\n\nContact Support:\n Name: Oracle Support\n Email: support@oracle.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:01:38.000Z",
+    "updatedAt": "2026-06-05T15:01:38.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-c3e8d2e8-2006-45d4-8759-3bdd2067be41"
+  },
+  "item": [
+    {
+      "name": "gl",
+      "item": [
+        {
+          "name": "journals",
+          "item": [
+            {
+              "name": "Retrieve Journal Entries",
+              "id": "6eea5c33-4cea-4c1c-845d-6c082c83c98e",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "accessToken",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/gl/journals?ledgerId=<integer>&periodName=<string>&journalCategory=<string>&status=P&limit=25&offset=0",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "gl",
+                    "journals"
+                  ],
+                  "query": [
+                    {
+                      "description": "Ledger identifier",
+                      "key": "ledgerId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Accounting period name",
+                      "key": "periodName",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Journal category name",
+                      "key": "journalCategory",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Journal status",
+                      "key": "status",
+                      "value": "P"
+                    },
+                    {
+                      "description": "Maximum number of records to return",
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Number of records to skip for pagination",
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ]
+                },
+                "description": "Retrieves General Ledger journal entries based on the provided filter criteria. Maps to the GL_JE_HEADERS and GL_JE_LINES interface tables."
+              },
+              "response": [
+                {
+                  "id": "c33b06c3-142d-4f6d-9c8a-ba0d8953f0c5",
+                  "name": "List of journal entries",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/gl/journals?ledgerId=<integer>&periodName=<string>&journalCategory=<string>&status=P&limit=25&offset=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "gl",
+                        "journals"
+                      ],
+                      "query": [
+                        {
+                          "description": "Ledger identifier",
+                          "key": "ledgerId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Accounting period name",
+                          "key": "periodName",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Journal category name",
+                          "key": "journalCategory",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Journal status",
+                          "key": "status",
+                          "value": "P"
+                        },
+                        {
+                          "description": "Maximum number of records to return",
+                          "key": "limit",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Number of records to skip for pagination",
+                          "key": "offset",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"items\": [\n    {\n      \"jeHeaderId\": \"<integer>\",\n      \"jeBatchId\": \"<integer>\",\n      \"ledgerId\": \"<integer>\",\n      \"periodName\": \"<string>\",\n      \"journalName\": \"<string>\",\n      \"journalCategory\": \"<string>\",\n      \"journalSource\": \"<string>\",\n      \"currencyCode\": \"<string>\",\n      \"status\": \"A\",\n      \"description\": \"<string>\",\n      \"effectiveDate\": \"<date>\",\n      \"lines\": [\n        {\n          \"jeLineNum\": \"<integer>\",\n          \"codeCombinatonId\": \"<integer>\",\n          \"accountedDr\": \"<double>\",\n          \"accountedCr\": \"<double>\",\n          \"enteredDr\": \"<double>\",\n          \"enteredCr\": \"<double>\",\n          \"description\": \"<string>\"\n        },\n        {\n          \"jeLineNum\": \"<integer>\",\n          \"codeCombinatonId\": \"<integer>\",\n          \"accountedDr\": \"<double>\",\n          \"accountedCr\": \"<double>\",\n          \"enteredDr\": \"<double>\",\n          \"enteredCr\": \"<double>\",\n          \"description\": \"<string>\"\n        }\n      ],\n      \"createdBy\": \"<integer>\",\n      \"creationDate\": \"<dateTime>\",\n      \"lastUpdatedBy\": \"<integer>\",\n      \"lastUpdateDate\": \"<dateTime>\"\n    },\n    {\n      \"jeHeaderId\": \"<integer>\",\n      \"jeBatchId\": \"<integer>\",\n      \"ledgerId\": \"<integer>\",\n      \"periodName\": \"<string>\",\n      \"journalName\": \"<string>\",\n      \"journalCategory\": \"<string>\",\n      \"journalSource\": \"<string>\",\n      \"currencyCode\": \"<string>\",\n      \"status\": \"P\",\n      \"description\": \"<string>\",\n      \"effectiveDate\": \"<date>\",\n      \"lines\": [\n        {\n          \"jeLineNum\": \"<integer>\",\n          \"codeCombinatonId\": \"<integer>\",\n          \"accountedDr\": \"<double>\",\n          \"accountedCr\": \"<double>\",\n          \"enteredDr\": \"<double>\",\n          \"enteredCr\": \"<double>\",\n          \"description\": \"<string>\"\n        },\n        {\n          \"jeLineNum\": \"<integer>\",\n          \"codeCombinatonId\": \"<integer>\",\n          \"accountedDr\": \"<double>\",\n          \"accountedCr\": \"<double>\",\n          \"enteredDr\": \"<double>\",\n          \"enteredCr\": \"<double>\",\n          \"description\": \"<string>\"\n        }\n      ],\n      \"createdBy\": \"<integer>\",\n      \"creationDate\": \"<dateTime>\",\n      \"lastUpdatedBy\": \"<integer>\",\n      \"lastUpdateDate\": \"<dateTime>\"\n    }\n  ],\n  \"totalCount\": \"<integer>\",\n  \"hasMore\": \"<boolean>\"\n}",
+                  "createdAt": "2026-06-05T15:01:38.000Z",
+                  "updatedAt": "2026-06-05T15:01:38.000Z",
+                  "uid": "35240-c33b06c3-142d-4f6d-9c8a-ba0d8953f0c5"
+                },
+                {
+                  "id": "08eb524f-73a5-4f4e-a56c-cc082709d99f",
+                  "name": "Authentication required or token expired",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/gl/journals?ledgerId=<integer>&periodName=<string>&journalCategory=<string>&status=P&limit=25&offset=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "gl",
+                        "journals"
+                      ],
+                      "query": [
+                        {
+                          "description": "Ledger identifier",
+                          "key": "ledgerId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Accounting period name",
+                          "key": "periodName",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Journal category name",
+                          "key": "journalCategory",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Journal status",
+                          "key": "status",
+                          "value": "P"
+                        },
+                        {
+                          "description": "Maximum number of records to return",
+                          "key": "limit",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Number of records to skip for pagination",
+                          "key": "offset",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-06-05T15:01:38.000Z",
+                  "updatedAt": "2026-06-05T15:01:38.000Z",
+                  "uid": "35240-08eb524f-73a5-4f4e-a56c-cc082709d99f"
+                }
+              ],
+              "createdAt": "2026-06-05T15:01:38.000Z",
+              "updatedAt": "2026-06-05T15:01:38.000Z",
+              "uid": "35240-6eea5c33-4cea-4c1c-845d-6c082c83c98e"
+            },
+            {
+              "name": "Create a Journal Entry",
+              "id": "ce1ef59d-8c52-4004-aec4-18396ebb0ab7",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "accessToken",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ledgerId\": \"<integer>\",\n  \"periodName\": \"<string>\",\n  \"journalName\": \"<string>\",\n  \"journalCategory\": \"<string>\",\n  \"journalSource\": \"<string>\",\n  \"currencyCode\": \"<string>\",\n  \"lines\": [\n    {\n      \"codeCombinatonId\": \"<integer>\",\n      \"accountedDr\": \"<double>\",\n      \"accountedCr\": \"<double>\",\n      \"enteredDr\": \"<double>\",\n      \"enteredCr\": \"<double>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"codeCombinatonId\": \"<integer>\",\n      \"accountedDr\": \"<double>\",\n      \"accountedCr\": \"<double>\",\n      \"enteredDr\": \"<double>\",\n      \"enteredCr\": \"<double>\",\n      \"description\": \"<string>\"\n    }\n  ],\n  \"description\": \"<string>\",\n  \"effectiveDate\": \"<date>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/gl/journals",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "gl",
+                    "journals"
+                  ]
+                },
+                "description": "Creates a new General Ledger journal entry. Maps to the GL_INTERFACE table and GL_JOURNAL_IMPORT concurrent program."
+              },
+              "response": [
+                {
+                  "id": "9a2239ff-4e12-42ba-abc7-95453c6b0dd9",
+                  "name": "Journal entry created successfully",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"ledgerId\": \"<integer>\",\n  \"periodName\": \"<string>\",\n  \"journalName\": \"<string>\",\n  \"journalCategory\": \"<string>\",\n  \"journalSource\": \"<string>\",\n  \"currencyCode\": \"<string>\",\n  \"lines\": [\n    {\n      \"codeCombinatonId\": \"<integer>\",\n      \"accountedDr\": \"<double>\",\n      \"accountedCr\": \"<double>\",\n      \"enteredDr\": \"<double>\",\n      \"enteredCr\": \"<double>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"codeCombinatonId\": \"<integer>\",\n      \"accountedDr\": \"<double>\",\n      \"accountedCr\": \"<double>\",\n      \"enteredDr\": \"<double>\",\n      \"enteredCr\": \"<double>\",\n      \"description\": \"<string>\"\n    }\n  ],\n  \"description\": \"<string>\",\n  \"effectiveDate\": \"<date>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/gl/journals",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "gl",
+                        "journals"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"jeHeaderId\": \"<integer>\",\n  \"jeBatchId\": \"<integer>\",\n  \"ledgerId\": \"<integer>\",\n  \"periodName\": \"<string>\",\n  \"journalName\": \"<string>\",\n  \"journalCategory\": \"<string>\",\n  \"journalSource\": \"<string>\",\n  \"currencyCode\": \"<string>\",\n  \"status\": \"A\",\n  \"description\": \"<string>\",\n  \"effectiveDate\": \"<date>\",\n  \"lines\": [\n    {\n      \"jeLineNum\": \"<integer>\",\n      \"codeCombinatonId\": \"<integer>\",\n      \"accountedDr\": \"<double>\",\n      \"accountedCr\": \"<double>\",\n      \"enteredDr\": \"<double>\",\n      \"enteredCr\": \"<double>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"jeLineNum\": \"<integer>\",\n      \"codeCombinatonId\": \"<integer>\",\n      \"accountedDr\": \"<double>\",\n      \"accountedCr\": \"<double>\",\n      \"enteredDr\": \"<double>\",\n      \"enteredCr\": \"<double>\",\n      \"description\": \"<string>\"\n    }\n  ],\n  \"createdBy\": \"<integer>\",\n  \"creationDate\": \"<dateTime>\",\n  \"lastUpdatedBy\": \"<integer>\",\n  \"lastUpdateDate\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-06-05T15:01:38.000Z",
+                  "updatedAt": "2026-06-05T15:01:38.000Z",
+                  "uid": "35240-9a2239ff-4e12-42ba-abc7-95453c6b0dd9"
+                },
+                {
+                  "id": "61223064-fe30-4f19-80d6-6cf91508d5f8",
+                  "name": "Invalid request parameters",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"ledgerId\": \"<integer>\",\n  \"periodName\": \"<string>\",\n  \"journalName\": \"<string>\",\n  \"journalCategory\": \"<string>\",\n  \"journalSource\": \"<string>\",\n  \"currencyCode\": \"<string>\",\n  \"lines\": [\n    {\n      \"codeCombinatonId\": \"<integer>\",\n      \"accountedDr\": \"<double>\",\n      \"accountedCr\": \"<double>\",\n      \"enteredDr\": \"<double>\",\n      \"enteredCr\": \"<double>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"codeCombinatonId\": \"<integer>\",\n      \"accountedDr\": \"<double>\",\n      \"accountedCr\": \"<double>\",\n      \"enteredDr\": \"<double>\",\n      \"enteredCr\": \"<double>\",\n      \"description\": \"<string>\"\n    }\n  ],\n  \"description\": \"<string>\",\n  \"effectiveDate\": \"<date>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/gl/journals",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "gl",
+                        "journals"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-06-05T15:01:38.000Z",
+                  "updatedAt": "2026-06-05T15:01:38.000Z",
+                  "uid": "35240-61223064-fe30-4f19-80d6-6cf91508d5f8"
+                },
+                {
+                  "id": "ab6b77bc-57f9-4597-a77b-76dbc075ac0c",
+                  "name": "Authentication required or token expired",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"ledgerId\": \"<integer>\",\n  \"periodName\": \"<string>\",\n  \"journalName\": \"<string>\",\n  \"journalCategory\": \"<string>\",\n  \"journalSource\": \"<string>\",\n  \"currencyCode\": \"<string>\",\n  \"lines\": [\n    {\n      \"codeCombinatonId\": \"<integer>\",\n      \"accountedDr\": \"<double>\",\n      \"accountedCr\": \"<double>\",\n      \"enteredDr\": \"<double>\",\n      \"enteredCr\": \"<double>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"codeCombinatonId\": \"<integer>\",\n      \"accountedDr\": \"<double>\",\n      \"accountedCr\": \"<double>\",\n      \"enteredDr\": \"<double>\",\n      \"enteredCr\": \"<double>\",\n      \"description\": \"<string>\"\n    }\n  ],\n  \"description\": \"<string>\",\n  \"effectiveDate\": \"<date>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/gl/journals",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "gl",
+                        "journals"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-06-05T15:01:38.000Z",
+                  "updatedAt": "2026-06-05T15:01:38.000Z",
+                  "uid": "35240-ab6b77bc-57f9-4597-a77b-76dbc075ac0c"
+                }
+              ],
+              "createdAt": "2026-06-05T15:01:38.000Z",
+              "updatedAt": "2026-06-05T15:01:38.000Z",
+              "uid": "35240-ce1ef59d-8c52-4004-aec4-18396ebb0ab7"
+            }
+          ],
+          "id": "afa53934-09b7-4555-b4b6-7d8638cd2aa2",
+          "createdAt": "2026-06-05T15:01:38.000Z",
+          "updatedAt": "2026-06-05T15:01:38.000Z",
+          "uid": "35240-afa53934-09b7-4555-b4b6-7d8638cd2aa2"
+        }
+      ],
+      "id": "031b8163-fc7d-4a15-bd82-0fc10c0dca8d",
+      "createdAt": "2026-06-05T15:01:38.000Z",
+      "updatedAt": "2026-06-05T15:01:38.000Z",
+      "uid": "35240-031b8163-fc7d-4a15-bd82-0fc10c0dca8d"
+    },
+    {
+      "name": "ap",
+      "item": [
+        {
+          "name": "invoices",
+          "item": [
+            {
+              "name": "{invoiceId}",
+              "item": [
+                {
+                  "name": "Retrieve a Specific Ap Invoice",
+                  "id": "3e57a7d9-4567-4116-9b39-d7863f778d6b",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "apikey",
+                      "apikey": [
+                        {
+                          "key": "key",
+                          "value": "accessToken",
+                          "type": "string"
+                        },
+                        {
+                          "key": "value",
+                          "value": "{{apiKey}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "in",
+                          "value": "header",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/ap/invoices/:invoiceId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "ap",
+                        "invoices",
+                        ":invoiceId"
+                      ],
+                      "variable": [
+                        {
+                          "id": "11cd7842-c3be-4624-a527-f279b5b5acb4",
+                          "key": "invoiceId",
+                          "value": "<integer>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Retrieves an Accounts Payable invoice by its identifier."
+                  },
+                  "response": [
+                    {
+                      "id": "3e8f4a09-4719-4767-959e-976930d9baa0",
+                      "name": "Invoice details",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "accessToken",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/ap/invoices/:invoiceId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "ap",
+                            "invoices",
+                            ":invoiceId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "invoiceId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"invoiceId\": \"<integer>\",\n  \"invoiceNum\": \"<string>\",\n  \"invoiceDate\": \"<date>\",\n  \"vendorId\": \"<integer>\",\n  \"vendorName\": \"<string>\",\n  \"vendorSiteId\": \"<integer>\",\n  \"invoiceAmount\": \"<double>\",\n  \"invoiceCurrencyCode\": \"<string>\",\n  \"paymentCurrencyCode\": \"<string>\",\n  \"exchangeRate\": \"<double>\",\n  \"exchangeRateType\": \"<string>\",\n  \"exchangeDate\": \"<date>\",\n  \"termsId\": \"<integer>\",\n  \"description\": \"<string>\",\n  \"invoiceType\": \"CREDIT\",\n  \"source\": \"<string>\",\n  \"paymentStatusFlag\": \"P\",\n  \"approvalStatus\": \"CANCELLED\",\n  \"amountPaid\": \"<double>\",\n  \"lines\": [\n    {\n      \"lineNumber\": \"<integer>\",\n      \"lineType\": \"ITEM\",\n      \"amount\": \"<double>\",\n      \"description\": \"<string>\",\n      \"accountingDate\": \"<date>\",\n      \"distCodeCombinationId\": \"<integer>\",\n      \"itemDescription\": \"<string>\",\n      \"quantity\": \"<double>\",\n      \"unitPrice\": \"<double>\"\n    },\n    {\n      \"lineNumber\": \"<integer>\",\n      \"lineType\": \"TAX\",\n      \"amount\": \"<double>\",\n      \"description\": \"<string>\",\n      \"accountingDate\": \"<date>\",\n      \"distCodeCombinationId\": \"<integer>\",\n      \"itemDescription\": \"<string>\",\n      \"quantity\": \"<double>\",\n      \"unitPrice\": \"<double>\"\n    }\n  ],\n  \"orgId\": \"<integer>\",\n  \"createdBy\": \"<integer>\",\n  \"creationDate\": \"<dateTime>\",\n  \"lastUpdatedBy\": \"<integer>\",\n  \"lastUpdateDate\": \"<dateTime>\"\n}",
+                      "createdAt": "2026-06-05T15:01:38.000Z",
+                      "updatedAt": "2026-06-05T15:01:38.000Z",
+                      "uid": "35240-3e8f4a09-4719-4767-959e-976930d9baa0"
+                    },
+                    {
+                      "id": "e3e1910c-e60e-40c8-a213-d2d05f097d76",
+                      "name": "Authentication required or token expired",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "accessToken",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/ap/invoices/:invoiceId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "ap",
+                            "invoices",
+                            ":invoiceId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "invoiceId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:01:38.000Z",
+                      "updatedAt": "2026-06-05T15:01:38.000Z",
+                      "uid": "35240-e3e1910c-e60e-40c8-a213-d2d05f097d76"
+                    },
+                    {
+                      "id": "fa4111fb-0158-4d5d-a757-3568dad712ca",
+                      "name": "Resource not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "accessToken",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/ap/invoices/:invoiceId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "ap",
+                            "invoices",
+                            ":invoiceId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "invoiceId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:01:38.000Z",
+                      "updatedAt": "2026-06-05T15:01:38.000Z",
+                      "uid": "35240-fa4111fb-0158-4d5d-a757-3568dad712ca"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:01:38.000Z",
+                  "updatedAt": "2026-06-05T15:01:38.000Z",
+                  "uid": "35240-3e57a7d9-4567-4116-9b39-d7863f778d6b"
+                }
+              ],
+              "id": "ecf7bbfb-8e95-49b3-a307-f4733ca40a0f",
+              "createdAt": "2026-06-05T15:01:38.000Z",
+              "updatedAt": "2026-06-05T15:01:38.000Z",
+              "uid": "35240-ecf7bbfb-8e95-49b3-a307-f4733ca40a0f"
+            },
+            {
+              "name": "Retrieve Ap Invoices",
+              "id": "756c4039-206a-43d3-8b1a-180d1f928361",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "accessToken",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/ap/invoices?invoiceId=<integer>&invoiceNum=<string>&vendorId=<integer>&invoiceDateFrom=<date>&invoiceDateTo=<date>&invoiceStatus=NEVER_APPROVED&limit=25&offset=0",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "ap",
+                    "invoices"
+                  ],
+                  "query": [
+                    {
+                      "description": "Invoice identifier",
+                      "key": "invoiceId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Invoice number",
+                      "key": "invoiceNum",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Supplier/vendor identifier",
+                      "key": "vendorId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Invoice date range start (YYYY-MM-DD)",
+                      "key": "invoiceDateFrom",
+                      "value": "<date>"
+                    },
+                    {
+                      "description": "Invoice date range end (YYYY-MM-DD)",
+                      "key": "invoiceDateTo",
+                      "value": "<date>"
+                    },
+                    {
+                      "description": "Invoice approval status",
+                      "key": "invoiceStatus",
+                      "value": "NEVER_APPROVED"
+                    },
+                    {
+                      "description": "Maximum number of records to return",
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Number of records to skip for pagination",
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ]
+                },
+                "description": "Retrieves Accounts Payable invoices. Maps to the AP_INVOICES_ALL and AP_INVOICE_LINES_ALL tables through the AP_INVOICES_PKG PL/SQL API."
+              },
+              "response": [
+                {
+                  "id": "2dd8c857-b494-4c22-ad43-10559f2d5836",
+                  "name": "List of AP invoices",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/ap/invoices?invoiceId=<integer>&invoiceNum=<string>&vendorId=<integer>&invoiceDateFrom=<date>&invoiceDateTo=<date>&invoiceStatus=NEVER_APPROVED&limit=25&offset=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "ap",
+                        "invoices"
+                      ],
+                      "query": [
+                        {
+                          "description": "Invoice identifier",
+                          "key": "invoiceId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Invoice number",
+                          "key": "invoiceNum",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Supplier/vendor identifier",
+                          "key": "vendorId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Invoice date range start (YYYY-MM-DD)",
+                          "key": "invoiceDateFrom",
+                          "value": "<date>"
+                        },
+                        {
+                          "description": "Invoice date range end (YYYY-MM-DD)",
+                          "key": "invoiceDateTo",
+                          "value": "<date>"
+                        },
+                        {
+                          "description": "Invoice approval status",
+                          "key": "invoiceStatus",
+                          "value": "NEVER_APPROVED"
+                        },
+                        {
+                          "description": "Maximum number of records to return",
+                          "key": "limit",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Number of records to skip for pagination",
+                          "key": "offset",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"items\": [\n    {\n      \"invoiceId\": \"<integer>\",\n      \"invoiceNum\": \"<string>\",\n      \"invoiceDate\": \"<date>\",\n      \"vendorId\": \"<integer>\",\n      \"vendorName\": \"<string>\",\n      \"vendorSiteId\": \"<integer>\",\n      \"invoiceAmount\": \"<double>\",\n      \"invoiceCurrencyCode\": \"<string>\",\n      \"paymentCurrencyCode\": \"<string>\",\n      \"exchangeRate\": \"<double>\",\n      \"exchangeRateType\": \"<string>\",\n      \"exchangeDate\": \"<date>\",\n      \"termsId\": \"<integer>\",\n      \"description\": \"<string>\",\n      \"invoiceType\": \"DEBIT\",\n      \"source\": \"<string>\",\n      \"paymentStatusFlag\": \"N\",\n      \"approvalStatus\": \"NEVER_APPROVED\",\n      \"amountPaid\": \"<double>\",\n      \"lines\": [\n        {\n          \"lineNumber\": \"<integer>\",\n          \"lineType\": \"FREIGHT\",\n          \"amount\": \"<double>\",\n          \"description\": \"<string>\",\n          \"accountingDate\": \"<date>\",\n          \"distCodeCombinationId\": \"<integer>\",\n          \"itemDescription\": \"<string>\",\n          \"quantity\": \"<double>\",\n          \"unitPrice\": \"<double>\"\n        },\n        {\n          \"lineNumber\": \"<integer>\",\n          \"lineType\": \"TAX\",\n          \"amount\": \"<double>\",\n          \"description\": \"<string>\",\n          \"accountingDate\": \"<date>\",\n          \"distCodeCombinationId\": \"<integer>\",\n          \"itemDescription\": \"<string>\",\n          \"quantity\": \"<double>\",\n          \"unitPrice\": \"<double>\"\n        }\n      ],\n      \"orgId\": \"<integer>\",\n      \"createdBy\": \"<integer>\",\n      \"creationDate\": \"<dateTime>\",\n      \"lastUpdatedBy\": \"<integer>\",\n      \"lastUpdateDate\": \"<dateTime>\"\n    },\n    {\n      \"invoiceId\": \"<integer>\",\n      \"invoiceNum\": \"<string>\",\n      \"invoiceDate\": \"<date>\",\n      \"vendorId\": \"<integer>\",\n      \"vendorName\": \"<string>\",\n      \"vendorSiteId\": \"<integer>\",\n      \"invoiceAmount\": \"<double>\",\n      \"invoiceCurrencyCode\": \"<string>\",\n      \"paymentCurrencyCode\": \"<string>\",\n      \"exchangeRate\": \"<double>\",\n      \"exchangeRateType\": \"<string>\",\n      \"exchangeDate\": \"<date>\",\n      \"termsId\": \"<integer>\",\n      \"description\": \"<string>\",\n      \"invoiceType\": \"STANDARD\",\n      \"source\": \"<string>\",\n      \"paymentStatusFlag\": \"Y\",\n      \"approvalStatus\": \"APPROVED\",\n      \"amountPaid\": \"<double>\",\n      \"lines\": [\n        {\n          \"lineNumber\": \"<integer>\",\n          \"lineType\": \"MISCELLANEOUS\",\n          \"amount\": \"<double>\",\n          \"description\": \"<string>\",\n          \"accountingDate\": \"<date>\",\n          \"distCodeCombinationId\": \"<integer>\",\n          \"itemDescription\": \"<string>\",\n          \"quantity\": \"<double>\",\n          \"unitPrice\": \"<double>\"\n        },\n        {\n          \"lineNumber\": \"<integer>\",\n          \"lineType\": \"ITEM\",\n          \"amount\": \"<double>\",\n          \"description\": \"<string>\",\n          \"accountingDate\": \"<date>\",\n          \"distCodeCombinationId\": \"<integer>\",\n          \"itemDescription\": \"<string>\",\n          \"quantity\": \"<double>\",\n          \"unitPrice\": \"<double>\"\n        }\n      ],\n      \"orgId\": \"<integer>\",\n      \"createdBy\": \"<integer>\",\n      \"creationDate\": \"<dateTime>\",\n      \"lastUpdatedBy\": \"<integer>\",\n      \"lastUpdateDate\": \"<dateTime>\"\n    }\n  ],\n  \"totalCount\": \"<integer>\",\n  \"hasMore\": \"<boolean>\"\n}",
+                  "createdAt": "2026-06-05T15:01:38.000Z",
+                  "updatedAt": "2026-06-05T15:01:38.000Z",
+                  "uid": "35240-2dd8c857-b494-4c22-ad43-10559f2d5836"
+                },
+                {
+                  "id": "dd7a7b26-bacd-40a0-b988-f3e0dfecb3d9",
+                  "name": "Authentication required or token expired",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/ap/invoices?invoiceId=<integer>&invoiceNum=<string>&vendorId=<integer>&invoiceDateFrom=<date>&invoiceDateTo=<date>&invoiceStatus=NEVER_APPROVED&limit=25&offset=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "ap",
+                        "invoices"
+                      ],
+                      "query": [
+                        {
+                          "description": "Invoice identifier",
+                          "key": "invoiceId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Invoice number",
+                          "key": "invoiceNum",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Supplier/vendor identifier",
+                          "key": "vendorId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Invoice date range start (YYYY-MM-DD)",
+                          "key": "invoiceDateFrom",
+                          "value": "<date>"
+                        },
+                        {
+                          "description": "Invoice date range end (YYYY-MM-DD)",
+                          "key": "invoiceDateTo",
+                          "value": "<date>"
+                        },
+                        {
+                          "description": "Invoice approval status",
+                          "key": "invoiceStatus",
+                          "value": "NEVER_APPROVED"
+                        },
+                        {
+                          "description": "Maximum number of records to return",
+                          "key": "limit",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Number of records to skip for pagination",
+                          "key": "offset",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-06-05T15:01:38.000Z",
+                  "updatedAt": "2026-06-05T15:01:38.000Z",
+                  "uid": "35240-dd7a7b26-bacd-40a0-b988-f3e0dfecb3d9"
+                }
+              ],
+              "createdAt": "2026-06-05T15:01:38.000Z",
+              "updatedAt": "2026-06-05T15:01:38.000Z",
+              "uid": "35240-756c4039-206a-43d3-8b1a-180d1f928361"
+            },
+            {
+              "name": "Create an Ap Invoice",
+              "id": "a90b0fd0-bc65-4a89-b705-d6f4ffa31601",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "accessToken",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"invoiceNum\": \"<string>\",\n  \"vendorId\": \"<integer>\",\n  \"vendorSiteId\": \"<integer>\",\n  \"invoiceAmount\": \"<double>\",\n  \"invoiceCurrencyCode\": \"<string>\",\n  \"invoiceDate\": \"<date>\",\n  \"invoiceType\": \"STANDARD\",\n  \"description\": \"<string>\",\n  \"termsId\": \"<integer>\",\n  \"source\": \"<string>\",\n  \"lines\": [\n    {\n      \"lineNumber\": \"<integer>\",\n      \"lineType\": \"<string>\",\n      \"amount\": \"<double>\",\n      \"description\": \"<string>\",\n      \"distCodeCombinationId\": \"<integer>\"\n    },\n    {\n      \"lineNumber\": \"<integer>\",\n      \"lineType\": \"<string>\",\n      \"amount\": \"<double>\",\n      \"description\": \"<string>\",\n      \"distCodeCombinationId\": \"<integer>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/ap/invoices",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "ap",
+                    "invoices"
+                  ]
+                },
+                "description": "Creates a new Accounts Payable invoice. Uses the AP_INVOICES_INTERFACE and AP_INVOICE_LINES_INTERFACE tables, then initiates the Payables Open Interface Import program."
+              },
+              "response": [
+                {
+                  "id": "7cf4d068-b053-4c1a-8980-a0738f7e1eaf",
+                  "name": "Invoice created successfully",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"invoiceNum\": \"<string>\",\n  \"vendorId\": \"<integer>\",\n  \"vendorSiteId\": \"<integer>\",\n  \"invoiceAmount\": \"<double>\",\n  \"invoiceCurrencyCode\": \"<string>\",\n  \"invoiceDate\": \"<date>\",\n  \"invoiceType\": \"STANDARD\",\n  \"description\": \"<string>\",\n  \"termsId\": \"<integer>\",\n  \"source\": \"<string>\",\n  \"lines\": [\n    {\n      \"lineNumber\": \"<integer>\",\n      \"lineType\": \"<string>\",\n      \"amount\": \"<double>\",\n      \"description\": \"<string>\",\n      \"distCodeCombinationId\": \"<integer>\"\n    },\n    {\n      \"lineNumber\": \"<integer>\",\n      \"lineType\": \"<string>\",\n      \"amount\": \"<double>\",\n      \"description\": \"<string>\",\n      \"distCodeCombinationId\": \"<integer>\"\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/ap/invoices",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "ap",
+                        "invoices"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"invoiceId\": \"<integer>\",\n  \"invoiceNum\": \"<string>\",\n  \"invoiceDate\": \"<date>\",\n  \"vendorId\": \"<integer>\",\n  \"vendorName\": \"<string>\",\n  \"vendorSiteId\": \"<integer>\",\n  \"invoiceAmount\": \"<double>\",\n  \"invoiceCurrencyCode\": \"<string>\",\n  \"paymentCurrencyCode\": \"<string>\",\n  \"exchangeRate\": \"<double>\",\n  \"exchangeRateType\": \"<string>\",\n  \"exchangeDate\": \"<date>\",\n  \"termsId\": \"<integer>\",\n  \"description\": \"<string>\",\n  \"invoiceType\": \"CREDIT\",\n  \"source\": \"<string>\",\n  \"paymentStatusFlag\": \"P\",\n  \"approvalStatus\": \"CANCELLED\",\n  \"amountPaid\": \"<double>\",\n  \"lines\": [\n    {\n      \"lineNumber\": \"<integer>\",\n      \"lineType\": \"ITEM\",\n      \"amount\": \"<double>\",\n      \"description\": \"<string>\",\n      \"accountingDate\": \"<date>\",\n      \"distCodeCombinationId\": \"<integer>\",\n      \"itemDescription\": \"<string>\",\n      \"quantity\": \"<double>\",\n      \"unitPrice\": \"<double>\"\n    },\n    {\n      \"lineNumber\": \"<integer>\",\n      \"lineType\": \"TAX\",\n      \"amount\": \"<double>\",\n      \"description\": \"<string>\",\n      \"accountingDate\": \"<date>\",\n      \"distCodeCombinationId\": \"<integer>\",\n      \"itemDescription\": \"<string>\",\n      \"quantity\": \"<double>\",\n      \"unitPrice\": \"<double>\"\n    }\n  ],\n  \"orgId\": \"<integer>\",\n  \"createdBy\": \"<integer>\",\n  \"creationDate\": \"<dateTime>\",\n  \"lastUpdatedBy\": \"<integer>\",\n  \"lastUpdateDate\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-06-05T15:01:38.000Z",
+                  "updatedAt": "2026-06-05T15:01:38.000Z",
+                  "uid": "35240-7cf4d068-b053-4c1a-8980-a0738f7e1eaf"
+                },
+                {
+                  "id": "550d8349-6d7a-40d7-a6a1-86d03d9b80c7",
+                  "name": "Invalid request parameters",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"invoiceNum\": \"<string>\",\n  \"vendorId\": \"<integer>\",\n  \"vendorSiteId\": \"<integer>\",\n  \"invoiceAmount\": \"<double>\",\n  \"invoiceCurrencyCode\": \"<string>\",\n  \"invoiceDate\": \"<date>\",\n  \"invoiceType\": \"STANDARD\",\n  \"description\": \"<string>\",\n  \"termsId\": \"<integer>\",\n  \"source\": \"<string>\",\n  \"lines\": [\n    {\n      \"lineNumber\": \"<integer>\",\n      \"lineType\": \"<string>\",\n      \"amount\": \"<double>\",\n      \"description\": \"<string>\",\n      \"distCodeCombinationId\": \"<integer>\"\n    },\n    {\n      \"lineNumber\": \"<integer>\",\n      \"lineType\": \"<string>\",\n      \"amount\": \"<double>\",\n      \"description\": \"<string>\",\n      \"distCodeCombinationId\": \"<integer>\"\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/ap/invoices",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "ap",
+                        "invoices"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-06-05T15:01:38.000Z",
+                  "updatedAt": "2026-06-05T15:01:38.000Z",
+                  "uid": "35240-550d8349-6d7a-40d7-a6a1-86d03d9b80c7"
+                },
+                {
+                  "id": "6fa0fba3-5613-4d76-9b3a-830171601e4d",
+                  "name": "Authentication required or token expired",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"invoiceNum\": \"<string>\",\n  \"vendorId\": \"<integer>\",\n  \"vendorSiteId\": \"<integer>\",\n  \"invoiceAmount\": \"<double>\",\n  \"invoiceCurrencyCode\": \"<string>\",\n  \"invoiceDate\": \"<date>\",\n  \"invoiceType\": \"STANDARD\",\n  \"description\": \"<string>\",\n  \"termsId\": \"<integer>\",\n  \"source\": \"<string>\",\n  \"lines\": [\n    {\n      \"lineNumber\": \"<integer>\",\n      \"lineType\": \"<string>\",\n      \"amount\": \"<double>\",\n      \"description\": \"<string>\",\n      \"distCodeCombinationId\": \"<integer>\"\n    },\n    {\n      \"lineNumber\": \"<integer>\",\n      \"lineType\": \"<string>\",\n      \"amount\": \"<double>\",\n      \"description\": \"<string>\",\n      \"distCodeCombinationId\": \"<integer>\"\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/ap/invoices",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "ap",
+                        "invoices"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-06-05T15:01:38.000Z",
+                  "updatedAt": "2026-06-05T15:01:38.000Z",
+                  "uid": "35240-6fa0fba3-5613-4d76-9b3a-830171601e4d"
+                }
+              ],
+              "createdAt": "2026-06-05T15:01:38.000Z",
+              "updatedAt": "2026-06-05T15:01:38.000Z",
+              "uid": "35240-a90b0fd0-bc65-4a89-b705-d6f4ffa31601"
+            }
+          ],
+          "id": "6acaa4a9-f56a-43bd-893e-aa0d388743a1",
+          "createdAt": "2026-06-05T15:01:38.000Z",
+          "updatedAt": "2026-06-05T15:01:38.000Z",
+          "uid": "35240-6acaa4a9-f56a-43bd-893e-aa0d388743a1"
+        },
+        {
+          "name": "payments",
+          "item": [
+            {
+              "name": "Retrieve Ap Payments",
+              "id": "c64bc135-9789-46f3-b15e-19e9e4aae77a",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "accessToken",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/ap/payments?checkId=<integer>&vendorId=<integer>&paymentDateFrom=<date>&paymentDateTo=<date>&limit=25&offset=0",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "ap",
+                    "payments"
+                  ],
+                  "query": [
+                    {
+                      "description": "Payment check identifier",
+                      "key": "checkId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Supplier/vendor identifier",
+                      "key": "vendorId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Payment date range start (YYYY-MM-DD)",
+                      "key": "paymentDateFrom",
+                      "value": "<date>"
+                    },
+                    {
+                      "description": "Payment date range end (YYYY-MM-DD)",
+                      "key": "paymentDateTo",
+                      "value": "<date>"
+                    },
+                    {
+                      "description": "Maximum number of records to return",
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Number of records to skip for pagination",
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ]
+                },
+                "description": "Retrieves Accounts Payable payment records. Maps to the AP_CHECKS_ALL and AP_INVOICE_PAYMENTS_ALL tables."
+              },
+              "response": [
+                {
+                  "id": "86684688-980d-4dcd-aff9-6124f65d5c3c",
+                  "name": "List of payments",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/ap/payments?checkId=<integer>&vendorId=<integer>&paymentDateFrom=<date>&paymentDateTo=<date>&limit=25&offset=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "ap",
+                        "payments"
+                      ],
+                      "query": [
+                        {
+                          "description": "Payment check identifier",
+                          "key": "checkId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Supplier/vendor identifier",
+                          "key": "vendorId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Payment date range start (YYYY-MM-DD)",
+                          "key": "paymentDateFrom",
+                          "value": "<date>"
+                        },
+                        {
+                          "description": "Payment date range end (YYYY-MM-DD)",
+                          "key": "paymentDateTo",
+                          "value": "<date>"
+                        },
+                        {
+                          "description": "Maximum number of records to return",
+                          "key": "limit",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Number of records to skip for pagination",
+                          "key": "offset",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"items\": [\n    {\n      \"checkId\": \"<integer>\",\n      \"checkNumber\": \"<integer>\",\n      \"amount\": \"<double>\",\n      \"currencyCode\": \"<string>\",\n      \"checkDate\": \"<date>\",\n      \"vendorId\": \"<integer>\",\n      \"vendorName\": \"<string>\",\n      \"bankAccountId\": \"<integer>\",\n      \"paymentMethodCode\": \"<string>\",\n      \"status\": \"<string>\",\n      \"orgId\": \"<integer>\"\n    },\n    {\n      \"checkId\": \"<integer>\",\n      \"checkNumber\": \"<integer>\",\n      \"amount\": \"<double>\",\n      \"currencyCode\": \"<string>\",\n      \"checkDate\": \"<date>\",\n      \"vendorId\": \"<integer>\",\n      \"vendorName\": \"<string>\",\n      \"bankAccountId\": \"<integer>\",\n      \"paymentMethodCode\": \"<string>\",\n      \"status\": \"<string>\",\n      \"orgId\": \"<integer>\"\n    }\n  ],\n  \"totalCount\": \"<integer>\",\n  \"hasMore\": \"<boolean>\"\n}",
+                  "createdAt": "2026-06-05T15:01:38.000Z",
+                  "updatedAt": "2026-06-05T15:01:38.000Z",
+                  "uid": "35240-86684688-980d-4dcd-aff9-6124f65d5c3c"
+                },
+                {
+                  "id": "8857188a-7713-42c8-a31c-8cfa8d633b8c",
+                  "name": "Authentication required or token expired",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/ap/payments?checkId=<integer>&vendorId=<integer>&paymentDateFrom=<date>&paymentDateTo=<date>&limit=25&offset=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "ap",
+                        "payments"
+                      ],
+                      "query": [
+                        {
+                          "description": "Payment check identifier",
+                          "key": "checkId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Supplier/vendor identifier",
+                          "key": "vendorId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Payment date range start (YYYY-MM-DD)",
+                          "key": "paymentDateFrom",
+                          "value": "<date>"
+                        },
+                        {
+                          "description": "Payment date range end (YYYY-MM-DD)",
+                          "key": "paymentDateTo",
+                          "value": "<date>"
+                        },
+                        {
+                          "description": "Maximum number of records to return",
+                          "key": "limit",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Number of records to skip for pagination",
+                          "key": "offset",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-06-05T15:01:38.000Z",
+                  "updatedAt": "2026-06-05T15:01:38.000Z",
+                  "uid": "35240-8857188a-7713-42c8-a31c-8cfa8d633b8c"
+                }
+              ],
+              "createdAt": "2026-06-05T15:01:38.000Z",
+              "updatedAt": "2026-06-05T15:01:38.000Z",
+              "uid": "35240-c64bc135-9789-46f3-b15e-19e9e4aae77a"
+            }
+          ],
+          "id": "28db59e5-7b5d-4caa-8d88-48bf8593171a",
+          "createdAt": "2026-06-05T15:01:38.000Z",
+          "updatedAt": "2026-06-05T15:01:38.000Z",
+          "uid": "35240-28db59e5-7b5d-4caa-8d88-48bf8593171a"
+        }
+      ],
+      "id": "5c51a1fa-30a4-421d-9275-0c3df0bf8221",
+      "createdAt": "2026-06-05T15:01:38.000Z",
+      "updatedAt": "2026-06-05T15:01:38.000Z",
+      "uid": "35240-5c51a1fa-30a4-421d-9275-0c3df0bf8221"
+    },
+    {
+      "name": "ar",
+      "item": [
+        {
+          "name": "invoices",
+          "item": [
+            {
+              "name": "Retrieve Ar Invoices",
+              "id": "58271b09-9e7f-41f4-bc6a-41003c86dc0a",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "accessToken",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/ar/invoices?customerTrxId=<integer>&trxNumber=<string>&customerId=<integer>&trxDateFrom=<date>&trxDateTo=<date>&limit=25&offset=0",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "ar",
+                    "invoices"
+                  ],
+                  "query": [
+                    {
+                      "description": "Customer transaction identifier",
+                      "key": "customerTrxId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Transaction number",
+                      "key": "trxNumber",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Customer identifier",
+                      "key": "customerId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Transaction date range start (YYYY-MM-DD)",
+                      "key": "trxDateFrom",
+                      "value": "<date>"
+                    },
+                    {
+                      "description": "Transaction date range end (YYYY-MM-DD)",
+                      "key": "trxDateTo",
+                      "value": "<date>"
+                    },
+                    {
+                      "description": "Maximum number of records to return",
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Number of records to skip for pagination",
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ]
+                },
+                "description": "Retrieves Accounts Receivable invoices and transactions. Maps to the RA_CUSTOMER_TRX_ALL and RA_CUSTOMER_TRX_LINES_ALL tables."
+              },
+              "response": [
+                {
+                  "id": "3fbc0645-1fe3-4190-a45b-e58c91564802",
+                  "name": "List of AR invoices",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/ar/invoices?customerTrxId=<integer>&trxNumber=<string>&customerId=<integer>&trxDateFrom=<date>&trxDateTo=<date>&limit=25&offset=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "ar",
+                        "invoices"
+                      ],
+                      "query": [
+                        {
+                          "description": "Customer transaction identifier",
+                          "key": "customerTrxId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Transaction number",
+                          "key": "trxNumber",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Customer identifier",
+                          "key": "customerId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Transaction date range start (YYYY-MM-DD)",
+                          "key": "trxDateFrom",
+                          "value": "<date>"
+                        },
+                        {
+                          "description": "Transaction date range end (YYYY-MM-DD)",
+                          "key": "trxDateTo",
+                          "value": "<date>"
+                        },
+                        {
+                          "description": "Maximum number of records to return",
+                          "key": "limit",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Number of records to skip for pagination",
+                          "key": "offset",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"items\": [\n    {\n      \"customerTrxId\": \"<integer>\",\n      \"trxNumber\": \"<string>\",\n      \"trxDate\": \"<date>\",\n      \"customerId\": \"<integer>\",\n      \"customerName\": \"<string>\",\n      \"billToSiteUseId\": \"<integer>\",\n      \"shipToSiteUseId\": \"<integer>\",\n      \"invoiceCurrencyCode\": \"<string>\",\n      \"trxType\": \"<string>\",\n      \"amount\": \"<double>\",\n      \"amountDue\": \"<double>\",\n      \"status\": \"<string>\",\n      \"termsId\": \"<integer>\",\n      \"lines\": [\n        {\n          \"customerTrxLineId\": \"<integer>\",\n          \"lineNumber\": \"<integer>\",\n          \"lineType\": \"LINE\",\n          \"description\": \"<string>\",\n          \"quantity\": \"<double>\",\n          \"unitSellingPrice\": \"<double>\",\n          \"amount\": \"<double>\",\n          \"inventoryItemId\": \"<integer>\"\n        },\n        {\n          \"customerTrxLineId\": \"<integer>\",\n          \"lineNumber\": \"<integer>\",\n          \"lineType\": \"FREIGHT\",\n          \"description\": \"<string>\",\n          \"quantity\": \"<double>\",\n          \"unitSellingPrice\": \"<double>\",\n          \"amount\": \"<double>\",\n          \"inventoryItemId\": \"<integer>\"\n        }\n      ],\n      \"orgId\": \"<integer>\",\n      \"creationDate\": \"<dateTime>\",\n      \"lastUpdateDate\": \"<dateTime>\"\n    },\n    {\n      \"customerTrxId\": \"<integer>\",\n      \"trxNumber\": \"<string>\",\n      \"trxDate\": \"<date>\",\n      \"customerId\": \"<integer>\",\n      \"customerName\": \"<string>\",\n      \"billToSiteUseId\": \"<integer>\",\n      \"shipToSiteUseId\": \"<integer>\",\n      \"invoiceCurrencyCode\": \"<string>\",\n      \"trxType\": \"<string>\",\n      \"amount\": \"<double>\",\n      \"amountDue\": \"<double>\",\n      \"status\": \"<string>\",\n      \"termsId\": \"<integer>\",\n      \"lines\": [\n        {\n          \"customerTrxLineId\": \"<integer>\",\n          \"lineNumber\": \"<integer>\",\n          \"lineType\": \"LINE\",\n          \"description\": \"<string>\",\n          \"quantity\": \"<double>\",\n          \"unitSellingPrice\": \"<double>\",\n          \"amount\": \"<double>\",\n          \"inventoryItemId\": \"<integer>\"\n        },\n        {\n          \"customerTrxLineId\": \"<integer>\",\n          \"lineNumber\": \"<integer>\",\n          \"lineType\": \"TAX\",\n          \"description\": \"<string>\",\n          \"quantity\": \"<double>\",\n          \"unitSellingPrice\": \"<double>\",\n          \"amount\": \"<double>\",\n          \"inventoryItemId\": \"<integer>\"\n        }\n      ],\n      \"orgId\": \"<integer>\",\n      \"creationDate\": \"<dateTime>\",\n      \"lastUpdateDate\": \"<dateTime>\"\n    }\n  ],\n  \"totalCount\": \"<integer>\",\n  \"hasMore\": \"<boolean>\"\n}",
+                  "createdAt": "2026-06-05T15:01:38.000Z",
+                  "updatedAt": "2026-06-05T15:01:38.000Z",
+                  "uid": "35240-3fbc0645-1fe3-4190-a45b-e58c91564802"
+                },
+                {
+                  "id": "c54c07eb-8249-4126-9df2-566ba1d793fb",
+                  "name": "Authentication required or token expired",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/ar/invoices?customerTrxId=<integer>&trxNumber=<string>&customerId=<integer>&trxDateFrom=<date>&trxDateTo=<date>&limit=25&offset=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "ar",
+                        "invoices"
+                      ],
+                      "query": [
+                        {
+                          "description": "Customer transaction identifier",
+                          "key": "customerTrxId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Transaction number",
+                          "key": "trxNumber",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Customer identifier",
+                          "key": "customerId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Transaction date range start (YYYY-MM-DD)",
+                          "key": "trxDateFrom",
+                          "value": "<date>"
+                        },
+                        {
+                          "description": "Transaction date range end (YYYY-MM-DD)",
+                          "key": "trxDateTo",
+                          "value": "<date>"
+                        },
+                        {
+                          "description": "Maximum number of records to return",
+                          "key": "limit",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Number of records to skip for pagination",
+                          "key": "offset",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-06-05T15:01:38.000Z",
+                  "updatedAt": "2026-06-05T15:01:38.000Z",
+                  "uid": "35240-c54c07eb-8249-4126-9df2-566ba1d793fb"
+                }
+              ],
+              "createdAt": "2026-06-05T15:01:38.000Z",
+              "updatedAt": "2026-06-05T15:01:38.000Z",
+              "uid": "35240-58271b09-9e7f-41f4-bc6a-41003c86dc0a"
+            },
+            {
+              "name": "Create an Ar Invoice",
+              "id": "4bbcf16f-13ab-4848-8052-250695fa7bef",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "accessToken",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customerId\": \"<integer>\",\n  \"trxDate\": \"<date>\",\n  \"invoiceCurrencyCode\": \"<string>\",\n  \"batchSourceName\": \"<string>\",\n  \"billToSiteUseId\": \"<integer>\",\n  \"shipToSiteUseId\": \"<integer>\",\n  \"termsId\": \"<integer>\",\n  \"lines\": [\n    {\n      \"lineNumber\": \"<integer>\",\n      \"lineType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"quantity\": \"<double>\",\n      \"unitSellingPrice\": \"<double>\",\n      \"inventoryItemId\": \"<integer>\"\n    },\n    {\n      \"lineNumber\": \"<integer>\",\n      \"lineType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"quantity\": \"<double>\",\n      \"unitSellingPrice\": \"<double>\",\n      \"inventoryItemId\": \"<integer>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/ar/invoices",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "ar",
+                    "invoices"
+                  ]
+                },
+                "description": "Creates a new Accounts Receivable invoice/transaction using the RA_INTERFACE_LINES_ALL interface table and AutoInvoice concurrent program."
+              },
+              "response": [
+                {
+                  "id": "5ff3d0c3-4b3d-4e5c-bf33-74020f419824",
+                  "name": "AR invoice created successfully",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"customerId\": \"<integer>\",\n  \"trxDate\": \"<date>\",\n  \"invoiceCurrencyCode\": \"<string>\",\n  \"batchSourceName\": \"<string>\",\n  \"billToSiteUseId\": \"<integer>\",\n  \"shipToSiteUseId\": \"<integer>\",\n  \"termsId\": \"<integer>\",\n  \"lines\": [\n    {\n      \"lineNumber\": \"<integer>\",\n      \"lineType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"quantity\": \"<double>\",\n      \"unitSellingPrice\": \"<double>\",\n      \"inventoryItemId\": \"<integer>\"\n    },\n    {\n      \"lineNumber\": \"<integer>\",\n      \"lineType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"quantity\": \"<double>\",\n      \"unitSellingPrice\": \"<double>\",\n      \"inventoryItemId\": \"<integer>\"\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/ar/invoices",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "ar",
+                        "invoices"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"customerTrxId\": \"<integer>\",\n  \"trxNumber\": \"<string>\",\n  \"trxDate\": \"<date>\",\n  \"customerId\": \"<integer>\",\n  \"customerName\": \"<string>\",\n  \"billToSiteUseId\": \"<integer>\",\n  \"shipToSiteUseId\": \"<integer>\",\n  \"invoiceCurrencyCode\": \"<string>\",\n  \"trxType\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"amountDue\": \"<double>\",\n  \"status\": \"<string>\",\n  \"termsId\": \"<integer>\",\n  \"lines\": [\n    {\n      \"customerTrxLineId\": \"<integer>\",\n      \"lineNumber\": \"<integer>\",\n      \"lineType\": \"LINE\",\n      \"description\": \"<string>\",\n      \"quantity\": \"<double>\",\n      \"unitSellingPrice\": \"<double>\",\n      \"amount\": \"<double>\",\n      \"inventoryItemId\": \"<integer>\"\n    },\n    {\n      \"customerTrxLineId\": \"<integer>\",\n      \"lineNumber\": \"<integer>\",\n      \"lineType\": \"FREIGHT\",\n      \"description\": \"<string>\",\n      \"quantity\": \"<double>\",\n      \"unitSellingPrice\": \"<double>\",\n      \"amount\": \"<double>\",\n      \"inventoryItemId\": \"<integer>\"\n    }\n  ],\n  \"orgId\": \"<integer>\",\n  \"creationDate\": \"<dateTime>\",\n  \"lastUpdateDate\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-06-05T15:01:38.000Z",
+                  "updatedAt": "2026-06-05T15:01:38.000Z",
+                  "uid": "35240-5ff3d0c3-4b3d-4e5c-bf33-74020f419824"
+                },
+                {
+                  "id": "8469309d-49ec-4f0f-87b4-63a3d42d5689",
+                  "name": "Invalid request parameters",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"customerId\": \"<integer>\",\n  \"trxDate\": \"<date>\",\n  \"invoiceCurrencyCode\": \"<string>\",\n  \"batchSourceName\": \"<string>\",\n  \"billToSiteUseId\": \"<integer>\",\n  \"shipToSiteUseId\": \"<integer>\",\n  \"termsId\": \"<integer>\",\n  \"lines\": [\n    {\n      \"lineNumber\": \"<integer>\",\n      \"lineType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"quantity\": \"<double>\",\n      \"unitSellingPrice\": \"<double>\",\n      \"inventoryItemId\": \"<integer>\"\n    },\n    {\n      \"lineNumber\": \"<integer>\",\n      \"lineType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"quantity\": \"<double>\",\n      \"unitSellingPrice\": \"<double>\",\n      \"inventoryItemId\": \"<integer>\"\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/ar/invoices",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "ar",
+                        "invoices"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-06-05T15:01:38.000Z",
+                  "updatedAt": "2026-06-05T15:01:38.000Z",
+                  "uid": "35240-8469309d-49ec-4f0f-87b4-63a3d42d5689"
+                },
+                {
+                  "id": "217bf0d3-2876-4660-9b79-b3adf918e25d",
+                  "name": "Authentication required or token expired",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"customerId\": \"<integer>\",\n  \"trxDate\": \"<date>\",\n  \"invoiceCurrencyCode\": \"<string>\",\n  \"batchSourceName\": \"<string>\",\n  \"billToSiteUseId\": \"<integer>\",\n  \"shipToSiteUseId\": \"<integer>\",\n  \"termsId\": \"<integer>\",\n  \"lines\": [\n    {\n      \"lineNumber\": \"<integer>\",\n      \"lineType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"quantity\": \"<double>\",\n      \"unitSellingPrice\": \"<double>\",\n      \"inventoryItemId\": \"<integer>\"\n    },\n    {\n      \"lineNumber\": \"<integer>\",\n      \"lineType\": \"<string>\",\n      \"description\": \"<string>\",\n      \"quantity\": \"<double>\",\n      \"unitSellingPrice\": \"<double>\",\n      \"inventoryItemId\": \"<integer>\"\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/ar/invoices",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "ar",
+                        "invoices"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-06-05T15:01:38.000Z",
+                  "updatedAt": "2026-06-05T15:01:38.000Z",
+                  "uid": "35240-217bf0d3-2876-4660-9b79-b3adf918e25d"
+                }
+              ],
+              "createdAt": "2026-06-05T15:01:38.000Z",
+              "updatedAt": "2026-06-05T15:01:38.000Z",
+              "uid": "35240-4bbcf16f-13ab-4848-8052-250695fa7bef"
+            }
+          ],
+          "id": "e7465432-8ec3-42ea-90ad-cedc79651b79",
+          "createdAt": "2026-06-05T15:01:38.000Z",
+          "updatedAt": "2026-06-05T15:01:38.000Z",
+          "uid": "35240-e7465432-8ec3-42ea-90ad-cedc79651b79"
+        },
+        {
+          "name": "receipts",
+          "item": [
+            {
+              "name": "Retrieve Ar Receipts",
+              "id": "ef9a6714-41dc-43c7-a093-603b64583f6c",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "accessToken",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/ar/receipts?cashReceiptId=<integer>&receiptNumber=<string>&customerId=<integer>&limit=25&offset=0",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "ar",
+                    "receipts"
+                  ],
+                  "query": [
+                    {
+                      "description": "Cash receipt identifier",
+                      "key": "cashReceiptId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Receipt number",
+                      "key": "receiptNumber",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Customer identifier",
+                      "key": "customerId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Maximum number of records to return",
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Number of records to skip for pagination",
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ]
+                },
+                "description": "Retrieves Accounts Receivable cash receipts. Maps to the AR_CASH_RECEIPTS_ALL table through the AR_RECEIPT_API_PUB PL/SQL API."
+              },
+              "response": [
+                {
+                  "id": "29e953d5-8003-4eef-8962-a88e2f0e06c5",
+                  "name": "List of receipts",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/ar/receipts?cashReceiptId=<integer>&receiptNumber=<string>&customerId=<integer>&limit=25&offset=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "ar",
+                        "receipts"
+                      ],
+                      "query": [
+                        {
+                          "description": "Cash receipt identifier",
+                          "key": "cashReceiptId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Receipt number",
+                          "key": "receiptNumber",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Customer identifier",
+                          "key": "customerId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Maximum number of records to return",
+                          "key": "limit",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Number of records to skip for pagination",
+                          "key": "offset",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"items\": [\n    {\n      \"cashReceiptId\": \"<integer>\",\n      \"receiptNumber\": \"<string>\",\n      \"amount\": \"<double>\",\n      \"currencyCode\": \"<string>\",\n      \"receiptDate\": \"<date>\",\n      \"customerId\": \"<integer>\",\n      \"customerName\": \"<string>\",\n      \"receiptMethodId\": \"<integer>\",\n      \"status\": \"<string>\",\n      \"orgId\": \"<integer>\"\n    },\n    {\n      \"cashReceiptId\": \"<integer>\",\n      \"receiptNumber\": \"<string>\",\n      \"amount\": \"<double>\",\n      \"currencyCode\": \"<string>\",\n      \"receiptDate\": \"<date>\",\n      \"customerId\": \"<integer>\",\n      \"customerName\": \"<string>\",\n      \"receiptMethodId\": \"<integer>\",\n      \"status\": \"<string>\",\n      \"orgId\": \"<integer>\"\n    }\n  ],\n  \"totalCount\": \"<integer>\",\n  \"hasMore\": \"<boolean>\"\n}",
+                  "createdAt": "2026-06-05T15:01:38.000Z",
+                  "updatedAt": "2026-06-05T15:01:38.000Z",
+                  "uid": "35240-29e953d5-8003-4eef-8962-a88e2f0e06c5"
+                },
+                {
+                  "id": "ce920c64-588c-4372-ae63-735c18680306",
+                  "name": "Authentication required or token expired",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/ar/receipts?cashReceiptId=<integer>&receiptNumber=<string>&customerId=<integer>&limit=25&offset=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "ar",
+                        "receipts"
+                      ],
+                      "query": [
+                        {
+                          "description": "Cash receipt identifier",
+                          "key": "cashReceiptId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Receipt number",
+                          "key": "receiptNumber",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Customer identifier",
+                          "key": "customerId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Maximum number of records to return",
+                          "key": "limit",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Number of records to skip for pagination",
+                          "key": "offset",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-06-05T15:01:38.000Z",
+                  "updatedAt": "2026-06-05T15:01:38.000Z",
+                  "uid": "35240-ce920c64-588c-4372-ae63-735c18680306"
+                }
+              ],
+              "createdAt": "2026-06-05T15:01:38.000Z",
+              "updatedAt": "2026-06-05T15:01:38.000Z",
+              "uid": "35240-ef9a6714-41dc-43c7-a093-603b64583f6c"
+            }
+          ],
+          "id": "8f16cfc5-1c7d-4c62-85bd-e614e4b46536",
+          "createdAt": "2026-06-05T15:01:38.000Z",
+          "updatedAt": "2026-06-05T15:01:38.000Z",
+          "uid": "35240-8f16cfc5-1c7d-4c62-85bd-e614e4b46536"
+        }
+      ],
+      "id": "7b22c24e-dfd0-42b2-b942-fab3ba8c0009",
+      "createdAt": "2026-06-05T15:01:38.000Z",
+      "updatedAt": "2026-06-05T15:01:38.000Z",
+      "uid": "35240-7b22c24e-dfd0-42b2-b942-fab3ba8c0009"
+    },
+    {
+      "name": "fa",
+      "item": [
+        {
+          "name": "assets",
+          "item": [
+            {
+              "name": "Retrieve Fixed Assets",
+              "id": "6fc26431-ec64-4336-944b-3f6a2386d671",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "accessToken",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/fa/assets?assetId=<integer>&assetNumber=<string>&assetCategory=<string>&limit=25&offset=0",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "fa",
+                    "assets"
+                  ],
+                  "query": [
+                    {
+                      "description": "Asset identifier",
+                      "key": "assetId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Asset number",
+                      "key": "assetNumber",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Asset category",
+                      "key": "assetCategory",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Maximum number of records to return",
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Number of records to skip for pagination",
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ]
+                },
+                "description": "Retrieves Fixed Assets records. Maps to the FA_ADDITIONS_B and FA_BOOKS tables through the Fixed Assets API."
+              },
+              "response": [
+                {
+                  "id": "7a55317c-c3a0-49d6-8e2e-12e571e4640c",
+                  "name": "List of fixed assets",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/fa/assets?assetId=<integer>&assetNumber=<string>&assetCategory=<string>&limit=25&offset=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "fa",
+                        "assets"
+                      ],
+                      "query": [
+                        {
+                          "description": "Asset identifier",
+                          "key": "assetId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Asset number",
+                          "key": "assetNumber",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Asset category",
+                          "key": "assetCategory",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Maximum number of records to return",
+                          "key": "limit",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Number of records to skip for pagination",
+                          "key": "offset",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"items\": [\n    {\n      \"assetId\": \"<integer>\",\n      \"assetNumber\": \"<string>\",\n      \"assetDescription\": \"<string>\",\n      \"assetCategoryId\": \"<integer>\",\n      \"assetType\": \"CIP\",\n      \"serialNumber\": \"<string>\",\n      \"tagNumber\": \"<string>\",\n      \"dateEffective\": \"<date>\",\n      \"dateInService\": \"<date>\",\n      \"cost\": \"<double>\",\n      \"salvageValue\": \"<double>\",\n      \"depreciationMethod\": \"<string>\",\n      \"lifeInMonths\": \"<integer>\",\n      \"bookTypeCode\": \"<string>\"\n    },\n    {\n      \"assetId\": \"<integer>\",\n      \"assetNumber\": \"<string>\",\n      \"assetDescription\": \"<string>\",\n      \"assetCategoryId\": \"<integer>\",\n      \"assetType\": \"EXPENSED\",\n      \"serialNumber\": \"<string>\",\n      \"tagNumber\": \"<string>\",\n      \"dateEffective\": \"<date>\",\n      \"dateInService\": \"<date>\",\n      \"cost\": \"<double>\",\n      \"salvageValue\": \"<double>\",\n      \"depreciationMethod\": \"<string>\",\n      \"lifeInMonths\": \"<integer>\",\n      \"bookTypeCode\": \"<string>\"\n    }\n  ],\n  \"totalCount\": \"<integer>\",\n  \"hasMore\": \"<boolean>\"\n}",
+                  "createdAt": "2026-06-05T15:01:38.000Z",
+                  "updatedAt": "2026-06-05T15:01:38.000Z",
+                  "uid": "35240-7a55317c-c3a0-49d6-8e2e-12e571e4640c"
+                },
+                {
+                  "id": "5b58d30e-01ea-4ed6-8b09-6a79cd1a07d9",
+                  "name": "Authentication required or token expired",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/fa/assets?assetId=<integer>&assetNumber=<string>&assetCategory=<string>&limit=25&offset=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "fa",
+                        "assets"
+                      ],
+                      "query": [
+                        {
+                          "description": "Asset identifier",
+                          "key": "assetId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Asset number",
+                          "key": "assetNumber",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Asset category",
+                          "key": "assetCategory",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Maximum number of records to return",
+                          "key": "limit",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Number of records to skip for pagination",
+                          "key": "offset",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-06-05T15:01:38.000Z",
+                  "updatedAt": "2026-06-05T15:01:38.000Z",
+                  "uid": "35240-5b58d30e-01ea-4ed6-8b09-6a79cd1a07d9"
+                }
+              ],
+              "createdAt": "2026-06-05T15:01:38.000Z",
+              "updatedAt": "2026-06-05T15:01:38.000Z",
+              "uid": "35240-6fc26431-ec64-4336-944b-3f6a2386d671"
+            }
+          ],
+          "id": "dfe53325-340f-4add-bfb2-25b4bb9c1601",
+          "createdAt": "2026-06-05T15:01:38.000Z",
+          "updatedAt": "2026-06-05T15:01:38.000Z",
+          "uid": "35240-dfe53325-340f-4add-bfb2-25b4bb9c1601"
+        }
+      ],
+      "id": "ae74a93f-e34f-4ec9-bebd-7f943603ed1a",
+      "createdAt": "2026-06-05T15:01:38.000Z",
+      "updatedAt": "2026-06-05T15:01:38.000Z",
+      "uid": "35240-ae74a93f-e34f-4ec9-bebd-7f943603ed1a"
+    },
+    {
+      "name": "ce",
+      "item": [
+        {
+          "name": "bankAccounts",
+          "item": [
+            {
+              "name": "Retrieve Bank Accounts",
+              "id": "435381fa-803d-4606-94dd-bc86c0c7b9ec",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "accessToken",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/ce/bankAccounts?bankAccountId=<integer>&bankAccountName=<string>&limit=25&offset=0",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "ce",
+                    "bankAccounts"
+                  ],
+                  "query": [
+                    {
+                      "description": "Bank account identifier",
+                      "key": "bankAccountId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Bank account name",
+                      "key": "bankAccountName",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Maximum number of records to return",
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Number of records to skip for pagination",
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ]
+                },
+                "description": "Retrieves Cash Management bank account records. Maps to the CE_BANK_ACCOUNTS table through the Cash Management APIs."
+              },
+              "response": [
+                {
+                  "id": "f716a681-d42a-4f6e-a489-6771ecf3530d",
+                  "name": "List of bank accounts",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/ce/bankAccounts?bankAccountId=<integer>&bankAccountName=<string>&limit=25&offset=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "ce",
+                        "bankAccounts"
+                      ],
+                      "query": [
+                        {
+                          "description": "Bank account identifier",
+                          "key": "bankAccountId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Bank account name",
+                          "key": "bankAccountName",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Maximum number of records to return",
+                          "key": "limit",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Number of records to skip for pagination",
+                          "key": "offset",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"items\": [\n    {\n      \"bankAccountId\": \"<integer>\",\n      \"bankAccountName\": \"<string>\",\n      \"bankAccountNum\": \"<string>\",\n      \"bankId\": \"<integer>\",\n      \"bankName\": \"<string>\",\n      \"branchId\": \"<integer>\",\n      \"branchName\": \"<string>\",\n      \"currencyCode\": \"<string>\",\n      \"accountType\": \"<string>\",\n      \"status\": \"<string>\"\n    },\n    {\n      \"bankAccountId\": \"<integer>\",\n      \"bankAccountName\": \"<string>\",\n      \"bankAccountNum\": \"<string>\",\n      \"bankId\": \"<integer>\",\n      \"bankName\": \"<string>\",\n      \"branchId\": \"<integer>\",\n      \"branchName\": \"<string>\",\n      \"currencyCode\": \"<string>\",\n      \"accountType\": \"<string>\",\n      \"status\": \"<string>\"\n    }\n  ],\n  \"totalCount\": \"<integer>\",\n  \"hasMore\": \"<boolean>\"\n}",
+                  "createdAt": "2026-06-05T15:01:38.000Z",
+                  "updatedAt": "2026-06-05T15:01:38.000Z",
+                  "uid": "35240-f716a681-d42a-4f6e-a489-6771ecf3530d"
+                },
+                {
+                  "id": "eededf19-4d87-4a90-b278-f6035763a93e",
+                  "name": "Authentication required or token expired",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/ce/bankAccounts?bankAccountId=<integer>&bankAccountName=<string>&limit=25&offset=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "ce",
+                        "bankAccounts"
+                      ],
+                      "query": [
+                        {
+                          "description": "Bank account identifier",
+                          "key": "bankAccountId",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Bank account name",
+                          "key": "bankAccountName",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Maximum number of records to return",
+                          "key": "limit",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Number of records to skip for pagination",
+                          "key": "offset",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-06-05T15:01:38.000Z",
+                  "updatedAt": "2026-06-05T15:01:38.000Z",
+                  "uid": "35240-eededf19-4d87-4a90-b278-f6035763a93e"
+                }
+              ],
+              "createdAt": "2026-06-05T15:01:38.000Z",
+              "updatedAt": "2026-06-05T15:01:38.000Z",
+              "uid": "35240-435381fa-803d-4606-94dd-bc86c0c7b9ec"
+            }
+          ],
+          "id": "9e1b3540-6ff7-4461-ac4f-3d777f6ffac5",
+          "createdAt": "2026-06-05T15:01:38.000Z",
+          "updatedAt": "2026-06-05T15:01:38.000Z",
+          "uid": "35240-9e1b3540-6ff7-4461-ac4f-3d777f6ffac5"
+        }
+      ],
+      "id": "3e741fb9-ebac-4ff1-a215-ca6109151491",
+      "createdAt": "2026-06-05T15:01:38.000Z",
+      "updatedAt": "2026-06-05T15:01:38.000Z",
+      "uid": "35240-3e741fb9-ebac-4ff1-a215-ca6109151491"
+    }
+  ],
+  "variable": [
+    {
+      "key": "instance",
+      "value": "ebs-host"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{instance}}.oracle.com/webservices/rest"
+    }
+  ]
+}

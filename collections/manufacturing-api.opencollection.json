@@ -1,0 +1,363 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Oracle EBS Manufacturing API",
+    "version": "12.2.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Bills of Material",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve Bills of Material",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.oracle.com/webservices/rest/bom/billsOfMaterial",
+            "params": [
+              {
+                "name": "billSequenceId",
+                "value": "500123",
+                "type": "query",
+                "description": "Bill sequence identifier"
+              },
+              {
+                "name": "assemblyItemId",
+                "value": "500123",
+                "type": "query",
+                "description": "Assembly item identifier"
+              },
+              {
+                "name": "organizationId",
+                "value": "500123",
+                "type": "query",
+                "description": "Organization identifier"
+              },
+              {
+                "name": "alternateDesignator",
+                "value": "example_value",
+                "type": "query",
+                "description": "Alternate BOM designator"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "accessToken",
+              "value": "{{accessToken}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Retrieves Bill of Material (BOM) header and component records. Maps to the BOM_STRUCTURES_B and BOM_COMPONENTS_B tables through the BOM_BO_PUB PL/SQL API."
+        },
+        {
+          "info": {
+            "name": "Retrieve a Specific Bill of Material",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.oracle.com/webservices/rest/bom/billsOfMaterial/:billSequenceId",
+            "params": [
+              {
+                "name": "billSequenceId",
+                "value": "500123",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "accessToken",
+              "value": "{{accessToken}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Retrieves a bill of material with all its components."
+        },
+        {
+          "info": {
+            "name": "Retrieve Manufacturing Routings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.oracle.com/webservices/rest/bom/routings",
+            "params": [
+              {
+                "name": "routingSequenceId",
+                "value": "500123",
+                "type": "query",
+                "description": "Routing sequence identifier"
+              },
+              {
+                "name": "assemblyItemId",
+                "value": "500123",
+                "type": "query",
+                "description": "Assembly item identifier"
+              },
+              {
+                "name": "organizationId",
+                "value": "500123",
+                "type": "query",
+                "description": "Organization identifier"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "accessToken",
+              "value": "{{accessToken}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Retrieves manufacturing routing records. Maps to the BOM_OPERATIONAL_ROUTINGS, BOM_OPERATION_SEQUENCES, and BOM_OPERATION_RESOURCES tables."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Work in Process",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve Wip Discrete Jobs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.oracle.com/webservices/rest/wip/discreteJobs",
+            "params": [
+              {
+                "name": "wipEntityId",
+                "value": "500123",
+                "type": "query",
+                "description": "WIP entity identifier"
+              },
+              {
+                "name": "wipEntityName",
+                "value": "example_value",
+                "type": "query",
+                "description": "Job name/number"
+              },
+              {
+                "name": "primaryItemId",
+                "value": "500123",
+                "type": "query",
+                "description": "Primary assembly item identifier"
+              },
+              {
+                "name": "organizationId",
+                "value": "500123",
+                "type": "query",
+                "description": "Organization identifier"
+              },
+              {
+                "name": "statusType",
+                "value": "1",
+                "type": "query",
+                "description": "Job status"
+              },
+              {
+                "name": "scheduledStartDateFrom",
+                "value": "2026-01-15",
+                "type": "query",
+                "description": "Scheduled start date range (YYYY-MM-DD)"
+              },
+              {
+                "name": "scheduledStartDateTo",
+                "value": "2026-01-15",
+                "type": "query",
+                "description": "Scheduled start date range end (YYYY-MM-DD)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "accessToken",
+              "value": "{{accessToken}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Retrieves Work in Process discrete manufacturing job records. Maps to the WIP_DISCRETE_JOBS table through the WIP_DISCRETE_JOBS_PUB API."
+        },
+        {
+          "info": {
+            "name": "Create a Wip Discrete Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{instance}.oracle.com/webservices/rest/wip/discreteJobs",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "accessToken",
+              "value": "{{accessToken}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Creates a new WIP discrete manufacturing job using the WIP_JOB_SCHEDULE_INTERFACE table and WIP Mass Load concurrent program."
+        },
+        {
+          "info": {
+            "name": "Retrieve a Specific Discrete Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.oracle.com/webservices/rest/wip/discreteJobs/:wipEntityId",
+            "params": [
+              {
+                "name": "wipEntityId",
+                "value": "500123",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "accessToken",
+              "value": "{{accessToken}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Retrieves a WIP discrete job by its entity identifier."
+        },
+        {
+          "info": {
+            "name": "Retrieve Wip Operations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.oracle.com/webservices/rest/wip/operations",
+            "params": [
+              {
+                "name": "wipEntityId",
+                "value": "500123",
+                "type": "query",
+                "description": "WIP entity identifier"
+              },
+              {
+                "name": "operationSeqNum",
+                "value": "10",
+                "type": "query",
+                "description": "Operation sequence number"
+              },
+              {
+                "name": "organizationId",
+                "value": "500123",
+                "type": "query",
+                "description": "Organization identifier"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "accessToken",
+              "value": "{{accessToken}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Retrieves work order operation records. Maps to the WIP_OPERATIONS table for tracking operation-level progress."
+        },
+        {
+          "info": {
+            "name": "Complete Wip Assembly",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{instance}.oracle.com/webservices/rest/wip/completions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "accessToken",
+              "value": "{{accessToken}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Records WIP assembly completion transactions. Uses the WIP_COMPLETION PL/SQL API to move completed assemblies from WIP into inventory."
+        },
+        {
+          "info": {
+            "name": "Issue Material to Wip",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{instance}.oracle.com/webservices/rest/wip/materialTransactions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "accessToken",
+              "value": "{{accessToken}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Records material issue/return transactions for WIP jobs. Uses the WIP material transaction interface (WIP_MOVE_TXN_INTERFACE)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

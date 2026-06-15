@@ -1,0 +1,1190 @@
+{
+  "info": {
+    "_postman_id": "78964318-9048-41e3-88f3-323ea1e15e5f",
+    "name": "Oracle EBS Integrated SOA Gateway REST API",
+    "description": "RESTful web services for Oracle E-Business Suite modules exposed through the Integrated SOA Gateway (ISG). PL/SQL APIs, Java Bean Services, Application Module Services, and other interface types from the Integration Repository can be deployed as lightweight REST services. Services are deployed directly to the Oracle E-Business Suite WebLogic environment and described using WADL.\n\nContact Support:\n Name: Oracle Support\n Email: support@oracle.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:01:36.000Z",
+    "updatedAt": "2026-06-05T15:01:36.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-78964318-9048-41e3-88f3-323ea1e15e5f"
+  },
+  "item": [
+    {
+      "name": "login",
+      "item": [
+        {
+          "name": "Authenticate and Obtain Access Token",
+          "id": "b5d7a760-c8cb-4681-8602-7a515ed0fef8",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "description": "NLS language context in RFC 5646 format. Controls the language for translated messages and data returned by the service.",
+                "key": "Accept-Language",
+                "value": "en-US"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "login"
+              ]
+            },
+            "description": "Authenticates a user using HTTP Basic Authentication and returns a session access token for subsequent REST service calls. The access token is returned both as a cookie and in the response body."
+          },
+          "response": [
+            {
+              "id": "4aa4c6ea-340b-4c0d-a89f-fa156f1981a0",
+              "name": "Successful authentication",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "NLS language context in RFC 5646 format. Controls the language for translated messages and data returned by the service.",
+                    "key": "Accept-Language",
+                    "value": "en-US"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/login",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "login"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Session access token cookie",
+                    "type": "text/plain"
+                  },
+                  "key": "Set-Cookie",
+                  "value": "<string>"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"response\": {\n    \"data\": {\n      \"accessToken\": \"<string>\",\n      \"accessTokenName\": \"<string>\",\n      \"ebsVersion\": \"<string>\",\n      \"userName\": \"<string>\"\n    }\n  }\n}",
+              "createdAt": "2026-06-05T15:01:37.000Z",
+              "updatedAt": "2026-06-05T15:01:37.000Z",
+              "uid": "35240-4aa4c6ea-340b-4c0d-a89f-fa156f1981a0"
+            },
+            {
+              "id": "0c8e82a2-0054-4ab0-a76a-3d961ea5ece1",
+              "name": "Authentication failed",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "NLS language context in RFC 5646 format. Controls the language for translated messages and data returned by the service.",
+                    "key": "Accept-Language",
+                    "value": "en-US"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/login",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "login"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-06-05T15:01:37.000Z",
+              "updatedAt": "2026-06-05T15:01:37.000Z",
+              "uid": "35240-0c8e82a2-0054-4ab0-a76a-3d961ea5ece1"
+            }
+          ],
+          "createdAt": "2026-06-05T15:01:37.000Z",
+          "updatedAt": "2026-06-05T15:01:37.000Z",
+          "uid": "35240-b5d7a760-c8cb-4681-8602-7a515ed0fef8"
+        }
+      ],
+      "id": "2b7faee2-ad8c-434c-83b3-170e94107b0b",
+      "createdAt": "2026-06-05T15:01:37.000Z",
+      "updatedAt": "2026-06-05T15:01:37.000Z",
+      "uid": "35240-2b7faee2-ad8c-434c-83b3-170e94107b0b"
+    },
+    {
+      "name": "initialize",
+      "item": [
+        {
+          "name": "Initialize Application Context",
+          "id": "45dd8dab-5548-49c1-ae54-45c8c2cd4236",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "accessToken",
+                  "type": "string"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}",
+                  "type": "string"
+                },
+                {
+                  "key": "in",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "description": "NLS language context in RFC 5646 format. Controls the language for translated messages and data returned by the service.",
+                "key": "Accept-Language",
+                "value": "en-US"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"resp\": {\n      \"id\": \"<integer>\",\n      \"applId\": \"<integer>\",\n      \"key\": \"<string>\",\n      \"applKey\": \"<string>\"\n    },\n    \"securityGroup\": {\n      \"id\": \"<integer>\",\n      \"key\": \"<string>\"\n    },\n    \"org\": {\n      \"id\": \"<integer>\",\n      \"key\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/initialize",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "initialize"
+              ]
+            },
+            "description": "Initializes the application context including responsibility, security group, and organization for the authenticated session. Must be called after login and before invoking any custom REST services."
+          },
+          "response": [
+            {
+              "id": "e7a4e5a9-e13b-4a11-ba22-5ec2b5007d47",
+              "name": "Context initialized successfully",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "NLS language context in RFC 5646 format. Controls the language for translated messages and data returned by the service.",
+                    "key": "Accept-Language",
+                    "value": "en-US"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"resp\": {\n      \"id\": \"<integer>\",\n      \"applId\": \"<integer>\",\n      \"key\": \"<string>\",\n      \"applKey\": \"<string>\"\n    },\n    \"securityGroup\": {\n      \"id\": \"<integer>\",\n      \"key\": \"<string>\"\n    },\n    \"org\": {\n      \"id\": \"<integer>\",\n      \"key\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/initialize",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "initialize"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"response\": {\n    \"data\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-06-05T15:01:37.000Z",
+              "updatedAt": "2026-06-05T15:01:37.000Z",
+              "uid": "35240-e7a4e5a9-e13b-4a11-ba22-5ec2b5007d47"
+            },
+            {
+              "id": "970477cb-6036-45f7-b381-07cc65489d86",
+              "name": "Invalid initialization parameters",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "NLS language context in RFC 5646 format. Controls the language for translated messages and data returned by the service.",
+                    "key": "Accept-Language",
+                    "value": "en-US"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"resp\": {\n      \"id\": \"<integer>\",\n      \"applId\": \"<integer>\",\n      \"key\": \"<string>\",\n      \"applKey\": \"<string>\"\n    },\n    \"securityGroup\": {\n      \"id\": \"<integer>\",\n      \"key\": \"<string>\"\n    },\n    \"org\": {\n      \"id\": \"<integer>\",\n      \"key\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/initialize",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "initialize"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-06-05T15:01:37.000Z",
+              "updatedAt": "2026-06-05T15:01:37.000Z",
+              "uid": "35240-970477cb-6036-45f7-b381-07cc65489d86"
+            },
+            {
+              "id": "a8aa8d52-e56d-4be4-a107-e0c3447d4881",
+              "name": "Unauthorized - invalid or missing token",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "NLS language context in RFC 5646 format. Controls the language for translated messages and data returned by the service.",
+                    "key": "Accept-Language",
+                    "value": "en-US"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"resp\": {\n      \"id\": \"<integer>\",\n      \"applId\": \"<integer>\",\n      \"key\": \"<string>\",\n      \"applKey\": \"<string>\"\n    },\n    \"securityGroup\": {\n      \"id\": \"<integer>\",\n      \"key\": \"<string>\"\n    },\n    \"org\": {\n      \"id\": \"<integer>\",\n      \"key\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/initialize",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "initialize"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-06-05T15:01:37.000Z",
+              "updatedAt": "2026-06-05T15:01:37.000Z",
+              "uid": "35240-a8aa8d52-e56d-4be4-a107-e0c3447d4881"
+            }
+          ],
+          "createdAt": "2026-06-05T15:01:37.000Z",
+          "updatedAt": "2026-06-05T15:01:37.000Z",
+          "uid": "35240-45dd8dab-5548-49c1-ae54-45c8c2cd4236"
+        }
+      ],
+      "id": "3e7b0feb-ac29-4990-a37e-d5264554acee",
+      "createdAt": "2026-06-05T15:01:37.000Z",
+      "updatedAt": "2026-06-05T15:01:37.000Z",
+      "uid": "35240-3e7b0feb-ac29-4990-a37e-d5264554acee"
+    },
+    {
+      "name": "logout",
+      "item": [
+        {
+          "name": "Terminate Session and Invalidate Token",
+          "id": "226893a0-fb20-49a7-aa14-1e3d3640d349",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "accessToken",
+                  "type": "string"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}",
+                  "type": "string"
+                },
+                {
+                  "key": "in",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/logout",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "logout"
+              ]
+            },
+            "description": "Logs out the current user and invalidates the session access token. Should be called when the client is finished making REST service calls."
+          },
+          "response": [
+            {
+              "id": "de2be848-9919-4b10-a4e9-10d5c73bfef5",
+              "name": "Successfully logged out",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/logout",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "logout"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"response\": {\n    \"data\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-06-05T15:01:37.000Z",
+              "updatedAt": "2026-06-05T15:01:37.000Z",
+              "uid": "35240-de2be848-9919-4b10-a4e9-10d5c73bfef5"
+            },
+            {
+              "id": "53654f39-5cf2-465c-853b-c7d1fb7040eb",
+              "name": "Unauthorized - invalid or expired token",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/logout",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "logout"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-06-05T15:01:37.000Z",
+              "updatedAt": "2026-06-05T15:01:37.000Z",
+              "uid": "35240-53654f39-5cf2-465c-853b-c7d1fb7040eb"
+            }
+          ],
+          "createdAt": "2026-06-05T15:01:37.000Z",
+          "updatedAt": "2026-06-05T15:01:37.000Z",
+          "uid": "35240-226893a0-fb20-49a7-aa14-1e3d3640d349"
+        }
+      ],
+      "id": "a4bdbfc6-c845-4a63-a394-bf734a247afc",
+      "createdAt": "2026-06-05T15:01:37.000Z",
+      "updatedAt": "2026-06-05T15:01:37.000Z",
+      "uid": "35240-a4bdbfc6-c845-4a63-a394-bf734a247afc"
+    },
+    {
+      "name": "{serviceAlias}",
+      "item": [
+        {
+          "name": "{methodName}",
+          "item": [
+            {
+              "name": "Invoke a Rest Service Method",
+              "id": "e0847791-14ba-45c6-922d-2c525ba83c04",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "accessToken",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "NLS language context in RFC 5646 format. Controls the language for translated messages and data returned by the service.",
+                    "key": "Accept-Language",
+                    "value": "en-US"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"RESTHeader\": {\n    \"Responsibility\": \"<string>\",\n    \"RespApplication\": \"<string>\",\n    \"SecurityGroup\": \"<string>\",\n    \"NLSLanguage\": \"<string>\",\n    \"Org_Id\": \"<integer>\"\n  },\n  \"InputParameters\": {\n    \"occaecat_c\": 67805158,\n    \"eiusmoded\": 97778699.34679058\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/:serviceAlias/:methodName",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ":serviceAlias",
+                    ":methodName"
+                  ],
+                  "variable": [
+                    {
+                      "id": "5710a947-8c9d-4b24-844a-01da040ec68d",
+                      "key": "serviceAlias",
+                      "value": "<string>",
+                      "description": "(Required) The alias of the deployed REST service"
+                    },
+                    {
+                      "id": "6227a4e7-ec5a-46c6-8b00-5edfd3aee222",
+                      "key": "methodName",
+                      "value": "<string>",
+                      "description": "(Required) The REST method name to invoke"
+                    }
+                  ]
+                },
+                "description": "Invokes a specific method on a deployed REST service. The service alias and method name correspond to the PL/SQL API, Java Bean Service, Application Module Service, or other interface type deployed through the Integration Repository. Request and response payloads vary by service."
+              },
+              "response": [
+                {
+                  "id": "c27a7aa0-096d-43f4-8855-dd6d13df3aa2",
+                  "name": "Method invoked successfully",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "NLS language context in RFC 5646 format. Controls the language for translated messages and data returned by the service.",
+                        "key": "Accept-Language",
+                        "value": "en-US"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"RESTHeader\": {\n    \"Responsibility\": \"<string>\",\n    \"RespApplication\": \"<string>\",\n    \"SecurityGroup\": \"<string>\",\n    \"NLSLanguage\": \"<string>\",\n    \"Org_Id\": \"<integer>\"\n  },\n  \"InputParameters\": {\n    \"occaecat_c\": 67805158,\n    \"eiusmoded\": 97778699.34679058\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/:serviceAlias/:methodName",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":serviceAlias",
+                        ":methodName"
+                      ],
+                      "variable": [
+                        {
+                          "key": "serviceAlias"
+                        },
+                        {
+                          "key": "methodName"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"OutputParameters\": {\n    \"dolorc5\": -1973831,\n    \"nulla_786\": 83932700.69294488\n  }\n}",
+                  "createdAt": "2026-06-05T15:01:37.000Z",
+                  "updatedAt": "2026-06-05T15:01:37.000Z",
+                  "uid": "35240-c27a7aa0-096d-43f4-8855-dd6d13df3aa2"
+                },
+                {
+                  "id": "3eafc641-e5f2-4ee3-9eff-d7a3af712e7d",
+                  "name": "Invalid request parameters",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "NLS language context in RFC 5646 format. Controls the language for translated messages and data returned by the service.",
+                        "key": "Accept-Language",
+                        "value": "en-US"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"RESTHeader\": {\n    \"Responsibility\": \"<string>\",\n    \"RespApplication\": \"<string>\",\n    \"SecurityGroup\": \"<string>\",\n    \"NLSLanguage\": \"<string>\",\n    \"Org_Id\": \"<integer>\"\n  },\n  \"InputParameters\": {\n    \"occaecat_c\": 67805158,\n    \"eiusmoded\": 97778699.34679058\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/:serviceAlias/:methodName",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":serviceAlias",
+                        ":methodName"
+                      ],
+                      "variable": [
+                        {
+                          "key": "serviceAlias"
+                        },
+                        {
+                          "key": "methodName"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-06-05T15:01:37.000Z",
+                  "updatedAt": "2026-06-05T15:01:37.000Z",
+                  "uid": "35240-3eafc641-e5f2-4ee3-9eff-d7a3af712e7d"
+                },
+                {
+                  "id": "f85627ca-8cd6-447f-8d50-7eaeb581df7a",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "NLS language context in RFC 5646 format. Controls the language for translated messages and data returned by the service.",
+                        "key": "Accept-Language",
+                        "value": "en-US"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"RESTHeader\": {\n    \"Responsibility\": \"<string>\",\n    \"RespApplication\": \"<string>\",\n    \"SecurityGroup\": \"<string>\",\n    \"NLSLanguage\": \"<string>\",\n    \"Org_Id\": \"<integer>\"\n  },\n  \"InputParameters\": {\n    \"occaecat_c\": 67805158,\n    \"eiusmoded\": 97778699.34679058\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/:serviceAlias/:methodName",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":serviceAlias",
+                        ":methodName"
+                      ],
+                      "variable": [
+                        {
+                          "key": "serviceAlias"
+                        },
+                        {
+                          "key": "methodName"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-06-05T15:01:37.000Z",
+                  "updatedAt": "2026-06-05T15:01:37.000Z",
+                  "uid": "35240-f85627ca-8cd6-447f-8d50-7eaeb581df7a"
+                },
+                {
+                  "id": "cd7a7378-d609-46d6-adce-05f6a63b75ea",
+                  "name": "Service or method not found",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "NLS language context in RFC 5646 format. Controls the language for translated messages and data returned by the service.",
+                        "key": "Accept-Language",
+                        "value": "en-US"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"RESTHeader\": {\n    \"Responsibility\": \"<string>\",\n    \"RespApplication\": \"<string>\",\n    \"SecurityGroup\": \"<string>\",\n    \"NLSLanguage\": \"<string>\",\n    \"Org_Id\": \"<integer>\"\n  },\n  \"InputParameters\": {\n    \"occaecat_c\": 67805158,\n    \"eiusmoded\": 97778699.34679058\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/:serviceAlias/:methodName",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":serviceAlias",
+                        ":methodName"
+                      ],
+                      "variable": [
+                        {
+                          "key": "serviceAlias"
+                        },
+                        {
+                          "key": "methodName"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-06-05T15:01:37.000Z",
+                  "updatedAt": "2026-06-05T15:01:37.000Z",
+                  "uid": "35240-cd7a7378-d609-46d6-adce-05f6a63b75ea"
+                },
+                {
+                  "id": "3b153fa2-950b-4651-9c60-d195c0408cb3",
+                  "name": "Internal server error during method execution",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "NLS language context in RFC 5646 format. Controls the language for translated messages and data returned by the service.",
+                        "key": "Accept-Language",
+                        "value": "en-US"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "accessToken",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"RESTHeader\": {\n    \"Responsibility\": \"<string>\",\n    \"RespApplication\": \"<string>\",\n    \"SecurityGroup\": \"<string>\",\n    \"NLSLanguage\": \"<string>\",\n    \"Org_Id\": \"<integer>\"\n  },\n  \"InputParameters\": {\n    \"occaecat_c\": 67805158,\n    \"eiusmoded\": 97778699.34679058\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/:serviceAlias/:methodName",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":serviceAlias",
+                        ":methodName"
+                      ],
+                      "variable": [
+                        {
+                          "key": "serviceAlias"
+                        },
+                        {
+                          "key": "methodName"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-06-05T15:01:37.000Z",
+                  "updatedAt": "2026-06-05T15:01:37.000Z",
+                  "uid": "35240-3b153fa2-950b-4651-9c60-d195c0408cb3"
+                }
+              ],
+              "createdAt": "2026-06-05T15:01:37.000Z",
+              "updatedAt": "2026-06-05T15:01:37.000Z",
+              "uid": "35240-e0847791-14ba-45c6-922d-2c525ba83c04"
+            }
+          ],
+          "id": "68825e69-0f45-49e3-adfd-6be13af38bb6",
+          "createdAt": "2026-06-05T15:01:37.000Z",
+          "updatedAt": "2026-06-05T15:01:37.000Z",
+          "uid": "35240-68825e69-0f45-49e3-adfd-6be13af38bb6"
+        },
+        {
+          "name": "Retrieve Wadl Description for a Deployed Service",
+          "id": "63532092-8188-4ba5-936e-f94297abc439",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/xml"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/:serviceAlias?WADL=",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                ":serviceAlias"
+              ],
+              "query": [
+                {
+                  "description": "(Required) Flag to request the WADL description",
+                  "key": "WADL",
+                  "value": ""
+                }
+              ],
+              "variable": [
+                {
+                  "id": "d1c3b077-b32c-4b1f-af08-ed37285a6f5b",
+                  "key": "serviceAlias",
+                  "value": "<string>",
+                  "description": "(Required) The alias of the deployed REST service"
+                }
+              ]
+            },
+            "description": "Returns the WADL (Web Application Description Language) document describing the available methods, parameters, and data types for the specified deployed REST service."
+          },
+          "response": [
+            {
+              "id": "3be78c27-33f4-4847-82e2-9efce34cad1f",
+              "name": "WADL document for the service",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/xml"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/:serviceAlias?WADL=",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ":serviceAlias"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Flag to request the WADL description",
+                      "key": "WADL",
+                      "value": ""
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "key": "serviceAlias"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "xml",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/xml"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>(string)</element>",
+              "createdAt": "2026-06-05T15:01:37.000Z",
+              "updatedAt": "2026-06-05T15:01:37.000Z",
+              "uid": "35240-3be78c27-33f4-4847-82e2-9efce34cad1f"
+            },
+            {
+              "id": "354f9734-69eb-4808-8461-80a16adc8e62",
+              "name": "Service not found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/:serviceAlias?WADL=",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ":serviceAlias"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Flag to request the WADL description",
+                      "key": "WADL",
+                      "value": ""
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "key": "serviceAlias"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"detail\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-06-05T15:01:37.000Z",
+              "updatedAt": "2026-06-05T15:01:37.000Z",
+              "uid": "35240-354f9734-69eb-4808-8461-80a16adc8e62"
+            }
+          ],
+          "createdAt": "2026-06-05T15:01:37.000Z",
+          "updatedAt": "2026-06-05T15:01:37.000Z",
+          "uid": "35240-63532092-8188-4ba5-936e-f94297abc439"
+        }
+      ],
+      "id": "981dba7a-38c9-4d97-848c-c79cd2ae1f88",
+      "createdAt": "2026-06-05T15:01:37.000Z",
+      "updatedAt": "2026-06-05T15:01:37.000Z",
+      "uid": "35240-981dba7a-38c9-4d97-848c-c79cd2ae1f88"
+    }
+  ],
+  "variable": [
+    {
+      "key": "instance",
+      "value": "ebs-host"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{instance}}.oracle.com/webservices/rest"
+    }
+  ]
+}
