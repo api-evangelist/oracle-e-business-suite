@@ -246,60 +246,57 @@ apis:
 common:
   - type: PostmanWorkspace
     url: https://www.postman.com/kinlaneapi/oracle-e-business-suite/overview
-  - type: ArazzoWorkflows
-    url: arazzo/
-    workflows:
-      - url: arazzo/oracle-e-business-suite-ap-invoice-payment-reconciliation-workflow.yml
-        name: Oracle EBS AP Invoice Payment Reconciliation
-        summary: Read an AP invoice, then branch on whether a matching payment already exists.
-      - url: arazzo/oracle-e-business-suite-bom-to-job-planning-workflow.yml
-        name: Oracle EBS BOM-to-Job Planning
-        summary: Resolve a bill of material and routing for an assembly, then plan a discrete job from them.
-      - url: arazzo/oracle-e-business-suite-customer-receipt-application-workflow.yml
-        name: Oracle EBS Customer Receipt Application
-        summary: Find an open AR invoice for a customer, then check for a matching cash receipt.
-      - url: arazzo/oracle-e-business-suite-discrete-job-execution-workflow.yml
-        name: Oracle EBS Discrete Job Execution
-        summary: Create a WIP discrete job, issue material to it, then complete the assembly into inventory.
-      - url: arazzo/oracle-e-business-suite-edi-inbound-invoice-processing-workflow.yml
-        name: Oracle EBS EDI Inbound Invoice Processing
-        summary: Resolve a trading partner, import an inbound EDI invoice, then confirm it landed.
-      - url: arazzo/oracle-e-business-suite-edi-outbound-purchase-order-workflow.yml
-        name: Oracle EBS EDI Outbound Purchase Order
-        summary: Create a purchase order, resolve the supplier trading partner, then extract it as outbound EDI.
-      - url: arazzo/oracle-e-business-suite-employee-onboarding-workflow.yml
-        name: Oracle EBS Employee Onboarding
-        summary: Resolve organization and position, create an employee, then read the record back.
-      - url: arazzo/oracle-e-business-suite-employee-profile-update-workflow.yml
-        name: Oracle EBS Employee Profile Update
-        summary: Find an employee by number, read the record, then date-tracked update their details.
-      - url: arazzo/oracle-e-business-suite-gl-journal-entry-and-review-workflow.yml
-        name: Oracle EBS GL Journal Entry and Review
-        summary: Create a General Ledger journal, then read it back from the period to confirm posting status.
-      - url: arazzo/oracle-e-business-suite-isg-service-invocation-workflow.yml
-        name: Oracle EBS ISG Service Invocation
-        summary: Log in, initialize application context, discover a service, invoke a method, then log out.
-      - url: arazzo/oracle-e-business-suite-item-availability-check-workflow.yml
-        name: Oracle EBS Item Availability Check
-        summary: Resolve an item by number, read its on-hand quantity, and branch on stock availability.
-      - url: arazzo/oracle-e-business-suite-order-to-cash-workflow.yml
-        name: Oracle EBS Order-to-Cash
-        summary: Check item availability, create a sales order, confirm it, then raise the AR invoice.
-      - url: arazzo/oracle-e-business-suite-payroll-run-review-workflow.yml
-        name: Oracle EBS Payroll Run Review
-        summary: Resolve a payroll definition, read its run results, and confirm an employee's benefit enrollment.
-      - url: arazzo/oracle-e-business-suite-procure-to-pay-workflow.yml
-        name: Oracle EBS Procure-to-Pay
-        summary: Resolve a supplier, raise a purchase order, confirm it, then record the matching AP invoice.
-      - url: arazzo/oracle-e-business-suite-purchase-order-amendment-workflow.yml
-        name: Oracle EBS Purchase Order Amendment
-        summary: Find an approved purchase order, read its current state, and amend a line.
-      - url: arazzo/oracle-e-business-suite-requisition-to-purchase-order-workflow.yml
-        name: Oracle EBS Requisition-to-Purchase-Order
-        summary: Find an approved requisition, resolve its supplier, and convert it into a purchase order.
-      - url: arazzo/oracle-e-business-suite-shipment-tracking-workflow.yml
-        name: Oracle EBS Shipment Tracking
-        summary: Find a customer's booked sales order, then locate its open shipping delivery.
+  - type: Arazzo
+    url: arazzo/oracle-e-business-suite-ap-invoice-payment-reconciliation-workflow.yml
+    name: Oracle EBS AP Invoice Payment Reconciliation
+  - type: Arazzo
+    url: arazzo/oracle-e-business-suite-bom-to-job-planning-workflow.yml
+    name: Oracle EBS BOM-to-Job Planning
+  - type: Arazzo
+    url: arazzo/oracle-e-business-suite-customer-receipt-application-workflow.yml
+    name: Oracle EBS Customer Receipt Application
+  - type: Arazzo
+    url: arazzo/oracle-e-business-suite-discrete-job-execution-workflow.yml
+    name: Oracle EBS Discrete Job Execution
+  - type: Arazzo
+    url: arazzo/oracle-e-business-suite-edi-inbound-invoice-processing-workflow.yml
+    name: Oracle EBS EDI Inbound Invoice Processing
+  - type: Arazzo
+    url: arazzo/oracle-e-business-suite-edi-outbound-purchase-order-workflow.yml
+    name: Oracle EBS EDI Outbound Purchase Order
+  - type: Arazzo
+    url: arazzo/oracle-e-business-suite-employee-onboarding-workflow.yml
+    name: Oracle EBS Employee Onboarding
+  - type: Arazzo
+    url: arazzo/oracle-e-business-suite-employee-profile-update-workflow.yml
+    name: Oracle EBS Employee Profile Update
+  - type: Arazzo
+    url: arazzo/oracle-e-business-suite-gl-journal-entry-and-review-workflow.yml
+    name: Oracle EBS GL Journal Entry and Review
+  - type: Arazzo
+    url: arazzo/oracle-e-business-suite-isg-service-invocation-workflow.yml
+    name: Oracle EBS ISG Service Invocation
+  - type: Arazzo
+    url: arazzo/oracle-e-business-suite-item-availability-check-workflow.yml
+    name: Oracle EBS Item Availability Check
+  - type: Arazzo
+    url: arazzo/oracle-e-business-suite-order-to-cash-workflow.yml
+    name: Oracle EBS Order-to-Cash
+  - type: Arazzo
+    url: arazzo/oracle-e-business-suite-payroll-run-review-workflow.yml
+    name: Oracle EBS Payroll Run Review
+  - type: Arazzo
+    url: arazzo/oracle-e-business-suite-procure-to-pay-workflow.yml
+    name: Oracle EBS Procure-to-Pay
+  - type: Arazzo
+    url: arazzo/oracle-e-business-suite-purchase-order-amendment-workflow.yml
+    name: Oracle EBS Purchase Order Amendment
+  - type: Arazzo
+    url: arazzo/oracle-e-business-suite-requisition-to-purchase-order-workflow.yml
+    name: Oracle EBS Requisition-to-Purchase-Order
+  - type: Arazzo
+    url: arazzo/oracle-e-business-suite-shipment-tracking-workflow.yml
+    name: Oracle EBS Shipment Tracking
   - type: Authentication
     url: https://docs.oracle.com/cd/E26401_01/doc.122/e20927/toc.htm
   - type: Portal
@@ -324,22 +321,22 @@ common:
     url: https://www.oracle.com/legal/privacy/
   - type: StatusPage
     url: https://ocistatus.oraclecloud.com/
-  - type: SignUp
+  - type: Signup
     url: https://signup.cloud.oracle.com/
   - type: Pricing
     url: https://www.oracle.com/applications/ebusiness/
   - type: GitHubOrganization
     url: https://github.com/oracle
-  - type: SDK
+  - type: SDKs
     url: https://github.com/oracle/oci-java-sdk
     name: Oracle OCI Java SDK
-  - type: SDK
+  - type: SDKs
     url: https://github.com/oracle/oci-python-sdk
     name: Oracle OCI Python SDK
-  - type: SDK
+  - type: SDKs
     url: https://github.com/oracle/oci-go-sdk
     name: Oracle OCI Go SDK
-  - type: SDK
+  - type: SDKs
     url: https://github.com/oracle/oci-dotnet-sdk
     name: Oracle OCI .NET SDK
   - type: CLI
