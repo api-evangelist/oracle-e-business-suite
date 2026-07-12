@@ -1,0 +1,34 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/ecommerce-gateway-api.yml, openapi/financial-services-api.yml, openapi/human-resources-api.yml,
+  openapi/isg-rest-api.yml, openapi/manufacturing-api.yml, openapi/supply-chain-api.yml
+summary:
+  types:
+  - apiKey
+  - http
+  api_key_in:
+  - cookie
+schemes:
+- name: basicAuth
+  type: http
+  scheme: basic
+  description: HTTP Basic Authentication with Oracle EBS username and password
+  sources:
+  - openapi/ecommerce-gateway-api.yml
+  - openapi/financial-services-api.yml
+  - openapi/human-resources-api.yml
+  - openapi/isg-rest-api.yml
+  - openapi/manufacturing-api.yml
+  - openapi/supply-chain-api.yml
+- name: tokenAuth
+  type: apiKey
+  in: cookie
+  parameter: accessToken
+  description: Token-based authentication using the ISG login access token
+  sources:
+  - openapi/ecommerce-gateway-api.yml
+  - openapi/financial-services-api.yml
+  - openapi/human-resources-api.yml
+  - openapi/isg-rest-api.yml
+  - openapi/manufacturing-api.yml
+  - openapi/supply-chain-api.yml

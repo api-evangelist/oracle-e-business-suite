@@ -244,6 +244,10 @@ apis:
         email: support@oracle.com
         url: https://support.oracle.com
 common:
+  - type: DomainSecurity
+    url: security/oracle-e-business-suite-domain-security.yml
+  - type: Authentication
+    url: authentication/oracle-e-business-suite-authentication.yml
   - type: PostmanWorkspace
     url: https://www.postman.com/kinlaneapi/oracle-e-business-suite/overview
   - type: Arazzo
