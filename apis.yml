@@ -244,6 +244,8 @@ apis:
         email: support@oracle.com
         url: https://support.oracle.com
 common:
+  - type: AgenticAccess
+    url: agentic-access/oracle-e-business-suite-agentic-access.yml
   - type: DomainSecurity
     url: security/oracle-e-business-suite-domain-security.yml
   - type: Authentication
