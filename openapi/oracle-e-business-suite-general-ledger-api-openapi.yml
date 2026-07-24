@@ -1,0 +1,411 @@
+openapi: 3.1.0
+info:
+  title: Oracle EBS e-Commerce Gateway Accounts Payable General Ledger API
+  description: RESTful APIs for Oracle E-Business Suite e-Commerce Gateway providing EDI (Electronic Data Interchange) transaction support. Enables exchange of standard ASC X12 and EDIFACT documents with trading partners through flat ASCII file integration with third-party EDI translators. Supports inbound and outbound document processing for purchase orders, invoices, ship notices, and other business documents.
+  version: 12.2.0
+  contact:
+    name: Oracle Support
+    email: support@oracle.com
+    url: https://support.oracle.com
+  license:
+    name: Oracle Proprietary
+    url: https://www.oracle.com/legal/terms/
+  x-logo:
+    url: https://www.oracle.com/a/ocom/img/oracle-logo.svg
+servers:
+- url: https://{instance}.oracle.com/webservices/rest
+  description: Oracle EBS ISG REST endpoint
+  variables:
+    instance:
+      default: ebs-host
+      description: The Oracle EBS instance hostname
+tags:
+- name: General Ledger
+  description: General Ledger journal operations
+paths:
+  /gl/journals:
+    get:
+      operationId: getJournals
+      summary: Retrieve Journal Entries
+      description: Retrieves General Ledger journal entries based on the provided filter criteria. Maps to the GL_JE_HEADERS and GL_JE_LINES interface tables.
+      tags:
+      - General Ledger
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      parameters:
+      - name: ledgerId
+        in: query
+        description: Ledger identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: periodName
+        in: query
+        description: Accounting period name
+        schema:
+          type: string
+          example: JAN-26
+        example: example_value
+      - name: journalCategory
+        in: query
+        description: Journal category name
+        schema:
+          type: string
+        example: example_value
+      - name: status
+        in: query
+        description: Journal status
+        schema:
+          type: string
+          enum:
+          - U
+          - A
+          - P
+          description: U=Unposted, A=Approved, P=Posted
+        example: U
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Offset'
+      responses:
+        '200':
+          description: List of journal entries
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/JournalEntry'
+                  totalCount:
+                    type: integer
+                  hasMore:
+                    type: boolean
+              examples:
+                Getjournals200Example:
+                  summary: Default getJournals 200 response
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - jeHeaderId: '500123'
+                      jeBatchId: '500123'
+                      ledgerId: '500123'
+                      periodName: example_value
+                      journalName: example_value
+                      journalCategory: example_value
+                      journalSource: example_value
+                      currencyCode: example_value
+                      status: U
+                      description: A sample description.
+                      effectiveDate: '2026-01-15'
+                      lines:
+                      - {}
+                      createdBy: 10
+                      creationDate: '2026-01-15T10:30:00Z'
+                      lastUpdatedBy: 10
+                      lastUpdateDate: '2026-01-15T10:30:00Z'
+                    totalCount: 10
+                    hasMore: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createJournal
+      summary: Create a Journal Entry
+      description: Creates a new General Ledger journal entry. Maps to the GL_INTERFACE table and GL_JOURNAL_IMPORT concurrent program.
+      tags:
+      - General Ledger
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JournalEntryCreate'
+            examples:
+              CreatejournalRequestExample:
+                summary: Default createJournal request
+                x-microcks-default: true
+                value:
+                  ledgerId: '500123'
+                  periodName: example_value
+                  journalName: example_value
+                  journalCategory: example_value
+                  journalSource: example_value
+                  currencyCode: example_value
+                  description: A sample description.
+                  effectiveDate: '2026-01-15'
+                  lines:
+                  - codeCombinatonId: '500123'
+                    accountedDr: 42.5
+                    accountedCr: 42.5
+                    enteredDr: 42.5
+                    enteredCr: 42.5
+                    description: A sample description.
+      responses:
+        '201':
+          description: Journal entry created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JournalEntry'
+              examples:
+                Createjournal201Example:
+                  summary: Default createJournal 201 response
+                  x-microcks-default: true
+                  value:
+                    jeHeaderId: '500123'
+                    jeBatchId: '500123'
+                    ledgerId: '500123'
+                    periodName: example_value
+                    journalName: example_value
+                    journalCategory: example_value
+                    journalSource: example_value
+                    currencyCode: example_value
+                    status: U
+                    description: A sample description.
+                    effectiveDate: '2026-01-15'
+                    lines:
+                    - jeLineNum: 10
+                      codeCombinatonId: '500123'
+                      accountedDr: 42.5
+                      accountedCr: 42.5
+                      enteredDr: 42.5
+                      enteredCr: 42.5
+                      description: A sample description.
+                    createdBy: 10
+                    creationDate: '2026-01-15T10:30:00Z'
+                    lastUpdatedBy: 10
+                    lastUpdateDate: '2026-01-15T10:30:00Z'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            detail:
+              type: string
+          example: example_value
+    JournalEntry:
+      type: object
+      properties:
+        jeHeaderId:
+          type: integer
+          description: Journal entry header identifier
+          example: '500123'
+        jeBatchId:
+          type: integer
+          description: Journal batch identifier
+          example: '500123'
+        ledgerId:
+          type: integer
+          description: Ledger identifier
+          example: '500123'
+        periodName:
+          type: string
+          description: Accounting period name
+          example: example_value
+        journalName:
+          type: string
+          description: Journal entry name
+          example: example_value
+        journalCategory:
+          type: string
+          description: Journal category
+          example: example_value
+        journalSource:
+          type: string
+          description: Journal source
+          example: example_value
+        currencyCode:
+          type: string
+          description: Currency code (ISO 4217)
+          example: USD
+        status:
+          type: string
+          description: Journal status
+          enum:
+          - U
+          - A
+          - P
+          example: U
+        description:
+          type: string
+          description: Journal description
+          example: A sample description.
+        effectiveDate:
+          type: string
+          format: date
+          description: Journal effective date
+          example: '2026-01-15'
+        lines:
+          type: array
+          items:
+            $ref: '#/components/schemas/JournalLine'
+          example: []
+        createdBy:
+          type: integer
+          example: 10
+        creationDate:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+        lastUpdatedBy:
+          type: integer
+          example: 10
+        lastUpdateDate:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+    JournalEntryCreate:
+      type: object
+      required:
+      - ledgerId
+      - periodName
+      - journalName
+      - journalCategory
+      - journalSource
+      - currencyCode
+      - lines
+      properties:
+        ledgerId:
+          type: integer
+          example: '500123'
+        periodName:
+          type: string
+          example: example_value
+        journalName:
+          type: string
+          example: example_value
+        journalCategory:
+          type: string
+          example: example_value
+        journalSource:
+          type: string
+          example: example_value
+        currencyCode:
+          type: string
+          example: example_value
+        description:
+          type: string
+          example: A sample description.
+        effectiveDate:
+          type: string
+          format: date
+          example: '2026-01-15'
+        lines:
+          type: array
+          items:
+            type: object
+            required:
+            - codeCombinatonId
+            properties:
+              codeCombinatonId:
+                type: integer
+              accountedDr:
+                type: number
+                format: double
+              accountedCr:
+                type: number
+                format: double
+              enteredDr:
+                type: number
+                format: double
+              enteredCr:
+                type: number
+                format: double
+              description:
+                type: string
+          example: []
+    JournalLine:
+      type: object
+      properties:
+        jeLineNum:
+          type: integer
+          description: Journal line number
+          example: 10
+        codeCombinatonId:
+          type: integer
+          description: Chart of accounts code combination identifier
+          example: '500123'
+        accountedDr:
+          type: number
+          format: double
+          description: Debit amount in functional currency
+          example: 42.5
+        accountedCr:
+          type: number
+          format: double
+          description: Credit amount in functional currency
+          example: 42.5
+        enteredDr:
+          type: number
+          format: double
+          description: Debit amount in entered currency
+          example: 42.5
+        enteredCr:
+          type: number
+          format: double
+          description: Credit amount in entered currency
+          example: 42.5
+        description:
+          type: string
+          description: Line description
+          example: A sample description.
+  responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required or token expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    Offset:
+      name: offset
+      in: query
+      description: Number of records to skip for pagination
+      schema:
+        type: integer
+        default: 0
+    Limit:
+      name: limit
+      in: query
+      description: Maximum number of records to return
+      schema:
+        type: integer
+        default: 25
+        maximum: 500
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication with Oracle EBS username and password
+    tokenAuth:
+      type: apiKey
+      in: cookie
+      name: accessToken
+      description: Token-based authentication using the ISG login access token

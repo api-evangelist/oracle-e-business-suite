@@ -1,0 +1,521 @@
+openapi: 3.1.0
+info:
+  title: Oracle EBS e-Commerce Gateway Accounts Payable Accounts Receivable API
+  description: RESTful APIs for Oracle E-Business Suite e-Commerce Gateway providing EDI (Electronic Data Interchange) transaction support. Enables exchange of standard ASC X12 and EDIFACT documents with trading partners through flat ASCII file integration with third-party EDI translators. Supports inbound and outbound document processing for purchase orders, invoices, ship notices, and other business documents.
+  version: 12.2.0
+  contact:
+    name: Oracle Support
+    email: support@oracle.com
+    url: https://support.oracle.com
+  license:
+    name: Oracle Proprietary
+    url: https://www.oracle.com/legal/terms/
+  x-logo:
+    url: https://www.oracle.com/a/ocom/img/oracle-logo.svg
+servers:
+- url: https://{instance}.oracle.com/webservices/rest
+  description: Oracle EBS ISG REST endpoint
+  variables:
+    instance:
+      default: ebs-host
+      description: The Oracle EBS instance hostname
+tags:
+- name: Accounts Receivable
+  description: Accounts Receivable invoice and receipt operations
+paths:
+  /ar/invoices:
+    get:
+      operationId: getArInvoices
+      summary: Retrieve Ar Invoices
+      description: Retrieves Accounts Receivable invoices and transactions. Maps to the RA_CUSTOMER_TRX_ALL and RA_CUSTOMER_TRX_LINES_ALL tables.
+      tags:
+      - Accounts Receivable
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      parameters:
+      - name: customerTrxId
+        in: query
+        description: Customer transaction identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: trxNumber
+        in: query
+        description: Transaction number
+        schema:
+          type: string
+        example: example_value
+      - name: customerId
+        in: query
+        description: Customer identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: trxDateFrom
+        in: query
+        description: Transaction date range start (YYYY-MM-DD)
+        schema:
+          type: string
+          format: date
+        example: '2026-01-15'
+      - name: trxDateTo
+        in: query
+        description: Transaction date range end (YYYY-MM-DD)
+        schema:
+          type: string
+          format: date
+        example: '2026-01-15'
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Offset'
+      responses:
+        '200':
+          description: List of AR invoices
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ArInvoice'
+                  totalCount:
+                    type: integer
+                  hasMore:
+                    type: boolean
+              examples:
+                Getarinvoices200Example:
+                  summary: Default getArInvoices 200 response
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - customerTrxId: '500123'
+                      trxNumber: example_value
+                      trxDate: '2026-01-15'
+                      customerId: '500123'
+                      customerName: example_value
+                      billToSiteUseId: '500123'
+                      shipToSiteUseId: '500123'
+                      invoiceCurrencyCode: example_value
+                      trxType: example_value
+                      amount: 42.5
+                      amountDue: 42.5
+                      status: example_value
+                      termsId: '500123'
+                      lines:
+                      - {}
+                      orgId: '500123'
+                      creationDate: '2026-01-15T10:30:00Z'
+                      lastUpdateDate: '2026-01-15T10:30:00Z'
+                    totalCount: 10
+                    hasMore: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createArInvoice
+      summary: Create an Ar Invoice
+      description: Creates a new Accounts Receivable invoice/transaction using the RA_INTERFACE_LINES_ALL interface table and AutoInvoice concurrent program.
+      tags:
+      - Accounts Receivable
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArInvoiceCreate'
+            examples:
+              CreatearinvoiceRequestExample:
+                summary: Default createArInvoice request
+                x-microcks-default: true
+                value:
+                  customerId: '500123'
+                  trxDate: '2026-01-15'
+                  invoiceCurrencyCode: example_value
+                  batchSourceName: example_value
+                  billToSiteUseId: '500123'
+                  shipToSiteUseId: '500123'
+                  termsId: '500123'
+                  lines:
+                  - lineNumber: 10
+                    lineType: example_value
+                    description: A sample description.
+                    quantity: 42.5
+                    unitSellingPrice: 42.5
+                    inventoryItemId: '500123'
+      responses:
+        '201':
+          description: AR invoice created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArInvoice'
+              examples:
+                Createarinvoice201Example:
+                  summary: Default createArInvoice 201 response
+                  x-microcks-default: true
+                  value:
+                    customerTrxId: '500123'
+                    trxNumber: example_value
+                    trxDate: '2026-01-15'
+                    customerId: '500123'
+                    customerName: example_value
+                    billToSiteUseId: '500123'
+                    shipToSiteUseId: '500123'
+                    invoiceCurrencyCode: example_value
+                    trxType: example_value
+                    amount: 42.5
+                    amountDue: 42.5
+                    status: example_value
+                    termsId: '500123'
+                    lines:
+                    - customerTrxLineId: '500123'
+                      lineNumber: 10
+                      lineType: LINE
+                      description: A sample description.
+                      quantity: 42.5
+                      unitSellingPrice: 42.5
+                      amount: 42.5
+                      inventoryItemId: '500123'
+                    orgId: '500123'
+                    creationDate: '2026-01-15T10:30:00Z'
+                    lastUpdateDate: '2026-01-15T10:30:00Z'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /ar/receipts:
+    get:
+      operationId: getReceipts
+      summary: Retrieve Ar Receipts
+      description: Retrieves Accounts Receivable cash receipts. Maps to the AR_CASH_RECEIPTS_ALL table through the AR_RECEIPT_API_PUB PL/SQL API.
+      tags:
+      - Accounts Receivable
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      parameters:
+      - name: cashReceiptId
+        in: query
+        description: Cash receipt identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: receiptNumber
+        in: query
+        description: Receipt number
+        schema:
+          type: string
+        example: example_value
+      - name: customerId
+        in: query
+        description: Customer identifier
+        schema:
+          type: integer
+        example: '500123'
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Offset'
+      responses:
+        '200':
+          description: List of receipts
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ArReceipt'
+                  totalCount:
+                    type: integer
+                  hasMore:
+                    type: boolean
+              examples:
+                Getreceipts200Example:
+                  summary: Default getReceipts 200 response
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - cashReceiptId: '500123'
+                      receiptNumber: example_value
+                      amount: 42.5
+                      currencyCode: example_value
+                      receiptDate: '2026-01-15'
+                      customerId: '500123'
+                      customerName: example_value
+                      receiptMethodId: '500123'
+                      status: example_value
+                      orgId: '500123'
+                    totalCount: 10
+                    hasMore: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    ArInvoiceCreate:
+      type: object
+      required:
+      - customerId
+      - trxDate
+      - invoiceCurrencyCode
+      - batchSourceName
+      properties:
+        customerId:
+          type: integer
+          example: '500123'
+        trxDate:
+          type: string
+          format: date
+          example: '2026-01-15'
+        invoiceCurrencyCode:
+          type: string
+          example: example_value
+        batchSourceName:
+          type: string
+          example: example_value
+        billToSiteUseId:
+          type: integer
+          example: '500123'
+        shipToSiteUseId:
+          type: integer
+          example: '500123'
+        termsId:
+          type: integer
+          example: '500123'
+        lines:
+          type: array
+          items:
+            type: object
+            properties:
+              lineNumber:
+                type: integer
+              lineType:
+                type: string
+              description:
+                type: string
+              quantity:
+                type: number
+                format: double
+              unitSellingPrice:
+                type: number
+                format: double
+              inventoryItemId:
+                type: integer
+          example: []
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            detail:
+              type: string
+          example: example_value
+    ArReceipt:
+      type: object
+      properties:
+        cashReceiptId:
+          type: integer
+          description: Cash receipt identifier
+          example: '500123'
+        receiptNumber:
+          type: string
+          description: Receipt number
+          example: example_value
+        amount:
+          type: number
+          format: double
+          description: Receipt amount
+          example: 42.5
+        currencyCode:
+          type: string
+          description: Receipt currency code
+          example: example_value
+        receiptDate:
+          type: string
+          format: date
+          description: Receipt date
+          example: '2026-01-15'
+        customerId:
+          type: integer
+          description: Customer identifier
+          example: '500123'
+        customerName:
+          type: string
+          description: Customer name
+          example: example_value
+        receiptMethodId:
+          type: integer
+          description: Receipt method identifier
+          example: '500123'
+        status:
+          type: string
+          description: Receipt status
+          example: example_value
+        orgId:
+          type: integer
+          example: '500123'
+    ArInvoice:
+      type: object
+      properties:
+        customerTrxId:
+          type: integer
+          description: Customer transaction identifier
+          example: '500123'
+        trxNumber:
+          type: string
+          description: Transaction number
+          example: example_value
+        trxDate:
+          type: string
+          format: date
+          description: Transaction date
+          example: '2026-01-15'
+        customerId:
+          type: integer
+          description: Customer identifier
+          example: '500123'
+        customerName:
+          type: string
+          description: Customer name
+          example: example_value
+        billToSiteUseId:
+          type: integer
+          description: Bill-to site use identifier
+          example: '500123'
+        shipToSiteUseId:
+          type: integer
+          description: Ship-to site use identifier
+          example: '500123'
+        invoiceCurrencyCode:
+          type: string
+          description: Invoice currency (ISO 4217)
+          example: example_value
+        trxType:
+          type: string
+          description: Transaction type
+          example: example_value
+        amount:
+          type: number
+          format: double
+          description: Transaction amount
+          example: 42.5
+        amountDue:
+          type: number
+          format: double
+          description: Remaining amount due
+          example: 42.5
+        status:
+          type: string
+          description: Transaction status
+          example: example_value
+        termsId:
+          type: integer
+          description: Payment terms identifier
+          example: '500123'
+        lines:
+          type: array
+          items:
+            $ref: '#/components/schemas/ArInvoiceLine'
+          example: []
+        orgId:
+          type: integer
+          example: '500123'
+        creationDate:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+        lastUpdateDate:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+    ArInvoiceLine:
+      type: object
+      properties:
+        customerTrxLineId:
+          type: integer
+          example: '500123'
+        lineNumber:
+          type: integer
+          example: 10
+        lineType:
+          type: string
+          enum:
+          - LINE
+          - TAX
+          - FREIGHT
+          example: LINE
+        description:
+          type: string
+          example: A sample description.
+        quantity:
+          type: number
+          format: double
+          example: 42.5
+        unitSellingPrice:
+          type: number
+          format: double
+          example: 42.5
+        amount:
+          type: number
+          format: double
+          example: 42.5
+        inventoryItemId:
+          type: integer
+          example: '500123'
+  responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required or token expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    Offset:
+      name: offset
+      in: query
+      description: Number of records to skip for pagination
+      schema:
+        type: integer
+        default: 0
+    Limit:
+      name: limit
+      in: query
+      description: Maximum number of records to return
+      schema:
+        type: integer
+        default: 25
+        maximum: 500
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication with Oracle EBS username and password
+    tokenAuth:
+      type: apiKey
+      in: cookie
+      name: accessToken
+      description: Token-based authentication using the ISG login access token

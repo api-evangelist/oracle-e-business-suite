@@ -1,0 +1,461 @@
+openapi: 3.1.0
+info:
+  title: Oracle EBS e-Commerce Gateway Accounts Payable Order Management API
+  description: RESTful APIs for Oracle E-Business Suite e-Commerce Gateway providing EDI (Electronic Data Interchange) transaction support. Enables exchange of standard ASC X12 and EDIFACT documents with trading partners through flat ASCII file integration with third-party EDI translators. Supports inbound and outbound document processing for purchase orders, invoices, ship notices, and other business documents.
+  version: 12.2.0
+  contact:
+    name: Oracle Support
+    email: support@oracle.com
+    url: https://support.oracle.com
+  license:
+    name: Oracle Proprietary
+    url: https://www.oracle.com/legal/terms/
+  x-logo:
+    url: https://www.oracle.com/a/ocom/img/oracle-logo.svg
+servers:
+- url: https://{instance}.oracle.com/webservices/rest
+  description: Oracle EBS ISG REST endpoint
+  variables:
+    instance:
+      default: ebs-host
+      description: The Oracle EBS instance hostname
+tags:
+- name: Order Management
+  description: Sales order processing and management
+paths:
+  /oe/salesOrders:
+    get:
+      operationId: getSalesOrders
+      summary: Retrieve Sales Orders
+      description: Retrieves Order Management sales order records. Maps to the OE_ORDER_HEADERS_ALL and OE_ORDER_LINES_ALL tables through the OE_ORDER_PUB PL/SQL API.
+      tags:
+      - Order Management
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      parameters:
+      - name: headerId
+        in: query
+        description: Order header identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: orderNumber
+        in: query
+        description: Order number
+        schema:
+          type: integer
+        example: 10
+      - name: customerId
+        in: query
+        description: Customer identifier (sold-to)
+        schema:
+          type: integer
+        example: '500123'
+      - name: flowStatusCode
+        in: query
+        description: Order flow status
+        schema:
+          type: string
+          enum:
+          - ENTERED
+          - BOOKED
+          - CLOSED
+          - CANCELLED
+        example: ENTERED
+      - name: orderedDateFrom
+        in: query
+        description: Order date range start (YYYY-MM-DD)
+        schema:
+          type: string
+          format: date
+        example: '2026-01-15'
+      - name: orderedDateTo
+        in: query
+        description: Order date range end (YYYY-MM-DD)
+        schema:
+          type: string
+          format: date
+        example: '2026-01-15'
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Offset'
+      responses:
+        '200':
+          description: List of sales orders
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SalesOrder'
+                  totalCount:
+                    type: integer
+                  hasMore:
+                    type: boolean
+              examples:
+                Getsalesorders200Example:
+                  summary: Default getSalesOrders 200 response
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - headerId: '500123'
+                      orderNumber: 10
+                      orderedDate: '2026-01-15'
+                      orderTypeId: '500123'
+                      orderTypeName: example_value
+                      soldToOrgId: '500123'
+                      customerName: example_value
+                      shipToOrgId: '500123'
+                      invoiceToOrgId: '500123'
+                      transactionalCurrCode: example_value
+                      flowStatusCode: ENTERED
+                      bookedFlag: Y
+                      totalAmount: 42.5
+                      salesrepId: '500123'
+                      lines:
+                      - {}
+                      orgId: '500123'
+                      creationDate: '2026-01-15T10:30:00Z'
+                      lastUpdateDate: '2026-01-15T10:30:00Z'
+                    totalCount: 10
+                    hasMore: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createSalesOrder
+      summary: Create a Sales Order
+      description: Creates a new sales order using the OE_ORDER_PUB.PROCESS_ORDER PL/SQL API or the Order Import open interface.
+      tags:
+      - Order Management
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SalesOrderCreate'
+            examples:
+              CreatesalesorderRequestExample:
+                summary: Default createSalesOrder request
+                x-microcks-default: true
+                value:
+                  soldToOrgId: '500123'
+                  orderTypeId: '500123'
+                  orderedDate: '2026-01-15'
+                  transactionalCurrCode: example_value
+                  shipToOrgId: '500123'
+                  invoiceToOrgId: '500123'
+                  salesrepId: '500123'
+                  lines:
+                  - inventoryItemId: '500123'
+                    orderedQuantity: 42.5
+                    orderQuantityUom: example_value
+                    unitSellingPrice: 42.5
+                    scheduleShipDate: '2026-01-15'
+      responses:
+        '201':
+          description: Sales order created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SalesOrder'
+              examples:
+                Createsalesorder201Example:
+                  summary: Default createSalesOrder 201 response
+                  x-microcks-default: true
+                  value:
+                    headerId: '500123'
+                    orderNumber: 10
+                    orderedDate: '2026-01-15'
+                    orderTypeId: '500123'
+                    orderTypeName: example_value
+                    soldToOrgId: '500123'
+                    customerName: example_value
+                    shipToOrgId: '500123'
+                    invoiceToOrgId: '500123'
+                    transactionalCurrCode: example_value
+                    flowStatusCode: ENTERED
+                    bookedFlag: Y
+                    totalAmount: 42.5
+                    salesrepId: '500123'
+                    lines:
+                    - lineId: '500123'
+                      lineNumber: 10
+                      orderedItem: example_value
+                      inventoryItemId: '500123'
+                      orderedQuantity: 42.5
+                      orderQuantityUom: example_value
+                      unitSellingPrice: 42.5
+                      unitListPrice: 42.5
+                      lineAmount: 42.5
+                      scheduleShipDate: '2026-01-15'
+                      actualShipDate: '2026-01-15'
+                      flowStatusCode: example_value
+                      shippedQuantity: 42.5
+                    orgId: '500123'
+                    creationDate: '2026-01-15T10:30:00Z'
+                    lastUpdateDate: '2026-01-15T10:30:00Z'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            detail:
+              type: string
+          example: example_value
+    SalesOrderLine:
+      type: object
+      properties:
+        lineId:
+          type: integer
+          description: Line identifier
+          example: '500123'
+        lineNumber:
+          type: integer
+          description: Line number
+          example: 10
+        orderedItem:
+          type: string
+          description: Ordered item number
+          example: example_value
+        inventoryItemId:
+          type: integer
+          description: Inventory item identifier
+          example: '500123'
+        orderedQuantity:
+          type: number
+          format: double
+          description: Ordered quantity
+          example: 42.5
+        orderQuantityUom:
+          type: string
+          description: Unit of measure
+          example: example_value
+        unitSellingPrice:
+          type: number
+          format: double
+          description: Unit selling price
+          example: 42.5
+        unitListPrice:
+          type: number
+          format: double
+          description: Unit list price
+          example: 42.5
+        lineAmount:
+          type: number
+          format: double
+          example: 42.5
+        scheduleShipDate:
+          type: string
+          format: date
+          description: Scheduled ship date
+          example: '2026-01-15'
+        actualShipDate:
+          type: string
+          format: date
+          description: Actual ship date
+          example: '2026-01-15'
+        flowStatusCode:
+          type: string
+          description: Line flow status
+          example: example_value
+        shippedQuantity:
+          type: number
+          format: double
+          example: 42.5
+    SalesOrder:
+      type: object
+      properties:
+        headerId:
+          type: integer
+          description: Order header identifier
+          example: '500123'
+        orderNumber:
+          type: integer
+          description: Order number
+          example: 10
+        orderedDate:
+          type: string
+          format: date
+          description: Order date
+          example: '2026-01-15'
+        orderTypeId:
+          type: integer
+          description: Order type identifier
+          example: '500123'
+        orderTypeName:
+          type: string
+          description: Order type name
+          example: example_value
+        soldToOrgId:
+          type: integer
+          description: Customer identifier (sold-to)
+          example: '500123'
+        customerName:
+          type: string
+          description: Customer name
+          example: example_value
+        shipToOrgId:
+          type: integer
+          description: Ship-to organization identifier
+          example: '500123'
+        invoiceToOrgId:
+          type: integer
+          description: Bill-to organization identifier
+          example: '500123'
+        transactionalCurrCode:
+          type: string
+          description: Transaction currency code (ISO 4217)
+          example: example_value
+        flowStatusCode:
+          type: string
+          description: Order flow status
+          enum:
+          - ENTERED
+          - BOOKED
+          - CLOSED
+          - CANCELLED
+          example: ENTERED
+        bookedFlag:
+          type: string
+          enum:
+          - Y
+          - N
+          example: Y
+        totalAmount:
+          type: number
+          format: double
+          description: Order total amount
+          example: 42.5
+        salesrepId:
+          type: integer
+          description: Salesperson identifier
+          example: '500123'
+        lines:
+          type: array
+          items:
+            $ref: '#/components/schemas/SalesOrderLine'
+          example: []
+        orgId:
+          type: integer
+          example: '500123'
+        creationDate:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+        lastUpdateDate:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+    SalesOrderCreate:
+      type: object
+      required:
+      - soldToOrgId
+      - orderTypeId
+      - lines
+      properties:
+        soldToOrgId:
+          type: integer
+          example: '500123'
+        orderTypeId:
+          type: integer
+          example: '500123'
+        orderedDate:
+          type: string
+          format: date
+          example: '2026-01-15'
+        transactionalCurrCode:
+          type: string
+          example: example_value
+        shipToOrgId:
+          type: integer
+          example: '500123'
+        invoiceToOrgId:
+          type: integer
+          example: '500123'
+        salesrepId:
+          type: integer
+          example: '500123'
+        lines:
+          type: array
+          items:
+            type: object
+            required:
+            - inventoryItemId
+            - orderedQuantity
+            properties:
+              inventoryItemId:
+                type: integer
+              orderedQuantity:
+                type: number
+                format: double
+              orderQuantityUom:
+                type: string
+              unitSellingPrice:
+                type: number
+                format: double
+              scheduleShipDate:
+                type: string
+                format: date
+          example: []
+  responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required or token expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    Offset:
+      name: offset
+      in: query
+      description: Number of records to skip for pagination
+      schema:
+        type: integer
+        default: 0
+    Limit:
+      name: limit
+      in: query
+      description: Maximum number of records to return
+      schema:
+        type: integer
+        default: 25
+        maximum: 500
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication with Oracle EBS username and password
+    tokenAuth:
+      type: apiKey
+      in: cookie
+      name: accessToken
+      description: Token-based authentication using the ISG login access token

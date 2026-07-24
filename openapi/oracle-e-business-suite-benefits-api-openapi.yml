@@ -1,0 +1,198 @@
+openapi: 3.1.0
+info:
+  title: Oracle EBS e-Commerce Gateway Accounts Payable Benefits API
+  description: RESTful APIs for Oracle E-Business Suite e-Commerce Gateway providing EDI (Electronic Data Interchange) transaction support. Enables exchange of standard ASC X12 and EDIFACT documents with trading partners through flat ASCII file integration with third-party EDI translators. Supports inbound and outbound document processing for purchase orders, invoices, ship notices, and other business documents.
+  version: 12.2.0
+  contact:
+    name: Oracle Support
+    email: support@oracle.com
+    url: https://support.oracle.com
+  license:
+    name: Oracle Proprietary
+    url: https://www.oracle.com/legal/terms/
+  x-logo:
+    url: https://www.oracle.com/a/ocom/img/oracle-logo.svg
+servers:
+- url: https://{instance}.oracle.com/webservices/rest
+  description: Oracle EBS ISG REST endpoint
+  variables:
+    instance:
+      default: ebs-host
+      description: The Oracle EBS instance hostname
+tags:
+- name: Benefits
+  description: Benefit enrollment management
+paths:
+  /ben/benefits:
+    get:
+      operationId: getBenefitEnrollments
+      summary: Retrieve Benefit Enrollments
+      description: Retrieves employee benefit enrollment records. Maps to the BEN_PRTT_ENRT_RSLT_F table through the Benefits API.
+      tags:
+      - Benefits
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      parameters:
+      - name: personId
+        in: query
+        description: Person identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: planId
+        in: query
+        description: Benefit plan identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: effectiveDate
+        in: query
+        description: Effective date (YYYY-MM-DD)
+        schema:
+          type: string
+          format: date
+        example: '2026-01-15'
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Offset'
+      responses:
+        '200':
+          description: List of benefit enrollments
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/BenefitEnrollment'
+                  totalCount:
+                    type: integer
+                  hasMore:
+                    type: boolean
+              examples:
+                Getbenefitenrollments200Example:
+                  summary: Default getBenefitEnrollments 200 response
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - enrollmentResultId: '500123'
+                      personId: '500123'
+                      planId: '500123'
+                      planName: example_value
+                      optionId: '500123'
+                      optionName: example_value
+                      coverageLevelCode: example_value
+                      effectiveStartDate: '2026-01-15'
+                      effectiveEndDate: '2026-01-15'
+                      enrollmentStartDate: '2026-01-15'
+                      enrollmentEndDate: '2026-01-15'
+                      benefitAmount: 42.5
+                    totalCount: 10
+                    hasMore: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            detail:
+              type: string
+          example: example_value
+    BenefitEnrollment:
+      type: object
+      properties:
+        enrollmentResultId:
+          type: integer
+          description: Enrollment result identifier
+          example: '500123'
+        personId:
+          type: integer
+          description: Person identifier
+          example: '500123'
+        planId:
+          type: integer
+          description: Benefit plan identifier
+          example: '500123'
+        planName:
+          type: string
+          description: Plan name
+          example: example_value
+        optionId:
+          type: integer
+          description: Option identifier
+          example: '500123'
+        optionName:
+          type: string
+          description: Option name
+          example: example_value
+        coverageLevelCode:
+          type: string
+          description: Coverage level
+          example: example_value
+        effectiveStartDate:
+          type: string
+          format: date
+          example: '2026-01-15'
+        effectiveEndDate:
+          type: string
+          format: date
+          example: '2026-01-15'
+        enrollmentStartDate:
+          type: string
+          format: date
+          example: '2026-01-15'
+        enrollmentEndDate:
+          type: string
+          format: date
+          example: '2026-01-15'
+        benefitAmount:
+          type: number
+          format: double
+          description: Benefit coverage amount
+          example: 42.5
+  responses:
+    Unauthorized:
+      description: Authentication required or token expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    Offset:
+      name: offset
+      in: query
+      description: Number of records to skip for pagination
+      schema:
+        type: integer
+        default: 0
+    Limit:
+      name: limit
+      in: query
+      description: Maximum number of records to return
+      schema:
+        type: integer
+        default: 25
+        maximum: 500
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication with Oracle EBS username and password
+    tokenAuth:
+      type: apiKey
+      in: cookie
+      name: accessToken
+      description: Token-based authentication using the ISG login access token

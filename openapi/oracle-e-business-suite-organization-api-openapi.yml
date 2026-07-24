@@ -1,0 +1,297 @@
+openapi: 3.1.0
+info:
+  title: Oracle EBS e-Commerce Gateway Accounts Payable Organization API
+  description: RESTful APIs for Oracle E-Business Suite e-Commerce Gateway providing EDI (Electronic Data Interchange) transaction support. Enables exchange of standard ASC X12 and EDIFACT documents with trading partners through flat ASCII file integration with third-party EDI translators. Supports inbound and outbound document processing for purchase orders, invoices, ship notices, and other business documents.
+  version: 12.2.0
+  contact:
+    name: Oracle Support
+    email: support@oracle.com
+    url: https://support.oracle.com
+  license:
+    name: Oracle Proprietary
+    url: https://www.oracle.com/legal/terms/
+  x-logo:
+    url: https://www.oracle.com/a/ocom/img/oracle-logo.svg
+servers:
+- url: https://{instance}.oracle.com/webservices/rest
+  description: Oracle EBS ISG REST endpoint
+  variables:
+    instance:
+      default: ebs-host
+      description: The Oracle EBS instance hostname
+tags:
+- name: Organization
+  description: HR organization and position management
+paths:
+  /hr/organizations:
+    get:
+      operationId: getOrganizations
+      summary: Retrieve Hr Organizations
+      description: Retrieves HR organization records. Maps to the HR_ALL_ORGANIZATION_UNITS and HR_ORGANIZATION_INFORMATION tables.
+      tags:
+      - Organization
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      parameters:
+      - name: organizationId
+        in: query
+        description: Organization identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: name
+        in: query
+        description: Organization name (supports wildcards)
+        schema:
+          type: string
+        example: Example Title
+      - name: businessGroupId
+        in: query
+        description: Business group identifier
+        schema:
+          type: integer
+        example: '500123'
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Offset'
+      responses:
+        '200':
+          description: List of organizations
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Organization'
+                  totalCount:
+                    type: integer
+                  hasMore:
+                    type: boolean
+              examples:
+                Getorganizations200Example:
+                  summary: Default getOrganizations 200 response
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - organizationId: '500123'
+                      name: Example Title
+                      businessGroupId: '500123'
+                      dateFrom: '2026-01-15'
+                      dateTo: '2026-01-15'
+                      locationId: '500123'
+                      type: example_value
+                      internalExternalFlag: INT
+                    totalCount: 10
+                    hasMore: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /hr/positions:
+    get:
+      operationId: getPositions
+      summary: Retrieve Hr Positions
+      description: Retrieves position records. Maps to the HR_ALL_POSITIONS_F table through the HR_POSITION_API package.
+      tags:
+      - Organization
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      parameters:
+      - name: positionId
+        in: query
+        description: Position identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: name
+        in: query
+        description: Position name (supports wildcards)
+        schema:
+          type: string
+        example: Example Title
+      - name: organizationId
+        in: query
+        description: Organization identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: effectiveDate
+        in: query
+        description: Effective date (YYYY-MM-DD)
+        schema:
+          type: string
+          format: date
+        example: '2026-01-15'
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Offset'
+      responses:
+        '200':
+          description: List of positions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Position'
+                  totalCount:
+                    type: integer
+                  hasMore:
+                    type: boolean
+              examples:
+                Getpositions200Example:
+                  summary: Default getPositions 200 response
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - positionId: '500123'
+                      name: Example Title
+                      jobId: '500123'
+                      organizationId: '500123'
+                      effectiveStartDate: '2026-01-15'
+                      effectiveEndDate: '2026-01-15'
+                      status: example_value
+                      availabilityStatusId: '500123'
+                      businessGroupId: '500123'
+                      locationId: '500123'
+                    totalCount: 10
+                    hasMore: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            detail:
+              type: string
+          example: example_value
+    Organization:
+      type: object
+      properties:
+        organizationId:
+          type: integer
+          description: Organization identifier
+          example: '500123'
+        name:
+          type: string
+          description: Organization name
+          example: Example Title
+        businessGroupId:
+          type: integer
+          description: Business group identifier
+          example: '500123'
+        dateFrom:
+          type: string
+          format: date
+          description: Organization start date
+          example: '2026-01-15'
+        dateTo:
+          type: string
+          format: date
+          description: Organization end date
+          example: '2026-01-15'
+        locationId:
+          type: integer
+          description: Location identifier
+          example: '500123'
+        type:
+          type: string
+          description: Organization type
+          example: example_value
+        internalExternalFlag:
+          type: string
+          enum:
+          - INT
+          - EXT
+          example: INT
+    Position:
+      type: object
+      properties:
+        positionId:
+          type: integer
+          description: Position identifier
+          example: '500123'
+        name:
+          type: string
+          description: Position name
+          example: Example Title
+        jobId:
+          type: integer
+          description: Job identifier
+          example: '500123'
+        organizationId:
+          type: integer
+          description: Organization identifier
+          example: '500123'
+        effectiveStartDate:
+          type: string
+          format: date
+          example: '2026-01-15'
+        effectiveEndDate:
+          type: string
+          format: date
+          example: '2026-01-15'
+        status:
+          type: string
+          description: Position status
+          example: example_value
+        availabilityStatusId:
+          type: integer
+          example: '500123'
+        businessGroupId:
+          type: integer
+          example: '500123'
+        locationId:
+          type: integer
+          example: '500123'
+  responses:
+    Unauthorized:
+      description: Authentication required or token expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    Offset:
+      name: offset
+      in: query
+      description: Number of records to skip for pagination
+      schema:
+        type: integer
+        default: 0
+    Limit:
+      name: limit
+      in: query
+      description: Maximum number of records to return
+      schema:
+        type: integer
+        default: 25
+        maximum: 500
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication with Oracle EBS username and password
+    tokenAuth:
+      type: apiKey
+      in: cookie
+      name: accessToken
+      description: Token-based authentication using the ISG login access token

@@ -1,0 +1,238 @@
+openapi: 3.1.0
+info:
+  title: Oracle EBS e-Commerce Gateway Accounts Payable Shipping API
+  description: RESTful APIs for Oracle E-Business Suite e-Commerce Gateway providing EDI (Electronic Data Interchange) transaction support. Enables exchange of standard ASC X12 and EDIFACT documents with trading partners through flat ASCII file integration with third-party EDI translators. Supports inbound and outbound document processing for purchase orders, invoices, ship notices, and other business documents.
+  version: 12.2.0
+  contact:
+    name: Oracle Support
+    email: support@oracle.com
+    url: https://support.oracle.com
+  license:
+    name: Oracle Proprietary
+    url: https://www.oracle.com/legal/terms/
+  x-logo:
+    url: https://www.oracle.com/a/ocom/img/oracle-logo.svg
+servers:
+- url: https://{instance}.oracle.com/webservices/rest
+  description: Oracle EBS ISG REST endpoint
+  variables:
+    instance:
+      default: ebs-host
+      description: The Oracle EBS instance hostname
+tags:
+- name: Shipping
+  description: Shipping delivery management
+paths:
+  /wsh/deliveries:
+    get:
+      operationId: getDeliveries
+      summary: Retrieve Shipping Deliveries
+      description: Retrieves shipping delivery records from Oracle Shipping Execution. Maps to the WSH_NEW_DELIVERIES and WSH_DELIVERY_DETAILS tables.
+      tags:
+      - Shipping
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      parameters:
+      - name: deliveryId
+        in: query
+        description: Delivery identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: deliveryName
+        in: query
+        description: Delivery name/number
+        schema:
+          type: string
+        example: example_value
+      - name: statusCode
+        in: query
+        description: Delivery status
+        schema:
+          type: string
+          enum:
+          - OP
+          - PA
+          - SA
+          - CO
+          - IT
+          - CL
+        example: OP
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Offset'
+      responses:
+        '200':
+          description: List of shipping deliveries
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Delivery'
+                  totalCount:
+                    type: integer
+                  hasMore:
+                    type: boolean
+              examples:
+                Getdeliveries200Example:
+                  summary: Default getDeliveries 200 response
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - deliveryId: '500123'
+                      name: Example Title
+                      statusCode: OP
+                      initialPickupDate: '2026-01-15'
+                      ultimateDropoffDate: '2026-01-15'
+                      customerId: '500123'
+                      shipToLocationId: '500123'
+                      carrierId: '500123'
+                      shipMethodCode: example_value
+                      waybill: example_value
+                      grossWeight: 42.5
+                      weightUomCode: example_value
+                      volume: 42.5
+                      volumeUomCode: example_value
+                      organizationId: '500123'
+                      creationDate: '2026-01-15T10:30:00Z'
+                      lastUpdateDate: '2026-01-15T10:30:00Z'
+                    totalCount: 10
+                    hasMore: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            detail:
+              type: string
+          example: example_value
+    Delivery:
+      type: object
+      properties:
+        deliveryId:
+          type: integer
+          description: Delivery identifier
+          example: '500123'
+        name:
+          type: string
+          description: Delivery name/number
+          example: Example Title
+        statusCode:
+          type: string
+          description: Delivery status code
+          enum:
+          - OP
+          - PA
+          - SA
+          - CO
+          - IT
+          - CL
+          example: OP
+        initialPickupDate:
+          type: string
+          format: date
+          description: Initial pickup date
+          example: '2026-01-15'
+        ultimateDropoffDate:
+          type: string
+          format: date
+          description: Ultimate dropoff date
+          example: '2026-01-15'
+        customerId:
+          type: integer
+          description: Customer identifier
+          example: '500123'
+        shipToLocationId:
+          type: integer
+          description: Ship-to location identifier
+          example: '500123'
+        carrierId:
+          type: integer
+          description: Carrier identifier
+          example: '500123'
+        shipMethodCode:
+          type: string
+          description: Ship method code
+          example: example_value
+        waybill:
+          type: string
+          description: Waybill/tracking number
+          example: example_value
+        grossWeight:
+          type: number
+          format: double
+          description: Gross weight
+          example: 42.5
+        weightUomCode:
+          type: string
+          description: Weight unit of measure
+          example: example_value
+        volume:
+          type: number
+          format: double
+          description: Volume
+          example: 42.5
+        volumeUomCode:
+          type: string
+          description: Volume unit of measure
+          example: example_value
+        organizationId:
+          type: integer
+          example: '500123'
+        creationDate:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+        lastUpdateDate:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+  responses:
+    Unauthorized:
+      description: Authentication required or token expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    Offset:
+      name: offset
+      in: query
+      description: Number of records to skip for pagination
+      schema:
+        type: integer
+        default: 0
+    Limit:
+      name: limit
+      in: query
+      description: Maximum number of records to return
+      schema:
+        type: integer
+        default: 25
+        maximum: 500
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication with Oracle EBS username and password
+    tokenAuth:
+      type: apiKey
+      in: cookie
+      name: accessToken
+      description: Token-based authentication using the ISG login access token

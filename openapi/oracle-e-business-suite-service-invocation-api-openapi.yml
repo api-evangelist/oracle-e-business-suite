@@ -1,0 +1,255 @@
+openapi: 3.1.0
+info:
+  title: Oracle EBS e-Commerce Gateway Accounts Payable Service Invocation API
+  description: RESTful APIs for Oracle E-Business Suite e-Commerce Gateway providing EDI (Electronic Data Interchange) transaction support. Enables exchange of standard ASC X12 and EDIFACT documents with trading partners through flat ASCII file integration with third-party EDI translators. Supports inbound and outbound document processing for purchase orders, invoices, ship notices, and other business documents.
+  version: 12.2.0
+  contact:
+    name: Oracle Support
+    email: support@oracle.com
+    url: https://support.oracle.com
+  license:
+    name: Oracle Proprietary
+    url: https://www.oracle.com/legal/terms/
+  x-logo:
+    url: https://www.oracle.com/a/ocom/img/oracle-logo.svg
+servers:
+- url: https://{instance}.oracle.com/webservices/rest
+  description: Oracle EBS ISG REST endpoint
+  variables:
+    instance:
+      default: ebs-host
+      description: The Oracle EBS instance hostname
+tags:
+- name: Service Invocation
+  description: Invoke deployed REST service methods
+paths:
+  /{serviceAlias}/{methodName}:
+    post:
+      operationId: invokeRestMethod
+      summary: Invoke a Rest Service Method
+      description: Invokes a specific method on a deployed REST service. The service alias and method name correspond to the PL/SQL API, Java Bean Service, Application Module Service, or other interface type deployed through the Integration Repository. Request and response payloads vary by service.
+      tags:
+      - Service Invocation
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      parameters:
+      - name: serviceAlias
+        in: path
+        required: true
+        description: The alias of the deployed REST service
+        schema:
+          type: string
+        example: purchaseOrders
+      - name: methodName
+        in: path
+        required: true
+        description: The REST method name to invoke
+        schema:
+          type: string
+        example: createPurchaseOrder
+      - $ref: '#/components/parameters/AcceptLanguage'
+      - $ref: '#/components/parameters/ContentType'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ServiceMethodRequest'
+            examples:
+              InvokerestmethodRequestExample:
+                summary: Default invokeRestMethod request
+                x-microcks-default: true
+                value:
+                  RESTHeader:
+                    Responsibility: example_value
+                    RespApplication: example_value
+                    SecurityGroup: example_value
+                    NLSLanguage: example_value
+                    Org_Id: '500123'
+                  InputParameters: example_value
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/ServiceMethodRequest'
+            examples:
+              InvokerestmethodRequestExample:
+                summary: Default invokeRestMethod request
+                x-microcks-default: true
+                value:
+                  RESTHeader:
+                    Responsibility: example_value
+                    RespApplication: example_value
+                    SecurityGroup: example_value
+                    NLSLanguage: example_value
+                    Org_Id: '500123'
+                  InputParameters: example_value
+      responses:
+        '200':
+          description: Method invoked successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceMethodResponse'
+              examples:
+                Invokerestmethod200Example:
+                  summary: Default invokeRestMethod 200 response
+                  x-microcks-default: true
+                  value:
+                    OutputParameters: example_value
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ServiceMethodResponse'
+              examples:
+                Invokerestmethod200Example:
+                  summary: Default invokeRestMethod 200 response
+                  x-microcks-default: true
+                  value:
+                    OutputParameters: example_value
+        '400':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Invokerestmethod400Example:
+                  summary: Default invokeRestMethod 400 response
+                  x-microcks-default: true
+                  value:
+                    error:
+                      code: example_value
+                      message: example_value
+                      detail: example_value
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Invokerestmethod401Example:
+                  summary: Default invokeRestMethod 401 response
+                  x-microcks-default: true
+                  value:
+                    error:
+                      code: example_value
+                      message: example_value
+                      detail: example_value
+        '404':
+          description: Service or method not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Invokerestmethod404Example:
+                  summary: Default invokeRestMethod 404 response
+                  x-microcks-default: true
+                  value:
+                    error:
+                      code: example_value
+                      message: example_value
+                      detail: example_value
+        '500':
+          description: Internal server error during method execution
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Invokerestmethod500Example:
+                  summary: Default invokeRestMethod 500 response
+                  x-microcks-default: true
+                  value:
+                    error:
+                      code: example_value
+                      message: example_value
+                      detail: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    ServiceMethodResponse:
+      type: object
+      description: Dynamic response payload whose structure depends on the specific service and method invoked. Refer to the WADL for the deployed service.
+      properties:
+        OutputParameters:
+          type: object
+          description: Output parameters from the service method
+          additionalProperties: true
+          example: example_value
+    ServiceMethodRequest:
+      type: object
+      description: Dynamic request payload whose structure depends on the specific service and method being invoked. Refer to the WADL for the deployed service.
+      properties:
+        RESTHeader:
+          type: object
+          description: Optional REST header for overriding application context on a per-request basis. Only required if the context differs from the initialized session.
+          properties:
+            Responsibility:
+              type: string
+              description: Responsibility name
+            RespApplication:
+              type: string
+              description: Responsibility application short name
+            SecurityGroup:
+              type: string
+              description: Security group name
+            NLSLanguage:
+              type: string
+              description: NLS language code
+            Org_Id:
+              type: integer
+              description: Organization ID
+          example: example_value
+        InputParameters:
+          type: object
+          description: Input parameters specific to the service method. Structure varies by service - consult the WADL.
+          additionalProperties: true
+          example: example_value
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+              description: Error code
+            message:
+              type: string
+              description: Human-readable error message
+            detail:
+              type: string
+              description: Detailed error information
+          example: example_value
+  parameters:
+    AcceptLanguage:
+      name: Accept-Language
+      in: header
+      description: NLS language context in RFC 5646 format. Controls the language for translated messages and data returned by the service.
+      schema:
+        type: string
+        default: en-US
+      example: en-GB,en-US;q=0.8,en;q=0.6
+    ContentType:
+      name: Content-Type
+      in: header
+      description: The format of the request body
+      schema:
+        type: string
+        enum:
+        - application/json
+        - application/xml
+        default: application/json
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication with Oracle EBS username and password
+    tokenAuth:
+      type: apiKey
+      in: cookie
+      name: accessToken
+      description: Token-based authentication using the ISG login access token

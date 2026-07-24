@@ -1,0 +1,180 @@
+openapi: 3.1.0
+info:
+  title: Oracle EBS e-Commerce Gateway Accounts Payable Cash Management API
+  description: RESTful APIs for Oracle E-Business Suite e-Commerce Gateway providing EDI (Electronic Data Interchange) transaction support. Enables exchange of standard ASC X12 and EDIFACT documents with trading partners through flat ASCII file integration with third-party EDI translators. Supports inbound and outbound document processing for purchase orders, invoices, ship notices, and other business documents.
+  version: 12.2.0
+  contact:
+    name: Oracle Support
+    email: support@oracle.com
+    url: https://support.oracle.com
+  license:
+    name: Oracle Proprietary
+    url: https://www.oracle.com/legal/terms/
+  x-logo:
+    url: https://www.oracle.com/a/ocom/img/oracle-logo.svg
+servers:
+- url: https://{instance}.oracle.com/webservices/rest
+  description: Oracle EBS ISG REST endpoint
+  variables:
+    instance:
+      default: ebs-host
+      description: The Oracle EBS instance hostname
+tags:
+- name: Cash Management
+  description: Cash management and bank account operations
+paths:
+  /ce/bankAccounts:
+    get:
+      operationId: getBankAccounts
+      summary: Retrieve Bank Accounts
+      description: Retrieves Cash Management bank account records. Maps to the CE_BANK_ACCOUNTS table through the Cash Management APIs.
+      tags:
+      - Cash Management
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      parameters:
+      - name: bankAccountId
+        in: query
+        description: Bank account identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: bankAccountName
+        in: query
+        description: Bank account name
+        schema:
+          type: string
+        example: example_value
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Offset'
+      responses:
+        '200':
+          description: List of bank accounts
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/BankAccount'
+                  totalCount:
+                    type: integer
+                  hasMore:
+                    type: boolean
+              examples:
+                Getbankaccounts200Example:
+                  summary: Default getBankAccounts 200 response
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - bankAccountId: '500123'
+                      bankAccountName: example_value
+                      bankAccountNum: example_value
+                      bankId: '500123'
+                      bankName: example_value
+                      branchId: '500123'
+                      branchName: example_value
+                      currencyCode: example_value
+                      accountType: example_value
+                      status: example_value
+                    totalCount: 10
+                    hasMore: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            detail:
+              type: string
+          example: example_value
+    BankAccount:
+      type: object
+      properties:
+        bankAccountId:
+          type: integer
+          description: Bank account identifier
+          example: '500123'
+        bankAccountName:
+          type: string
+          description: Bank account name
+          example: example_value
+        bankAccountNum:
+          type: string
+          description: Bank account number
+          example: example_value
+        bankId:
+          type: integer
+          description: Bank identifier
+          example: '500123'
+        bankName:
+          type: string
+          description: Bank name
+          example: example_value
+        branchId:
+          type: integer
+          description: Bank branch identifier
+          example: '500123'
+        branchName:
+          type: string
+          description: Branch name
+          example: example_value
+        currencyCode:
+          type: string
+          description: Account currency code
+          example: example_value
+        accountType:
+          type: string
+          description: Account type
+          example: example_value
+        status:
+          type: string
+          description: Account status
+          example: example_value
+  responses:
+    Unauthorized:
+      description: Authentication required or token expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    Offset:
+      name: offset
+      in: query
+      description: Number of records to skip for pagination
+      schema:
+        type: integer
+        default: 0
+    Limit:
+      name: limit
+      in: query
+      description: Maximum number of records to return
+      schema:
+        type: integer
+        default: 25
+        maximum: 500
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication with Oracle EBS username and password
+    tokenAuth:
+      type: apiKey
+      in: cookie
+      name: accessToken
+      description: Token-based authentication using the ISG login access token

@@ -1,0 +1,287 @@
+openapi: 3.1.0
+info:
+  title: Oracle EBS e-Commerce Gateway Accounts Payable Trading Partners API
+  description: RESTful APIs for Oracle E-Business Suite e-Commerce Gateway providing EDI (Electronic Data Interchange) transaction support. Enables exchange of standard ASC X12 and EDIFACT documents with trading partners through flat ASCII file integration with third-party EDI translators. Supports inbound and outbound document processing for purchase orders, invoices, ship notices, and other business documents.
+  version: 12.2.0
+  contact:
+    name: Oracle Support
+    email: support@oracle.com
+    url: https://support.oracle.com
+  license:
+    name: Oracle Proprietary
+    url: https://www.oracle.com/legal/terms/
+  x-logo:
+    url: https://www.oracle.com/a/ocom/img/oracle-logo.svg
+servers:
+- url: https://{instance}.oracle.com/webservices/rest
+  description: Oracle EBS ISG REST endpoint
+  variables:
+    instance:
+      default: ebs-host
+      description: The Oracle EBS instance hostname
+tags:
+- name: Trading Partners
+  description: Trading partner configuration and management
+paths:
+  /ece/tradingPartners:
+    get:
+      operationId: getTradingPartners
+      summary: Retrieve Trading Partners
+      description: Retrieves e-Commerce Gateway trading partner definitions including enabled EDI transactions and code conversion mappings.
+      tags:
+      - Trading Partners
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      parameters:
+      - name: tradingPartnerId
+        in: query
+        description: Trading partner identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: tradingPartnerName
+        in: query
+        description: Trading partner name (supports wildcards)
+        schema:
+          type: string
+        example: example_value
+      - name: tradingPartnerType
+        in: query
+        description: Trading partner type
+        schema:
+          type: string
+          enum:
+          - CUSTOMER
+          - SUPPLIER
+        example: CUSTOMER
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Offset'
+      responses:
+        '200':
+          description: List of trading partners
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TradingPartner'
+                  totalCount:
+                    type: integer
+                  hasMore:
+                    type: boolean
+              examples:
+                Gettradingpartners200Example:
+                  summary: Default getTradingPartners 200 response
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - tradingPartnerId: '500123'
+                      tradingPartnerName: example_value
+                      tradingPartnerType: CUSTOMER
+                      tradingPartnerSiteId: '500123'
+                      tradingPartnerSiteName: example_value
+                      ediLocationCode: example_value
+                      ediTranslatorCode: example_value
+                      documentStandard: X12
+                      enabledTransactions:
+                      - {}
+                      creationDate: '2026-01-15T10:30:00Z'
+                      lastUpdateDate: '2026-01-15T10:30:00Z'
+                    totalCount: 10
+                    hasMore: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /ece/tradingPartners/{tradingPartnerId}:
+    get:
+      operationId: getTradingPartnerById
+      summary: Retrieve a Specific Trading Partner
+      description: Retrieves a trading partner by identifier with full detail.
+      tags:
+      - Trading Partners
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      parameters:
+      - name: tradingPartnerId
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: '500123'
+      responses:
+        '200':
+          description: Trading partner details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TradingPartner'
+              examples:
+                Gettradingpartnerbyid200Example:
+                  summary: Default getTradingPartnerById 200 response
+                  x-microcks-default: true
+                  value:
+                    tradingPartnerId: '500123'
+                    tradingPartnerName: example_value
+                    tradingPartnerType: CUSTOMER
+                    tradingPartnerSiteId: '500123'
+                    tradingPartnerSiteName: example_value
+                    ediLocationCode: example_value
+                    ediTranslatorCode: example_value
+                    documentStandard: X12
+                    enabledTransactions:
+                    - transactionType: example_value
+                      transactionDescription: example_value
+                      direction: INBOUND
+                      documentId: '500123'
+                      enabled: true
+                    creationDate: '2026-01-15T10:30:00Z'
+                    lastUpdateDate: '2026-01-15T10:30:00Z'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            detail:
+              type: string
+          example: example_value
+    TradingPartner:
+      type: object
+      properties:
+        tradingPartnerId:
+          type: integer
+          description: Trading partner identifier
+          example: '500123'
+        tradingPartnerName:
+          type: string
+          description: Trading partner name
+          example: example_value
+        tradingPartnerType:
+          type: string
+          description: Trading partner type
+          enum:
+          - CUSTOMER
+          - SUPPLIER
+          example: CUSTOMER
+        tradingPartnerSiteId:
+          type: integer
+          description: Trading partner site identifier
+          example: '500123'
+        tradingPartnerSiteName:
+          type: string
+          description: Site name
+          example: example_value
+        ediLocationCode:
+          type: string
+          description: EDI location code (DUNS, DUNS+4, etc.)
+          example: example_value
+        ediTranslatorCode:
+          type: string
+          description: EDI translator code
+          example: example_value
+        documentStandard:
+          type: string
+          description: Document standard
+          enum:
+          - X12
+          - EDIFACT
+          example: X12
+        enabledTransactions:
+          type: array
+          description: List of enabled EDI transactions for this partner
+          items:
+            $ref: '#/components/schemas/EnabledTransaction'
+          example: []
+        creationDate:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+        lastUpdateDate:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+    EnabledTransaction:
+      type: object
+      properties:
+        transactionType:
+          type: string
+          description: Transaction type code
+          example: example_value
+        transactionDescription:
+          type: string
+          description: Transaction description
+          example: example_value
+        direction:
+          type: string
+          description: Transaction direction
+          enum:
+          - INBOUND
+          - OUTBOUND
+          example: INBOUND
+        documentId:
+          type: string
+          description: ASC X12 or EDIFACT document identifier
+          example: '500123'
+        enabled:
+          type: boolean
+          description: Whether transaction is enabled
+          example: true
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required or token expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    Offset:
+      name: offset
+      in: query
+      description: Number of records to skip for pagination
+      schema:
+        type: integer
+        default: 0
+    Limit:
+      name: limit
+      in: query
+      description: Maximum number of records to return
+      schema:
+        type: integer
+        default: 25
+        maximum: 500
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication with Oracle EBS username and password
+    tokenAuth:
+      type: apiKey
+      in: cookie
+      name: accessToken
+      description: Token-based authentication using the ISG login access token

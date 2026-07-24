@@ -1,0 +1,509 @@
+openapi: 3.1.0
+info:
+  title: Oracle EBS e-Commerce Gateway Accounts Payable Bills of Material API
+  description: RESTful APIs for Oracle E-Business Suite e-Commerce Gateway providing EDI (Electronic Data Interchange) transaction support. Enables exchange of standard ASC X12 and EDIFACT documents with trading partners through flat ASCII file integration with third-party EDI translators. Supports inbound and outbound document processing for purchase orders, invoices, ship notices, and other business documents.
+  version: 12.2.0
+  contact:
+    name: Oracle Support
+    email: support@oracle.com
+    url: https://support.oracle.com
+  license:
+    name: Oracle Proprietary
+    url: https://www.oracle.com/legal/terms/
+  x-logo:
+    url: https://www.oracle.com/a/ocom/img/oracle-logo.svg
+servers:
+- url: https://{instance}.oracle.com/webservices/rest
+  description: Oracle EBS ISG REST endpoint
+  variables:
+    instance:
+      default: ebs-host
+      description: The Oracle EBS instance hostname
+tags:
+- name: Bills of Material
+  description: BOM and routing management
+paths:
+  /bom/billsOfMaterial:
+    get:
+      operationId: getBillsOfMaterial
+      summary: Retrieve Bills of Material
+      description: Retrieves Bill of Material (BOM) header and component records. Maps to the BOM_STRUCTURES_B and BOM_COMPONENTS_B tables through the BOM_BO_PUB PL/SQL API.
+      tags:
+      - Bills of Material
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      parameters:
+      - name: billSequenceId
+        in: query
+        description: Bill sequence identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: assemblyItemId
+        in: query
+        description: Assembly item identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: organizationId
+        in: query
+        description: Organization identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: alternateDesignator
+        in: query
+        description: Alternate BOM designator
+        schema:
+          type: string
+        example: example_value
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Offset'
+      responses:
+        '200':
+          description: List of bills of material
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/BillOfMaterial'
+                  totalCount:
+                    type: integer
+                  hasMore:
+                    type: boolean
+              examples:
+                Getbillsofmaterial200Example:
+                  summary: Default getBillsOfMaterial 200 response
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - billSequenceId: '500123'
+                      assemblyItemId: '500123'
+                      assemblyItemNumber: example_value
+                      organizationId: '500123'
+                      alternateDesignator: example_value
+                      assemblyType: 10
+                      commonBillSequenceId: '500123'
+                      specificAssemblyComment: example_value
+                      components:
+                      - {}
+                      creationDate: '2026-01-15T10:30:00Z'
+                      lastUpdateDate: '2026-01-15T10:30:00Z'
+                    totalCount: 10
+                    hasMore: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /bom/billsOfMaterial/{billSequenceId}:
+    get:
+      operationId: getBillOfMaterialById
+      summary: Retrieve a Specific Bill of Material
+      description: Retrieves a bill of material with all its components.
+      tags:
+      - Bills of Material
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      parameters:
+      - name: billSequenceId
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: '500123'
+      responses:
+        '200':
+          description: Bill of material details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BillOfMaterial'
+              examples:
+                Getbillofmaterialbyid200Example:
+                  summary: Default getBillOfMaterialById 200 response
+                  x-microcks-default: true
+                  value:
+                    billSequenceId: '500123'
+                    assemblyItemId: '500123'
+                    assemblyItemNumber: example_value
+                    organizationId: '500123'
+                    alternateDesignator: example_value
+                    assemblyType: 10
+                    commonBillSequenceId: '500123'
+                    specificAssemblyComment: example_value
+                    components:
+                    - componentSequenceId: '500123'
+                      componentItemId: '500123'
+                      componentItemNumber: example_value
+                      itemDescription: example_value
+                      operationSeqNum: 10
+                      componentQuantity: 42.5
+                      componentYieldFactor: 42.5
+                      effectivityDate: '2026-01-15'
+                      disableDate: '2026-01-15'
+                      wipSupplyType: 10
+                      optional: 10
+                      quantityRelated: 10
+                    creationDate: '2026-01-15T10:30:00Z'
+                    lastUpdateDate: '2026-01-15T10:30:00Z'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /bom/routings:
+    get:
+      operationId: getRoutings
+      summary: Retrieve Manufacturing Routings
+      description: Retrieves manufacturing routing records. Maps to the BOM_OPERATIONAL_ROUTINGS, BOM_OPERATION_SEQUENCES, and BOM_OPERATION_RESOURCES tables.
+      tags:
+      - Bills of Material
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      parameters:
+      - name: routingSequenceId
+        in: query
+        description: Routing sequence identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: assemblyItemId
+        in: query
+        description: Assembly item identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: organizationId
+        in: query
+        description: Organization identifier
+        schema:
+          type: integer
+        example: '500123'
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Offset'
+      responses:
+        '200':
+          description: List of routings
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Routing'
+                  totalCount:
+                    type: integer
+                  hasMore:
+                    type: boolean
+              examples:
+                Getroutings200Example:
+                  summary: Default getRoutings 200 response
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - routingSequenceId: '500123'
+                      assemblyItemId: '500123'
+                      assemblyItemNumber: example_value
+                      organizationId: '500123'
+                      alternateDesignator: example_value
+                      routingType: 10
+                      operations:
+                      - {}
+                      creationDate: '2026-01-15T10:30:00Z'
+                      lastUpdateDate: '2026-01-15T10:30:00Z'
+                    totalCount: 10
+                    hasMore: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            detail:
+              type: string
+          example: example_value
+    RoutingOperation:
+      type: object
+      properties:
+        operationSequenceId:
+          type: integer
+          description: Operation sequence identifier
+          example: '500123'
+        operationSeqNum:
+          type: integer
+          description: Operation sequence number
+          example: 10
+        operationDescription:
+          type: string
+          description: Operation description
+          example: example_value
+        operationCode:
+          type: string
+          description: Standard operation code
+          example: example_value
+        departmentId:
+          type: integer
+          description: Department identifier
+          example: '500123'
+        departmentCode:
+          type: string
+          description: Department code
+          example: example_value
+        effectivityDate:
+          type: string
+          format: date
+          example: '2026-01-15'
+        disableDate:
+          type: string
+          format: date
+          example: '2026-01-15'
+        minimumTransferQuantity:
+          type: number
+          format: double
+          example: 42.5
+        countPointType:
+          type: integer
+          description: Count point type (1=Yes, 2=No, 3=Auto-charge)
+          example: 10
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/OperationResource'
+          example: []
+    OperationResource:
+      type: object
+      properties:
+        resourceSeqNum:
+          type: integer
+          description: Resource sequence number
+          example: 10
+        resourceId:
+          type: integer
+          description: Resource identifier
+          example: '500123'
+        resourceCode:
+          type: string
+          description: Resource code
+          example: example_value
+        usageRateOrAmount:
+          type: number
+          format: double
+          description: Resource usage rate or amount
+          example: 42.5
+        basisType:
+          type: integer
+          description: Basis type (1=Item, 2=Lot, 3=Resource Units, 4=Resource Value)
+          example: 10
+        scheduleFlag:
+          type: integer
+          description: Schedule flag
+          example: 10
+        autochargeType:
+          type: integer
+          description: Auto-charge type
+          example: 10
+    Routing:
+      type: object
+      properties:
+        routingSequenceId:
+          type: integer
+          description: Routing sequence identifier
+          example: '500123'
+        assemblyItemId:
+          type: integer
+          description: Assembly item identifier
+          example: '500123'
+        assemblyItemNumber:
+          type: string
+          description: Assembly item number
+          example: example_value
+        organizationId:
+          type: integer
+          description: Organization identifier
+          example: '500123'
+        alternateDesignator:
+          type: string
+          description: Alternate routing designator
+          example: example_value
+        routingType:
+          type: integer
+          description: Routing type (1=Manufacturing, 2=Engineering)
+          example: 10
+        operations:
+          type: array
+          items:
+            $ref: '#/components/schemas/RoutingOperation'
+          example: []
+        creationDate:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+        lastUpdateDate:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+    BillOfMaterial:
+      type: object
+      properties:
+        billSequenceId:
+          type: integer
+          description: Bill sequence identifier
+          example: '500123'
+        assemblyItemId:
+          type: integer
+          description: Assembly item identifier
+          example: '500123'
+        assemblyItemNumber:
+          type: string
+          description: Assembly item number
+          example: example_value
+        organizationId:
+          type: integer
+          description: Organization identifier
+          example: '500123'
+        alternateDesignator:
+          type: string
+          description: Alternate BOM designator
+          example: example_value
+        assemblyType:
+          type: integer
+          description: Assembly type (1=Manufacturing, 2=Engineering)
+          example: 10
+        commonBillSequenceId:
+          type: integer
+          description: Common bill sequence identifier
+          example: '500123'
+        specificAssemblyComment:
+          type: string
+          description: Assembly comment
+          example: example_value
+        components:
+          type: array
+          items:
+            $ref: '#/components/schemas/BomComponent'
+          example: []
+        creationDate:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+        lastUpdateDate:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+    BomComponent:
+      type: object
+      properties:
+        componentSequenceId:
+          type: integer
+          description: Component sequence identifier
+          example: '500123'
+        componentItemId:
+          type: integer
+          description: Component item identifier
+          example: '500123'
+        componentItemNumber:
+          type: string
+          description: Component item number
+          example: example_value
+        itemDescription:
+          type: string
+          description: Component item description
+          example: example_value
+        operationSeqNum:
+          type: integer
+          description: Operation sequence number where component is consumed
+          example: 10
+        componentQuantity:
+          type: number
+          format: double
+          description: Component quantity per assembly
+          example: 42.5
+        componentYieldFactor:
+          type: number
+          format: double
+          description: Component yield factor
+          example: 42.5
+        effectivityDate:
+          type: string
+          format: date
+          description: Effective date
+          example: '2026-01-15'
+        disableDate:
+          type: string
+          format: date
+          description: Disable date
+          example: '2026-01-15'
+        wipSupplyType:
+          type: integer
+          description: WIP supply type (1=Push, 2=Assembly Pull, 3=Operation Pull, 4=Bulk, 5=Supplier, 6=Phantom)
+          example: 10
+        optional:
+          type: integer
+          description: Optional flag (1=Yes, 2=No)
+          example: 10
+        quantityRelated:
+          type: integer
+          description: Quantity related flag
+          example: 10
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required or token expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    Offset:
+      name: offset
+      in: query
+      description: Number of records to skip for pagination
+      schema:
+        type: integer
+        default: 0
+    Limit:
+      name: limit
+      in: query
+      description: Maximum number of records to return
+      schema:
+        type: integer
+        default: 25
+        maximum: 500
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication with Oracle EBS username and password
+    tokenAuth:
+      type: apiKey
+      in: cookie
+      name: accessToken
+      description: Token-based authentication using the ISG login access token

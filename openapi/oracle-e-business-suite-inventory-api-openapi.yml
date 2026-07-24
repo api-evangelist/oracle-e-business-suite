@@ -1,0 +1,350 @@
+openapi: 3.1.0
+info:
+  title: Oracle EBS e-Commerce Gateway Accounts Payable Inventory API
+  description: RESTful APIs for Oracle E-Business Suite e-Commerce Gateway providing EDI (Electronic Data Interchange) transaction support. Enables exchange of standard ASC X12 and EDIFACT documents with trading partners through flat ASCII file integration with third-party EDI translators. Supports inbound and outbound document processing for purchase orders, invoices, ship notices, and other business documents.
+  version: 12.2.0
+  contact:
+    name: Oracle Support
+    email: support@oracle.com
+    url: https://support.oracle.com
+  license:
+    name: Oracle Proprietary
+    url: https://www.oracle.com/legal/terms/
+  x-logo:
+    url: https://www.oracle.com/a/ocom/img/oracle-logo.svg
+servers:
+- url: https://{instance}.oracle.com/webservices/rest
+  description: Oracle EBS ISG REST endpoint
+  variables:
+    instance:
+      default: ebs-host
+      description: The Oracle EBS instance hostname
+tags:
+- name: Inventory
+  description: Inventory items and on-hand quantity management
+paths:
+  /inv/items:
+    get:
+      operationId: getInventoryItems
+      summary: Retrieve Inventory Items
+      description: Retrieves Inventory item master records. Maps to the MTL_SYSTEM_ITEMS_B table through the Inventory Items API.
+      tags:
+      - Inventory
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      parameters:
+      - name: inventoryItemId
+        in: query
+        description: Inventory item identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: segment1
+        in: query
+        description: Item number
+        schema:
+          type: string
+        example: example_value
+      - name: organizationId
+        in: query
+        description: Inventory organization identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: itemType
+        in: query
+        description: Item type
+        schema:
+          type: string
+        example: example_value
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Offset'
+      responses:
+        '200':
+          description: List of inventory items
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/InventoryItem'
+                  totalCount:
+                    type: integer
+                  hasMore:
+                    type: boolean
+              examples:
+                Getinventoryitems200Example:
+                  summary: Default getInventoryItems 200 response
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - inventoryItemId: '500123'
+                      segment1: example_value
+                      description: A sample description.
+                      longDescription: example_value
+                      primaryUomCode: example_value
+                      itemType: example_value
+                      inventoryItemStatusCode: example_value
+                      organizationId: '500123'
+                      weightUomCode: example_value
+                      unitWeight: 42.5
+                      volumeUomCode: example_value
+                      unitVolume: 42.5
+                      listPrice: 42.5
+                      purchasingEnabledFlag: Y
+                      customerOrderEnabledFlag: Y
+                      internalOrderEnabledFlag: Y
+                      creationDate: '2026-01-15T10:30:00Z'
+                      lastUpdateDate: '2026-01-15T10:30:00Z'
+                    totalCount: 10
+                    hasMore: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /inv/onhandQuantities:
+    get:
+      operationId: getOnhandQuantities
+      summary: Retrieve On-hand Inventory Quantities
+      description: Retrieves on-hand quantity information for inventory items. Maps to the MTL_ONHAND_QUANTITIES_DETAIL table.
+      tags:
+      - Inventory
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      parameters:
+      - name: inventoryItemId
+        in: query
+        description: Inventory item identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: organizationId
+        in: query
+        description: Inventory organization identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: subinventoryCode
+        in: query
+        description: Subinventory code
+        schema:
+          type: string
+        example: example_value
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Offset'
+      responses:
+        '200':
+          description: On-hand quantity records
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/OnhandQuantity'
+                  totalCount:
+                    type: integer
+                  hasMore:
+                    type: boolean
+              examples:
+                Getonhandquantities200Example:
+                  summary: Default getOnhandQuantities 200 response
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - inventoryItemId: '500123'
+                      organizationId: '500123'
+                      subinventoryCode: example_value
+                      locatorId: '500123'
+                      lotNumber: example_value
+                      serialNumber: example_value
+                      transactionQuantity: 42.5
+                      transactionUomCode: example_value
+                      lastUpdateDate: '2026-01-15T10:30:00Z'
+                    totalCount: 10
+                    hasMore: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            detail:
+              type: string
+          example: example_value
+    InventoryItem:
+      type: object
+      properties:
+        inventoryItemId:
+          type: integer
+          description: Inventory item identifier
+          example: '500123'
+        segment1:
+          type: string
+          description: Item number
+          example: example_value
+        description:
+          type: string
+          description: Item description
+          example: A sample description.
+        longDescription:
+          type: string
+          description: Extended item description
+          example: example_value
+        primaryUomCode:
+          type: string
+          description: Primary unit of measure
+          example: example_value
+        itemType:
+          type: string
+          description: Item type
+          example: example_value
+        inventoryItemStatusCode:
+          type: string
+          description: Item status code
+          example: example_value
+        organizationId:
+          type: integer
+          description: Inventory organization identifier
+          example: '500123'
+        weightUomCode:
+          type: string
+          description: Weight unit of measure
+          example: example_value
+        unitWeight:
+          type: number
+          format: double
+          description: Unit weight
+          example: 42.5
+        volumeUomCode:
+          type: string
+          description: Volume unit of measure
+          example: example_value
+        unitVolume:
+          type: number
+          format: double
+          description: Unit volume
+          example: 42.5
+        listPrice:
+          type: number
+          format: double
+          description: Item list price
+          example: 42.5
+        purchasingEnabledFlag:
+          type: string
+          enum:
+          - Y
+          - N
+          example: Y
+        customerOrderEnabledFlag:
+          type: string
+          enum:
+          - Y
+          - N
+          example: Y
+        internalOrderEnabledFlag:
+          type: string
+          enum:
+          - Y
+          - N
+          example: Y
+        creationDate:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+        lastUpdateDate:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+    OnhandQuantity:
+      type: object
+      properties:
+        inventoryItemId:
+          type: integer
+          description: Inventory item identifier
+          example: '500123'
+        organizationId:
+          type: integer
+          description: Organization identifier
+          example: '500123'
+        subinventoryCode:
+          type: string
+          description: Subinventory code
+          example: example_value
+        locatorId:
+          type: integer
+          description: Locator identifier
+          example: '500123'
+        lotNumber:
+          type: string
+          description: Lot number
+          example: example_value
+        serialNumber:
+          type: string
+          description: Serial number
+          example: example_value
+        transactionQuantity:
+          type: number
+          format: double
+          description: On-hand quantity
+          example: 42.5
+        transactionUomCode:
+          type: string
+          description: Unit of measure code
+          example: example_value
+        lastUpdateDate:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+  responses:
+    Unauthorized:
+      description: Authentication required or token expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    Offset:
+      name: offset
+      in: query
+      description: Number of records to skip for pagination
+      schema:
+        type: integer
+        default: 0
+    Limit:
+      name: limit
+      in: query
+      description: Maximum number of records to return
+      schema:
+        type: integer
+        default: 25
+        maximum: 500
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication with Oracle EBS username and password
+    tokenAuth:
+      type: apiKey
+      in: cookie
+      name: accessToken
+      description: Token-based authentication using the ISG login access token

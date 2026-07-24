@@ -1,0 +1,337 @@
+openapi: 3.1.0
+info:
+  title: Oracle EBS e-Commerce Gateway Accounts Payable Inbound Transactions API
+  description: RESTful APIs for Oracle E-Business Suite e-Commerce Gateway providing EDI (Electronic Data Interchange) transaction support. Enables exchange of standard ASC X12 and EDIFACT documents with trading partners through flat ASCII file integration with third-party EDI translators. Supports inbound and outbound document processing for purchase orders, invoices, ship notices, and other business documents.
+  version: 12.2.0
+  contact:
+    name: Oracle Support
+    email: support@oracle.com
+    url: https://support.oracle.com
+  license:
+    name: Oracle Proprietary
+    url: https://www.oracle.com/legal/terms/
+  x-logo:
+    url: https://www.oracle.com/a/ocom/img/oracle-logo.svg
+servers:
+- url: https://{instance}.oracle.com/webservices/rest
+  description: Oracle EBS ISG REST endpoint
+  variables:
+    instance:
+      default: ebs-host
+      description: The Oracle EBS instance hostname
+tags:
+- name: Inbound Transactions
+  description: Inbound EDI document processing
+paths:
+  /ece/transactions/inbound:
+    get:
+      operationId: getInboundTransactions
+      summary: Retrieve Inbound Edi Transactions
+      description: Retrieves inbound EDI transaction records that have been imported through the e-Commerce Gateway. Includes invoice, ship notice, price catalog, and quote response documents.
+      tags:
+      - Inbound Transactions
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      parameters:
+      - name: transactionType
+        in: query
+        description: EDI transaction type code
+        schema:
+          type: string
+          enum:
+          - INI
+          - CATI
+          - RRQI
+          - ASNI
+          - SBNI
+        example: INI
+      - name: tradingPartnerId
+        in: query
+        description: Trading partner identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: processStatus
+        in: query
+        description: Processing status
+        schema:
+          type: string
+          enum:
+          - PENDING
+          - PROCESSED
+          - ERROR
+        example: PENDING
+      - name: creationDateFrom
+        in: query
+        description: Creation date range start (YYYY-MM-DD)
+        schema:
+          type: string
+          format: date
+        example: '2026-01-15'
+      - name: creationDateTo
+        in: query
+        description: Creation date range end (YYYY-MM-DD)
+        schema:
+          type: string
+          format: date
+        example: '2026-01-15'
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Offset'
+      responses:
+        '200':
+          description: List of inbound transactions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/InboundTransaction'
+                  totalCount:
+                    type: integer
+                  hasMore:
+                    type: boolean
+              examples:
+                Getinboundtransactions200Example:
+                  summary: Default getInboundTransactions 200 response
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - transactionId: '500123'
+                      transactionType: INI
+                      transactionDescription: example_value
+                      documentStandard: example_value
+                      documentNumber: example_value
+                      tradingPartnerId: '500123'
+                      tradingPartnerName: example_value
+                      tradingPartnerSiteId: '500123'
+                      processStatus: PENDING
+                      documentDate: '2026-01-15'
+                      documentAmount: 42.5
+                      currencyCode: example_value
+                      errorMessage: example_value
+                      creationDate: '2026-01-15T10:30:00Z'
+                      lastUpdateDate: '2026-01-15T10:30:00Z'
+                    totalCount: 10
+                    hasMore: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: importInboundTransaction
+      summary: Import an Inbound Edi Transaction
+      description: Imports an inbound EDI transaction into Oracle EBS through the e-Commerce Gateway. The transaction data is validated, code conversion is applied, and data is loaded into the appropriate Oracle application open interface tables.
+      tags:
+      - Inbound Transactions
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InboundTransactionImport'
+            examples:
+              ImportinboundtransactionRequestExample:
+                summary: Default importInboundTransaction request
+                x-microcks-default: true
+                value:
+                  transactionType: INI
+                  tradingPartnerId: '500123'
+                  tradingPartnerSiteId: '500123'
+                  documentDate: '2026-01-15'
+                  documentData: example_value
+      responses:
+        '201':
+          description: Inbound transaction imported successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  transactionId:
+                    type: integer
+                  status:
+                    type: string
+                  message:
+                    type: string
+              examples:
+                Importinboundtransaction201Example:
+                  summary: Default importInboundTransaction 201 response
+                  x-microcks-default: true
+                  value:
+                    transactionId: '500123'
+                    status: example_value
+                    message: example_value
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            detail:
+              type: string
+          example: example_value
+    InboundTransactionImport:
+      type: object
+      required:
+      - transactionType
+      - tradingPartnerId
+      - tradingPartnerSiteId
+      properties:
+        transactionType:
+          type: string
+          description: Inbound transaction type
+          enum:
+          - INI
+          - CATI
+          - RRQI
+          - ASNI
+          - SBNI
+          example: INI
+        tradingPartnerId:
+          type: integer
+          example: '500123'
+        tradingPartnerSiteId:
+          type: integer
+          example: '500123'
+        documentDate:
+          type: string
+          format: date
+          example: '2026-01-15'
+        documentData:
+          type: object
+          description: Transaction-specific document data. Structure varies by transaction type (invoice, ship notice, etc.)
+          additionalProperties: true
+          example: example_value
+    InboundTransaction:
+      type: object
+      properties:
+        transactionId:
+          type: integer
+          description: Transaction identifier
+          example: '500123'
+        transactionType:
+          type: string
+          description: Inbound transaction type code
+          enum:
+          - INI
+          - CATI
+          - RRQI
+          - ASNI
+          - SBNI
+          example: INI
+        transactionDescription:
+          type: string
+          description: Transaction description
+          example: example_value
+        documentStandard:
+          type: string
+          description: Document standard (X12 or EDIFACT)
+          example: example_value
+        documentNumber:
+          type: string
+          description: ASC X12 document number (810, 832, 843, 856, 857)
+          example: example_value
+        tradingPartnerId:
+          type: integer
+          description: Trading partner identifier
+          example: '500123'
+        tradingPartnerName:
+          type: string
+          example: example_value
+        tradingPartnerSiteId:
+          type: integer
+          example: '500123'
+        processStatus:
+          type: string
+          description: Processing status
+          enum:
+          - PENDING
+          - PROCESSED
+          - ERROR
+          example: PENDING
+        documentDate:
+          type: string
+          format: date
+          description: Document date
+          example: '2026-01-15'
+        documentAmount:
+          type: number
+          format: double
+          description: Document total amount
+          example: 42.5
+        currencyCode:
+          type: string
+          description: Currency code
+          example: example_value
+        errorMessage:
+          type: string
+          description: Error message if processing failed
+          example: example_value
+        creationDate:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+        lastUpdateDate:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+  responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required or token expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    Offset:
+      name: offset
+      in: query
+      description: Number of records to skip for pagination
+      schema:
+        type: integer
+        default: 0
+    Limit:
+      name: limit
+      in: query
+      description: Maximum number of records to return
+      schema:
+        type: integer
+        default: 25
+        maximum: 500
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication with Oracle EBS username and password
+    tokenAuth:
+      type: apiKey
+      in: cookie
+      name: accessToken
+      description: Token-based authentication using the ISG login access token

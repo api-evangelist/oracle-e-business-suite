@@ -1,0 +1,213 @@
+openapi: 3.1.0
+info:
+  title: Oracle EBS e-Commerce Gateway Accounts Payable Fixed Assets API
+  description: RESTful APIs for Oracle E-Business Suite e-Commerce Gateway providing EDI (Electronic Data Interchange) transaction support. Enables exchange of standard ASC X12 and EDIFACT documents with trading partners through flat ASCII file integration with third-party EDI translators. Supports inbound and outbound document processing for purchase orders, invoices, ship notices, and other business documents.
+  version: 12.2.0
+  contact:
+    name: Oracle Support
+    email: support@oracle.com
+    url: https://support.oracle.com
+  license:
+    name: Oracle Proprietary
+    url: https://www.oracle.com/legal/terms/
+  x-logo:
+    url: https://www.oracle.com/a/ocom/img/oracle-logo.svg
+servers:
+- url: https://{instance}.oracle.com/webservices/rest
+  description: Oracle EBS ISG REST endpoint
+  variables:
+    instance:
+      default: ebs-host
+      description: The Oracle EBS instance hostname
+tags:
+- name: Fixed Assets
+  description: Fixed asset management operations
+paths:
+  /fa/assets:
+    get:
+      operationId: getAssets
+      summary: Retrieve Fixed Assets
+      description: Retrieves Fixed Assets records. Maps to the FA_ADDITIONS_B and FA_BOOKS tables through the Fixed Assets API.
+      tags:
+      - Fixed Assets
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      parameters:
+      - name: assetId
+        in: query
+        description: Asset identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: assetNumber
+        in: query
+        description: Asset number
+        schema:
+          type: string
+        example: example_value
+      - name: assetCategory
+        in: query
+        description: Asset category
+        schema:
+          type: string
+        example: example_value
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Offset'
+      responses:
+        '200':
+          description: List of fixed assets
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/FixedAsset'
+                  totalCount:
+                    type: integer
+                  hasMore:
+                    type: boolean
+              examples:
+                Getassets200Example:
+                  summary: Default getAssets 200 response
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - assetId: '500123'
+                      assetNumber: example_value
+                      assetDescription: example_value
+                      assetCategoryId: '500123'
+                      assetType: CAPITALIZED
+                      serialNumber: example_value
+                      tagNumber: example_value
+                      dateEffective: '2026-01-15'
+                      dateInService: '2026-01-15'
+                      cost: 42.5
+                      salvageValue: 42.5
+                      depreciationMethod: example_value
+                      lifeInMonths: 10
+                      bookTypeCode: example_value
+                    totalCount: 10
+                    hasMore: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            detail:
+              type: string
+          example: example_value
+    FixedAsset:
+      type: object
+      properties:
+        assetId:
+          type: integer
+          description: Asset identifier
+          example: '500123'
+        assetNumber:
+          type: string
+          description: Asset number
+          example: example_value
+        assetDescription:
+          type: string
+          description: Asset description
+          example: example_value
+        assetCategoryId:
+          type: integer
+          description: Asset category identifier
+          example: '500123'
+        assetType:
+          type: string
+          description: Asset type
+          enum:
+          - CAPITALIZED
+          - CIP
+          - EXPENSED
+          example: CAPITALIZED
+        serialNumber:
+          type: string
+          description: Serial number
+          example: example_value
+        tagNumber:
+          type: string
+          description: Tag number
+          example: example_value
+        dateEffective:
+          type: string
+          format: date
+          example: '2026-01-15'
+        dateInService:
+          type: string
+          format: date
+          description: Date placed in service
+          example: '2026-01-15'
+        cost:
+          type: number
+          format: double
+          description: Asset cost
+          example: 42.5
+        salvageValue:
+          type: number
+          format: double
+          description: Salvage value
+          example: 42.5
+        depreciationMethod:
+          type: string
+          description: Depreciation method
+          example: example_value
+        lifeInMonths:
+          type: integer
+          description: Useful life in months
+          example: 10
+        bookTypeCode:
+          type: string
+          description: Book type code (corporate or tax)
+          example: example_value
+  responses:
+    Unauthorized:
+      description: Authentication required or token expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    Offset:
+      name: offset
+      in: query
+      description: Number of records to skip for pagination
+      schema:
+        type: integer
+        default: 0
+    Limit:
+      name: limit
+      in: query
+      description: Maximum number of records to return
+      schema:
+        type: integer
+        default: 25
+        maximum: 500
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication with Oracle EBS username and password
+    tokenAuth:
+      type: apiKey
+      in: cookie
+      name: accessToken
+      description: Token-based authentication using the ISG login access token

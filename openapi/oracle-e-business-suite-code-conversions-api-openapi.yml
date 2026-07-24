@@ -1,0 +1,171 @@
+openapi: 3.1.0
+info:
+  title: Oracle EBS e-Commerce Gateway Accounts Payable Code Conversions API
+  description: RESTful APIs for Oracle E-Business Suite e-Commerce Gateway providing EDI (Electronic Data Interchange) transaction support. Enables exchange of standard ASC X12 and EDIFACT documents with trading partners through flat ASCII file integration with third-party EDI translators. Supports inbound and outbound document processing for purchase orders, invoices, ship notices, and other business documents.
+  version: 12.2.0
+  contact:
+    name: Oracle Support
+    email: support@oracle.com
+    url: https://support.oracle.com
+  license:
+    name: Oracle Proprietary
+    url: https://www.oracle.com/legal/terms/
+  x-logo:
+    url: https://www.oracle.com/a/ocom/img/oracle-logo.svg
+servers:
+- url: https://{instance}.oracle.com/webservices/rest
+  description: Oracle EBS ISG REST endpoint
+  variables:
+    instance:
+      default: ebs-host
+      description: The Oracle EBS instance hostname
+tags:
+- name: Code Conversions
+  description: EDI code conversion mapping management
+paths:
+  /ece/codeConversions:
+    get:
+      operationId: getCodeConversions
+      summary: Retrieve Code Conversion Mappings
+      description: Retrieves e-Commerce Gateway code conversion mappings that translate between trading partner external codes and Oracle EBS internal codes.
+      tags:
+      - Code Conversions
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      parameters:
+      - name: tradingPartnerId
+        in: query
+        description: Trading partner identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: transactionType
+        in: query
+        description: Transaction type code
+        schema:
+          type: string
+        example: example_value
+      - name: codeCategory
+        in: query
+        description: Code category
+        schema:
+          type: string
+        example: example_value
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Offset'
+      responses:
+        '200':
+          description: List of code conversion mappings
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CodeConversion'
+                  totalCount:
+                    type: integer
+                  hasMore:
+                    type: boolean
+              examples:
+                Getcodeconversions200Example:
+                  summary: Default getCodeConversions 200 response
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - codeConversionId: '500123'
+                      tradingPartnerId: '500123'
+                      transactionType: example_value
+                      codeCategory: example_value
+                      externalValue: example_value
+                      internalValue: example_value
+                      description: A sample description.
+                    totalCount: 10
+                    hasMore: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    CodeConversion:
+      type: object
+      properties:
+        codeConversionId:
+          type: integer
+          description: Code conversion mapping identifier
+          example: '500123'
+        tradingPartnerId:
+          type: integer
+          description: Trading partner identifier
+          example: '500123'
+        transactionType:
+          type: string
+          description: Transaction type
+          example: example_value
+        codeCategory:
+          type: string
+          description: Code category
+          example: example_value
+        externalValue:
+          type: string
+          description: External trading partner code value
+          example: example_value
+        internalValue:
+          type: string
+          description: Internal Oracle EBS code value
+          example: example_value
+        description:
+          type: string
+          description: Code conversion description
+          example: A sample description.
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            detail:
+              type: string
+          example: example_value
+  responses:
+    Unauthorized:
+      description: Authentication required or token expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    Offset:
+      name: offset
+      in: query
+      description: Number of records to skip for pagination
+      schema:
+        type: integer
+        default: 0
+    Limit:
+      name: limit
+      in: query
+      description: Maximum number of records to return
+      schema:
+        type: integer
+        default: 25
+        maximum: 500
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication with Oracle EBS username and password
+    tokenAuth:
+      type: apiKey
+      in: cookie
+      name: accessToken
+      description: Token-based authentication using the ISG login access token

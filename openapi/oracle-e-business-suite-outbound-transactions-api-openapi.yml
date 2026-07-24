@@ -1,0 +1,354 @@
+openapi: 3.1.0
+info:
+  title: Oracle EBS e-Commerce Gateway Accounts Payable Outbound Transactions API
+  description: RESTful APIs for Oracle E-Business Suite e-Commerce Gateway providing EDI (Electronic Data Interchange) transaction support. Enables exchange of standard ASC X12 and EDIFACT documents with trading partners through flat ASCII file integration with third-party EDI translators. Supports inbound and outbound document processing for purchase orders, invoices, ship notices, and other business documents.
+  version: 12.2.0
+  contact:
+    name: Oracle Support
+    email: support@oracle.com
+    url: https://support.oracle.com
+  license:
+    name: Oracle Proprietary
+    url: https://www.oracle.com/legal/terms/
+  x-logo:
+    url: https://www.oracle.com/a/ocom/img/oracle-logo.svg
+servers:
+- url: https://{instance}.oracle.com/webservices/rest
+  description: Oracle EBS ISG REST endpoint
+  variables:
+    instance:
+      default: ebs-host
+      description: The Oracle EBS instance hostname
+tags:
+- name: Outbound Transactions
+  description: Outbound EDI document extraction
+paths:
+  /ece/transactions/outbound:
+    get:
+      operationId: getOutboundTransactions
+      summary: Retrieve Outbound Edi Transactions
+      description: Retrieves outbound EDI transaction records that have been extracted from Oracle EBS for transmission to trading partners. Includes purchase orders, invoices, payments, and schedule documents.
+      tags:
+      - Outbound Transactions
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      parameters:
+      - name: transactionType
+        in: query
+        description: EDI transaction type code
+        schema:
+          type: string
+          enum:
+          - POO
+          - POCO
+          - INO
+          - CDMO
+          - PYO
+          - SPSO
+          - SSSO
+          - ADVO
+          - MVSTO
+        example: POO
+      - name: tradingPartnerId
+        in: query
+        description: Trading partner identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: processStatus
+        in: query
+        description: Processing status
+        schema:
+          type: string
+          enum:
+          - PENDING
+          - EXTRACTED
+          - ERROR
+        example: PENDING
+      - name: creationDateFrom
+        in: query
+        description: Creation date range start (YYYY-MM-DD)
+        schema:
+          type: string
+          format: date
+        example: '2026-01-15'
+      - name: creationDateTo
+        in: query
+        description: Creation date range end (YYYY-MM-DD)
+        schema:
+          type: string
+          format: date
+        example: '2026-01-15'
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Offset'
+      responses:
+        '200':
+          description: List of outbound transactions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/OutboundTransaction'
+                  totalCount:
+                    type: integer
+                  hasMore:
+                    type: boolean
+              examples:
+                Getoutboundtransactions200Example:
+                  summary: Default getOutboundTransactions 200 response
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - transactionId: '500123'
+                      transactionType: POO
+                      transactionDescription: example_value
+                      documentStandard: example_value
+                      documentNumber: example_value
+                      tradingPartnerId: '500123'
+                      tradingPartnerName: example_value
+                      tradingPartnerSiteId: '500123'
+                      processStatus: PENDING
+                      sourceDocumentId: '500123'
+                      sourceDocumentNumber: example_value
+                      documentDate: '2026-01-15'
+                      documentAmount: 42.5
+                      currencyCode: example_value
+                      errorMessage: example_value
+                      creationDate: '2026-01-15T10:30:00Z'
+                      lastUpdateDate: '2026-01-15T10:30:00Z'
+                    totalCount: 10
+                    hasMore: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: extractOutboundTransaction
+      summary: Extract an Outbound Edi Transaction
+      description: Initiates extraction of outbound EDI transaction data from Oracle EBS application tables. The extracted data is formatted into the standard interface data file format for the specified transaction type and trading partner.
+      tags:
+      - Outbound Transactions
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OutboundTransactionExtract'
+            examples:
+              ExtractoutboundtransactionRequestExample:
+                summary: Default extractOutboundTransaction request
+                x-microcks-default: true
+                value:
+                  transactionType: POO
+                  tradingPartnerId: '500123'
+                  tradingPartnerSiteId: '500123'
+                  dateFrom: '2026-01-15'
+                  dateTo: '2026-01-15'
+      responses:
+        '201':
+          description: Outbound extraction initiated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  requestId:
+                    type: integer
+                    description: Concurrent request ID for the extraction
+                  status:
+                    type: string
+                  message:
+                    type: string
+              examples:
+                Extractoutboundtransaction201Example:
+                  summary: Default extractOutboundTransaction 201 response
+                  x-microcks-default: true
+                  value:
+                    requestId: '500123'
+                    status: example_value
+                    message: example_value
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            detail:
+              type: string
+          example: example_value
+    OutboundTransaction:
+      type: object
+      properties:
+        transactionId:
+          type: integer
+          description: Transaction identifier
+          example: '500123'
+        transactionType:
+          type: string
+          description: Outbound transaction type code
+          enum:
+          - POO
+          - POCO
+          - INO
+          - CDMO
+          - PYO
+          - SPSO
+          - SSSO
+          - ADVO
+          - MVSTO
+          example: POO
+        transactionDescription:
+          type: string
+          description: Transaction description
+          example: example_value
+        documentStandard:
+          type: string
+          description: Document standard (X12 or EDIFACT)
+          example: example_value
+        documentNumber:
+          type: string
+          description: ASC X12/EDIFACT document number
+          example: example_value
+        tradingPartnerId:
+          type: integer
+          example: '500123'
+        tradingPartnerName:
+          type: string
+          example: example_value
+        tradingPartnerSiteId:
+          type: integer
+          example: '500123'
+        processStatus:
+          type: string
+          enum:
+          - PENDING
+          - EXTRACTED
+          - ERROR
+          example: PENDING
+        sourceDocumentId:
+          type: integer
+          description: Source document identifier in Oracle EBS
+          example: '500123'
+        sourceDocumentNumber:
+          type: string
+          description: Source document number
+          example: example_value
+        documentDate:
+          type: string
+          format: date
+          example: '2026-01-15'
+        documentAmount:
+          type: number
+          format: double
+          example: 42.5
+        currencyCode:
+          type: string
+          example: example_value
+        errorMessage:
+          type: string
+          example: example_value
+        creationDate:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+        lastUpdateDate:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+    OutboundTransactionExtract:
+      type: object
+      required:
+      - transactionType
+      - tradingPartnerId
+      properties:
+        transactionType:
+          type: string
+          description: Outbound transaction type
+          enum:
+          - POO
+          - POCO
+          - INO
+          - CDMO
+          - PYO
+          - SPSO
+          - SSSO
+          - ADVO
+          - MVSTO
+          example: POO
+        tradingPartnerId:
+          type: integer
+          example: '500123'
+        tradingPartnerSiteId:
+          type: integer
+          example: '500123'
+        dateFrom:
+          type: string
+          format: date
+          description: Extract documents from this date
+          example: '2026-01-15'
+        dateTo:
+          type: string
+          format: date
+          description: Extract documents to this date
+          example: '2026-01-15'
+  responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required or token expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    Offset:
+      name: offset
+      in: query
+      description: Number of records to skip for pagination
+      schema:
+        type: integer
+        default: 0
+    Limit:
+      name: limit
+      in: query
+      description: Maximum number of records to return
+      schema:
+        type: integer
+        default: 25
+        maximum: 500
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication with Oracle EBS username and password
+    tokenAuth:
+      type: apiKey
+      in: cookie
+      name: accessToken
+      description: Token-based authentication using the ISG login access token

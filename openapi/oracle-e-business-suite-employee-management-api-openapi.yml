@@ -1,0 +1,1024 @@
+openapi: 3.1.0
+info:
+  title: Oracle EBS e-Commerce Gateway Accounts Payable Employee Management API
+  description: RESTful APIs for Oracle E-Business Suite e-Commerce Gateway providing EDI (Electronic Data Interchange) transaction support. Enables exchange of standard ASC X12 and EDIFACT documents with trading partners through flat ASCII file integration with third-party EDI translators. Supports inbound and outbound document processing for purchase orders, invoices, ship notices, and other business documents.
+  version: 12.2.0
+  contact:
+    name: Oracle Support
+    email: support@oracle.com
+    url: https://support.oracle.com
+  license:
+    name: Oracle Proprietary
+    url: https://www.oracle.com/legal/terms/
+  x-logo:
+    url: https://www.oracle.com/a/ocom/img/oracle-logo.svg
+servers:
+- url: https://{instance}.oracle.com/webservices/rest
+  description: Oracle EBS ISG REST endpoint
+  variables:
+    instance:
+      default: ebs-host
+      description: The Oracle EBS instance hostname
+tags:
+- name: Employee Management
+  description: Employee and assignment management operations
+paths:
+  /hr/employees:
+    get:
+      operationId: getEmployees
+      summary: Retrieve Employee Records
+      description: Retrieves employee records from Oracle HRMS. Maps to the PER_ALL_PEOPLE_F and PER_ALL_ASSIGNMENTS_F tables through the HR_EMPLOYEE_API PL/SQL package.
+      tags:
+      - Employee Management
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      parameters:
+      - name: personId
+        in: query
+        description: Person identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: employeeNumber
+        in: query
+        description: Employee number
+        schema:
+          type: string
+        example: example_value
+      - name: fullName
+        in: query
+        description: Full name (supports wildcards)
+        schema:
+          type: string
+        example: example_value
+      - name: businessGroupId
+        in: query
+        description: Business group identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: effectiveDate
+        in: query
+        description: Effective date for date-tracked records (YYYY-MM-DD)
+        schema:
+          type: string
+          format: date
+        example: '2026-01-15'
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Offset'
+      responses:
+        '200':
+          description: List of employees
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Employee'
+                  totalCount:
+                    type: integer
+                  hasMore:
+                    type: boolean
+              examples:
+                Getemployees200Example:
+                  summary: Default getEmployees 200 response
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - personId: '500123'
+                      employeeNumber: example_value
+                      title: Example Title
+                      firstName: example_value
+                      middleNames: example_value
+                      lastName: example_value
+                      fullName: example_value
+                      knownAs: example_value
+                      emailAddress: user@example.com
+                      sex: M
+                      dateOfBirth: '2026-01-15'
+                      nationalIdentifier: example_value
+                      nationality: example_value
+                      maritalStatus: example_value
+                      effectiveStartDate: '2026-01-15'
+                      effectiveEndDate: '2026-01-15'
+                      hireDate: '2026-01-15'
+                      currentEmployeeFlag: Y
+                      businessGroupId: '500123'
+                      addresses:
+                      - {}
+                      phones:
+                      - {}
+                      creationDate: '2026-01-15T10:30:00Z'
+                      lastUpdateDate: '2026-01-15T10:30:00Z'
+                    totalCount: 10
+                    hasMore: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createEmployee
+      summary: Create an Employee Record
+      description: Creates a new employee record using the HR_EMPLOYEE_API.CREATE_EMPLOYEE PL/SQL procedure. This creates entries in PER_ALL_PEOPLE_F, PER_ALL_ASSIGNMENTS_F, and related tables.
+      tags:
+      - Employee Management
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmployeeCreate'
+            examples:
+              CreateemployeeRequestExample:
+                summary: Default createEmployee request
+                x-microcks-default: true
+                value:
+                  title: Example Title
+                  firstName: example_value
+                  middleNames: example_value
+                  lastName: example_value
+                  knownAs: example_value
+                  emailAddress: user@example.com
+                  sex: M
+                  dateOfBirth: '2026-01-15'
+                  nationalIdentifier: example_value
+                  nationality: example_value
+                  maritalStatus: example_value
+                  hireDate: '2026-01-15'
+                  businessGroupId: '500123'
+                  jobId: '500123'
+                  positionId: '500123'
+                  organizationId: '500123'
+                  gradeId: '500123'
+                  locationId: '500123'
+                  payrollId: '500123'
+      responses:
+        '201':
+          description: Employee created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+              examples:
+                Createemployee201Example:
+                  summary: Default createEmployee 201 response
+                  x-microcks-default: true
+                  value:
+                    personId: '500123'
+                    employeeNumber: example_value
+                    title: Example Title
+                    firstName: example_value
+                    middleNames: example_value
+                    lastName: example_value
+                    fullName: example_value
+                    knownAs: example_value
+                    emailAddress: user@example.com
+                    sex: M
+                    dateOfBirth: '2026-01-15'
+                    nationalIdentifier: example_value
+                    nationality: example_value
+                    maritalStatus: example_value
+                    effectiveStartDate: '2026-01-15'
+                    effectiveEndDate: '2026-01-15'
+                    hireDate: '2026-01-15'
+                    currentEmployeeFlag: Y
+                    businessGroupId: '500123'
+                    assignment:
+                      assignmentId: '500123'
+                      assignmentNumber: example_value
+                      assignmentType: E
+                      primaryFlag: Y
+                      jobId: '500123'
+                      jobName: example_value
+                      positionId: '500123'
+                      positionName: example_value
+                      gradeId: '500123'
+                      gradeName: example_value
+                      organizationId: '500123'
+                      organizationName: example_value
+                      locationId: '500123'
+                      locationCode: example_value
+                      supervisorId: '500123'
+                      payrollId: '500123'
+                      employmentCategory: FR
+                      normalHours: 42.5
+                      frequency: D
+                      effectiveStartDate: '2026-01-15'
+                      effectiveEndDate: '2026-01-15'
+                    addresses:
+                    - addressId: '500123'
+                      addressType: example_value
+                      addressLine1: example_value
+                      addressLine2: example_value
+                      addressLine3: example_value
+                      townOrCity: example_value
+                      region1: example_value
+                      region2: example_value
+                      postalCode: example_value
+                      country: example_value
+                      primaryFlag: Y
+                      dateFrom: '2026-01-15'
+                      dateTo: '2026-01-15'
+                    phones:
+                    - phoneId: '500123'
+                      phoneType: W1
+                      phoneNumber: example_value
+                      dateFrom: '2026-01-15'
+                      dateTo: '2026-01-15'
+                    creationDate: '2026-01-15T10:30:00Z'
+                    lastUpdateDate: '2026-01-15T10:30:00Z'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /hr/employees/{personId}:
+    get:
+      operationId: getEmployeeById
+      summary: Retrieve an Employee by Person Id
+      description: Retrieves a specific employee record by person identifier.
+      tags:
+      - Employee Management
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      parameters:
+      - name: personId
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: '500123'
+      - name: effectiveDate
+        in: query
+        description: Effective date for date-tracked records (YYYY-MM-DD)
+        schema:
+          type: string
+          format: date
+        example: '2026-01-15'
+      responses:
+        '200':
+          description: Employee details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+              examples:
+                Getemployeebyid200Example:
+                  summary: Default getEmployeeById 200 response
+                  x-microcks-default: true
+                  value:
+                    personId: '500123'
+                    employeeNumber: example_value
+                    title: Example Title
+                    firstName: example_value
+                    middleNames: example_value
+                    lastName: example_value
+                    fullName: example_value
+                    knownAs: example_value
+                    emailAddress: user@example.com
+                    sex: M
+                    dateOfBirth: '2026-01-15'
+                    nationalIdentifier: example_value
+                    nationality: example_value
+                    maritalStatus: example_value
+                    effectiveStartDate: '2026-01-15'
+                    effectiveEndDate: '2026-01-15'
+                    hireDate: '2026-01-15'
+                    currentEmployeeFlag: Y
+                    businessGroupId: '500123'
+                    assignment:
+                      assignmentId: '500123'
+                      assignmentNumber: example_value
+                      assignmentType: E
+                      primaryFlag: Y
+                      jobId: '500123'
+                      jobName: example_value
+                      positionId: '500123'
+                      positionName: example_value
+                      gradeId: '500123'
+                      gradeName: example_value
+                      organizationId: '500123'
+                      organizationName: example_value
+                      locationId: '500123'
+                      locationCode: example_value
+                      supervisorId: '500123'
+                      payrollId: '500123'
+                      employmentCategory: FR
+                      normalHours: 42.5
+                      frequency: D
+                      effectiveStartDate: '2026-01-15'
+                      effectiveEndDate: '2026-01-15'
+                    addresses:
+                    - addressId: '500123'
+                      addressType: example_value
+                      addressLine1: example_value
+                      addressLine2: example_value
+                      addressLine3: example_value
+                      townOrCity: example_value
+                      region1: example_value
+                      region2: example_value
+                      postalCode: example_value
+                      country: example_value
+                      primaryFlag: Y
+                      dateFrom: '2026-01-15'
+                      dateTo: '2026-01-15'
+                    phones:
+                    - phoneId: '500123'
+                      phoneType: W1
+                      phoneNumber: example_value
+                      dateFrom: '2026-01-15'
+                      dateTo: '2026-01-15'
+                    creationDate: '2026-01-15T10:30:00Z'
+                    lastUpdateDate: '2026-01-15T10:30:00Z'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    put:
+      operationId: updateEmployee
+      summary: Update an Employee Record
+      description: Updates an existing employee record using the HR_PERSON_API.UPDATE_PERSON PL/SQL procedure with date-track support.
+      tags:
+      - Employee Management
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      parameters:
+      - name: personId
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: '500123'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmployeeUpdate'
+            examples:
+              UpdateemployeeRequestExample:
+                summary: Default updateEmployee request
+                x-microcks-default: true
+                value:
+                  effectiveDate: '2026-01-15'
+                  dateTrackUpdateMode: CORRECTION
+                  title: Example Title
+                  firstName: example_value
+                  middleNames: example_value
+                  lastName: example_value
+                  knownAs: example_value
+                  emailAddress: user@example.com
+                  maritalStatus: example_value
+      responses:
+        '200':
+          description: Employee updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+              examples:
+                Updateemployee200Example:
+                  summary: Default updateEmployee 200 response
+                  x-microcks-default: true
+                  value:
+                    personId: '500123'
+                    employeeNumber: example_value
+                    title: Example Title
+                    firstName: example_value
+                    middleNames: example_value
+                    lastName: example_value
+                    fullName: example_value
+                    knownAs: example_value
+                    emailAddress: user@example.com
+                    sex: M
+                    dateOfBirth: '2026-01-15'
+                    nationalIdentifier: example_value
+                    nationality: example_value
+                    maritalStatus: example_value
+                    effectiveStartDate: '2026-01-15'
+                    effectiveEndDate: '2026-01-15'
+                    hireDate: '2026-01-15'
+                    currentEmployeeFlag: Y
+                    businessGroupId: '500123'
+                    assignment:
+                      assignmentId: '500123'
+                      assignmentNumber: example_value
+                      assignmentType: E
+                      primaryFlag: Y
+                      jobId: '500123'
+                      jobName: example_value
+                      positionId: '500123'
+                      positionName: example_value
+                      gradeId: '500123'
+                      gradeName: example_value
+                      organizationId: '500123'
+                      organizationName: example_value
+                      locationId: '500123'
+                      locationCode: example_value
+                      supervisorId: '500123'
+                      payrollId: '500123'
+                      employmentCategory: FR
+                      normalHours: 42.5
+                      frequency: D
+                      effectiveStartDate: '2026-01-15'
+                      effectiveEndDate: '2026-01-15'
+                    addresses:
+                    - addressId: '500123'
+                      addressType: example_value
+                      addressLine1: example_value
+                      addressLine2: example_value
+                      addressLine3: example_value
+                      townOrCity: example_value
+                      region1: example_value
+                      region2: example_value
+                      postalCode: example_value
+                      country: example_value
+                      primaryFlag: Y
+                      dateFrom: '2026-01-15'
+                      dateTo: '2026-01-15'
+                    phones:
+                    - phoneId: '500123'
+                      phoneType: W1
+                      phoneNumber: example_value
+                      dateFrom: '2026-01-15'
+                      dateTo: '2026-01-15'
+                    creationDate: '2026-01-15T10:30:00Z'
+                    lastUpdateDate: '2026-01-15T10:30:00Z'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /hr/assignments:
+    get:
+      operationId: getAssignments
+      summary: Retrieve Employee Assignments
+      description: Retrieves employee assignment records. Maps to the PER_ALL_ASSIGNMENTS_F table through the HR_ASSIGNMENT_API package.
+      tags:
+      - Employee Management
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      parameters:
+      - name: assignmentId
+        in: query
+        description: Assignment identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: personId
+        in: query
+        description: Person identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: organizationId
+        in: query
+        description: HR organization identifier
+        schema:
+          type: integer
+        example: '500123'
+      - name: effectiveDate
+        in: query
+        description: Effective date (YYYY-MM-DD)
+        schema:
+          type: string
+          format: date
+        example: '2026-01-15'
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Offset'
+      responses:
+        '200':
+          description: List of assignments
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Assignment'
+                  totalCount:
+                    type: integer
+                  hasMore:
+                    type: boolean
+              examples:
+                Getassignments200Example:
+                  summary: Default getAssignments 200 response
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - assignmentId: '500123'
+                      assignmentNumber: example_value
+                      assignmentType: E
+                      primaryFlag: Y
+                      jobId: '500123'
+                      jobName: example_value
+                      positionId: '500123'
+                      positionName: example_value
+                      gradeId: '500123'
+                      gradeName: example_value
+                      organizationId: '500123'
+                      organizationName: example_value
+                      locationId: '500123'
+                      locationCode: example_value
+                      supervisorId: '500123'
+                      payrollId: '500123'
+                      employmentCategory: FR
+                      normalHours: 42.5
+                      frequency: D
+                      effectiveStartDate: '2026-01-15'
+                      effectiveEndDate: '2026-01-15'
+                    totalCount: 10
+                    hasMore: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    EmployeeCreate:
+      type: object
+      required:
+      - firstName
+      - lastName
+      - hireDate
+      - businessGroupId
+      properties:
+        title:
+          type: string
+          example: Example Title
+        firstName:
+          type: string
+          example: example_value
+        middleNames:
+          type: string
+          example: example_value
+        lastName:
+          type: string
+          example: example_value
+        knownAs:
+          type: string
+          example: example_value
+        emailAddress:
+          type: string
+          format: email
+          example: user@example.com
+        sex:
+          type: string
+          enum:
+          - M
+          - F
+          example: M
+        dateOfBirth:
+          type: string
+          format: date
+          example: '2026-01-15'
+        nationalIdentifier:
+          type: string
+          example: example_value
+        nationality:
+          type: string
+          example: example_value
+        maritalStatus:
+          type: string
+          example: example_value
+        hireDate:
+          type: string
+          format: date
+          example: '2026-01-15'
+        businessGroupId:
+          type: integer
+          example: '500123'
+        jobId:
+          type: integer
+          example: '500123'
+        positionId:
+          type: integer
+          example: '500123'
+        organizationId:
+          type: integer
+          example: '500123'
+        gradeId:
+          type: integer
+          example: '500123'
+        locationId:
+          type: integer
+          example: '500123'
+        payrollId:
+          type: integer
+          example: '500123'
+    EmployeeUpdate:
+      type: object
+      required:
+      - effectiveDate
+      properties:
+        effectiveDate:
+          type: string
+          format: date
+          description: Date-track effective date for the update
+          example: '2026-01-15'
+        dateTrackUpdateMode:
+          type: string
+          description: Date-track update mode
+          enum:
+          - CORRECTION
+          - UPDATE
+          - UPDATE_CHANGE_INSERT
+          - UPDATE_OVERRIDE
+          default: CORRECTION
+          example: CORRECTION
+        title:
+          type: string
+          example: Example Title
+        firstName:
+          type: string
+          example: example_value
+        middleNames:
+          type: string
+          example: example_value
+        lastName:
+          type: string
+          example: example_value
+        knownAs:
+          type: string
+          example: example_value
+        emailAddress:
+          type: string
+          format: email
+          example: user@example.com
+        maritalStatus:
+          type: string
+          example: example_value
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            detail:
+              type: string
+          example: example_value
+    Assignment:
+      type: object
+      properties:
+        assignmentId:
+          type: integer
+          description: Assignment identifier
+          example: '500123'
+        assignmentNumber:
+          type: string
+          description: Assignment number
+          example: example_value
+        assignmentType:
+          type: string
+          description: Assignment type
+          enum:
+          - E
+          - C
+          - A
+          example: E
+        primaryFlag:
+          type: string
+          description: Whether this is the primary assignment
+          enum:
+          - Y
+          - N
+          example: Y
+        jobId:
+          type: integer
+          description: Job identifier
+          example: '500123'
+        jobName:
+          type: string
+          description: Job name
+          example: example_value
+        positionId:
+          type: integer
+          description: Position identifier
+          example: '500123'
+        positionName:
+          type: string
+          description: Position name
+          example: example_value
+        gradeId:
+          type: integer
+          description: Grade identifier
+          example: '500123'
+        gradeName:
+          type: string
+          description: Grade name
+          example: example_value
+        organizationId:
+          type: integer
+          description: Organization identifier
+          example: '500123'
+        organizationName:
+          type: string
+          description: Organization name
+          example: example_value
+        locationId:
+          type: integer
+          description: Location identifier
+          example: '500123'
+        locationCode:
+          type: string
+          description: Location code
+          example: example_value
+        supervisorId:
+          type: integer
+          description: Supervisor person identifier
+          example: '500123'
+        payrollId:
+          type: integer
+          description: Payroll identifier
+          example: '500123'
+        employmentCategory:
+          type: string
+          description: Employment category
+          enum:
+          - FR
+          - FT
+          - PR
+          - PT
+          example: FR
+        normalHours:
+          type: number
+          format: double
+          description: Normal working hours
+          example: 42.5
+        frequency:
+          type: string
+          description: Hours frequency
+          enum:
+          - D
+          - W
+          - M
+          - Y
+          example: D
+        effectiveStartDate:
+          type: string
+          format: date
+          example: '2026-01-15'
+        effectiveEndDate:
+          type: string
+          format: date
+          example: '2026-01-15'
+    Phone:
+      type: object
+      properties:
+        phoneId:
+          type: integer
+          example: '500123'
+        phoneType:
+          type: string
+          description: Phone type
+          enum:
+          - W1
+          - H1
+          - M
+          - WF
+          - HF
+          example: W1
+        phoneNumber:
+          type: string
+          example: example_value
+        dateFrom:
+          type: string
+          format: date
+          example: '2026-01-15'
+        dateTo:
+          type: string
+          format: date
+          example: '2026-01-15'
+    Address:
+      type: object
+      properties:
+        addressId:
+          type: integer
+          description: Address identifier
+          example: '500123'
+        addressType:
+          type: string
+          description: Address type
+          example: example_value
+        addressLine1:
+          type: string
+          example: example_value
+        addressLine2:
+          type: string
+          example: example_value
+        addressLine3:
+          type: string
+          example: example_value
+        townOrCity:
+          type: string
+          example: example_value
+        region1:
+          type: string
+          description: County/province
+          example: example_value
+        region2:
+          type: string
+          description: State
+          example: example_value
+        postalCode:
+          type: string
+          example: example_value
+        country:
+          type: string
+          description: Country code
+          example: example_value
+        primaryFlag:
+          type: string
+          enum:
+          - Y
+          - N
+          example: Y
+        dateFrom:
+          type: string
+          format: date
+          example: '2026-01-15'
+        dateTo:
+          type: string
+          format: date
+          example: '2026-01-15'
+    Employee:
+      type: object
+      properties:
+        personId:
+          type: integer
+          description: Person identifier
+          example: '500123'
+        employeeNumber:
+          type: string
+          description: Employee number
+          example: example_value
+        title:
+          type: string
+          description: Title (Mr., Mrs., etc.)
+          example: Example Title
+        firstName:
+          type: string
+          description: First name
+          example: example_value
+        middleNames:
+          type: string
+          description: Middle name(s)
+          example: example_value
+        lastName:
+          type: string
+          description: Last name
+          example: example_value
+        fullName:
+          type: string
+          description: Full name (derived)
+          example: example_value
+        knownAs:
+          type: string
+          description: Preferred name
+          example: example_value
+        emailAddress:
+          type: string
+          format: email
+          description: Email address
+          example: user@example.com
+        sex:
+          type: string
+          description: Gender
+          enum:
+          - M
+          - F
+          example: M
+        dateOfBirth:
+          type: string
+          format: date
+          description: Date of birth
+          example: '2026-01-15'
+        nationalIdentifier:
+          type: string
+          description: National identifier (e.g., SSN)
+          example: example_value
+        nationality:
+          type: string
+          description: Nationality code
+          example: example_value
+        maritalStatus:
+          type: string
+          description: Marital status
+          example: example_value
+        effectiveStartDate:
+          type: string
+          format: date
+          description: Record effective start date (date-tracked)
+          example: '2026-01-15'
+        effectiveEndDate:
+          type: string
+          format: date
+          description: Record effective end date (date-tracked)
+          example: '2026-01-15'
+        hireDate:
+          type: string
+          format: date
+          description: Original hire date
+          example: '2026-01-15'
+        currentEmployeeFlag:
+          type: string
+          enum:
+          - Y
+          - N
+          example: Y
+        businessGroupId:
+          type: integer
+          description: Business group identifier
+          example: '500123'
+        assignment:
+          $ref: '#/components/schemas/Assignment'
+        addresses:
+          type: array
+          items:
+            $ref: '#/components/schemas/Address'
+          example: []
+        phones:
+          type: array
+          items:
+            $ref: '#/components/schemas/Phone'
+          example: []
+        creationDate:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+        lastUpdateDate:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required or token expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    Offset:
+      name: offset
+      in: query
+      description: Number of records to skip for pagination
+      schema:
+        type: integer
+        default: 0
+    Limit:
+      name: limit
+      in: query
+      description: Maximum number of records to return
+      schema:
+        type: integer
+        default: 25
+        maximum: 500
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication with Oracle EBS username and password
+    tokenAuth:
+      type: apiKey
+      in: cookie
+      name: accessToken
+      description: Token-based authentication using the ISG login access token
