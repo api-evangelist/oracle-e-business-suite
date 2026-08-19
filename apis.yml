@@ -29,7 +29,7 @@ tags:
   - Oracle
 created: '2024-01-01'
 modified: '2026-05-19'
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 url: https://raw.githubusercontent.com/api-evangelist/oracle-e-business-suite/refs/heads/main/apis.yml
 apis:
 - name: Oracle EBS Integrated SOA Gateway SOAP Web Services
