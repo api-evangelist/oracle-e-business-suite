@@ -1,0 +1,275 @@
+{
+  "item": [
+    {
+      "id": "41a38e0c-b2e5-48c0-b86c-aedf199e14b4",
+      "name": "Shipping",
+      "description": {
+        "content": "Shipping delivery management",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ac199d1c-e845-45d3-ae46-41cc5507db8a",
+          "name": "Retrieve Shipping Deliveries",
+          "request": {
+            "name": "Retrieve Shipping Deliveries",
+            "description": {
+              "content": "Retrieves shipping delivery records from Oracle Shipping Execution. Maps to the WSH_NEW_DELIVERIES and WSH_DELIVERY_DETAILS tables.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "wsh",
+                "deliveries"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "deliveryId",
+                  "value": "<integer>",
+                  "description": "Delivery identifier"
+                },
+                {
+                  "disabled": false,
+                  "key": "deliveryName",
+                  "value": "<string>",
+                  "description": "Delivery name/number"
+                },
+                {
+                  "disabled": false,
+                  "key": "statusCode",
+                  "value": "<string>",
+                  "description": "Delivery status"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25",
+                  "description": "Maximum number of records to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "Number of records to skip for pagination"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "The Oracle EBS instance hostname",
+                  "type": "any",
+                  "value": "{{instance}}",
+                  "key": "instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "accessToken"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "bc36bec7-c262-433a-ad97-a117ba0f274c",
+              "name": "List of shipping deliveries",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wsh",
+                    "deliveries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "deliveryId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "deliveryName",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "statusCode",
+                      "value": "OP"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"deliveryId\": \"500123\",\n      \"name\": \"Example Title\",\n      \"statusCode\": \"OP\",\n      \"initialPickupDate\": \"2026-01-15\",\n      \"ultimateDropoffDate\": \"2026-01-15\",\n      \"customerId\": \"500123\",\n      \"shipToLocationId\": \"500123\",\n      \"carrierId\": \"500123\",\n      \"shipMethodCode\": \"example_value\",\n      \"waybill\": \"example_value\",\n      \"grossWeight\": 42.5,\n      \"weightUomCode\": \"example_value\",\n      \"volume\": 42.5,\n      \"volumeUomCode\": \"example_value\",\n      \"organizationId\": \"500123\",\n      \"creationDate\": \"2026-01-15T10:30:00Z\",\n      \"lastUpdateDate\": \"2026-01-15T10:30:00Z\"\n    }\n  ],\n  \"totalCount\": 10,\n  \"hasMore\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eff400f9-6ab5-4652-bb2c-96c892c245fa",
+              "name": "Authentication required or token expired",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wsh",
+                    "deliveries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "deliveryId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "deliveryName",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "statusCode",
+                      "value": "OP"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"detail\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "The Oracle EBS instance hostname",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "ebs-host",
+      "key": "instance"
+    },
+    {
+      "type": "string",
+      "value": "https://{{instance}}.oracle.com/webservices/rest",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "8d1926e1-ee06-4cfb-9bf8-56f2a71428ba",
+    "name": "Oracle EBS e-Commerce Gateway Accounts Payable Shipping API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "RESTful APIs for Oracle E-Business Suite e-Commerce Gateway providing EDI (Electronic Data Interchange) transaction support. Enables exchange of standard ASC X12 and EDIFACT documents with trading partners through flat ASCII file integration with third-party EDI translators. Supports inbound and outbound document processing for purchase orders, invoices, ship notices, and other business documents.\n\nContact Support:\n Name: Oracle Support\n Email: support@oracle.com",
+      "type": "text/plain"
+    }
+  }
+}

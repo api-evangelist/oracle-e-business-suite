@@ -1,0 +1,43 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Oracle EBS e-Commerce Gateway Accounts Payable Service Discovery API",
+    "version": "12.2.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Service Discovery",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve Wadl Description for a Deployed Service",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.oracle.com/webservices/rest/:serviceAlias",
+            "params": [
+              {
+                "name": "serviceAlias",
+                "value": "approvals",
+                "type": "path",
+                "description": "The alias of the deployed REST service"
+              },
+              {
+                "name": "WADL",
+                "value": "",
+                "type": "query",
+                "description": "Flag to request the WADL description"
+              }
+            ]
+          },
+          "docs": "Returns the WADL (Web Application Description Language) document describing the available methods, parameters, and data types for the specified deployed REST service."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

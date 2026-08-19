@@ -1,0 +1,67 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Oracle EBS e-Commerce Gateway Accounts Payable Code Conversions API",
+    "version": "12.2.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Code Conversions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve Code Conversion Mappings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.oracle.com/webservices/rest/ece/codeConversions",
+            "params": [
+              {
+                "name": "tradingPartnerId",
+                "value": "500123",
+                "type": "query",
+                "description": "Trading partner identifier"
+              },
+              {
+                "name": "transactionType",
+                "value": "example_value",
+                "type": "query",
+                "description": "Transaction type code"
+              },
+              {
+                "name": "codeCategory",
+                "value": "example_value",
+                "type": "query",
+                "description": "Code category"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "accessToken",
+              "value": "{{accessToken}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Retrieves e-Commerce Gateway code conversion mappings that translate between trading partner external codes and Oracle EBS internal codes."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,1414 @@
+{
+  "item": [
+    {
+      "id": "92639b1c-9fdf-485a-a7e5-796d1d7dbad4",
+      "name": "Employee Management",
+      "description": {
+        "content": "Employee and assignment management operations",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "22b07c05-bb81-448c-8a32-7095911d2c05",
+          "name": "Retrieve Employee Records",
+          "request": {
+            "name": "Retrieve Employee Records",
+            "description": {
+              "content": "Retrieves employee records from Oracle HRMS. Maps to the PER_ALL_PEOPLE_F and PER_ALL_ASSIGNMENTS_F tables through the HR_EMPLOYEE_API PL/SQL package.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "hr",
+                "employees"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "personId",
+                  "value": "<integer>",
+                  "description": "Person identifier"
+                },
+                {
+                  "disabled": false,
+                  "key": "employeeNumber",
+                  "value": "<string>",
+                  "description": "Employee number"
+                },
+                {
+                  "disabled": false,
+                  "key": "fullName",
+                  "value": "<string>",
+                  "description": "Full name (supports wildcards)"
+                },
+                {
+                  "disabled": false,
+                  "key": "businessGroupId",
+                  "value": "<integer>",
+                  "description": "Business group identifier"
+                },
+                {
+                  "disabled": false,
+                  "key": "effectiveDate",
+                  "value": "<date>",
+                  "description": "Effective date for date-tracked records (YYYY-MM-DD)"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25",
+                  "description": "Maximum number of records to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "Number of records to skip for pagination"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "The Oracle EBS instance hostname",
+                  "type": "any",
+                  "value": "{{instance}}",
+                  "key": "instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "accessToken"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "fcc9d5fe-dbe1-4a97-b423-6a250046babf",
+              "name": "List of employees",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hr",
+                    "employees"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "personId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "employeeNumber",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "fullName",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "businessGroupId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "effectiveDate",
+                      "value": "2026-01-15"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"personId\": \"500123\",\n      \"employeeNumber\": \"example_value\",\n      \"title\": \"Example Title\",\n      \"firstName\": \"example_value\",\n      \"middleNames\": \"example_value\",\n      \"lastName\": \"example_value\",\n      \"fullName\": \"example_value\",\n      \"knownAs\": \"example_value\",\n      \"emailAddress\": \"user@example.com\",\n      \"sex\": \"M\",\n      \"dateOfBirth\": \"2026-01-15\",\n      \"nationalIdentifier\": \"example_value\",\n      \"nationality\": \"example_value\",\n      \"maritalStatus\": \"example_value\",\n      \"effectiveStartDate\": \"2026-01-15\",\n      \"effectiveEndDate\": \"2026-01-15\",\n      \"hireDate\": \"2026-01-15\",\n      \"currentEmployeeFlag\": \"Y\",\n      \"businessGroupId\": \"500123\",\n      \"addresses\": [\n        {}\n      ],\n      \"phones\": [\n        {}\n      ],\n      \"creationDate\": \"2026-01-15T10:30:00Z\",\n      \"lastUpdateDate\": \"2026-01-15T10:30:00Z\"\n    }\n  ],\n  \"totalCount\": 10,\n  \"hasMore\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "208a604c-aa6a-4ef3-a238-c0171603ca06",
+              "name": "Authentication required or token expired",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hr",
+                    "employees"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "personId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "employeeNumber",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "fullName",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "businessGroupId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "effectiveDate",
+                      "value": "2026-01-15"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"detail\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "57c16ba1-a245-46ca-8e82-aa643bb2de9f",
+          "name": "Create an Employee Record",
+          "request": {
+            "name": "Create an Employee Record",
+            "description": {
+              "content": "Creates a new employee record using the HR_EMPLOYEE_API.CREATE_EMPLOYEE PL/SQL procedure. This creates entries in PER_ALL_PEOPLE_F, PER_ALL_ASSIGNMENTS_F, and related tables.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "hr",
+                "employees"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The Oracle EBS instance hostname",
+                  "type": "any",
+                  "value": "{{instance}}",
+                  "key": "instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "accessToken"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"hireDate\": \"<date>\",\n  \"businessGroupId\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"middleNames\": \"<string>\",\n  \"knownAs\": \"<string>\",\n  \"emailAddress\": \"<email>\",\n  \"sex\": \"<string>\",\n  \"dateOfBirth\": \"<date>\",\n  \"nationalIdentifier\": \"<string>\",\n  \"nationality\": \"<string>\",\n  \"maritalStatus\": \"<string>\",\n  \"jobId\": \"<integer>\",\n  \"positionId\": \"<integer>\",\n  \"organizationId\": \"<integer>\",\n  \"gradeId\": \"<integer>\",\n  \"locationId\": \"<integer>\",\n  \"payrollId\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1d9e60c1-2b6d-4587-86c6-f0b3345ba371",
+              "name": "Employee created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hr",
+                    "employees"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"Example Title\",\n  \"firstName\": \"example_value\",\n  \"middleNames\": \"example_value\",\n  \"lastName\": \"example_value\",\n  \"knownAs\": \"example_value\",\n  \"emailAddress\": \"user@example.com\",\n  \"sex\": \"M\",\n  \"dateOfBirth\": \"2026-01-15\",\n  \"nationalIdentifier\": \"example_value\",\n  \"nationality\": \"example_value\",\n  \"maritalStatus\": \"example_value\",\n  \"hireDate\": \"2026-01-15\",\n  \"businessGroupId\": \"500123\",\n  \"jobId\": \"500123\",\n  \"positionId\": \"500123\",\n  \"organizationId\": \"500123\",\n  \"gradeId\": \"500123\",\n  \"locationId\": \"500123\",\n  \"payrollId\": \"500123\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"personId\": \"500123\",\n  \"employeeNumber\": \"example_value\",\n  \"title\": \"Example Title\",\n  \"firstName\": \"example_value\",\n  \"middleNames\": \"example_value\",\n  \"lastName\": \"example_value\",\n  \"fullName\": \"example_value\",\n  \"knownAs\": \"example_value\",\n  \"emailAddress\": \"user@example.com\",\n  \"sex\": \"M\",\n  \"dateOfBirth\": \"2026-01-15\",\n  \"nationalIdentifier\": \"example_value\",\n  \"nationality\": \"example_value\",\n  \"maritalStatus\": \"example_value\",\n  \"effectiveStartDate\": \"2026-01-15\",\n  \"effectiveEndDate\": \"2026-01-15\",\n  \"hireDate\": \"2026-01-15\",\n  \"currentEmployeeFlag\": \"Y\",\n  \"businessGroupId\": \"500123\",\n  \"assignment\": {\n    \"assignmentId\": \"500123\",\n    \"assignmentNumber\": \"example_value\",\n    \"assignmentType\": \"E\",\n    \"primaryFlag\": \"Y\",\n    \"jobId\": \"500123\",\n    \"jobName\": \"example_value\",\n    \"positionId\": \"500123\",\n    \"positionName\": \"example_value\",\n    \"gradeId\": \"500123\",\n    \"gradeName\": \"example_value\",\n    \"organizationId\": \"500123\",\n    \"organizationName\": \"example_value\",\n    \"locationId\": \"500123\",\n    \"locationCode\": \"example_value\",\n    \"supervisorId\": \"500123\",\n    \"payrollId\": \"500123\",\n    \"employmentCategory\": \"FR\",\n    \"normalHours\": 42.5,\n    \"frequency\": \"D\",\n    \"effectiveStartDate\": \"2026-01-15\",\n    \"effectiveEndDate\": \"2026-01-15\"\n  },\n  \"addresses\": [\n    {\n      \"addressId\": \"500123\",\n      \"addressType\": \"example_value\",\n      \"addressLine1\": \"example_value\",\n      \"addressLine2\": \"example_value\",\n      \"addressLine3\": \"example_value\",\n      \"townOrCity\": \"example_value\",\n      \"region1\": \"example_value\",\n      \"region2\": \"example_value\",\n      \"postalCode\": \"example_value\",\n      \"country\": \"example_value\",\n      \"primaryFlag\": \"Y\",\n      \"dateFrom\": \"2026-01-15\",\n      \"dateTo\": \"2026-01-15\"\n    }\n  ],\n  \"phones\": [\n    {\n      \"phoneId\": \"500123\",\n      \"phoneType\": \"W1\",\n      \"phoneNumber\": \"example_value\",\n      \"dateFrom\": \"2026-01-15\",\n      \"dateTo\": \"2026-01-15\"\n    }\n  ],\n  \"creationDate\": \"2026-01-15T10:30:00Z\",\n  \"lastUpdateDate\": \"2026-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b2fb65d2-b3d4-4490-afb0-e6d7476f6888",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hr",
+                    "employees"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"Example Title\",\n  \"firstName\": \"example_value\",\n  \"middleNames\": \"example_value\",\n  \"lastName\": \"example_value\",\n  \"knownAs\": \"example_value\",\n  \"emailAddress\": \"user@example.com\",\n  \"sex\": \"M\",\n  \"dateOfBirth\": \"2026-01-15\",\n  \"nationalIdentifier\": \"example_value\",\n  \"nationality\": \"example_value\",\n  \"maritalStatus\": \"example_value\",\n  \"hireDate\": \"2026-01-15\",\n  \"businessGroupId\": \"500123\",\n  \"jobId\": \"500123\",\n  \"positionId\": \"500123\",\n  \"organizationId\": \"500123\",\n  \"gradeId\": \"500123\",\n  \"locationId\": \"500123\",\n  \"payrollId\": \"500123\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"detail\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7a2822cd-4342-45be-af00-d776310cfb91",
+              "name": "Authentication required or token expired",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hr",
+                    "employees"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"Example Title\",\n  \"firstName\": \"example_value\",\n  \"middleNames\": \"example_value\",\n  \"lastName\": \"example_value\",\n  \"knownAs\": \"example_value\",\n  \"emailAddress\": \"user@example.com\",\n  \"sex\": \"M\",\n  \"dateOfBirth\": \"2026-01-15\",\n  \"nationalIdentifier\": \"example_value\",\n  \"nationality\": \"example_value\",\n  \"maritalStatus\": \"example_value\",\n  \"hireDate\": \"2026-01-15\",\n  \"businessGroupId\": \"500123\",\n  \"jobId\": \"500123\",\n  \"positionId\": \"500123\",\n  \"organizationId\": \"500123\",\n  \"gradeId\": \"500123\",\n  \"locationId\": \"500123\",\n  \"payrollId\": \"500123\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"detail\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0506d3cf-a1cf-40c7-8e01-8da9f4047e49",
+          "name": "Retrieve an Employee by Person Id",
+          "request": {
+            "name": "Retrieve an Employee by Person Id",
+            "description": {
+              "content": "Retrieves a specific employee record by person identifier.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "hr",
+                "employees",
+                ":personId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "effectiveDate",
+                  "value": "<date>",
+                  "description": "Effective date for date-tracked records (YYYY-MM-DD)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "personId",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "The Oracle EBS instance hostname",
+                  "type": "any",
+                  "value": "{{instance}}",
+                  "key": "instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "accessToken"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "bb4d131b-e1a0-4d24-8afd-0a59e7fed044",
+              "name": "Employee details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hr",
+                    "employees",
+                    ":personId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "effectiveDate",
+                      "value": "2026-01-15"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "personId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"personId\": \"500123\",\n  \"employeeNumber\": \"example_value\",\n  \"title\": \"Example Title\",\n  \"firstName\": \"example_value\",\n  \"middleNames\": \"example_value\",\n  \"lastName\": \"example_value\",\n  \"fullName\": \"example_value\",\n  \"knownAs\": \"example_value\",\n  \"emailAddress\": \"user@example.com\",\n  \"sex\": \"M\",\n  \"dateOfBirth\": \"2026-01-15\",\n  \"nationalIdentifier\": \"example_value\",\n  \"nationality\": \"example_value\",\n  \"maritalStatus\": \"example_value\",\n  \"effectiveStartDate\": \"2026-01-15\",\n  \"effectiveEndDate\": \"2026-01-15\",\n  \"hireDate\": \"2026-01-15\",\n  \"currentEmployeeFlag\": \"Y\",\n  \"businessGroupId\": \"500123\",\n  \"assignment\": {\n    \"assignmentId\": \"500123\",\n    \"assignmentNumber\": \"example_value\",\n    \"assignmentType\": \"E\",\n    \"primaryFlag\": \"Y\",\n    \"jobId\": \"500123\",\n    \"jobName\": \"example_value\",\n    \"positionId\": \"500123\",\n    \"positionName\": \"example_value\",\n    \"gradeId\": \"500123\",\n    \"gradeName\": \"example_value\",\n    \"organizationId\": \"500123\",\n    \"organizationName\": \"example_value\",\n    \"locationId\": \"500123\",\n    \"locationCode\": \"example_value\",\n    \"supervisorId\": \"500123\",\n    \"payrollId\": \"500123\",\n    \"employmentCategory\": \"FR\",\n    \"normalHours\": 42.5,\n    \"frequency\": \"D\",\n    \"effectiveStartDate\": \"2026-01-15\",\n    \"effectiveEndDate\": \"2026-01-15\"\n  },\n  \"addresses\": [\n    {\n      \"addressId\": \"500123\",\n      \"addressType\": \"example_value\",\n      \"addressLine1\": \"example_value\",\n      \"addressLine2\": \"example_value\",\n      \"addressLine3\": \"example_value\",\n      \"townOrCity\": \"example_value\",\n      \"region1\": \"example_value\",\n      \"region2\": \"example_value\",\n      \"postalCode\": \"example_value\",\n      \"country\": \"example_value\",\n      \"primaryFlag\": \"Y\",\n      \"dateFrom\": \"2026-01-15\",\n      \"dateTo\": \"2026-01-15\"\n    }\n  ],\n  \"phones\": [\n    {\n      \"phoneId\": \"500123\",\n      \"phoneType\": \"W1\",\n      \"phoneNumber\": \"example_value\",\n      \"dateFrom\": \"2026-01-15\",\n      \"dateTo\": \"2026-01-15\"\n    }\n  ],\n  \"creationDate\": \"2026-01-15T10:30:00Z\",\n  \"lastUpdateDate\": \"2026-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "229bb9e4-3805-4c92-bc0a-dc2cc6abfa4b",
+              "name": "Authentication required or token expired",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hr",
+                    "employees",
+                    ":personId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "effectiveDate",
+                      "value": "2026-01-15"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "personId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"detail\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c0fdb081-79c1-491e-bbe0-37e92356c06a",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hr",
+                    "employees",
+                    ":personId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "effectiveDate",
+                      "value": "2026-01-15"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "personId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"detail\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e9c081da-0d3f-4538-bcc3-eb7e266338e1",
+          "name": "Update an Employee Record",
+          "request": {
+            "name": "Update an Employee Record",
+            "description": {
+              "content": "Updates an existing employee record using the HR_PERSON_API.UPDATE_PERSON PL/SQL procedure with date-track support.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "hr",
+                "employees",
+                ":personId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "personId",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "The Oracle EBS instance hostname",
+                  "type": "any",
+                  "value": "{{instance}}",
+                  "key": "instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "accessToken"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"effectiveDate\": \"<date>\",\n  \"dateTrackUpdateMode\": \"CORRECTION\",\n  \"title\": \"<string>\",\n  \"firstName\": \"<string>\",\n  \"middleNames\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"knownAs\": \"<string>\",\n  \"emailAddress\": \"<email>\",\n  \"maritalStatus\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a5e26450-f7cf-4e99-9f3a-5b58d02e5de2",
+              "name": "Employee updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hr",
+                    "employees",
+                    ":personId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "personId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"effectiveDate\": \"2026-01-15\",\n  \"dateTrackUpdateMode\": \"CORRECTION\",\n  \"title\": \"Example Title\",\n  \"firstName\": \"example_value\",\n  \"middleNames\": \"example_value\",\n  \"lastName\": \"example_value\",\n  \"knownAs\": \"example_value\",\n  \"emailAddress\": \"user@example.com\",\n  \"maritalStatus\": \"example_value\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"personId\": \"500123\",\n  \"employeeNumber\": \"example_value\",\n  \"title\": \"Example Title\",\n  \"firstName\": \"example_value\",\n  \"middleNames\": \"example_value\",\n  \"lastName\": \"example_value\",\n  \"fullName\": \"example_value\",\n  \"knownAs\": \"example_value\",\n  \"emailAddress\": \"user@example.com\",\n  \"sex\": \"M\",\n  \"dateOfBirth\": \"2026-01-15\",\n  \"nationalIdentifier\": \"example_value\",\n  \"nationality\": \"example_value\",\n  \"maritalStatus\": \"example_value\",\n  \"effectiveStartDate\": \"2026-01-15\",\n  \"effectiveEndDate\": \"2026-01-15\",\n  \"hireDate\": \"2026-01-15\",\n  \"currentEmployeeFlag\": \"Y\",\n  \"businessGroupId\": \"500123\",\n  \"assignment\": {\n    \"assignmentId\": \"500123\",\n    \"assignmentNumber\": \"example_value\",\n    \"assignmentType\": \"E\",\n    \"primaryFlag\": \"Y\",\n    \"jobId\": \"500123\",\n    \"jobName\": \"example_value\",\n    \"positionId\": \"500123\",\n    \"positionName\": \"example_value\",\n    \"gradeId\": \"500123\",\n    \"gradeName\": \"example_value\",\n    \"organizationId\": \"500123\",\n    \"organizationName\": \"example_value\",\n    \"locationId\": \"500123\",\n    \"locationCode\": \"example_value\",\n    \"supervisorId\": \"500123\",\n    \"payrollId\": \"500123\",\n    \"employmentCategory\": \"FR\",\n    \"normalHours\": 42.5,\n    \"frequency\": \"D\",\n    \"effectiveStartDate\": \"2026-01-15\",\n    \"effectiveEndDate\": \"2026-01-15\"\n  },\n  \"addresses\": [\n    {\n      \"addressId\": \"500123\",\n      \"addressType\": \"example_value\",\n      \"addressLine1\": \"example_value\",\n      \"addressLine2\": \"example_value\",\n      \"addressLine3\": \"example_value\",\n      \"townOrCity\": \"example_value\",\n      \"region1\": \"example_value\",\n      \"region2\": \"example_value\",\n      \"postalCode\": \"example_value\",\n      \"country\": \"example_value\",\n      \"primaryFlag\": \"Y\",\n      \"dateFrom\": \"2026-01-15\",\n      \"dateTo\": \"2026-01-15\"\n    }\n  ],\n  \"phones\": [\n    {\n      \"phoneId\": \"500123\",\n      \"phoneType\": \"W1\",\n      \"phoneNumber\": \"example_value\",\n      \"dateFrom\": \"2026-01-15\",\n      \"dateTo\": \"2026-01-15\"\n    }\n  ],\n  \"creationDate\": \"2026-01-15T10:30:00Z\",\n  \"lastUpdateDate\": \"2026-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "94dc4d27-ccb0-44f1-9452-699100c4c474",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hr",
+                    "employees",
+                    ":personId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "personId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"effectiveDate\": \"2026-01-15\",\n  \"dateTrackUpdateMode\": \"CORRECTION\",\n  \"title\": \"Example Title\",\n  \"firstName\": \"example_value\",\n  \"middleNames\": \"example_value\",\n  \"lastName\": \"example_value\",\n  \"knownAs\": \"example_value\",\n  \"emailAddress\": \"user@example.com\",\n  \"maritalStatus\": \"example_value\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"detail\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ea960bf2-54b5-4016-b4ff-9deb22f877d9",
+              "name": "Authentication required or token expired",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hr",
+                    "employees",
+                    ":personId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "personId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"effectiveDate\": \"2026-01-15\",\n  \"dateTrackUpdateMode\": \"CORRECTION\",\n  \"title\": \"Example Title\",\n  \"firstName\": \"example_value\",\n  \"middleNames\": \"example_value\",\n  \"lastName\": \"example_value\",\n  \"knownAs\": \"example_value\",\n  \"emailAddress\": \"user@example.com\",\n  \"maritalStatus\": \"example_value\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"detail\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1be3562e-7912-4a86-a307-03e31de80479",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hr",
+                    "employees",
+                    ":personId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "personId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"effectiveDate\": \"2026-01-15\",\n  \"dateTrackUpdateMode\": \"CORRECTION\",\n  \"title\": \"Example Title\",\n  \"firstName\": \"example_value\",\n  \"middleNames\": \"example_value\",\n  \"lastName\": \"example_value\",\n  \"knownAs\": \"example_value\",\n  \"emailAddress\": \"user@example.com\",\n  \"maritalStatus\": \"example_value\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"detail\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b77af13e-da87-4674-b831-76a18f34608b",
+          "name": "Retrieve Employee Assignments",
+          "request": {
+            "name": "Retrieve Employee Assignments",
+            "description": {
+              "content": "Retrieves employee assignment records. Maps to the PER_ALL_ASSIGNMENTS_F table through the HR_ASSIGNMENT_API package.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "hr",
+                "assignments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "assignmentId",
+                  "value": "<integer>",
+                  "description": "Assignment identifier"
+                },
+                {
+                  "disabled": false,
+                  "key": "personId",
+                  "value": "<integer>",
+                  "description": "Person identifier"
+                },
+                {
+                  "disabled": false,
+                  "key": "organizationId",
+                  "value": "<integer>",
+                  "description": "HR organization identifier"
+                },
+                {
+                  "disabled": false,
+                  "key": "effectiveDate",
+                  "value": "<date>",
+                  "description": "Effective date (YYYY-MM-DD)"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25",
+                  "description": "Maximum number of records to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "Number of records to skip for pagination"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "The Oracle EBS instance hostname",
+                  "type": "any",
+                  "value": "{{instance}}",
+                  "key": "instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "accessToken"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "de8ec495-b036-471f-b3f7-1e4b5379a9d4",
+              "name": "List of assignments",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hr",
+                    "assignments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "assignmentId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "personId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "organizationId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "effectiveDate",
+                      "value": "2026-01-15"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"assignmentId\": \"500123\",\n      \"assignmentNumber\": \"example_value\",\n      \"assignmentType\": \"E\",\n      \"primaryFlag\": \"Y\",\n      \"jobId\": \"500123\",\n      \"jobName\": \"example_value\",\n      \"positionId\": \"500123\",\n      \"positionName\": \"example_value\",\n      \"gradeId\": \"500123\",\n      \"gradeName\": \"example_value\",\n      \"organizationId\": \"500123\",\n      \"organizationName\": \"example_value\",\n      \"locationId\": \"500123\",\n      \"locationCode\": \"example_value\",\n      \"supervisorId\": \"500123\",\n      \"payrollId\": \"500123\",\n      \"employmentCategory\": \"FR\",\n      \"normalHours\": 42.5,\n      \"frequency\": \"D\",\n      \"effectiveStartDate\": \"2026-01-15\",\n      \"effectiveEndDate\": \"2026-01-15\"\n    }\n  ],\n  \"totalCount\": 10,\n  \"hasMore\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "36e80bfc-c97f-4d57-bd38-b95b42b29a64",
+              "name": "Authentication required or token expired",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hr",
+                    "assignments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "assignmentId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "personId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "organizationId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "effectiveDate",
+                      "value": "2026-01-15"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"detail\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "The Oracle EBS instance hostname",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "ebs-host",
+      "key": "instance"
+    },
+    {
+      "type": "string",
+      "value": "https://{{instance}}.oracle.com/webservices/rest",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "f576faaa-653d-40c0-a891-101345cc9647",
+    "name": "Oracle EBS e-Commerce Gateway Accounts Payable Employee Management API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "RESTful APIs for Oracle E-Business Suite e-Commerce Gateway providing EDI (Electronic Data Interchange) transaction support. Enables exchange of standard ASC X12 and EDIFACT documents with trading partners through flat ASCII file integration with third-party EDI translators. Supports inbound and outbound document processing for purchase orders, invoices, ship notices, and other business documents.\n\nContact Support:\n Name: Oracle Support\n Email: support@oracle.com",
+      "type": "text/plain"
+    }
+  }
+}

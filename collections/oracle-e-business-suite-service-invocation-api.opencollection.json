@@ -1,0 +1,63 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Oracle EBS e-Commerce Gateway Accounts Payable Service Invocation API",
+    "version": "12.2.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Service Invocation",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Invoke a Rest Service Method",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{instance}.oracle.com/webservices/rest/:serviceAlias/:methodName",
+            "headers": [
+              {
+                "name": "Accept-Language",
+                "value": "en-GB,en-US;q=0.8,en;q=0.6"
+              },
+              {
+                "name": "Content-Type",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "serviceAlias",
+                "value": "purchaseOrders",
+                "type": "path",
+                "description": "The alias of the deployed REST service"
+              },
+              {
+                "name": "methodName",
+                "value": "createPurchaseOrder",
+                "type": "path",
+                "description": "The REST method name to invoke"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "accessToken",
+              "value": "{{accessToken}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Invokes a specific method on a deployed REST service. The service alias and method name correspond to the PL/SQL API, Java Bean Service, Application Module Service, or other interface type deployed through the Integration Repository. Request and response payloads vary by service."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

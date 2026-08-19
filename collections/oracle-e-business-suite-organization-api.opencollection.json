@@ -1,0 +1,122 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Oracle EBS e-Commerce Gateway Accounts Payable Organization API",
+    "version": "12.2.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Organization",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve Hr Organizations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.oracle.com/webservices/rest/hr/organizations",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "500123",
+                "type": "query",
+                "description": "Organization identifier"
+              },
+              {
+                "name": "name",
+                "value": "Example Title",
+                "type": "query",
+                "description": "Organization name (supports wildcards)"
+              },
+              {
+                "name": "businessGroupId",
+                "value": "500123",
+                "type": "query",
+                "description": "Business group identifier"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "accessToken",
+              "value": "{{accessToken}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Retrieves HR organization records. Maps to the HR_ALL_ORGANIZATION_UNITS and HR_ORGANIZATION_INFORMATION tables."
+        },
+        {
+          "info": {
+            "name": "Retrieve Hr Positions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.oracle.com/webservices/rest/hr/positions",
+            "params": [
+              {
+                "name": "positionId",
+                "value": "500123",
+                "type": "query",
+                "description": "Position identifier"
+              },
+              {
+                "name": "name",
+                "value": "Example Title",
+                "type": "query",
+                "description": "Position name (supports wildcards)"
+              },
+              {
+                "name": "organizationId",
+                "value": "500123",
+                "type": "query",
+                "description": "Organization identifier"
+              },
+              {
+                "name": "effectiveDate",
+                "value": "2026-01-15",
+                "type": "query",
+                "description": "Effective date (YYYY-MM-DD)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "accessToken",
+              "value": "{{accessToken}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Retrieves position records. Maps to the HR_ALL_POSITIONS_F table through the HR_POSITION_API package."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

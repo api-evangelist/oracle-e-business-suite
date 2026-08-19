@@ -1,0 +1,122 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Oracle EBS e-Commerce Gateway Accounts Payable Inventory API",
+    "version": "12.2.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Inventory",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve Inventory Items",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.oracle.com/webservices/rest/inv/items",
+            "params": [
+              {
+                "name": "inventoryItemId",
+                "value": "500123",
+                "type": "query",
+                "description": "Inventory item identifier"
+              },
+              {
+                "name": "segment1",
+                "value": "example_value",
+                "type": "query",
+                "description": "Item number"
+              },
+              {
+                "name": "organizationId",
+                "value": "500123",
+                "type": "query",
+                "description": "Inventory organization identifier"
+              },
+              {
+                "name": "itemType",
+                "value": "example_value",
+                "type": "query",
+                "description": "Item type"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "accessToken",
+              "value": "{{accessToken}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Retrieves Inventory item master records. Maps to the MTL_SYSTEM_ITEMS_B table through the Inventory Items API."
+        },
+        {
+          "info": {
+            "name": "Retrieve On-hand Inventory Quantities",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.oracle.com/webservices/rest/inv/onhandQuantities",
+            "params": [
+              {
+                "name": "inventoryItemId",
+                "value": "500123",
+                "type": "query",
+                "description": "Inventory item identifier"
+              },
+              {
+                "name": "organizationId",
+                "value": "500123",
+                "type": "query",
+                "description": "Inventory organization identifier"
+              },
+              {
+                "name": "subinventoryCode",
+                "value": "example_value",
+                "type": "query",
+                "description": "Subinventory code"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "accessToken",
+              "value": "{{accessToken}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Retrieves on-hand quantity information for inventory items. Maps to the MTL_ONHAND_QUANTITIES_DETAIL table."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

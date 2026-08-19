@@ -1,0 +1,67 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Oracle EBS e-Commerce Gateway Accounts Payable Shipping API",
+    "version": "12.2.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Shipping",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve Shipping Deliveries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.oracle.com/webservices/rest/wsh/deliveries",
+            "params": [
+              {
+                "name": "deliveryId",
+                "value": "500123",
+                "type": "query",
+                "description": "Delivery identifier"
+              },
+              {
+                "name": "deliveryName",
+                "value": "example_value",
+                "type": "query",
+                "description": "Delivery name/number"
+              },
+              {
+                "name": "statusCode",
+                "value": "OP",
+                "type": "query",
+                "description": "Delivery status"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "accessToken",
+              "value": "{{accessToken}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Retrieves shipping delivery records from Oracle Shipping Execution. Maps to the WSH_NEW_DELIVERIES and WSH_DELIVERY_DETAILS tables."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

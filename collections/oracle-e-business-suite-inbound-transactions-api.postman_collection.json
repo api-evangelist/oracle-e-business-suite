@@ -1,0 +1,559 @@
+{
+  "item": [
+    {
+      "id": "433bde6d-4262-412b-b19e-2d085db384ba",
+      "name": "Inbound Transactions",
+      "description": {
+        "content": "Inbound EDI document processing",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "cf70df99-02fb-49b2-8a06-22f9f5857bd0",
+          "name": "Retrieve Inbound Edi Transactions",
+          "request": {
+            "name": "Retrieve Inbound Edi Transactions",
+            "description": {
+              "content": "Retrieves inbound EDI transaction records that have been imported through the e-Commerce Gateway. Includes invoice, ship notice, price catalog, and quote response documents.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ece",
+                "transactions",
+                "inbound"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "transactionType",
+                  "value": "<string>",
+                  "description": "EDI transaction type code"
+                },
+                {
+                  "disabled": false,
+                  "key": "tradingPartnerId",
+                  "value": "<integer>",
+                  "description": "Trading partner identifier"
+                },
+                {
+                  "disabled": false,
+                  "key": "processStatus",
+                  "value": "<string>",
+                  "description": "Processing status"
+                },
+                {
+                  "disabled": false,
+                  "key": "creationDateFrom",
+                  "value": "<date>",
+                  "description": "Creation date range start (YYYY-MM-DD)"
+                },
+                {
+                  "disabled": false,
+                  "key": "creationDateTo",
+                  "value": "<date>",
+                  "description": "Creation date range end (YYYY-MM-DD)"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25",
+                  "description": "Maximum number of records to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "Number of records to skip for pagination"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "The Oracle EBS instance hostname",
+                  "type": "any",
+                  "value": "{{instance}}",
+                  "key": "instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "accessToken"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "179b7eb4-0be5-4e56-b4f9-e980d9fe9ae2",
+              "name": "List of inbound transactions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ece",
+                    "transactions",
+                    "inbound"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "transactionType",
+                      "value": "INI"
+                    },
+                    {
+                      "key": "tradingPartnerId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "processStatus",
+                      "value": "PENDING"
+                    },
+                    {
+                      "key": "creationDateFrom",
+                      "value": "2026-01-15"
+                    },
+                    {
+                      "key": "creationDateTo",
+                      "value": "2026-01-15"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"transactionId\": \"500123\",\n      \"transactionType\": \"INI\",\n      \"transactionDescription\": \"example_value\",\n      \"documentStandard\": \"example_value\",\n      \"documentNumber\": \"example_value\",\n      \"tradingPartnerId\": \"500123\",\n      \"tradingPartnerName\": \"example_value\",\n      \"tradingPartnerSiteId\": \"500123\",\n      \"processStatus\": \"PENDING\",\n      \"documentDate\": \"2026-01-15\",\n      \"documentAmount\": 42.5,\n      \"currencyCode\": \"example_value\",\n      \"errorMessage\": \"example_value\",\n      \"creationDate\": \"2026-01-15T10:30:00Z\",\n      \"lastUpdateDate\": \"2026-01-15T10:30:00Z\"\n    }\n  ],\n  \"totalCount\": 10,\n  \"hasMore\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3fefa13a-eef3-4c8f-a6b5-b71bf0ba3f5c",
+              "name": "Authentication required or token expired",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ece",
+                    "transactions",
+                    "inbound"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "transactionType",
+                      "value": "INI"
+                    },
+                    {
+                      "key": "tradingPartnerId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "processStatus",
+                      "value": "PENDING"
+                    },
+                    {
+                      "key": "creationDateFrom",
+                      "value": "2026-01-15"
+                    },
+                    {
+                      "key": "creationDateTo",
+                      "value": "2026-01-15"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"detail\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d7e8211d-e697-4ac0-86c4-75a1d8d44ee9",
+          "name": "Import an Inbound Edi Transaction",
+          "request": {
+            "name": "Import an Inbound Edi Transaction",
+            "description": {
+              "content": "Imports an inbound EDI transaction into Oracle EBS through the e-Commerce Gateway. The transaction data is validated, code conversion is applied, and data is loaded into the appropriate Oracle application open interface tables.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ece",
+                "transactions",
+                "inbound"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The Oracle EBS instance hostname",
+                  "type": "any",
+                  "value": "{{instance}}",
+                  "key": "instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "accessToken"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"transactionType\": \"<string>\",\n  \"tradingPartnerId\": \"<integer>\",\n  \"tradingPartnerSiteId\": \"<integer>\",\n  \"documentDate\": \"<date>\",\n  \"documentData\": {\n    \"key_0\": 7316,\n    \"key_1\": true,\n    \"key_2\": true,\n    \"key_3\": 6209\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f3ff9607-db67-40e2-9bc3-a471481d2b4e",
+              "name": "Inbound transaction imported successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ece",
+                    "transactions",
+                    "inbound"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transactionType\": \"INI\",\n  \"tradingPartnerId\": \"500123\",\n  \"tradingPartnerSiteId\": \"500123\",\n  \"documentDate\": \"2026-01-15\",\n  \"documentData\": \"example_value\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"transactionId\": \"500123\",\n  \"status\": \"example_value\",\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3dd1b6d1-4603-46e3-a453-81e2aab0eb5f",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ece",
+                    "transactions",
+                    "inbound"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transactionType\": \"INI\",\n  \"tradingPartnerId\": \"500123\",\n  \"tradingPartnerSiteId\": \"500123\",\n  \"documentDate\": \"2026-01-15\",\n  \"documentData\": \"example_value\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"detail\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "93fb2be6-e512-4a01-94a7-116257981915",
+              "name": "Authentication required or token expired",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ece",
+                    "transactions",
+                    "inbound"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transactionType\": \"INI\",\n  \"tradingPartnerId\": \"500123\",\n  \"tradingPartnerSiteId\": \"500123\",\n  \"documentDate\": \"2026-01-15\",\n  \"documentData\": \"example_value\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"detail\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "The Oracle EBS instance hostname",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "ebs-host",
+      "key": "instance"
+    },
+    {
+      "type": "string",
+      "value": "https://{{instance}}.oracle.com/webservices/rest",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "51f2a18d-9cbc-4dea-9afd-d8c353ad3119",
+    "name": "Oracle EBS e-Commerce Gateway Accounts Payable Inbound Transactions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "RESTful APIs for Oracle E-Business Suite e-Commerce Gateway providing EDI (Electronic Data Interchange) transaction support. Enables exchange of standard ASC X12 and EDIFACT documents with trading partners through flat ASCII file integration with third-party EDI translators. Supports inbound and outbound document processing for purchase orders, invoices, ship notices, and other business documents.\n\nContact Support:\n Name: Oracle Support\n Email: support@oracle.com",
+      "type": "text/plain"
+    }
+  }
+}

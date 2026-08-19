@@ -1,0 +1,91 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Oracle EBS e-Commerce Gateway Accounts Payable Trading Partners API",
+    "version": "12.2.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Trading Partners",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve Trading Partners",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.oracle.com/webservices/rest/ece/tradingPartners",
+            "params": [
+              {
+                "name": "tradingPartnerId",
+                "value": "500123",
+                "type": "query",
+                "description": "Trading partner identifier"
+              },
+              {
+                "name": "tradingPartnerName",
+                "value": "example_value",
+                "type": "query",
+                "description": "Trading partner name (supports wildcards)"
+              },
+              {
+                "name": "tradingPartnerType",
+                "value": "CUSTOMER",
+                "type": "query",
+                "description": "Trading partner type"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "accessToken",
+              "value": "{{accessToken}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Retrieves e-Commerce Gateway trading partner definitions including enabled EDI transactions and code conversion mappings."
+        },
+        {
+          "info": {
+            "name": "Retrieve a Specific Trading Partner",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.oracle.com/webservices/rest/ece/tradingPartners/:tradingPartnerId",
+            "params": [
+              {
+                "name": "tradingPartnerId",
+                "value": "500123",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "accessToken",
+              "value": "{{accessToken}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Retrieves a trading partner by identifier with full detail."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

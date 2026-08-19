@@ -1,0 +1,1058 @@
+{
+  "item": [
+    {
+      "id": "75aba780-94be-4dc3-8538-e20d7d8fe120",
+      "name": "Accounts Payable",
+      "description": {
+        "content": "Accounts Payable invoice and payment operations",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7c9b54a5-bbfe-44f9-9caf-0fb6bc547c3c",
+          "name": "Retrieve Ap Invoices",
+          "request": {
+            "name": "Retrieve Ap Invoices",
+            "description": {
+              "content": "Retrieves Accounts Payable invoices. Maps to the AP_INVOICES_ALL and AP_INVOICE_LINES_ALL tables through the AP_INVOICES_PKG PL/SQL API.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ap",
+                "invoices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "invoiceId",
+                  "value": "<integer>",
+                  "description": "Invoice identifier"
+                },
+                {
+                  "disabled": false,
+                  "key": "invoiceNum",
+                  "value": "<string>",
+                  "description": "Invoice number"
+                },
+                {
+                  "disabled": false,
+                  "key": "vendorId",
+                  "value": "<integer>",
+                  "description": "Supplier/vendor identifier"
+                },
+                {
+                  "disabled": false,
+                  "key": "invoiceDateFrom",
+                  "value": "<date>",
+                  "description": "Invoice date range start (YYYY-MM-DD)"
+                },
+                {
+                  "disabled": false,
+                  "key": "invoiceDateTo",
+                  "value": "<date>",
+                  "description": "Invoice date range end (YYYY-MM-DD)"
+                },
+                {
+                  "disabled": false,
+                  "key": "invoiceStatus",
+                  "value": "<string>",
+                  "description": "Invoice approval status"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25",
+                  "description": "Maximum number of records to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "Number of records to skip for pagination"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "The Oracle EBS instance hostname",
+                  "type": "any",
+                  "value": "{{instance}}",
+                  "key": "instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "accessToken"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6edebb8c-20b6-45e7-b58a-173ad7de50ed",
+              "name": "List of AP invoices",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ap",
+                    "invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "invoiceId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "invoiceNum",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "vendorId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "invoiceDateFrom",
+                      "value": "2026-01-15"
+                    },
+                    {
+                      "key": "invoiceDateTo",
+                      "value": "2026-01-15"
+                    },
+                    {
+                      "key": "invoiceStatus",
+                      "value": "APPROVED"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"invoiceId\": \"500123\",\n      \"invoiceNum\": \"example_value\",\n      \"invoiceDate\": \"2026-01-15\",\n      \"vendorId\": \"500123\",\n      \"vendorName\": \"example_value\",\n      \"vendorSiteId\": \"500123\",\n      \"invoiceAmount\": 42.5,\n      \"invoiceCurrencyCode\": \"example_value\",\n      \"paymentCurrencyCode\": \"example_value\",\n      \"exchangeRate\": 42.5,\n      \"exchangeRateType\": \"example_value\",\n      \"exchangeDate\": \"2026-01-15\",\n      \"termsId\": \"500123\",\n      \"description\": \"A sample description.\",\n      \"invoiceType\": \"STANDARD\",\n      \"source\": \"example_value\",\n      \"paymentStatusFlag\": \"Y\",\n      \"approvalStatus\": \"APPROVED\",\n      \"amountPaid\": \"500123\",\n      \"lines\": [\n        {}\n      ],\n      \"orgId\": \"500123\",\n      \"createdBy\": 10,\n      \"creationDate\": \"2026-01-15T10:30:00Z\",\n      \"lastUpdatedBy\": 10,\n      \"lastUpdateDate\": \"2026-01-15T10:30:00Z\"\n    }\n  ],\n  \"totalCount\": 10,\n  \"hasMore\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "52bef21e-0d6d-47ed-9302-20f338ff22fe",
+              "name": "Authentication required or token expired",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ap",
+                    "invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "invoiceId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "invoiceNum",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "vendorId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "invoiceDateFrom",
+                      "value": "2026-01-15"
+                    },
+                    {
+                      "key": "invoiceDateTo",
+                      "value": "2026-01-15"
+                    },
+                    {
+                      "key": "invoiceStatus",
+                      "value": "APPROVED"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"detail\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "510f9ea8-bdd5-4f9e-bae5-4327f026244b",
+          "name": "Create an Ap Invoice",
+          "request": {
+            "name": "Create an Ap Invoice",
+            "description": {
+              "content": "Creates a new Accounts Payable invoice. Uses the AP_INVOICES_INTERFACE and AP_INVOICE_LINES_INTERFACE tables, then initiates the Payables Open Interface Import program.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ap",
+                "invoices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The Oracle EBS instance hostname",
+                  "type": "any",
+                  "value": "{{instance}}",
+                  "key": "instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "accessToken"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"invoiceNum\": \"<string>\",\n  \"vendorId\": \"<integer>\",\n  \"vendorSiteId\": \"<integer>\",\n  \"invoiceAmount\": \"<double>\",\n  \"invoiceCurrencyCode\": \"<string>\",\n  \"invoiceDate\": \"<date>\",\n  \"invoiceType\": \"<string>\",\n  \"description\": \"<string>\",\n  \"termsId\": \"<integer>\",\n  \"source\": \"<string>\",\n  \"lines\": [\n    {\n      \"lineNumber\": \"<integer>\",\n      \"lineType\": \"<string>\",\n      \"amount\": \"<double>\",\n      \"description\": \"<string>\",\n      \"distCodeCombinationId\": \"<integer>\"\n    },\n    {\n      \"lineNumber\": \"<integer>\",\n      \"lineType\": \"<string>\",\n      \"amount\": \"<double>\",\n      \"description\": \"<string>\",\n      \"distCodeCombinationId\": \"<integer>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fef8ad76-2759-4d26-800b-ce45e021c9b6",
+              "name": "Invoice created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ap",
+                    "invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"invoiceNum\": \"example_value\",\n  \"vendorId\": \"500123\",\n  \"vendorSiteId\": \"500123\",\n  \"invoiceAmount\": 42.5,\n  \"invoiceCurrencyCode\": \"example_value\",\n  \"invoiceDate\": \"2026-01-15\",\n  \"invoiceType\": \"STANDARD\",\n  \"description\": \"A sample description.\",\n  \"termsId\": \"500123\",\n  \"source\": \"example_value\",\n  \"lines\": [\n    {\n      \"lineNumber\": 10,\n      \"lineType\": \"example_value\",\n      \"amount\": 42.5,\n      \"description\": \"A sample description.\",\n      \"distCodeCombinationId\": \"500123\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"invoiceId\": \"500123\",\n  \"invoiceNum\": \"example_value\",\n  \"invoiceDate\": \"2026-01-15\",\n  \"vendorId\": \"500123\",\n  \"vendorName\": \"example_value\",\n  \"vendorSiteId\": \"500123\",\n  \"invoiceAmount\": 42.5,\n  \"invoiceCurrencyCode\": \"example_value\",\n  \"paymentCurrencyCode\": \"example_value\",\n  \"exchangeRate\": 42.5,\n  \"exchangeRateType\": \"example_value\",\n  \"exchangeDate\": \"2026-01-15\",\n  \"termsId\": \"500123\",\n  \"description\": \"A sample description.\",\n  \"invoiceType\": \"STANDARD\",\n  \"source\": \"example_value\",\n  \"paymentStatusFlag\": \"Y\",\n  \"approvalStatus\": \"APPROVED\",\n  \"amountPaid\": \"500123\",\n  \"lines\": [\n    {\n      \"lineNumber\": 10,\n      \"lineType\": \"ITEM\",\n      \"amount\": 42.5,\n      \"description\": \"A sample description.\",\n      \"accountingDate\": \"2026-01-15\",\n      \"distCodeCombinationId\": \"500123\",\n      \"itemDescription\": \"example_value\",\n      \"quantity\": 42.5,\n      \"unitPrice\": 42.5\n    }\n  ],\n  \"orgId\": \"500123\",\n  \"createdBy\": 10,\n  \"creationDate\": \"2026-01-15T10:30:00Z\",\n  \"lastUpdatedBy\": 10,\n  \"lastUpdateDate\": \"2026-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3596e7ae-be0d-4724-b9a1-bf85cd1f7ddb",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ap",
+                    "invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"invoiceNum\": \"example_value\",\n  \"vendorId\": \"500123\",\n  \"vendorSiteId\": \"500123\",\n  \"invoiceAmount\": 42.5,\n  \"invoiceCurrencyCode\": \"example_value\",\n  \"invoiceDate\": \"2026-01-15\",\n  \"invoiceType\": \"STANDARD\",\n  \"description\": \"A sample description.\",\n  \"termsId\": \"500123\",\n  \"source\": \"example_value\",\n  \"lines\": [\n    {\n      \"lineNumber\": 10,\n      \"lineType\": \"example_value\",\n      \"amount\": 42.5,\n      \"description\": \"A sample description.\",\n      \"distCodeCombinationId\": \"500123\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"detail\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fff77f78-3e32-4be9-821b-5e827011c156",
+              "name": "Authentication required or token expired",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ap",
+                    "invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"invoiceNum\": \"example_value\",\n  \"vendorId\": \"500123\",\n  \"vendorSiteId\": \"500123\",\n  \"invoiceAmount\": 42.5,\n  \"invoiceCurrencyCode\": \"example_value\",\n  \"invoiceDate\": \"2026-01-15\",\n  \"invoiceType\": \"STANDARD\",\n  \"description\": \"A sample description.\",\n  \"termsId\": \"500123\",\n  \"source\": \"example_value\",\n  \"lines\": [\n    {\n      \"lineNumber\": 10,\n      \"lineType\": \"example_value\",\n      \"amount\": 42.5,\n      \"description\": \"A sample description.\",\n      \"distCodeCombinationId\": \"500123\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"detail\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "23e83bdb-a3bc-4524-8dbf-e4fd587d3d7c",
+          "name": "Retrieve a Specific Ap Invoice",
+          "request": {
+            "name": "Retrieve a Specific Ap Invoice",
+            "description": {
+              "content": "Retrieves an Accounts Payable invoice by its identifier.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ap",
+                "invoices",
+                ":invoiceId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "invoiceId",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "The Oracle EBS instance hostname",
+                  "type": "any",
+                  "value": "{{instance}}",
+                  "key": "instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "accessToken"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d4063906-6567-48ed-bb01-2427d8b873fa",
+              "name": "Invoice details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ap",
+                    "invoices",
+                    ":invoiceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "invoiceId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"invoiceId\": \"500123\",\n  \"invoiceNum\": \"example_value\",\n  \"invoiceDate\": \"2026-01-15\",\n  \"vendorId\": \"500123\",\n  \"vendorName\": \"example_value\",\n  \"vendorSiteId\": \"500123\",\n  \"invoiceAmount\": 42.5,\n  \"invoiceCurrencyCode\": \"example_value\",\n  \"paymentCurrencyCode\": \"example_value\",\n  \"exchangeRate\": 42.5,\n  \"exchangeRateType\": \"example_value\",\n  \"exchangeDate\": \"2026-01-15\",\n  \"termsId\": \"500123\",\n  \"description\": \"A sample description.\",\n  \"invoiceType\": \"STANDARD\",\n  \"source\": \"example_value\",\n  \"paymentStatusFlag\": \"Y\",\n  \"approvalStatus\": \"APPROVED\",\n  \"amountPaid\": \"500123\",\n  \"lines\": [\n    {\n      \"lineNumber\": 10,\n      \"lineType\": \"ITEM\",\n      \"amount\": 42.5,\n      \"description\": \"A sample description.\",\n      \"accountingDate\": \"2026-01-15\",\n      \"distCodeCombinationId\": \"500123\",\n      \"itemDescription\": \"example_value\",\n      \"quantity\": 42.5,\n      \"unitPrice\": 42.5\n    }\n  ],\n  \"orgId\": \"500123\",\n  \"createdBy\": 10,\n  \"creationDate\": \"2026-01-15T10:30:00Z\",\n  \"lastUpdatedBy\": 10,\n  \"lastUpdateDate\": \"2026-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "278e5421-6354-4687-b11e-5a7ca33f0747",
+              "name": "Authentication required or token expired",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ap",
+                    "invoices",
+                    ":invoiceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "invoiceId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"detail\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f9fc4e0b-491c-4ca3-a589-03f5b7dfd90d",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ap",
+                    "invoices",
+                    ":invoiceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "invoiceId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"detail\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9b7da6a7-3de3-4e88-8534-81e45773d2e5",
+          "name": "Retrieve Ap Payments",
+          "request": {
+            "name": "Retrieve Ap Payments",
+            "description": {
+              "content": "Retrieves Accounts Payable payment records. Maps to the AP_CHECKS_ALL and AP_INVOICE_PAYMENTS_ALL tables.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ap",
+                "payments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "checkId",
+                  "value": "<integer>",
+                  "description": "Payment check identifier"
+                },
+                {
+                  "disabled": false,
+                  "key": "vendorId",
+                  "value": "<integer>",
+                  "description": "Supplier/vendor identifier"
+                },
+                {
+                  "disabled": false,
+                  "key": "paymentDateFrom",
+                  "value": "<date>",
+                  "description": "Payment date range start (YYYY-MM-DD)"
+                },
+                {
+                  "disabled": false,
+                  "key": "paymentDateTo",
+                  "value": "<date>",
+                  "description": "Payment date range end (YYYY-MM-DD)"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25",
+                  "description": "Maximum number of records to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "Number of records to skip for pagination"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "The Oracle EBS instance hostname",
+                  "type": "any",
+                  "value": "{{instance}}",
+                  "key": "instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "accessToken"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "458afe56-2ae8-4b9c-9183-f639bd818ccc",
+              "name": "List of payments",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ap",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "checkId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "vendorId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "paymentDateFrom",
+                      "value": "2026-01-15"
+                    },
+                    {
+                      "key": "paymentDateTo",
+                      "value": "2026-01-15"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"checkId\": \"500123\",\n      \"checkNumber\": 10,\n      \"amount\": 42.5,\n      \"currencyCode\": \"example_value\",\n      \"checkDate\": \"2026-01-15\",\n      \"vendorId\": \"500123\",\n      \"vendorName\": \"example_value\",\n      \"bankAccountId\": \"500123\",\n      \"paymentMethodCode\": \"example_value\",\n      \"status\": \"example_value\",\n      \"orgId\": \"500123\"\n    }\n  ],\n  \"totalCount\": 10,\n  \"hasMore\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c083ea7c-df27-4bb1-97b4-f7a3bc31ab2c",
+              "name": "Authentication required or token expired",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ap",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "checkId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "vendorId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "paymentDateFrom",
+                      "value": "2026-01-15"
+                    },
+                    {
+                      "key": "paymentDateTo",
+                      "value": "2026-01-15"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"detail\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "The Oracle EBS instance hostname",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "ebs-host",
+      "key": "instance"
+    },
+    {
+      "type": "string",
+      "value": "https://{{instance}}.oracle.com/webservices/rest",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "b2de3dfb-6ba5-4711-8ff3-b6fae616377e",
+    "name": "Oracle EBS e-Commerce Gateway Accounts Payable API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "RESTful APIs for Oracle E-Business Suite e-Commerce Gateway providing EDI (Electronic Data Interchange) transaction support. Enables exchange of standard ASC X12 and EDIFACT documents with trading partners through flat ASCII file integration with third-party EDI translators. Supports inbound and outbound document processing for purchase orders, invoices, ship notices, and other business documents.\n\nContact Support:\n Name: Oracle Support\n Email: support@oracle.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,275 @@
+{
+  "item": [
+    {
+      "id": "857be382-780b-48a2-8768-b5201ebda864",
+      "name": "Fixed Assets",
+      "description": {
+        "content": "Fixed asset management operations",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "fa268da9-586d-4940-ac88-9db4d6e99598",
+          "name": "Retrieve Fixed Assets",
+          "request": {
+            "name": "Retrieve Fixed Assets",
+            "description": {
+              "content": "Retrieves Fixed Assets records. Maps to the FA_ADDITIONS_B and FA_BOOKS tables through the Fixed Assets API.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fa",
+                "assets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "assetId",
+                  "value": "<integer>",
+                  "description": "Asset identifier"
+                },
+                {
+                  "disabled": false,
+                  "key": "assetNumber",
+                  "value": "<string>",
+                  "description": "Asset number"
+                },
+                {
+                  "disabled": false,
+                  "key": "assetCategory",
+                  "value": "<string>",
+                  "description": "Asset category"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25",
+                  "description": "Maximum number of records to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "Number of records to skip for pagination"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "The Oracle EBS instance hostname",
+                  "type": "any",
+                  "value": "{{instance}}",
+                  "key": "instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "accessToken"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "492f7e2d-4192-4789-b049-d498b65c2038",
+              "name": "List of fixed assets",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fa",
+                    "assets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "assetId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "assetNumber",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "assetCategory",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"assetId\": \"500123\",\n      \"assetNumber\": \"example_value\",\n      \"assetDescription\": \"example_value\",\n      \"assetCategoryId\": \"500123\",\n      \"assetType\": \"CAPITALIZED\",\n      \"serialNumber\": \"example_value\",\n      \"tagNumber\": \"example_value\",\n      \"dateEffective\": \"2026-01-15\",\n      \"dateInService\": \"2026-01-15\",\n      \"cost\": 42.5,\n      \"salvageValue\": 42.5,\n      \"depreciationMethod\": \"example_value\",\n      \"lifeInMonths\": 10,\n      \"bookTypeCode\": \"example_value\"\n    }\n  ],\n  \"totalCount\": 10,\n  \"hasMore\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e6eb943b-6a82-48fc-938a-bde48600ccf7",
+              "name": "Authentication required or token expired",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fa",
+                    "assets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "assetId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "assetNumber",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "assetCategory",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"detail\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "The Oracle EBS instance hostname",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "ebs-host",
+      "key": "instance"
+    },
+    {
+      "type": "string",
+      "value": "https://{{instance}}.oracle.com/webservices/rest",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "42d13505-864b-42ba-9bbd-129d1a25b7a4",
+    "name": "Oracle EBS e-Commerce Gateway Accounts Payable Fixed Assets API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "RESTful APIs for Oracle E-Business Suite e-Commerce Gateway providing EDI (Electronic Data Interchange) transaction support. Enables exchange of standard ASC X12 and EDIFACT documents with trading partners through flat ASCII file integration with third-party EDI translators. Supports inbound and outbound document processing for purchase orders, invoices, ship notices, and other business documents.\n\nContact Support:\n Name: Oracle Support\n Email: support@oracle.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,566 @@
+{
+  "item": [
+    {
+      "id": "28eb18ec-7bd7-4cdd-b585-e63b0272144d",
+      "name": "Order Management",
+      "description": {
+        "content": "Sales order processing and management",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "44eed9a0-80bc-4e6b-8a62-27bca607516f",
+          "name": "Retrieve Sales Orders",
+          "request": {
+            "name": "Retrieve Sales Orders",
+            "description": {
+              "content": "Retrieves Order Management sales order records. Maps to the OE_ORDER_HEADERS_ALL and OE_ORDER_LINES_ALL tables through the OE_ORDER_PUB PL/SQL API.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "oe",
+                "salesOrders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "headerId",
+                  "value": "<integer>",
+                  "description": "Order header identifier"
+                },
+                {
+                  "disabled": false,
+                  "key": "orderNumber",
+                  "value": "<integer>",
+                  "description": "Order number"
+                },
+                {
+                  "disabled": false,
+                  "key": "customerId",
+                  "value": "<integer>",
+                  "description": "Customer identifier (sold-to)"
+                },
+                {
+                  "disabled": false,
+                  "key": "flowStatusCode",
+                  "value": "<string>",
+                  "description": "Order flow status"
+                },
+                {
+                  "disabled": false,
+                  "key": "orderedDateFrom",
+                  "value": "<date>",
+                  "description": "Order date range start (YYYY-MM-DD)"
+                },
+                {
+                  "disabled": false,
+                  "key": "orderedDateTo",
+                  "value": "<date>",
+                  "description": "Order date range end (YYYY-MM-DD)"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25",
+                  "description": "Maximum number of records to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "Number of records to skip for pagination"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "The Oracle EBS instance hostname",
+                  "type": "any",
+                  "value": "{{instance}}",
+                  "key": "instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "accessToken"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "692535a1-4794-4ec0-a177-bc7ea90084de",
+              "name": "List of sales orders",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "oe",
+                    "salesOrders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "headerId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "orderNumber",
+                      "value": "10"
+                    },
+                    {
+                      "key": "customerId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "flowStatusCode",
+                      "value": "ENTERED"
+                    },
+                    {
+                      "key": "orderedDateFrom",
+                      "value": "2026-01-15"
+                    },
+                    {
+                      "key": "orderedDateTo",
+                      "value": "2026-01-15"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"headerId\": \"500123\",\n      \"orderNumber\": 10,\n      \"orderedDate\": \"2026-01-15\",\n      \"orderTypeId\": \"500123\",\n      \"orderTypeName\": \"example_value\",\n      \"soldToOrgId\": \"500123\",\n      \"customerName\": \"example_value\",\n      \"shipToOrgId\": \"500123\",\n      \"invoiceToOrgId\": \"500123\",\n      \"transactionalCurrCode\": \"example_value\",\n      \"flowStatusCode\": \"ENTERED\",\n      \"bookedFlag\": \"Y\",\n      \"totalAmount\": 42.5,\n      \"salesrepId\": \"500123\",\n      \"lines\": [\n        {}\n      ],\n      \"orgId\": \"500123\",\n      \"creationDate\": \"2026-01-15T10:30:00Z\",\n      \"lastUpdateDate\": \"2026-01-15T10:30:00Z\"\n    }\n  ],\n  \"totalCount\": 10,\n  \"hasMore\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7b995f83-6c8d-4ebf-ac05-196dbfcdcc68",
+              "name": "Authentication required or token expired",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "oe",
+                    "salesOrders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "headerId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "orderNumber",
+                      "value": "10"
+                    },
+                    {
+                      "key": "customerId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "flowStatusCode",
+                      "value": "ENTERED"
+                    },
+                    {
+                      "key": "orderedDateFrom",
+                      "value": "2026-01-15"
+                    },
+                    {
+                      "key": "orderedDateTo",
+                      "value": "2026-01-15"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"detail\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ddcd70bd-0c4a-4e24-8355-5beefe4c1a33",
+          "name": "Create a Sales Order",
+          "request": {
+            "name": "Create a Sales Order",
+            "description": {
+              "content": "Creates a new sales order using the OE_ORDER_PUB.PROCESS_ORDER PL/SQL API or the Order Import open interface.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "oe",
+                "salesOrders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The Oracle EBS instance hostname",
+                  "type": "any",
+                  "value": "{{instance}}",
+                  "key": "instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "accessToken"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"soldToOrgId\": \"<integer>\",\n  \"orderTypeId\": \"<integer>\",\n  \"lines\": [\n    {\n      \"inventoryItemId\": \"<integer>\",\n      \"orderedQuantity\": \"<double>\",\n      \"orderQuantityUom\": \"<string>\",\n      \"unitSellingPrice\": \"<double>\",\n      \"scheduleShipDate\": \"<date>\"\n    },\n    {\n      \"inventoryItemId\": \"<integer>\",\n      \"orderedQuantity\": \"<double>\",\n      \"orderQuantityUom\": \"<string>\",\n      \"unitSellingPrice\": \"<double>\",\n      \"scheduleShipDate\": \"<date>\"\n    }\n  ],\n  \"orderedDate\": \"<date>\",\n  \"transactionalCurrCode\": \"<string>\",\n  \"shipToOrgId\": \"<integer>\",\n  \"invoiceToOrgId\": \"<integer>\",\n  \"salesrepId\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7deddf63-18aa-4867-b07c-da26e981ba40",
+              "name": "Sales order created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "oe",
+                    "salesOrders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"soldToOrgId\": \"500123\",\n  \"orderTypeId\": \"500123\",\n  \"orderedDate\": \"2026-01-15\",\n  \"transactionalCurrCode\": \"example_value\",\n  \"shipToOrgId\": \"500123\",\n  \"invoiceToOrgId\": \"500123\",\n  \"salesrepId\": \"500123\",\n  \"lines\": [\n    {\n      \"inventoryItemId\": \"500123\",\n      \"orderedQuantity\": 42.5,\n      \"orderQuantityUom\": \"example_value\",\n      \"unitSellingPrice\": 42.5,\n      \"scheduleShipDate\": \"2026-01-15\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"headerId\": \"500123\",\n  \"orderNumber\": 10,\n  \"orderedDate\": \"2026-01-15\",\n  \"orderTypeId\": \"500123\",\n  \"orderTypeName\": \"example_value\",\n  \"soldToOrgId\": \"500123\",\n  \"customerName\": \"example_value\",\n  \"shipToOrgId\": \"500123\",\n  \"invoiceToOrgId\": \"500123\",\n  \"transactionalCurrCode\": \"example_value\",\n  \"flowStatusCode\": \"ENTERED\",\n  \"bookedFlag\": \"Y\",\n  \"totalAmount\": 42.5,\n  \"salesrepId\": \"500123\",\n  \"lines\": [\n    {\n      \"lineId\": \"500123\",\n      \"lineNumber\": 10,\n      \"orderedItem\": \"example_value\",\n      \"inventoryItemId\": \"500123\",\n      \"orderedQuantity\": 42.5,\n      \"orderQuantityUom\": \"example_value\",\n      \"unitSellingPrice\": 42.5,\n      \"unitListPrice\": 42.5,\n      \"lineAmount\": 42.5,\n      \"scheduleShipDate\": \"2026-01-15\",\n      \"actualShipDate\": \"2026-01-15\",\n      \"flowStatusCode\": \"example_value\",\n      \"shippedQuantity\": 42.5\n    }\n  ],\n  \"orgId\": \"500123\",\n  \"creationDate\": \"2026-01-15T10:30:00Z\",\n  \"lastUpdateDate\": \"2026-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6bd439c2-e21e-4c8f-8845-4fb1b0f7a910",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "oe",
+                    "salesOrders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"soldToOrgId\": \"500123\",\n  \"orderTypeId\": \"500123\",\n  \"orderedDate\": \"2026-01-15\",\n  \"transactionalCurrCode\": \"example_value\",\n  \"shipToOrgId\": \"500123\",\n  \"invoiceToOrgId\": \"500123\",\n  \"salesrepId\": \"500123\",\n  \"lines\": [\n    {\n      \"inventoryItemId\": \"500123\",\n      \"orderedQuantity\": 42.5,\n      \"orderQuantityUom\": \"example_value\",\n      \"unitSellingPrice\": 42.5,\n      \"scheduleShipDate\": \"2026-01-15\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"detail\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8df8fd7e-ba79-44c2-9fa5-c490c7522888",
+              "name": "Authentication required or token expired",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "oe",
+                    "salesOrders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"soldToOrgId\": \"500123\",\n  \"orderTypeId\": \"500123\",\n  \"orderedDate\": \"2026-01-15\",\n  \"transactionalCurrCode\": \"example_value\",\n  \"shipToOrgId\": \"500123\",\n  \"invoiceToOrgId\": \"500123\",\n  \"salesrepId\": \"500123\",\n  \"lines\": [\n    {\n      \"inventoryItemId\": \"500123\",\n      \"orderedQuantity\": 42.5,\n      \"orderQuantityUom\": \"example_value\",\n      \"unitSellingPrice\": 42.5,\n      \"scheduleShipDate\": \"2026-01-15\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"detail\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "The Oracle EBS instance hostname",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "ebs-host",
+      "key": "instance"
+    },
+    {
+      "type": "string",
+      "value": "https://{{instance}}.oracle.com/webservices/rest",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "69b49692-4cdd-47c5-bc47-c3b9e3217bc4",
+    "name": "Oracle EBS e-Commerce Gateway Accounts Payable Order Management API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "RESTful APIs for Oracle E-Business Suite e-Commerce Gateway providing EDI (Electronic Data Interchange) transaction support. Enables exchange of standard ASC X12 and EDIFACT documents with trading partners through flat ASCII file integration with third-party EDI translators. Supports inbound and outbound document processing for purchase orders, invoices, ship notices, and other business documents.\n\nContact Support:\n Name: Oracle Support\n Email: support@oracle.com",
+      "type": "text/plain"
+    }
+  }
+}

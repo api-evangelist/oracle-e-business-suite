@@ -1,0 +1,100 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Oracle EBS e-Commerce Gateway Accounts Payable Inbound Transactions API",
+    "version": "12.2.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Inbound Transactions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve Inbound Edi Transactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.oracle.com/webservices/rest/ece/transactions/inbound",
+            "params": [
+              {
+                "name": "transactionType",
+                "value": "INI",
+                "type": "query",
+                "description": "EDI transaction type code"
+              },
+              {
+                "name": "tradingPartnerId",
+                "value": "500123",
+                "type": "query",
+                "description": "Trading partner identifier"
+              },
+              {
+                "name": "processStatus",
+                "value": "PENDING",
+                "type": "query",
+                "description": "Processing status"
+              },
+              {
+                "name": "creationDateFrom",
+                "value": "2026-01-15",
+                "type": "query",
+                "description": "Creation date range start (YYYY-MM-DD)"
+              },
+              {
+                "name": "creationDateTo",
+                "value": "2026-01-15",
+                "type": "query",
+                "description": "Creation date range end (YYYY-MM-DD)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "accessToken",
+              "value": "{{accessToken}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Retrieves inbound EDI transaction records that have been imported through the e-Commerce Gateway. Includes invoice, ship notice, price catalog, and quote response documents."
+        },
+        {
+          "info": {
+            "name": "Import an Inbound Edi Transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{instance}.oracle.com/webservices/rest/ece/transactions/inbound",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "accessToken",
+              "value": "{{accessToken}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Imports an inbound EDI transaction into Oracle EBS through the e-Commerce Gateway. The transaction data is validated, code conversion is applied, and data is loaded into the appropriate Oracle application open interface tables."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

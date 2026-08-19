@@ -1,0 +1,558 @@
+{
+  "item": [
+    {
+      "id": "b229fa69-e7a4-4a59-939f-284cd79579c8",
+      "name": "Service Invocation",
+      "description": {
+        "content": "Invoke deployed REST service methods",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "759a7d83-f398-4bc3-a00f-182fac481dfd",
+          "name": "Invoke a Rest Service Method",
+          "request": {
+            "name": "Invoke a Rest Service Method",
+            "description": {
+              "content": "Invokes a specific method on a deployed REST service. The service alias and method name correspond to the PL/SQL API, Java Bean Service, Application Module Service, or other interface type deployed through the Integration Repository. Request and response payloads vary by service.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":serviceAlias",
+                ":methodName"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "serviceAlias",
+                  "description": "(Required) The alias of the deployed REST service"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "methodName",
+                  "description": "(Required) The REST method name to invoke"
+                },
+                {
+                  "description": "The Oracle EBS instance hostname",
+                  "type": "any",
+                  "value": "{{instance}}",
+                  "key": "instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "NLS language context in RFC 5646 format. Controls the language for translated messages and data returned by the service.",
+                "key": "Accept-Language",
+                "value": "en-US"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "accessToken"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"RESTHeader\": {\n    \"Responsibility\": \"<string>\",\n    \"RespApplication\": \"<string>\",\n    \"SecurityGroup\": \"<string>\",\n    \"NLSLanguage\": \"<string>\",\n    \"Org_Id\": \"<integer>\"\n  },\n  \"InputParameters\": {\n    \"key_0\": 2105\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d3c5566a-52c0-4477-a4ac-a5c01ec9dd32",
+              "name": "Method invoked successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":serviceAlias",
+                    ":methodName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceAlias",
+                      "description": "(Required) The alias of the deployed REST service"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "methodName",
+                      "description": "(Required) The REST method name to invoke"
+                    },
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "NLS language context in RFC 5646 format. Controls the language for translated messages and data returned by the service.",
+                    "key": "Accept-Language",
+                    "value": "en-GB,en-US;q=0.8,en;q=0.6"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The format of the request body",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"RESTHeader\": {\n    \"Responsibility\": \"example_value\",\n    \"RespApplication\": \"example_value\",\n    \"SecurityGroup\": \"example_value\",\n    \"NLSLanguage\": \"example_value\",\n    \"Org_Id\": \"500123\"\n  },\n  \"InputParameters\": \"example_value\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"OutputParameters\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "feeb23f2-5bd6-4719-b51a-6f38770aeade",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":serviceAlias",
+                    ":methodName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceAlias",
+                      "description": "(Required) The alias of the deployed REST service"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "methodName",
+                      "description": "(Required) The REST method name to invoke"
+                    },
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "NLS language context in RFC 5646 format. Controls the language for translated messages and data returned by the service.",
+                    "key": "Accept-Language",
+                    "value": "en-GB,en-US;q=0.8,en;q=0.6"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The format of the request body",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"RESTHeader\": {\n    \"Responsibility\": \"example_value\",\n    \"RespApplication\": \"example_value\",\n    \"SecurityGroup\": \"example_value\",\n    \"NLSLanguage\": \"example_value\",\n    \"Org_Id\": \"500123\"\n  },\n  \"InputParameters\": \"example_value\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"example_value\",\n    \"message\": \"example_value\",\n    \"detail\": \"example_value\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c8785310-7490-4b71-8449-9762182bd6f1",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":serviceAlias",
+                    ":methodName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceAlias",
+                      "description": "(Required) The alias of the deployed REST service"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "methodName",
+                      "description": "(Required) The REST method name to invoke"
+                    },
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "NLS language context in RFC 5646 format. Controls the language for translated messages and data returned by the service.",
+                    "key": "Accept-Language",
+                    "value": "en-GB,en-US;q=0.8,en;q=0.6"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The format of the request body",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"RESTHeader\": {\n    \"Responsibility\": \"example_value\",\n    \"RespApplication\": \"example_value\",\n    \"SecurityGroup\": \"example_value\",\n    \"NLSLanguage\": \"example_value\",\n    \"Org_Id\": \"500123\"\n  },\n  \"InputParameters\": \"example_value\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"example_value\",\n    \"message\": \"example_value\",\n    \"detail\": \"example_value\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "001e4c5d-e4a1-4180-b91d-bb1b3a843722",
+              "name": "Service or method not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":serviceAlias",
+                    ":methodName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceAlias",
+                      "description": "(Required) The alias of the deployed REST service"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "methodName",
+                      "description": "(Required) The REST method name to invoke"
+                    },
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "NLS language context in RFC 5646 format. Controls the language for translated messages and data returned by the service.",
+                    "key": "Accept-Language",
+                    "value": "en-GB,en-US;q=0.8,en;q=0.6"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The format of the request body",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"RESTHeader\": {\n    \"Responsibility\": \"example_value\",\n    \"RespApplication\": \"example_value\",\n    \"SecurityGroup\": \"example_value\",\n    \"NLSLanguage\": \"example_value\",\n    \"Org_Id\": \"500123\"\n  },\n  \"InputParameters\": \"example_value\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"example_value\",\n    \"message\": \"example_value\",\n    \"detail\": \"example_value\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ab5d8bf1-3690-4540-9ad1-9e4f4bbd5ac5",
+              "name": "Internal server error during method execution",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":serviceAlias",
+                    ":methodName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceAlias",
+                      "description": "(Required) The alias of the deployed REST service"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "methodName",
+                      "description": "(Required) The REST method name to invoke"
+                    },
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "NLS language context in RFC 5646 format. Controls the language for translated messages and data returned by the service.",
+                    "key": "Accept-Language",
+                    "value": "en-GB,en-US;q=0.8,en;q=0.6"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The format of the request body",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"RESTHeader\": {\n    \"Responsibility\": \"example_value\",\n    \"RespApplication\": \"example_value\",\n    \"SecurityGroup\": \"example_value\",\n    \"NLSLanguage\": \"example_value\",\n    \"Org_Id\": \"500123\"\n  },\n  \"InputParameters\": \"example_value\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"example_value\",\n    \"message\": \"example_value\",\n    \"detail\": \"example_value\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "The Oracle EBS instance hostname",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "ebs-host",
+      "key": "instance"
+    },
+    {
+      "type": "string",
+      "value": "https://{{instance}}.oracle.com/webservices/rest",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "24e60276-36b1-40dc-b755-3ec659707df8",
+    "name": "Oracle EBS e-Commerce Gateway Accounts Payable Service Invocation API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "RESTful APIs for Oracle E-Business Suite e-Commerce Gateway providing EDI (Electronic Data Interchange) transaction support. Enables exchange of standard ASC X12 and EDIFACT documents with trading partners through flat ASCII file integration with third-party EDI translators. Supports inbound and outbound document processing for purchase orders, invoices, ship notices, and other business documents.\n\nContact Support:\n Name: Oracle Support\n Email: support@oracle.com",
+      "type": "text/plain"
+    }
+  }
+}

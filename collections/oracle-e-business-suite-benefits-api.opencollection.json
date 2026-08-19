@@ -1,0 +1,67 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Oracle EBS e-Commerce Gateway Accounts Payable Benefits API",
+    "version": "12.2.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Benefits",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve Benefit Enrollments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.oracle.com/webservices/rest/ben/benefits",
+            "params": [
+              {
+                "name": "personId",
+                "value": "500123",
+                "type": "query",
+                "description": "Person identifier"
+              },
+              {
+                "name": "planId",
+                "value": "500123",
+                "type": "query",
+                "description": "Benefit plan identifier"
+              },
+              {
+                "name": "effectiveDate",
+                "value": "2026-01-15",
+                "type": "query",
+                "description": "Effective date (YYYY-MM-DD)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "accessToken",
+              "value": "{{accessToken}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Retrieves employee benefit enrollment records. Maps to the BEN_PRTT_ENRT_RSLT_F table through the Benefits API."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

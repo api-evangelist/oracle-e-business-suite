@@ -1,0 +1,61 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Oracle EBS e-Commerce Gateway Accounts Payable Cash Management API",
+    "version": "12.2.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Cash Management",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve Bank Accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.oracle.com/webservices/rest/ce/bankAccounts",
+            "params": [
+              {
+                "name": "bankAccountId",
+                "value": "500123",
+                "type": "query",
+                "description": "Bank account identifier"
+              },
+              {
+                "name": "bankAccountName",
+                "value": "example_value",
+                "type": "query",
+                "description": "Bank account name"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "accessToken",
+              "value": "{{accessToken}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Retrieves Cash Management bank account records. Maps to the CE_BANK_ACCOUNTS table through the Cash Management APIs."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

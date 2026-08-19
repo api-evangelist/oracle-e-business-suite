@@ -1,0 +1,94 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Oracle EBS e-Commerce Gateway Accounts Payable General Ledger API",
+    "version": "12.2.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "General Ledger",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve Journal Entries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.oracle.com/webservices/rest/gl/journals",
+            "params": [
+              {
+                "name": "ledgerId",
+                "value": "500123",
+                "type": "query",
+                "description": "Ledger identifier"
+              },
+              {
+                "name": "periodName",
+                "value": "example_value",
+                "type": "query",
+                "description": "Accounting period name"
+              },
+              {
+                "name": "journalCategory",
+                "value": "example_value",
+                "type": "query",
+                "description": "Journal category name"
+              },
+              {
+                "name": "status",
+                "value": "U",
+                "type": "query",
+                "description": "Journal status"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "accessToken",
+              "value": "{{accessToken}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Retrieves General Ledger journal entries based on the provided filter criteria. Maps to the GL_JE_HEADERS and GL_JE_LINES interface tables."
+        },
+        {
+          "info": {
+            "name": "Create a Journal Entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{instance}.oracle.com/webservices/rest/gl/journals",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "accessToken",
+              "value": "{{accessToken}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Creates a new General Ledger journal entry. Maps to the GL_INTERFACE table and GL_JOURNAL_IMPORT concurrent program."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,1654 @@
+{
+  "item": [
+    {
+      "id": "fe89654f-c6b2-4d19-b1a8-f15010c6a30b",
+      "name": "Purchasing",
+      "description": {
+        "content": "Purchase order, requisition, and supplier management",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "bf92d09b-9ac4-4499-b8ab-2f7304b3cc55",
+          "name": "Retrieve Purchase Orders",
+          "request": {
+            "name": "Retrieve Purchase Orders",
+            "description": {
+              "content": "Retrieves purchase order records. Maps to the PO_HEADERS_ALL, PO_LINES_ALL, PO_LINE_LOCATIONS_ALL, and PO_DISTRIBUTIONS_ALL tables through the PO_PURCHASE_ORDERS_PKG PL/SQL API.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "po",
+                "purchaseOrders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "poHeaderId",
+                  "value": "<integer>",
+                  "description": "Purchase order header identifier"
+                },
+                {
+                  "disabled": false,
+                  "key": "segment1",
+                  "value": "<string>",
+                  "description": "Purchase order number"
+                },
+                {
+                  "disabled": false,
+                  "key": "vendorId",
+                  "value": "<integer>",
+                  "description": "Supplier/vendor identifier"
+                },
+                {
+                  "disabled": false,
+                  "key": "authorizationStatus",
+                  "value": "<string>",
+                  "description": "Authorization status"
+                },
+                {
+                  "disabled": false,
+                  "key": "creationDateFrom",
+                  "value": "<date>",
+                  "description": "Creation date range start (YYYY-MM-DD)"
+                },
+                {
+                  "disabled": false,
+                  "key": "creationDateTo",
+                  "value": "<date>",
+                  "description": "Creation date range end (YYYY-MM-DD)"
+                },
+                {
+                  "disabled": false,
+                  "key": "typeLookupCode",
+                  "value": "<string>",
+                  "description": "Purchase order type"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25",
+                  "description": "Maximum number of records to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "Number of records to skip for pagination"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "The Oracle EBS instance hostname",
+                  "type": "any",
+                  "value": "{{instance}}",
+                  "key": "instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "accessToken"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b8ae1ec9-6238-483f-854e-319fae45fd50",
+              "name": "List of purchase orders",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "po",
+                    "purchaseOrders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "poHeaderId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "segment1",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "vendorId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "authorizationStatus",
+                      "value": "APPROVED"
+                    },
+                    {
+                      "key": "creationDateFrom",
+                      "value": "2026-01-15"
+                    },
+                    {
+                      "key": "creationDateTo",
+                      "value": "2026-01-15"
+                    },
+                    {
+                      "key": "typeLookupCode",
+                      "value": "STANDARD"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"poHeaderId\": \"500123\",\n      \"segment1\": \"example_value\",\n      \"typeLookupCode\": \"STANDARD\",\n      \"vendorId\": \"500123\",\n      \"vendorName\": \"example_value\",\n      \"vendorSiteId\": \"500123\",\n      \"currencyCode\": \"example_value\",\n      \"authorizationStatus\": \"APPROVED\",\n      \"approvedFlag\": \"Y\",\n      \"closedCode\": \"OPEN\",\n      \"totalAmount\": 42.5,\n      \"creationDate\": \"2026-01-15T10:30:00Z\",\n      \"approvedDate\": \"2026-01-15\",\n      \"buyerId\": \"500123\",\n      \"shipToLocationId\": \"500123\",\n      \"billToLocationId\": \"500123\",\n      \"termsId\": \"500123\",\n      \"description\": \"A sample description.\",\n      \"lines\": [\n        {}\n      ],\n      \"orgId\": \"500123\",\n      \"lastUpdateDate\": \"2026-01-15T10:30:00Z\"\n    }\n  ],\n  \"totalCount\": 10,\n  \"hasMore\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "70fe5ee9-597e-4dd0-8051-4308baefb834",
+              "name": "Authentication required or token expired",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "po",
+                    "purchaseOrders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "poHeaderId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "segment1",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "vendorId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "authorizationStatus",
+                      "value": "APPROVED"
+                    },
+                    {
+                      "key": "creationDateFrom",
+                      "value": "2026-01-15"
+                    },
+                    {
+                      "key": "creationDateTo",
+                      "value": "2026-01-15"
+                    },
+                    {
+                      "key": "typeLookupCode",
+                      "value": "STANDARD"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"detail\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "02c5a36a-f36a-429e-9f72-c5b7d370ee3b",
+          "name": "Create a Purchase Order",
+          "request": {
+            "name": "Create a Purchase Order",
+            "description": {
+              "content": "Creates a new purchase order. Uses the PO_HEADERS_INTERFACE, PO_LINES_INTERFACE, and PO_DISTRIBUTIONS_INTERFACE tables, then initiates the Import Standard Purchase Orders concurrent program.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "po",
+                "purchaseOrders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The Oracle EBS instance hostname",
+                  "type": "any",
+                  "value": "{{instance}}",
+                  "key": "instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "accessToken"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"vendorId\": \"<integer>\",\n  \"vendorSiteId\": \"<integer>\",\n  \"currencyCode\": \"<string>\",\n  \"lines\": [\n    {\n      \"itemDescription\": \"<string>\",\n      \"quantity\": \"<double>\",\n      \"unitPrice\": \"<double>\",\n      \"lineNum\": \"<integer>\",\n      \"itemId\": \"<integer>\",\n      \"categoryId\": \"<integer>\",\n      \"unitMeasLookupCode\": \"<string>\",\n      \"needByDate\": \"<date>\",\n      \"shipToOrganizationId\": \"<integer>\"\n    },\n    {\n      \"itemDescription\": \"<string>\",\n      \"quantity\": \"<double>\",\n      \"unitPrice\": \"<double>\",\n      \"lineNum\": \"<integer>\",\n      \"itemId\": \"<integer>\",\n      \"categoryId\": \"<integer>\",\n      \"unitMeasLookupCode\": \"<string>\",\n      \"needByDate\": \"<date>\",\n      \"shipToOrganizationId\": \"<integer>\"\n    }\n  ],\n  \"typeLookupCode\": \"STANDARD\",\n  \"description\": \"<string>\",\n  \"buyerId\": \"<integer>\",\n  \"shipToLocationId\": \"<integer>\",\n  \"billToLocationId\": \"<integer>\",\n  \"termsId\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1b9014dc-0452-4321-b2a5-ef4db40321c4",
+              "name": "Purchase order created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "po",
+                    "purchaseOrders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"vendorId\": \"500123\",\n  \"vendorSiteId\": \"500123\",\n  \"currencyCode\": \"example_value\",\n  \"typeLookupCode\": \"example_value\",\n  \"description\": \"A sample description.\",\n  \"buyerId\": \"500123\",\n  \"shipToLocationId\": \"500123\",\n  \"billToLocationId\": \"500123\",\n  \"termsId\": \"500123\",\n  \"lines\": [\n    {\n      \"lineNum\": 10,\n      \"itemId\": \"500123\",\n      \"itemDescription\": \"example_value\",\n      \"categoryId\": \"500123\",\n      \"quantity\": 42.5,\n      \"unitMeasLookupCode\": \"example_value\",\n      \"unitPrice\": 42.5,\n      \"needByDate\": \"2026-01-15\",\n      \"shipToOrganizationId\": \"500123\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"poHeaderId\": \"500123\",\n  \"segment1\": \"example_value\",\n  \"typeLookupCode\": \"STANDARD\",\n  \"vendorId\": \"500123\",\n  \"vendorName\": \"example_value\",\n  \"vendorSiteId\": \"500123\",\n  \"currencyCode\": \"example_value\",\n  \"authorizationStatus\": \"APPROVED\",\n  \"approvedFlag\": \"Y\",\n  \"closedCode\": \"OPEN\",\n  \"totalAmount\": 42.5,\n  \"creationDate\": \"2026-01-15T10:30:00Z\",\n  \"approvedDate\": \"2026-01-15\",\n  \"buyerId\": \"500123\",\n  \"shipToLocationId\": \"500123\",\n  \"billToLocationId\": \"500123\",\n  \"termsId\": \"500123\",\n  \"description\": \"A sample description.\",\n  \"lines\": [\n    {\n      \"poLineId\": \"500123\",\n      \"lineNum\": 10,\n      \"lineType\": \"example_value\",\n      \"itemId\": \"500123\",\n      \"itemDescription\": \"example_value\",\n      \"categoryId\": \"500123\",\n      \"quantity\": 42.5,\n      \"unitMeasLookupCode\": \"example_value\",\n      \"unitPrice\": 42.5,\n      \"amount\": 42.5,\n      \"needByDate\": \"2026-01-15\",\n      \"promisedDate\": \"2026-01-15\",\n      \"closedCode\": \"example_value\",\n      \"shipments\": {}\n    }\n  ],\n  \"orgId\": \"500123\",\n  \"lastUpdateDate\": \"2026-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e7a858ae-1ce3-4bcd-b10a-83ebfb12d796",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "po",
+                    "purchaseOrders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"vendorId\": \"500123\",\n  \"vendorSiteId\": \"500123\",\n  \"currencyCode\": \"example_value\",\n  \"typeLookupCode\": \"example_value\",\n  \"description\": \"A sample description.\",\n  \"buyerId\": \"500123\",\n  \"shipToLocationId\": \"500123\",\n  \"billToLocationId\": \"500123\",\n  \"termsId\": \"500123\",\n  \"lines\": [\n    {\n      \"lineNum\": 10,\n      \"itemId\": \"500123\",\n      \"itemDescription\": \"example_value\",\n      \"categoryId\": \"500123\",\n      \"quantity\": 42.5,\n      \"unitMeasLookupCode\": \"example_value\",\n      \"unitPrice\": 42.5,\n      \"needByDate\": \"2026-01-15\",\n      \"shipToOrganizationId\": \"500123\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"detail\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "80a91077-5a06-4c0d-8fd7-a03b7e58060d",
+              "name": "Authentication required or token expired",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "po",
+                    "purchaseOrders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"vendorId\": \"500123\",\n  \"vendorSiteId\": \"500123\",\n  \"currencyCode\": \"example_value\",\n  \"typeLookupCode\": \"example_value\",\n  \"description\": \"A sample description.\",\n  \"buyerId\": \"500123\",\n  \"shipToLocationId\": \"500123\",\n  \"billToLocationId\": \"500123\",\n  \"termsId\": \"500123\",\n  \"lines\": [\n    {\n      \"lineNum\": 10,\n      \"itemId\": \"500123\",\n      \"itemDescription\": \"example_value\",\n      \"categoryId\": \"500123\",\n      \"quantity\": 42.5,\n      \"unitMeasLookupCode\": \"example_value\",\n      \"unitPrice\": 42.5,\n      \"needByDate\": \"2026-01-15\",\n      \"shipToOrganizationId\": \"500123\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"detail\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "99bed29e-d3ee-44ba-a4d2-94a31ed6d0da",
+          "name": "Retrieve a Specific Purchase Order",
+          "request": {
+            "name": "Retrieve a Specific Purchase Order",
+            "description": {
+              "content": "Retrieves a purchase order by its header identifier.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "po",
+                "purchaseOrders",
+                ":poHeaderId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "poHeaderId",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "The Oracle EBS instance hostname",
+                  "type": "any",
+                  "value": "{{instance}}",
+                  "key": "instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "accessToken"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f8b66eee-626f-49d3-9ce1-c4927784c746",
+              "name": "Purchase order details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "po",
+                    "purchaseOrders",
+                    ":poHeaderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "poHeaderId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"poHeaderId\": \"500123\",\n  \"segment1\": \"example_value\",\n  \"typeLookupCode\": \"STANDARD\",\n  \"vendorId\": \"500123\",\n  \"vendorName\": \"example_value\",\n  \"vendorSiteId\": \"500123\",\n  \"currencyCode\": \"example_value\",\n  \"authorizationStatus\": \"APPROVED\",\n  \"approvedFlag\": \"Y\",\n  \"closedCode\": \"OPEN\",\n  \"totalAmount\": 42.5,\n  \"creationDate\": \"2026-01-15T10:30:00Z\",\n  \"approvedDate\": \"2026-01-15\",\n  \"buyerId\": \"500123\",\n  \"shipToLocationId\": \"500123\",\n  \"billToLocationId\": \"500123\",\n  \"termsId\": \"500123\",\n  \"description\": \"A sample description.\",\n  \"lines\": [\n    {\n      \"poLineId\": \"500123\",\n      \"lineNum\": 10,\n      \"lineType\": \"example_value\",\n      \"itemId\": \"500123\",\n      \"itemDescription\": \"example_value\",\n      \"categoryId\": \"500123\",\n      \"quantity\": 42.5,\n      \"unitMeasLookupCode\": \"example_value\",\n      \"unitPrice\": 42.5,\n      \"amount\": 42.5,\n      \"needByDate\": \"2026-01-15\",\n      \"promisedDate\": \"2026-01-15\",\n      \"closedCode\": \"example_value\",\n      \"shipments\": {}\n    }\n  ],\n  \"orgId\": \"500123\",\n  \"lastUpdateDate\": \"2026-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "94d45f52-aee6-4cb8-aa28-3f6e074fd070",
+              "name": "Authentication required or token expired",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "po",
+                    "purchaseOrders",
+                    ":poHeaderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "poHeaderId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"detail\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7006aadb-ec10-4b03-becb-7468f50c96ea",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "po",
+                    "purchaseOrders",
+                    ":poHeaderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "poHeaderId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"detail\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3ddf0e5c-0750-4d43-a849-345bf3a970e4",
+          "name": "Update a Purchase Order",
+          "request": {
+            "name": "Update a Purchase Order",
+            "description": {
+              "content": "Updates an existing purchase order. Uses the PO_CHANGE_API1_S PL/SQL package for modifications to approved purchase orders.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "po",
+                "purchaseOrders",
+                ":poHeaderId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "poHeaderId",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "The Oracle EBS instance hostname",
+                  "type": "any",
+                  "value": "{{instance}}",
+                  "key": "instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "accessToken"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"description\": \"<string>\",\n  \"lines\": [\n    {\n      \"poLineId\": \"<integer>\",\n      \"quantity\": \"<double>\",\n      \"unitPrice\": \"<double>\",\n      \"needByDate\": \"<date>\",\n      \"cancelFlag\": \"<boolean>\"\n    },\n    {\n      \"poLineId\": \"<integer>\",\n      \"quantity\": \"<double>\",\n      \"unitPrice\": \"<double>\",\n      \"needByDate\": \"<date>\",\n      \"cancelFlag\": \"<boolean>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "611402bd-039e-4ae9-ab1a-734220358ba7",
+              "name": "Purchase order updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "po",
+                    "purchaseOrders",
+                    ":poHeaderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "poHeaderId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"description\": \"A sample description.\",\n  \"lines\": [\n    {\n      \"poLineId\": \"500123\",\n      \"quantity\": 42.5,\n      \"unitPrice\": 42.5,\n      \"needByDate\": \"2026-01-15\",\n      \"cancelFlag\": true\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"poHeaderId\": \"500123\",\n  \"segment1\": \"example_value\",\n  \"typeLookupCode\": \"STANDARD\",\n  \"vendorId\": \"500123\",\n  \"vendorName\": \"example_value\",\n  \"vendorSiteId\": \"500123\",\n  \"currencyCode\": \"example_value\",\n  \"authorizationStatus\": \"APPROVED\",\n  \"approvedFlag\": \"Y\",\n  \"closedCode\": \"OPEN\",\n  \"totalAmount\": 42.5,\n  \"creationDate\": \"2026-01-15T10:30:00Z\",\n  \"approvedDate\": \"2026-01-15\",\n  \"buyerId\": \"500123\",\n  \"shipToLocationId\": \"500123\",\n  \"billToLocationId\": \"500123\",\n  \"termsId\": \"500123\",\n  \"description\": \"A sample description.\",\n  \"lines\": [\n    {\n      \"poLineId\": \"500123\",\n      \"lineNum\": 10,\n      \"lineType\": \"example_value\",\n      \"itemId\": \"500123\",\n      \"itemDescription\": \"example_value\",\n      \"categoryId\": \"500123\",\n      \"quantity\": 42.5,\n      \"unitMeasLookupCode\": \"example_value\",\n      \"unitPrice\": 42.5,\n      \"amount\": 42.5,\n      \"needByDate\": \"2026-01-15\",\n      \"promisedDate\": \"2026-01-15\",\n      \"closedCode\": \"example_value\",\n      \"shipments\": {}\n    }\n  ],\n  \"orgId\": \"500123\",\n  \"lastUpdateDate\": \"2026-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "42140523-48ad-44ac-80fe-78145c54bc96",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "po",
+                    "purchaseOrders",
+                    ":poHeaderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "poHeaderId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"description\": \"A sample description.\",\n  \"lines\": [\n    {\n      \"poLineId\": \"500123\",\n      \"quantity\": 42.5,\n      \"unitPrice\": 42.5,\n      \"needByDate\": \"2026-01-15\",\n      \"cancelFlag\": true\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"detail\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "72c23cb2-8462-470f-ba25-ef9ca6772144",
+              "name": "Authentication required or token expired",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "po",
+                    "purchaseOrders",
+                    ":poHeaderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "poHeaderId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"description\": \"A sample description.\",\n  \"lines\": [\n    {\n      \"poLineId\": \"500123\",\n      \"quantity\": 42.5,\n      \"unitPrice\": 42.5,\n      \"needByDate\": \"2026-01-15\",\n      \"cancelFlag\": true\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"detail\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fbb09301-06d3-41c6-8a01-19d45b28faa6",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "po",
+                    "purchaseOrders",
+                    ":poHeaderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "poHeaderId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"description\": \"A sample description.\",\n  \"lines\": [\n    {\n      \"poLineId\": \"500123\",\n      \"quantity\": 42.5,\n      \"unitPrice\": 42.5,\n      \"needByDate\": \"2026-01-15\",\n      \"cancelFlag\": true\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"detail\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "52ccf4ff-924d-4476-8b8e-610d4e192640",
+          "name": "Retrieve Purchase Requisitions",
+          "request": {
+            "name": "Retrieve Purchase Requisitions",
+            "description": {
+              "content": "Retrieves purchase requisition records. Maps to the PO_REQUISITION_HEADERS_ALL and PO_REQUISITION_LINES_ALL tables.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "po",
+                "requisitions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "requisitionHeaderId",
+                  "value": "<integer>",
+                  "description": "Requisition header identifier"
+                },
+                {
+                  "disabled": false,
+                  "key": "requisitionNumber",
+                  "value": "<string>",
+                  "description": "Requisition number"
+                },
+                {
+                  "disabled": false,
+                  "key": "authorizationStatus",
+                  "value": "<string>",
+                  "description": "Authorization status"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25",
+                  "description": "Maximum number of records to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "Number of records to skip for pagination"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "The Oracle EBS instance hostname",
+                  "type": "any",
+                  "value": "{{instance}}",
+                  "key": "instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "accessToken"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "55a30cf3-6123-41aa-a462-e1f144065c35",
+              "name": "List of requisitions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "po",
+                    "requisitions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "requisitionHeaderId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "requisitionNumber",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "authorizationStatus",
+                      "value": "APPROVED"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"requisitionHeaderId\": \"500123\",\n      \"segment1\": \"example_value\",\n      \"typeLookupCode\": \"PURCHASE\",\n      \"authorizationStatus\": \"example_value\",\n      \"preparerId\": \"500123\",\n      \"description\": \"A sample description.\",\n      \"totalAmount\": 42.5,\n      \"creationDate\": \"2026-01-15T10:30:00Z\",\n      \"lines\": [\n        {}\n      ],\n      \"orgId\": \"500123\"\n    }\n  ],\n  \"totalCount\": 10,\n  \"hasMore\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "70ee38fc-5f36-4fb4-a8db-55dc3ddc7bbe",
+              "name": "Authentication required or token expired",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "po",
+                    "requisitions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "requisitionHeaderId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "requisitionNumber",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "authorizationStatus",
+                      "value": "APPROVED"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"detail\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f5590f47-22d1-473d-af84-3dd4d44c9ea5",
+          "name": "Retrieve Suppliers",
+          "request": {
+            "name": "Retrieve Suppliers",
+            "description": {
+              "content": "Retrieves supplier/vendor records. Maps to the AP_SUPPLIERS and AP_SUPPLIER_SITES_ALL tables through the AP_VENDOR_PUB_PKG API.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "po",
+                "suppliers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "vendorId",
+                  "value": "<integer>",
+                  "description": "Vendor identifier"
+                },
+                {
+                  "disabled": false,
+                  "key": "vendorName",
+                  "value": "<string>",
+                  "description": "Vendor name (supports wildcards)"
+                },
+                {
+                  "disabled": false,
+                  "key": "segment1",
+                  "value": "<string>",
+                  "description": "Vendor number"
+                },
+                {
+                  "disabled": false,
+                  "key": "vendorType",
+                  "value": "<string>",
+                  "description": "Vendor type"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25",
+                  "description": "Maximum number of records to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "Number of records to skip for pagination"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "The Oracle EBS instance hostname",
+                  "type": "any",
+                  "value": "{{instance}}",
+                  "key": "instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "accessToken"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "373a681a-bdd3-4bbd-9d86-2f3c8a8cde3d",
+              "name": "List of suppliers",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "po",
+                    "suppliers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "vendorId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "vendorName",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "segment1",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "vendorType",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"vendorId\": \"500123\",\n      \"vendorName\": \"example_value\",\n      \"segment1\": \"example_value\",\n      \"vendorType\": \"example_value\",\n      \"taxPayerId\": \"500123\",\n      \"standardIndustryClass\": \"example_value\",\n      \"paymentCurrencyCode\": \"example_value\",\n      \"paymentMethodCode\": \"example_value\",\n      \"termsId\": \"500123\",\n      \"enabled\": true,\n      \"startDateActive\": \"2026-01-15\",\n      \"endDateActive\": \"2026-01-15\",\n      \"sites\": [\n        {}\n      ],\n      \"creationDate\": \"2026-01-15T10:30:00Z\",\n      \"lastUpdateDate\": \"2026-01-15T10:30:00Z\"\n    }\n  ],\n  \"totalCount\": 10,\n  \"hasMore\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6bca3342-2b33-40a2-852d-3d32fc268760",
+              "name": "Authentication required or token expired",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "po",
+                    "suppliers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "vendorId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "vendorName",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "segment1",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "vendorType",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"detail\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "The Oracle EBS instance hostname",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "ebs-host",
+      "key": "instance"
+    },
+    {
+      "type": "string",
+      "value": "https://{{instance}}.oracle.com/webservices/rest",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "8ab2085f-10be-4c1e-9ac3-10a19ee843a1",
+    "name": "Oracle EBS e-Commerce Gateway Accounts Payable Purchasing API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "RESTful APIs for Oracle E-Business Suite e-Commerce Gateway providing EDI (Electronic Data Interchange) transaction support. Enables exchange of standard ASC X12 and EDIFACT documents with trading partners through flat ASCII file integration with third-party EDI translators. Supports inbound and outbound document processing for purchase orders, invoices, ship notices, and other business documents.\n\nContact Support:\n Name: Oracle Support\n Email: support@oracle.com",
+      "type": "text/plain"
+    }
+  }
+}

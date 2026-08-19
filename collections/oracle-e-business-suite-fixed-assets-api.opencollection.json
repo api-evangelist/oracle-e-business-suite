@@ -1,0 +1,67 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Oracle EBS e-Commerce Gateway Accounts Payable Fixed Assets API",
+    "version": "12.2.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Fixed Assets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve Fixed Assets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.oracle.com/webservices/rest/fa/assets",
+            "params": [
+              {
+                "name": "assetId",
+                "value": "500123",
+                "type": "query",
+                "description": "Asset identifier"
+              },
+              {
+                "name": "assetNumber",
+                "value": "example_value",
+                "type": "query",
+                "description": "Asset number"
+              },
+              {
+                "name": "assetCategory",
+                "value": "example_value",
+                "type": "query",
+                "description": "Asset category"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "accessToken",
+              "value": "{{accessToken}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Retrieves Fixed Assets records. Maps to the FA_ADDITIONS_B and FA_BOOKS tables through the Fixed Assets API."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

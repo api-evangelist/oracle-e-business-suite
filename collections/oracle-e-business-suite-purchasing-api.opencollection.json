@@ -1,0 +1,268 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Oracle EBS e-Commerce Gateway Accounts Payable Purchasing API",
+    "version": "12.2.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Purchasing",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve Purchase Orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.oracle.com/webservices/rest/po/purchaseOrders",
+            "params": [
+              {
+                "name": "poHeaderId",
+                "value": "500123",
+                "type": "query",
+                "description": "Purchase order header identifier"
+              },
+              {
+                "name": "segment1",
+                "value": "example_value",
+                "type": "query",
+                "description": "Purchase order number"
+              },
+              {
+                "name": "vendorId",
+                "value": "500123",
+                "type": "query",
+                "description": "Supplier/vendor identifier"
+              },
+              {
+                "name": "authorizationStatus",
+                "value": "APPROVED",
+                "type": "query",
+                "description": "Authorization status"
+              },
+              {
+                "name": "creationDateFrom",
+                "value": "2026-01-15",
+                "type": "query",
+                "description": "Creation date range start (YYYY-MM-DD)"
+              },
+              {
+                "name": "creationDateTo",
+                "value": "2026-01-15",
+                "type": "query",
+                "description": "Creation date range end (YYYY-MM-DD)"
+              },
+              {
+                "name": "typeLookupCode",
+                "value": "STANDARD",
+                "type": "query",
+                "description": "Purchase order type"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "accessToken",
+              "value": "{{accessToken}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Retrieves purchase order records. Maps to the PO_HEADERS_ALL, PO_LINES_ALL, PO_LINE_LOCATIONS_ALL, and PO_DISTRIBUTIONS_ALL tables through the PO_PURCHASE_ORDERS_PKG PL/SQL API."
+        },
+        {
+          "info": {
+            "name": "Create a Purchase Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{instance}.oracle.com/webservices/rest/po/purchaseOrders",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "accessToken",
+              "value": "{{accessToken}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Creates a new purchase order. Uses the PO_HEADERS_INTERFACE, PO_LINES_INTERFACE, and PO_DISTRIBUTIONS_INTERFACE tables, then initiates the Import Standard Purchase Orders concurrent program."
+        },
+        {
+          "info": {
+            "name": "Retrieve a Specific Purchase Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.oracle.com/webservices/rest/po/purchaseOrders/:poHeaderId",
+            "params": [
+              {
+                "name": "poHeaderId",
+                "value": "500123",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "accessToken",
+              "value": "{{accessToken}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Retrieves a purchase order by its header identifier."
+        },
+        {
+          "info": {
+            "name": "Update a Purchase Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{instance}.oracle.com/webservices/rest/po/purchaseOrders/:poHeaderId",
+            "params": [
+              {
+                "name": "poHeaderId",
+                "value": "500123",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "accessToken",
+              "value": "{{accessToken}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Updates an existing purchase order. Uses the PO_CHANGE_API1_S PL/SQL package for modifications to approved purchase orders."
+        },
+        {
+          "info": {
+            "name": "Retrieve Purchase Requisitions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.oracle.com/webservices/rest/po/requisitions",
+            "params": [
+              {
+                "name": "requisitionHeaderId",
+                "value": "500123",
+                "type": "query",
+                "description": "Requisition header identifier"
+              },
+              {
+                "name": "requisitionNumber",
+                "value": "example_value",
+                "type": "query",
+                "description": "Requisition number"
+              },
+              {
+                "name": "authorizationStatus",
+                "value": "APPROVED",
+                "type": "query",
+                "description": "Authorization status"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "accessToken",
+              "value": "{{accessToken}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Retrieves purchase requisition records. Maps to the PO_REQUISITION_HEADERS_ALL and PO_REQUISITION_LINES_ALL tables."
+        },
+        {
+          "info": {
+            "name": "Retrieve Suppliers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.oracle.com/webservices/rest/po/suppliers",
+            "params": [
+              {
+                "name": "vendorId",
+                "value": "500123",
+                "type": "query",
+                "description": "Vendor identifier"
+              },
+              {
+                "name": "vendorName",
+                "value": "example_value",
+                "type": "query",
+                "description": "Vendor name (supports wildcards)"
+              },
+              {
+                "name": "segment1",
+                "value": "example_value",
+                "type": "query",
+                "description": "Vendor number"
+              },
+              {
+                "name": "vendorType",
+                "value": "example_value",
+                "type": "query",
+                "description": "Vendor type"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "accessToken",
+              "value": "{{accessToken}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Retrieves supplier/vendor records. Maps to the AP_SUPPLIERS and AP_SUPPLIER_SITES_ALL tables through the AP_VENDOR_PUB_PKG API."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

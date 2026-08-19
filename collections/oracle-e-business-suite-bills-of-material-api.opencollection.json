@@ -1,0 +1,146 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Oracle EBS e-Commerce Gateway Accounts Payable Bills of Material API",
+    "version": "12.2.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Bills of Material",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve Bills of Material",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.oracle.com/webservices/rest/bom/billsOfMaterial",
+            "params": [
+              {
+                "name": "billSequenceId",
+                "value": "500123",
+                "type": "query",
+                "description": "Bill sequence identifier"
+              },
+              {
+                "name": "assemblyItemId",
+                "value": "500123",
+                "type": "query",
+                "description": "Assembly item identifier"
+              },
+              {
+                "name": "organizationId",
+                "value": "500123",
+                "type": "query",
+                "description": "Organization identifier"
+              },
+              {
+                "name": "alternateDesignator",
+                "value": "example_value",
+                "type": "query",
+                "description": "Alternate BOM designator"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "accessToken",
+              "value": "{{accessToken}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Retrieves Bill of Material (BOM) header and component records. Maps to the BOM_STRUCTURES_B and BOM_COMPONENTS_B tables through the BOM_BO_PUB PL/SQL API."
+        },
+        {
+          "info": {
+            "name": "Retrieve a Specific Bill of Material",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.oracle.com/webservices/rest/bom/billsOfMaterial/:billSequenceId",
+            "params": [
+              {
+                "name": "billSequenceId",
+                "value": "500123",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "accessToken",
+              "value": "{{accessToken}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Retrieves a bill of material with all its components."
+        },
+        {
+          "info": {
+            "name": "Retrieve Manufacturing Routings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.oracle.com/webservices/rest/bom/routings",
+            "params": [
+              {
+                "name": "routingSequenceId",
+                "value": "500123",
+                "type": "query",
+                "description": "Routing sequence identifier"
+              },
+              {
+                "name": "assemblyItemId",
+                "value": "500123",
+                "type": "query",
+                "description": "Assembly item identifier"
+              },
+              {
+                "name": "organizationId",
+                "value": "500123",
+                "type": "query",
+                "description": "Organization identifier"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "accessToken",
+              "value": "{{accessToken}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Retrieves manufacturing routing records. Maps to the BOM_OPERATIONAL_ROUTINGS, BOM_OPERATION_SEQUENCES, and BOM_OPERATION_RESOURCES tables."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,149 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Oracle EBS e-Commerce Gateway Accounts Payable Accounts Receivable API",
+    "version": "12.2.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Accounts Receivable",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve Ar Invoices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.oracle.com/webservices/rest/ar/invoices",
+            "params": [
+              {
+                "name": "customerTrxId",
+                "value": "500123",
+                "type": "query",
+                "description": "Customer transaction identifier"
+              },
+              {
+                "name": "trxNumber",
+                "value": "example_value",
+                "type": "query",
+                "description": "Transaction number"
+              },
+              {
+                "name": "customerId",
+                "value": "500123",
+                "type": "query",
+                "description": "Customer identifier"
+              },
+              {
+                "name": "trxDateFrom",
+                "value": "2026-01-15",
+                "type": "query",
+                "description": "Transaction date range start (YYYY-MM-DD)"
+              },
+              {
+                "name": "trxDateTo",
+                "value": "2026-01-15",
+                "type": "query",
+                "description": "Transaction date range end (YYYY-MM-DD)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "accessToken",
+              "value": "{{accessToken}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Retrieves Accounts Receivable invoices and transactions. Maps to the RA_CUSTOMER_TRX_ALL and RA_CUSTOMER_TRX_LINES_ALL tables."
+        },
+        {
+          "info": {
+            "name": "Create an Ar Invoice",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{instance}.oracle.com/webservices/rest/ar/invoices",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "accessToken",
+              "value": "{{accessToken}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Creates a new Accounts Receivable invoice/transaction using the RA_INTERFACE_LINES_ALL interface table and AutoInvoice concurrent program."
+        },
+        {
+          "info": {
+            "name": "Retrieve Ar Receipts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.oracle.com/webservices/rest/ar/receipts",
+            "params": [
+              {
+                "name": "cashReceiptId",
+                "value": "500123",
+                "type": "query",
+                "description": "Cash receipt identifier"
+              },
+              {
+                "name": "receiptNumber",
+                "value": "example_value",
+                "type": "query",
+                "description": "Receipt number"
+              },
+              {
+                "name": "customerId",
+                "value": "500123",
+                "type": "query",
+                "description": "Customer identifier"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "accessToken",
+              "value": "{{accessToken}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Retrieves Accounts Receivable cash receipts. Maps to the AR_CASH_RECEIPTS_ALL table through the AR_RECEIPT_API_PUB PL/SQL API."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,116 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Oracle EBS e-Commerce Gateway Accounts Payable Payroll API",
+    "version": "12.2.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Payroll",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve Payroll Definitions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.oracle.com/webservices/rest/pay/payrolls",
+            "params": [
+              {
+                "name": "payrollId",
+                "value": "500123",
+                "type": "query",
+                "description": "Payroll identifier"
+              },
+              {
+                "name": "payrollName",
+                "value": "example_value",
+                "type": "query",
+                "description": "Payroll name"
+              },
+              {
+                "name": "businessGroupId",
+                "value": "500123",
+                "type": "query",
+                "description": "Business group identifier"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "accessToken",
+              "value": "{{accessToken}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Retrieves payroll definitions from Oracle Payroll. Maps to the PAY_ALL_PAYROLLS_F table."
+        },
+        {
+          "info": {
+            "name": "Retrieve Payroll Run Results",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.oracle.com/webservices/rest/pay/payrollRuns",
+            "params": [
+              {
+                "name": "payrollActionId",
+                "value": "500123",
+                "type": "query",
+                "description": "Payroll action identifier"
+              },
+              {
+                "name": "payrollId",
+                "value": "500123",
+                "type": "query",
+                "description": "Payroll identifier"
+              },
+              {
+                "name": "effectiveDate",
+                "value": "2026-01-15",
+                "type": "query",
+                "description": "Effective date (YYYY-MM-DD)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "accessToken",
+              "value": "{{accessToken}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Retrieves payroll run and action results. Maps to the PAY_PAYROLL_ACTIONS, PAY_ASSIGNMENT_ACTIONS, and PAY_RUN_RESULTS tables."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

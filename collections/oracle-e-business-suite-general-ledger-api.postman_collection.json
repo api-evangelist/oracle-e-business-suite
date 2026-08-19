@@ -1,0 +1,538 @@
+{
+  "item": [
+    {
+      "id": "bacd629f-8004-48f0-b466-d19c512206a9",
+      "name": "General Ledger",
+      "description": {
+        "content": "General Ledger journal operations",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5538f2fb-f6dd-4d54-b2ce-b3d7612acc35",
+          "name": "Retrieve Journal Entries",
+          "request": {
+            "name": "Retrieve Journal Entries",
+            "description": {
+              "content": "Retrieves General Ledger journal entries based on the provided filter criteria. Maps to the GL_JE_HEADERS and GL_JE_LINES interface tables.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "gl",
+                "journals"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ledgerId",
+                  "value": "<integer>",
+                  "description": "Ledger identifier"
+                },
+                {
+                  "disabled": false,
+                  "key": "periodName",
+                  "value": "<string>",
+                  "description": "Accounting period name"
+                },
+                {
+                  "disabled": false,
+                  "key": "journalCategory",
+                  "value": "<string>",
+                  "description": "Journal category name"
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Journal status"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25",
+                  "description": "Maximum number of records to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "Number of records to skip for pagination"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "The Oracle EBS instance hostname",
+                  "type": "any",
+                  "value": "{{instance}}",
+                  "key": "instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "accessToken"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "82a87092-57d9-4842-a595-fbdf7eb2d702",
+              "name": "List of journal entries",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "gl",
+                    "journals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ledgerId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "periodName",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "journalCategory",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "status",
+                      "value": "U"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"jeHeaderId\": \"500123\",\n      \"jeBatchId\": \"500123\",\n      \"ledgerId\": \"500123\",\n      \"periodName\": \"example_value\",\n      \"journalName\": \"example_value\",\n      \"journalCategory\": \"example_value\",\n      \"journalSource\": \"example_value\",\n      \"currencyCode\": \"example_value\",\n      \"status\": \"U\",\n      \"description\": \"A sample description.\",\n      \"effectiveDate\": \"2026-01-15\",\n      \"lines\": [\n        {}\n      ],\n      \"createdBy\": 10,\n      \"creationDate\": \"2026-01-15T10:30:00Z\",\n      \"lastUpdatedBy\": 10,\n      \"lastUpdateDate\": \"2026-01-15T10:30:00Z\"\n    }\n  ],\n  \"totalCount\": 10,\n  \"hasMore\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f389b219-9ffe-40f0-981b-7f3428b64267",
+              "name": "Authentication required or token expired",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "gl",
+                    "journals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ledgerId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "periodName",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "journalCategory",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "status",
+                      "value": "U"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"detail\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "608ca4df-8f04-4b8f-9799-20074610645f",
+          "name": "Create a Journal Entry",
+          "request": {
+            "name": "Create a Journal Entry",
+            "description": {
+              "content": "Creates a new General Ledger journal entry. Maps to the GL_INTERFACE table and GL_JOURNAL_IMPORT concurrent program.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "gl",
+                "journals"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The Oracle EBS instance hostname",
+                  "type": "any",
+                  "value": "{{instance}}",
+                  "key": "instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "accessToken"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ledgerId\": \"<integer>\",\n  \"periodName\": \"<string>\",\n  \"journalName\": \"<string>\",\n  \"journalCategory\": \"<string>\",\n  \"journalSource\": \"<string>\",\n  \"currencyCode\": \"<string>\",\n  \"lines\": [\n    {\n      \"codeCombinatonId\": \"<integer>\",\n      \"accountedDr\": \"<double>\",\n      \"accountedCr\": \"<double>\",\n      \"enteredDr\": \"<double>\",\n      \"enteredCr\": \"<double>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"codeCombinatonId\": \"<integer>\",\n      \"accountedDr\": \"<double>\",\n      \"accountedCr\": \"<double>\",\n      \"enteredDr\": \"<double>\",\n      \"enteredCr\": \"<double>\",\n      \"description\": \"<string>\"\n    }\n  ],\n  \"description\": \"<string>\",\n  \"effectiveDate\": \"<date>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "651b8031-456b-4265-83a4-3a1cc1709871",
+              "name": "Journal entry created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "gl",
+                    "journals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ledgerId\": \"500123\",\n  \"periodName\": \"example_value\",\n  \"journalName\": \"example_value\",\n  \"journalCategory\": \"example_value\",\n  \"journalSource\": \"example_value\",\n  \"currencyCode\": \"example_value\",\n  \"description\": \"A sample description.\",\n  \"effectiveDate\": \"2026-01-15\",\n  \"lines\": [\n    {\n      \"codeCombinatonId\": \"500123\",\n      \"accountedDr\": 42.5,\n      \"accountedCr\": 42.5,\n      \"enteredDr\": 42.5,\n      \"enteredCr\": 42.5,\n      \"description\": \"A sample description.\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"jeHeaderId\": \"500123\",\n  \"jeBatchId\": \"500123\",\n  \"ledgerId\": \"500123\",\n  \"periodName\": \"example_value\",\n  \"journalName\": \"example_value\",\n  \"journalCategory\": \"example_value\",\n  \"journalSource\": \"example_value\",\n  \"currencyCode\": \"example_value\",\n  \"status\": \"U\",\n  \"description\": \"A sample description.\",\n  \"effectiveDate\": \"2026-01-15\",\n  \"lines\": [\n    {\n      \"jeLineNum\": 10,\n      \"codeCombinatonId\": \"500123\",\n      \"accountedDr\": 42.5,\n      \"accountedCr\": 42.5,\n      \"enteredDr\": 42.5,\n      \"enteredCr\": 42.5,\n      \"description\": \"A sample description.\"\n    }\n  ],\n  \"createdBy\": 10,\n  \"creationDate\": \"2026-01-15T10:30:00Z\",\n  \"lastUpdatedBy\": 10,\n  \"lastUpdateDate\": \"2026-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b583f996-9eb1-4da4-b292-34317c2bf687",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "gl",
+                    "journals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ledgerId\": \"500123\",\n  \"periodName\": \"example_value\",\n  \"journalName\": \"example_value\",\n  \"journalCategory\": \"example_value\",\n  \"journalSource\": \"example_value\",\n  \"currencyCode\": \"example_value\",\n  \"description\": \"A sample description.\",\n  \"effectiveDate\": \"2026-01-15\",\n  \"lines\": [\n    {\n      \"codeCombinatonId\": \"500123\",\n      \"accountedDr\": 42.5,\n      \"accountedCr\": 42.5,\n      \"enteredDr\": 42.5,\n      \"enteredCr\": 42.5,\n      \"description\": \"A sample description.\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"detail\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "310acb9d-dbf1-4fbe-8ac4-b76d9f72a936",
+              "name": "Authentication required or token expired",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "gl",
+                    "journals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The Oracle EBS instance hostname",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "accessToken",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ledgerId\": \"500123\",\n  \"periodName\": \"example_value\",\n  \"journalName\": \"example_value\",\n  \"journalCategory\": \"example_value\",\n  \"journalSource\": \"example_value\",\n  \"currencyCode\": \"example_value\",\n  \"description\": \"A sample description.\",\n  \"effectiveDate\": \"2026-01-15\",\n  \"lines\": [\n    {\n      \"codeCombinatonId\": \"500123\",\n      \"accountedDr\": 42.5,\n      \"accountedCr\": 42.5,\n      \"enteredDr\": 42.5,\n      \"enteredCr\": 42.5,\n      \"description\": \"A sample description.\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"detail\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "The Oracle EBS instance hostname",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "ebs-host",
+      "key": "instance"
+    },
+    {
+      "type": "string",
+      "value": "https://{{instance}}.oracle.com/webservices/rest",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "78169cad-e432-4029-a0ef-d9e4c284ac87",
+    "name": "Oracle EBS e-Commerce Gateway Accounts Payable General Ledger API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "RESTful APIs for Oracle E-Business Suite e-Commerce Gateway providing EDI (Electronic Data Interchange) transaction support. Enables exchange of standard ASC X12 and EDIFACT documents with trading partners through flat ASCII file integration with third-party EDI translators. Supports inbound and outbound document processing for purchase orders, invoices, ship notices, and other business documents.\n\nContact Support:\n Name: Oracle Support\n Email: support@oracle.com",
+      "type": "text/plain"
+    }
+  }
+}
