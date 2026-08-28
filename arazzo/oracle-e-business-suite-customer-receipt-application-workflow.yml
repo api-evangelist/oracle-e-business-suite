@@ -11,8 +11,8 @@ info:
     OpenAPI source.
   version: 1.0.0
 sourceDescriptions:
-- name: financialServicesApi
-  url: ../openapi/financial-services-api.yml
+- name: accountsReceivableApi
+  url: ../openapi/oracle-e-business-suite-accounts-receivable-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: apply-customer-receipt

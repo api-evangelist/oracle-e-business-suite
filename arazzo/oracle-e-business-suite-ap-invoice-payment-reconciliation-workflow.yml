@@ -11,8 +11,8 @@ info:
     source.
   version: 1.0.0
 sourceDescriptions:
-- name: financialServicesApi
-  url: ../openapi/financial-services-api.yml
+- name: accountsPayableApi
+  url: ../openapi/oracle-e-business-suite-accounts-payable-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: reconcile-ap-invoice-payment

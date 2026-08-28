@@ -10,8 +10,8 @@ info:
     executed without opening the OpenAPI source.
   version: 1.0.0
 sourceDescriptions:
-- name: supplyChainApi
-  url: ../openapi/supply-chain-api.yml
+- name: inventoryApi
+  url: ../openapi/oracle-e-business-suite-inventory-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: check-item-availability

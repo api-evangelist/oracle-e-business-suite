@@ -10,8 +10,11 @@ info:
     the OpenAPI source.
   version: 1.0.0
 sourceDescriptions:
-- name: humanResourcesApi
-  url: ../openapi/human-resources-api.yml
+- name: benefitsApi
+  url: ../openapi/oracle-e-business-suite-benefits-api-openapi.yml
+  type: openapi
+- name: payrollApi
+  url: ../openapi/oracle-e-business-suite-payroll-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: review-payroll-run

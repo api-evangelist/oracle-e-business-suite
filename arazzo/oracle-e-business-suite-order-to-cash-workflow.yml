@@ -10,11 +10,14 @@ info:
     order-to-cash chain can be executed without opening the OpenAPI sources.
   version: 1.0.0
 sourceDescriptions:
-- name: supplyChainApi
-  url: ../openapi/supply-chain-api.yml
+- name: accountsReceivableApi
+  url: ../openapi/oracle-e-business-suite-accounts-receivable-api-openapi.yml
   type: openapi
-- name: financialServicesApi
-  url: ../openapi/financial-services-api.yml
+- name: inventoryApi
+  url: ../openapi/oracle-e-business-suite-inventory-api-openapi.yml
+  type: openapi
+- name: orderManagementApi
+  url: ../openapi/oracle-e-business-suite-order-management-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: order-to-cash

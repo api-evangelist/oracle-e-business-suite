@@ -10,8 +10,11 @@ info:
     the OpenAPI source.
   version: 1.0.0
 sourceDescriptions:
-- name: manufacturingApi
-  url: ../openapi/manufacturing-api.yml
+- name: billsOfMaterialApi
+  url: ../openapi/oracle-e-business-suite-bills-of-material-api-openapi.yml
+  type: openapi
+- name: workInProcessApi
+  url: ../openapi/oracle-e-business-suite-work-in-process-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: plan-job-from-bom

@@ -10,8 +10,8 @@ info:
     opening the OpenAPI source.
   version: 1.0.0
 sourceDescriptions:
-- name: financialServicesApi
-  url: ../openapi/financial-services-api.yml
+- name: generalLedgerApi
+  url: ../openapi/oracle-e-business-suite-general-ledger-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: create-and-review-journal

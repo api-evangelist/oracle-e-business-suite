@@ -11,11 +11,14 @@ info:
     executed without opening the OpenAPI sources.
   version: 1.0.0
 sourceDescriptions:
-- name: supplyChainApi
-  url: ../openapi/supply-chain-api.yml
+- name: outboundTransactionsApi
+  url: ../openapi/oracle-e-business-suite-outbound-transactions-api-openapi.yml
   type: openapi
-- name: ecommerceGatewayApi
-  url: ../openapi/ecommerce-gateway-api.yml
+- name: purchasingApi
+  url: ../openapi/oracle-e-business-suite-purchasing-api-openapi.yml
+  type: openapi
+- name: tradingPartnersApi
+  url: ../openapi/oracle-e-business-suite-trading-partners-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: extract-outbound-po

@@ -11,8 +11,14 @@ info:
     session flow can be executed without opening the OpenAPI source.
   version: 1.0.0
 sourceDescriptions:
-- name: isgRestApi
-  url: ../openapi/isg-rest-api.yml
+- name: authenticationApi
+  url: ../openapi/oracle-e-business-suite-authentication-api-openapi.yml
+  type: openapi
+- name: serviceDiscoveryApi
+  url: ../openapi/oracle-e-business-suite-service-discovery-api-openapi.yml
+  type: openapi
+- name: serviceInvocationApi
+  url: ../openapi/oracle-e-business-suite-service-invocation-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: invoke-isg-service

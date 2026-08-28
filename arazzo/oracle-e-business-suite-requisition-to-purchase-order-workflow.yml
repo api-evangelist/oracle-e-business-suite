@@ -10,8 +10,8 @@ info:
     requisition-to-PO chain can be executed without opening the OpenAPI source.
   version: 1.0.0
 sourceDescriptions:
-- name: supplyChainApi
-  url: ../openapi/supply-chain-api.yml
+- name: purchasingApi
+  url: ../openapi/oracle-e-business-suite-purchasing-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: requisition-to-purchase-order

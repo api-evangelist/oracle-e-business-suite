@@ -9,8 +9,8 @@ info:
     so the profile update can be executed without opening the OpenAPI source.
   version: 1.0.0
 sourceDescriptions:
-- name: humanResourcesApi
-  url: ../openapi/human-resources-api.yml
+- name: employeeManagementApi
+  url: ../openapi/oracle-e-business-suite-employee-management-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: update-employee-profile

@@ -10,8 +10,11 @@ info:
     the tracking chain can be executed without opening the OpenAPI source.
   version: 1.0.0
 sourceDescriptions:
-- name: supplyChainApi
-  url: ../openapi/supply-chain-api.yml
+- name: orderManagementApi
+  url: ../openapi/oracle-e-business-suite-order-management-api-openapi.yml
+  type: openapi
+- name: shippingApi
+  url: ../openapi/oracle-e-business-suite-shipping-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: track-shipment
