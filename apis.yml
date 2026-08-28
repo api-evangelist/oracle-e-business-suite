@@ -5,6 +5,18 @@ description: >-
   applications that supports today's evolving business models across financials, human capital management, supply chain,
   and manufacturing.
 type: Index
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: paid
   onboarding: self-serve
@@ -804,6 +816,9 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/cd/E26401_01/doc.122/e20931/T168264T168267.htm
 common:
+  - type: CapabilityMap
+    url: capabilities/oracle-e-business-suite-capability-edges.yml
+    name: Oracle E-Business Suite Business Capability Map
   - type: AgenticAccess
     url: agentic-access/oracle-e-business-suite-agentic-access.yml
   - type: DomainSecurity

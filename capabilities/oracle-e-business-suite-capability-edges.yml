@@ -1,0 +1,124 @@
+slug: oracle-e-business-suite
+provider: Oracle E-Business Suite
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Banking & Capital Markets
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 11
+edges:
+- tag: Accounts Payable
+  spec_file: oracle-e-business-suite-accounts-payable-api-openapi.yml
+  capability_id: BC-200.20
+  capability_id_l1: BC-200
+  capability_name: Accounts Payable Management
+  confidence: 0.95
+  evidence: GET /ap/invoices 'Retrieve Ap Invoices'; POST /ap/invoices 'Create an Ap Invoice'; GET /ap/payments
+    'Retrieve Ap Payments'; schemas ApInvoice, ApPayment
+  reason: Operations create and retrieve supplier invoices and payments — squarely Accounts Payable Management.
+    Title's 'e-Commerce Gateway' framing is irrelevant; the operations decide.
+- tag: Accounts Receivable
+  spec_file: oracle-e-business-suite-accounts-receivable-api-openapi.yml
+  capability_id: BC-200.30
+  capability_id_l1: BC-200
+  capability_name: Accounts Receivable Management
+  confidence: 0.95
+  evidence: GET /ar/invoices 'Retrieve Ar Invoices'; POST /ar/invoices 'Create an Ar Invoice'; GET /ar/receipts
+    'Retrieve Ar Receipts'; schemas ArInvoice, ArReceipt
+  reason: Customer invoicing and cash receipts application — Accounts Receivable Management.
+- tag: General Ledger
+  spec_file: oracle-e-business-suite-general-ledger-api-openapi.yml
+  capability_id: BC-200.10
+  capability_id_l1: BC-200
+  capability_name: General Ledger Management
+  confidence: 0.95
+  evidence: 'GET /gl/journals Retrieve Journal Entries; POST /gl/journals Create a Journal Entry; schemas:
+    JournalEntry, JournalLine'
+  reason: Creating and reading GL journal entries is core general ledger accounting.
+- tag: Benefits
+  spec_file: oracle-e-business-suite-benefits-api-openapi.yml
+  capability_id: BC-300.30
+  capability_id_l1: BC-300
+  capability_name: Compensation & Benefits Management
+  confidence: 0.85
+  evidence: GET /ben/benefits getBenefitEnrollments 'Retrieve Benefit Enrollments'; schema BenefitEnrollment
+  reason: Retrieves employee benefit enrolments, i.e. benefits administration within Compensation & Benefits
+    Management.
+- tag: Employee Management
+  spec_file: oracle-e-business-suite-employee-management-api-openapi.yml
+  capability_id: BC-300.70
+  capability_id_l1: BC-300
+  capability_name: HR Operations Management
+  confidence: 0.85
+  evidence: GET /hr/employees Retrieve Employee Records; POST /hr/employees Create an Employee Record;
+    GET /hr/assignments Retrieve Employee Assignments
+  reason: Operations create and maintain employee master records and assignments in the HR module — employee
+    records administration, i.e. HR Operations Management. Title's 'Accounts Payable' fragment is spurious.
+- tag: Payroll
+  spec_file: oracle-e-business-suite-payroll-api-openapi.yml
+  capability_id: BC-300.70
+  capability_id_l1: BC-300
+  capability_name: HR Operations Management
+  confidence: 0.85
+  evidence: GET /pay/payrolls Retrieve Payroll Definitions; GET /pay/payrollRuns Retrieve Payroll Run
+    Results
+  reason: Payroll definitions and payroll run results are payroll administration, listed under HR Operations
+    Management.
+- tag: Purchasing
+  spec_file: oracle-e-business-suite-purchasing-api-openapi.yml
+  capability_id: BC-500.30
+  capability_id_l1: BC-500
+  capability_name: Purchase Order Management
+  confidence: 0.85
+  evidence: POST /po/purchaseOrders Create a Purchase Order; GET /po/requisitions Retrieve Purchase Requisitions;
+    GET /po/suppliers Retrieve Suppliers
+  reason: CRUD over purchase orders plus requisitions and supplier reads — purchase order management within
+    procurement; PO lifecycle dominates the surface.
+- tag: Inventory
+  spec_file: oracle-e-business-suite-inventory-api-openapi.yml
+  capability_id: BC-530
+  capability_id_l1: BC-530
+  capability_name: Inventory Management
+  confidence: 0.75
+  evidence: GET /inv/items Retrieve Inventory Items; GET /inv/onhandQuantities Retrieve On-hand Inventory
+    Quantities
+  reason: Reads item master and on-hand stock quantities — inventory management domain, but too thin to
+    pick a specific sub-capability (no reorder points, counts, or allocations).
+- tag: Bills of Material
+  spec_file: oracle-e-business-suite-bills-of-material-api-openapi.yml
+  capability_id: BC-820.30
+  capability_id_l1: BC-820
+  capability_name: Product Specification Management
+  confidence: 0.7
+  evidence: GET /bom/billsOfMaterial 'Retrieve Bills of Material'; GET /bom/routings 'Retrieve Manufacturing
+    Routings'; schemas BillOfMaterial, BomComponent, Routing
+  reason: Exposes bill-of-material structures and manufacturing routings; BOM definition sits under Product
+    Specification Management. Some ambiguity as routings also touch manufacturing execution, hence moderate
+    confidence.
+- tag: Organization
+  spec_file: oracle-e-business-suite-organization-api-openapi.yml
+  capability_id: BC-300
+  capability_id_l1: BC-300
+  capability_name: Human Capital Management
+  confidence: 0.7
+  evidence: GET /hr/organizations Retrieve Hr Organizations; GET /hr/positions Retrieve Hr Positions
+  reason: Reads HR organisation units and positions — HR foundation data. Clearly Human Capital Management
+    but the evidence does not name a specific sub-capability (org/position structure spans HR ops and
+    workforce planning).
+- tag: Shipping
+  spec_file: oracle-e-business-suite-shipping-api-openapi.yml
+  capability_id: BC-520.50
+  capability_id_l1: BC-520
+  capability_name: Logistics Operations Management
+  confidence: 0.7
+  evidence: 'GET /wsh/deliveries  getDeliveries  Retrieve Shipping Deliveries; schemas: Delivery'
+  reason: Oracle EBS shipping execution (WSH module) retrieving shipment deliveries — supply chain logistics/order
+    fulfilment. Chose Logistics Operations Management; some ambiguity with Order Fulfilment (BC-520.40),
+    hence moderate confidence.
