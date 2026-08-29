@@ -9,6 +9,17 @@ info:
     surface the delivery handling the order. Each step inlines its request so
     the tracking chain can be executed without opening the OpenAPI source.
   version: 1.0.0
+  x-realizes-capability-ids:
+  - BC-520.50
+  x-capability-derivation:
+    method: 'deterministic join: sourceDescriptions -> per-tag OpenAPI -> tag/capability edge. No classification at this step.'
+    min_confidence: 0.7
+    sources:
+    - capability_id: BC-520.50
+      capability_name: Logistics Operations Management
+      spec: oracle-e-business-suite-shipping-api-openapi.yml
+      confidence: 0.7
+    model: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities, CC BY 4.0
 sourceDescriptions:
 - name: orderManagementApi
   url: ../openapi/oracle-e-business-suite-order-management-api-openapi.yml

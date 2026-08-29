@@ -9,6 +9,22 @@ info:
     step inlines its request so the review chain can be executed without opening
     the OpenAPI source.
   version: 1.0.0
+  x-realizes-capability-ids:
+  - BC-300.30
+  - BC-300.70
+  x-capability-derivation:
+    method: 'deterministic join: sourceDescriptions -> per-tag OpenAPI -> tag/capability edge. No classification at this step.'
+    min_confidence: 0.7
+    sources:
+    - capability_id: BC-300.30
+      capability_name: Compensation & Benefits Management
+      spec: oracle-e-business-suite-benefits-api-openapi.yml
+      confidence: 0.85
+    - capability_id: BC-300.70
+      capability_name: HR Operations Management
+      spec: oracle-e-business-suite-payroll-api-openapi.yml
+      confidence: 0.85
+    model: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities, CC BY 4.0
 sourceDescriptions:
 - name: benefitsApi
   url: ../openapi/oracle-e-business-suite-benefits-api-openapi.yml
