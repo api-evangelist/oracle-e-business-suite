@@ -1,9 +1,8 @@
 aid: oracle-e-business-suite
 name: Oracle E-Business Suite
-description: >-
-  A collection of APIs for Oracle E-Business Suite (EBS), Oracle's comprehensive suite of integrated, global business
-  applications that supports today's evolving business models across financials, human capital management, supply chain,
-  and manufacturing.
+description: A collection of APIs for Oracle E-Business Suite (EBS), Oracle's comprehensive suite of integrated,
+  global business applications that supports today's evolving business models across financials, human
+  capital management, supply chain, and manufacturing.
 type: Index
 deliveryModel:
   model: saas
@@ -35,21 +34,20 @@ position: Consuming
 access: 3rd-Party
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/oracle-e-business-suite.png
 tags:
-  - Business Applications
-  - E-Business Suite
-  - Enterprise
-  - ERP
-  - Oracle
+- Business Applications
+- E-Business Suite
+- Enterprise
+- ERP
+- Oracle
 created: '2024-01-01'
-modified: '2026-05-19'
+modified: '2026-09-16'
 specificationVersion: '0.23'
 url: https://raw.githubusercontent.com/api-evangelist/oracle-e-business-suite/refs/heads/main/apis.yml
 apis:
 - name: Oracle EBS Integrated SOA Gateway SOAP Web Services
-  description: >-
-    SOAP-based web services for Oracle E-Business Suite exposed through the Integrated SOA Gateway. Supports
-    synchronous and asynchronous interaction patterns for PL/SQL APIs, Concurrent Programs, and Business
-    Service Objects deployed to Oracle SOA Suite.
+  description: SOAP-based web services for Oracle E-Business Suite exposed through the Integrated SOA
+    Gateway. Supports synchronous and asynchronous interaction patterns for PL/SQL APIs, Concurrent Programs,
+    and Business Service Objects deployed to Oracle SOA Suite.
   image: https://www.oracle.com/a/ocom/img/oracle-logo.svg
   baseURL: https://{instance}.oracle.com/webservices/SOAProvider/
   humanURL: https://docs.oracle.com/cd/E26401_01/doc.122/e20927/toc.htm
@@ -74,10 +72,9 @@ apis:
     email: support@oracle.com
     url: https://support.oracle.com
 - name: Oracle EBS PL/SQL API Framework
-  description: >-
-    The PL/SQL API framework provides the core programmatic interface to Oracle E-Business Suite database
-    objects. These stored procedures and functions enable data manipulation across all EBS modules and
-    can be published as REST services through the Integration Repository.
+  description: The PL/SQL API framework provides the core programmatic interface to Oracle E-Business
+    Suite database objects. These stored procedures and functions enable data manipulation across all
+    EBS modules and can be published as REST services through the Integration Repository.
   image: https://www.oracle.com/a/ocom/img/oracle-logo.svg
   baseURL: https://{instance}.oracle.com/
   humanURL: https://docs.oracle.com/cd/E26401_01/doc.122/e22961/toc.htm
@@ -817,141 +814,143 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/cd/E26401_01/doc.122/e20931/T168264T168267.htm
 common:
-  - type: CapabilityMap
-    url: capabilities/oracle-e-business-suite-capability-edges.yml
-    name: Oracle E-Business Suite Business Capability Map
-  - type: AgenticAccess
-    url: agentic-access/oracle-e-business-suite-agentic-access.yml
-  - type: DomainSecurity
-    url: security/oracle-e-business-suite-domain-security.yml
-  - type: Authentication
-    url: authentication/oracle-e-business-suite-authentication.yml
-  - type: PostmanWorkspace
-    url: https://www.postman.com/kinlaneapi/oracle-e-business-suite/overview
-  - type: Arazzo
-    url: arazzo/oracle-e-business-suite-ap-invoice-payment-reconciliation-workflow.yml
-    name: Oracle EBS AP Invoice Payment Reconciliation
-  - type: Arazzo
-    url: arazzo/oracle-e-business-suite-bom-to-job-planning-workflow.yml
-    name: Oracle EBS BOM-to-Job Planning
-  - type: Arazzo
-    url: arazzo/oracle-e-business-suite-customer-receipt-application-workflow.yml
-    name: Oracle EBS Customer Receipt Application
-  - type: Arazzo
-    url: arazzo/oracle-e-business-suite-discrete-job-execution-workflow.yml
-    name: Oracle EBS Discrete Job Execution
-  - type: Arazzo
-    url: arazzo/oracle-e-business-suite-edi-inbound-invoice-processing-workflow.yml
-    name: Oracle EBS EDI Inbound Invoice Processing
-  - type: Arazzo
-    url: arazzo/oracle-e-business-suite-edi-outbound-purchase-order-workflow.yml
-    name: Oracle EBS EDI Outbound Purchase Order
-  - type: Arazzo
-    url: arazzo/oracle-e-business-suite-employee-onboarding-workflow.yml
-    name: Oracle EBS Employee Onboarding
-  - type: Arazzo
-    url: arazzo/oracle-e-business-suite-employee-profile-update-workflow.yml
-    name: Oracle EBS Employee Profile Update
-  - type: Arazzo
-    url: arazzo/oracle-e-business-suite-gl-journal-entry-and-review-workflow.yml
-    name: Oracle EBS GL Journal Entry and Review
-  - type: Arazzo
-    url: arazzo/oracle-e-business-suite-isg-service-invocation-workflow.yml
-    name: Oracle EBS ISG Service Invocation
-  - type: Arazzo
-    url: arazzo/oracle-e-business-suite-item-availability-check-workflow.yml
-    name: Oracle EBS Item Availability Check
-  - type: Arazzo
-    url: arazzo/oracle-e-business-suite-order-to-cash-workflow.yml
-    name: Oracle EBS Order-to-Cash
-  - type: Arazzo
-    url: arazzo/oracle-e-business-suite-payroll-run-review-workflow.yml
-    name: Oracle EBS Payroll Run Review
-  - type: Arazzo
-    url: arazzo/oracle-e-business-suite-procure-to-pay-workflow.yml
-    name: Oracle EBS Procure-to-Pay
-  - type: Arazzo
-    url: arazzo/oracle-e-business-suite-purchase-order-amendment-workflow.yml
-    name: Oracle EBS Purchase Order Amendment
-  - type: Arazzo
-    url: arazzo/oracle-e-business-suite-requisition-to-purchase-order-workflow.yml
-    name: Oracle EBS Requisition-to-Purchase-Order
-  - type: Arazzo
-    url: arazzo/oracle-e-business-suite-shipment-tracking-workflow.yml
-    name: Oracle EBS Shipment Tracking
-  - type: Authentication
-    url: https://docs.oracle.com/cd/E26401_01/doc.122/e20927/toc.htm
-  - type: Portal
-    url: https://developer.oracle.com/
-  - type: Documentation
-    url: https://docs.oracle.com/cd/E26401_01/index.htm
-  - type: GettingStarted
-    url: https://docs.oracle.com/cd/E26401_01/doc.122/e20925/T511175T513043.htm
-  - type: APIReference
-    url: https://docs.oracle.com/cd/E26401_01/doc.122/e22961/toc.htm
-  - type: Support
-    url: https://support.oracle.com
-  - type: Blog
-    url: https://blogs.oracle.com/ebstech/
-  - type: Blog
-    url: https://blogs.oracle.com/ebs/
-  - type: ChangeLog
-    url: https://docs.oracle.com/cd/E26401_01/index.htm
-  - type: TermsOfService
-    url: https://www.oracle.com/legal/terms/
-  - type: PrivacyPolicy
-    url: https://www.oracle.com/legal/privacy/
-  - type: StatusPage
-    url: https://ocistatus.oraclecloud.com/
-  - type: Signup
-    url: https://signup.cloud.oracle.com/
-  - type: Pricing
-    url: https://www.oracle.com/applications/ebusiness/
-  - type: GitHubOrganization
-    url: https://github.com/oracle
-  - type: SDKs
-    url: https://github.com/oracle/oci-java-sdk
-    name: Oracle OCI Java SDK
-  - type: SDKs
-    url: https://github.com/oracle/oci-python-sdk
-    name: Oracle OCI Python SDK
-  - type: SDKs
-    url: https://github.com/oracle/oci-go-sdk
-    name: Oracle OCI Go SDK
-  - type: SDKs
-    url: https://github.com/oracle/oci-dotnet-sdk
-    name: Oracle OCI .NET SDK
-  - type: CLI
-    url: https://github.com/oracle/oci-cli
-    name: Oracle OCI CLI
-  - type: Features
-    data:
-      - Financial management (GL, AP, AR, FA, Cash Management)
-      - Supply chain management (Purchasing, Inventory, Order Management)
-      - Human capital management (HR, Payroll, Benefits)
-      - Manufacturing (Discrete, Process, WIP, BOM)
-      - EDI transaction processing via e-Commerce Gateway
-      - RESTful API access through Integrated SOA Gateway
-      - PL/SQL API framework for programmatic data access
-      - Multi-org and multi-currency support
-  - type: UseCases
-    data:
-      - Automate financial close and journal posting
-      - Integrate procurement and purchase order workflows
-      - Manage employee lifecycle and payroll processing
-      - Track manufacturing work orders and material usage
-      - Exchange EDI documents with trading partners
-      - Build custom integrations via REST and SOAP services
-      - Synchronize EBS data with external systems
-  - type: Integrations
-    data:
-      - Oracle SOA Suite for service orchestration
-      - Oracle Integration Cloud for hybrid integration
-      - EDI translators for ASC X12 and EDIFACT standards
-      - Oracle BI Publisher for reporting
-      - Oracle Identity Management for SSO
-      - Third-party middleware via REST and SOAP APIs
+- type: Website
+  url: https://oracle.com
+- type: CapabilityMap
+  url: capabilities/oracle-e-business-suite-capability-edges.yml
+  name: Oracle E-Business Suite Business Capability Map
+- type: AgenticAccess
+  url: agentic-access/oracle-e-business-suite-agentic-access.yml
+- type: DomainSecurity
+  url: security/oracle-e-business-suite-domain-security.yml
+- type: Authentication
+  url: authentication/oracle-e-business-suite-authentication.yml
+- type: PostmanWorkspace
+  url: https://www.postman.com/kinlaneapi/oracle-e-business-suite/overview
+- type: Arazzo
+  url: arazzo/oracle-e-business-suite-ap-invoice-payment-reconciliation-workflow.yml
+  name: Oracle EBS AP Invoice Payment Reconciliation
+- type: Arazzo
+  url: arazzo/oracle-e-business-suite-bom-to-job-planning-workflow.yml
+  name: Oracle EBS BOM-to-Job Planning
+- type: Arazzo
+  url: arazzo/oracle-e-business-suite-customer-receipt-application-workflow.yml
+  name: Oracle EBS Customer Receipt Application
+- type: Arazzo
+  url: arazzo/oracle-e-business-suite-discrete-job-execution-workflow.yml
+  name: Oracle EBS Discrete Job Execution
+- type: Arazzo
+  url: arazzo/oracle-e-business-suite-edi-inbound-invoice-processing-workflow.yml
+  name: Oracle EBS EDI Inbound Invoice Processing
+- type: Arazzo
+  url: arazzo/oracle-e-business-suite-edi-outbound-purchase-order-workflow.yml
+  name: Oracle EBS EDI Outbound Purchase Order
+- type: Arazzo
+  url: arazzo/oracle-e-business-suite-employee-onboarding-workflow.yml
+  name: Oracle EBS Employee Onboarding
+- type: Arazzo
+  url: arazzo/oracle-e-business-suite-employee-profile-update-workflow.yml
+  name: Oracle EBS Employee Profile Update
+- type: Arazzo
+  url: arazzo/oracle-e-business-suite-gl-journal-entry-and-review-workflow.yml
+  name: Oracle EBS GL Journal Entry and Review
+- type: Arazzo
+  url: arazzo/oracle-e-business-suite-isg-service-invocation-workflow.yml
+  name: Oracle EBS ISG Service Invocation
+- type: Arazzo
+  url: arazzo/oracle-e-business-suite-item-availability-check-workflow.yml
+  name: Oracle EBS Item Availability Check
+- type: Arazzo
+  url: arazzo/oracle-e-business-suite-order-to-cash-workflow.yml
+  name: Oracle EBS Order-to-Cash
+- type: Arazzo
+  url: arazzo/oracle-e-business-suite-payroll-run-review-workflow.yml
+  name: Oracle EBS Payroll Run Review
+- type: Arazzo
+  url: arazzo/oracle-e-business-suite-procure-to-pay-workflow.yml
+  name: Oracle EBS Procure-to-Pay
+- type: Arazzo
+  url: arazzo/oracle-e-business-suite-purchase-order-amendment-workflow.yml
+  name: Oracle EBS Purchase Order Amendment
+- type: Arazzo
+  url: arazzo/oracle-e-business-suite-requisition-to-purchase-order-workflow.yml
+  name: Oracle EBS Requisition-to-Purchase-Order
+- type: Arazzo
+  url: arazzo/oracle-e-business-suite-shipment-tracking-workflow.yml
+  name: Oracle EBS Shipment Tracking
+- type: Authentication
+  url: https://docs.oracle.com/cd/E26401_01/doc.122/e20927/toc.htm
+- type: Portal
+  url: https://developer.oracle.com/
+- type: Documentation
+  url: https://docs.oracle.com/cd/E26401_01/index.htm
+- type: GettingStarted
+  url: https://docs.oracle.com/cd/E26401_01/doc.122/e20925/T511175T513043.htm
+- type: APIReference
+  url: https://docs.oracle.com/cd/E26401_01/doc.122/e22961/toc.htm
+- type: Support
+  url: https://support.oracle.com
+- type: Blog
+  url: https://blogs.oracle.com/ebstech/
+- type: Blog
+  url: https://blogs.oracle.com/ebs/
+- type: ChangeLog
+  url: https://docs.oracle.com/cd/E26401_01/index.htm
+- type: TermsOfService
+  url: https://www.oracle.com/legal/terms/
+- type: PrivacyPolicy
+  url: https://www.oracle.com/legal/privacy/
+- type: StatusPage
+  url: https://ocistatus.oraclecloud.com/
+- type: Signup
+  url: https://signup.cloud.oracle.com/
+- type: Pricing
+  url: https://www.oracle.com/applications/ebusiness/
+- type: GitHubOrganization
+  url: https://github.com/oracle
+- type: SDKs
+  url: https://github.com/oracle/oci-java-sdk
+  name: Oracle OCI Java SDK
+- type: SDKs
+  url: https://github.com/oracle/oci-python-sdk
+  name: Oracle OCI Python SDK
+- type: SDKs
+  url: https://github.com/oracle/oci-go-sdk
+  name: Oracle OCI Go SDK
+- type: SDKs
+  url: https://github.com/oracle/oci-dotnet-sdk
+  name: Oracle OCI .NET SDK
+- type: CLI
+  url: https://github.com/oracle/oci-cli
+  name: Oracle OCI CLI
+- type: Features
+  data:
+  - Financial management (GL, AP, AR, FA, Cash Management)
+  - Supply chain management (Purchasing, Inventory, Order Management)
+  - Human capital management (HR, Payroll, Benefits)
+  - Manufacturing (Discrete, Process, WIP, BOM)
+  - EDI transaction processing via e-Commerce Gateway
+  - RESTful API access through Integrated SOA Gateway
+  - PL/SQL API framework for programmatic data access
+  - Multi-org and multi-currency support
+- type: UseCases
+  data:
+  - Automate financial close and journal posting
+  - Integrate procurement and purchase order workflows
+  - Manage employee lifecycle and payroll processing
+  - Track manufacturing work orders and material usage
+  - Exchange EDI documents with trading partners
+  - Build custom integrations via REST and SOAP services
+  - Synchronize EBS data with external systems
+- type: Integrations
+  data:
+  - Oracle SOA Suite for service orchestration
+  - Oracle Integration Cloud for hybrid integration
+  - EDI translators for ASC X12 and EDIFACT standards
+  - Oracle BI Publisher for reporting
+  - Oracle Identity Management for SSO
+  - Third-party middleware via REST and SOAP APIs
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com
 include: []
