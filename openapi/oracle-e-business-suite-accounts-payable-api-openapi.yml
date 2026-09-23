@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Oracle EBS e-Commerce Gateway Accounts Payable API
-  description: RESTful APIs for Oracle E-Business Suite e-Commerce Gateway providing EDI (Electronic Data Interchange) transaction support. Enables exchange of standard ASC X12 and EDIFACT documents with trading partners through flat ASCII file integration with third-party EDI translators. Supports inbound and outbound document processing for purchase orders, invoices, ship notices, and other business documents.
+  title: Oracle EBS Financial Services Accounts Payable API
+  description: RESTful APIs for Oracle E-Business Suite financial management modules including General Ledger, Accounts Payable, Accounts Receivable, Fixed Assets, and Cash Management. These PL/SQL APIs are deployed as REST services through the Integrated SOA Gateway.
   version: 12.2.0
   contact:
     name: Oracle Support
@@ -373,6 +373,41 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    Offset:
+      name: offset
+      in: query
+      description: Number of records to skip for pagination
+      schema:
+        type: integer
+        default: 0
+    Limit:
+      name: limit
+      in: query
+      description: Maximum number of records to return
+      schema:
+        type: integer
+        default: 25
+        maximum: 500
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required or token expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   schemas:
     ApPayment:
       type: object
@@ -435,6 +470,114 @@ components:
             detail:
               type: string
           example: example_value
+    ApInvoiceLine:
+      type: object
+      properties:
+        lineNumber:
+          type: integer
+          description: Invoice line number
+          example: 10
+        lineType:
+          type: string
+          description: Line type lookup code
+          enum:
+          - ITEM
+          - TAX
+          - FREIGHT
+          - MISCELLANEOUS
+          example: ITEM
+        amount:
+          type: number
+          format: double
+          description: Line amount
+          example: 42.5
+        description:
+          type: string
+          description: Line description
+          example: A sample description.
+        accountingDate:
+          type: string
+          format: date
+          example: '2026-01-15'
+        distCodeCombinationId:
+          type: integer
+          description: Distribution account code combination ID
+          example: '500123'
+        itemDescription:
+          type: string
+          example: example_value
+        quantity:
+          type: number
+          format: double
+          example: 42.5
+        unitPrice:
+          type: number
+          format: double
+          example: 42.5
+    ApInvoiceCreate:
+      type: object
+      required:
+      - invoiceNum
+      - vendorId
+      - vendorSiteId
+      - invoiceAmount
+      - invoiceCurrencyCode
+      - invoiceDate
+      properties:
+        invoiceNum:
+          type: string
+          example: example_value
+        vendorId:
+          type: integer
+          example: '500123'
+        vendorSiteId:
+          type: integer
+          example: '500123'
+        invoiceAmount:
+          type: number
+          format: double
+          example: 42.5
+        invoiceCurrencyCode:
+          type: string
+          example: example_value
+        invoiceDate:
+          type: string
+          format: date
+          example: '2026-01-15'
+        invoiceType:
+          type: string
+          enum:
+          - STANDARD
+          - CREDIT
+          - DEBIT
+          - PREPAYMENT
+          example: STANDARD
+        description:
+          type: string
+          example: A sample description.
+        termsId:
+          type: integer
+          example: '500123'
+        source:
+          type: string
+          example: example_value
+        lines:
+          type: array
+          items:
+            type: object
+            properties:
+              lineNumber:
+                type: integer
+              lineType:
+                type: string
+              amount:
+                type: number
+                format: double
+              description:
+                type: string
+              distCodeCombinationId:
+                type: integer
+          example: []
     ApInvoice:
       type: object
       properties:
@@ -557,149 +700,6 @@ components:
           type: string
           format: date-time
           example: '2026-01-15T10:30:00Z'
-    ApInvoiceLine:
-      type: object
-      properties:
-        lineNumber:
-          type: integer
-          description: Invoice line number
-          example: 10
-        lineType:
-          type: string
-          description: Line type lookup code
-          enum:
-          - ITEM
-          - TAX
-          - FREIGHT
-          - MISCELLANEOUS
-          example: ITEM
-        amount:
-          type: number
-          format: double
-          description: Line amount
-          example: 42.5
-        description:
-          type: string
-          description: Line description
-          example: A sample description.
-        accountingDate:
-          type: string
-          format: date
-          example: '2026-01-15'
-        distCodeCombinationId:
-          type: integer
-          description: Distribution account code combination ID
-          example: '500123'
-        itemDescription:
-          type: string
-          example: example_value
-        quantity:
-          type: number
-          format: double
-          example: 42.5
-        unitPrice:
-          type: number
-          format: double
-          example: 42.5
-    ApInvoiceCreate:
-      type: object
-      required:
-      - invoiceNum
-      - vendorId
-      - vendorSiteId
-      - invoiceAmount
-      - invoiceCurrencyCode
-      - invoiceDate
-      properties:
-        invoiceNum:
-          type: string
-          example: example_value
-        vendorId:
-          type: integer
-          example: '500123'
-        vendorSiteId:
-          type: integer
-          example: '500123'
-        invoiceAmount:
-          type: number
-          format: double
-          example: 42.5
-        invoiceCurrencyCode:
-          type: string
-          example: example_value
-        invoiceDate:
-          type: string
-          format: date
-          example: '2026-01-15'
-        invoiceType:
-          type: string
-          enum:
-          - STANDARD
-          - CREDIT
-          - DEBIT
-          - PREPAYMENT
-          example: STANDARD
-        description:
-          type: string
-          example: A sample description.
-        termsId:
-          type: integer
-          example: '500123'
-        source:
-          type: string
-          example: example_value
-        lines:
-          type: array
-          items:
-            type: object
-            properties:
-              lineNumber:
-                type: integer
-              lineType:
-                type: string
-              amount:
-                type: number
-                format: double
-              description:
-                type: string
-              distCodeCombinationId:
-                type: integer
-          example: []
-  responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Invalid request parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication required or token expired
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-  parameters:
-    Offset:
-      name: offset
-      in: query
-      description: Number of records to skip for pagination
-      schema:
-        type: integer
-        default: 0
-    Limit:
-      name: limit
-      in: query
-      description: Maximum number of records to return
-      schema:
-        type: integer
-        default: 25
-        maximum: 500
   securitySchemes:
     basicAuth:
       type: http

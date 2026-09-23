@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Oracle EBS e-Commerce Gateway Accounts Payable Trading Partners API
+  title: Oracle EBS e-Commerce Gateway Trading Partners API
   description: RESTful APIs for Oracle E-Business Suite e-Commerce Gateway providing EDI (Electronic Data Interchange) transaction support. Enables exchange of standard ASC X12 and EDIFACT documents with trading partners through flat ASCII file integration with third-party EDI translators. Supports inbound and outbound document processing for purchase orders, invoices, ship notices, and other business documents.
   version: 12.2.0
   contact:
@@ -151,6 +151,35 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    Offset:
+      name: offset
+      in: query
+      description: Number of records to skip for pagination
+      schema:
+        type: integer
+        default: 0
+    Limit:
+      name: limit
+      in: query
+      description: Maximum number of records to return
+      schema:
+        type: integer
+        default: 25
+        maximum: 500
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required or token expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   schemas:
     ErrorResponse:
       type: object
@@ -165,6 +194,32 @@ components:
             detail:
               type: string
           example: example_value
+    EnabledTransaction:
+      type: object
+      properties:
+        transactionType:
+          type: string
+          description: Transaction type code
+          example: example_value
+        transactionDescription:
+          type: string
+          description: Transaction description
+          example: example_value
+        direction:
+          type: string
+          description: Transaction direction
+          enum:
+          - INBOUND
+          - OUTBOUND
+          example: INBOUND
+        documentId:
+          type: string
+          description: ASC X12 or EDIFACT document identifier
+          example: '500123'
+        enabled:
+          type: boolean
+          description: Whether transaction is enabled
+          example: true
     TradingPartner:
       type: object
       properties:
@@ -220,61 +275,6 @@ components:
           type: string
           format: date-time
           example: '2026-01-15T10:30:00Z'
-    EnabledTransaction:
-      type: object
-      properties:
-        transactionType:
-          type: string
-          description: Transaction type code
-          example: example_value
-        transactionDescription:
-          type: string
-          description: Transaction description
-          example: example_value
-        direction:
-          type: string
-          description: Transaction direction
-          enum:
-          - INBOUND
-          - OUTBOUND
-          example: INBOUND
-        documentId:
-          type: string
-          description: ASC X12 or EDIFACT document identifier
-          example: '500123'
-        enabled:
-          type: boolean
-          description: Whether transaction is enabled
-          example: true
-  responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication required or token expired
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-  parameters:
-    Offset:
-      name: offset
-      in: query
-      description: Number of records to skip for pagination
-      schema:
-        type: integer
-        default: 0
-    Limit:
-      name: limit
-      in: query
-      description: Maximum number of records to return
-      schema:
-        type: integer
-        default: 25
-        maximum: 500
   securitySchemes:
     basicAuth:
       type: http

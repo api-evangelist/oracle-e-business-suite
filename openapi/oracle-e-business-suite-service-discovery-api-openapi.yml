@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Oracle EBS e-Commerce Gateway Accounts Payable Service Discovery API
-  description: RESTful APIs for Oracle E-Business Suite e-Commerce Gateway providing EDI (Electronic Data Interchange) transaction support. Enables exchange of standard ASC X12 and EDIFACT documents with trading partners through flat ASCII file integration with third-party EDI translators. Supports inbound and outbound document processing for purchase orders, invoices, ship notices, and other business documents.
+  title: Oracle EBS Integrated SOA Gateway REST Service Discovery API
+  description: RESTful web services for Oracle E-Business Suite modules exposed through the Integrated SOA Gateway (ISG). PL/SQL APIs, Java Bean Services, Application Module Services, and other interface types from the Integration Repository can be deployed as lightweight REST services. Services are deployed directly to the Oracle E-Business Suite WebLogic environment and described using WADL.
   version: 12.2.0
   contact:
     name: Oracle Support
@@ -105,4 +105,4 @@ components:
       type: apiKey
       in: cookie
       name: accessToken
-      description: Token-based authentication using the ISG login access token
+      description: Token-based authentication using the access token obtained from the login service. The token is passed as a cookie with each request.
