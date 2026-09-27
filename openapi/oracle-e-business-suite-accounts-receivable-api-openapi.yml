@@ -264,160 +264,7 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  parameters:
-    Offset:
-      name: offset
-      in: query
-      description: Number of records to skip for pagination
-      schema:
-        type: integer
-        default: 0
-    Limit:
-      name: limit
-      in: query
-      description: Maximum number of records to return
-      schema:
-        type: integer
-        default: 25
-        maximum: 500
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: object
-          properties:
-            code:
-              type: string
-            message:
-              type: string
-            detail:
-              type: string
-          example: example_value
-    ArInvoiceCreate:
-      type: object
-      required:
-      - customerId
-      - trxDate
-      - invoiceCurrencyCode
-      - batchSourceName
-      properties:
-        customerId:
-          type: integer
-          example: '500123'
-        trxDate:
-          type: string
-          format: date
-          example: '2026-01-15'
-        invoiceCurrencyCode:
-          type: string
-          example: example_value
-        batchSourceName:
-          type: string
-          example: example_value
-        billToSiteUseId:
-          type: integer
-          example: '500123'
-        shipToSiteUseId:
-          type: integer
-          example: '500123'
-        termsId:
-          type: integer
-          example: '500123'
-        lines:
-          type: array
-          items:
-            type: object
-            properties:
-              lineNumber:
-                type: integer
-              lineType:
-                type: string
-              description:
-                type: string
-              quantity:
-                type: number
-                format: double
-              unitSellingPrice:
-                type: number
-                format: double
-              inventoryItemId:
-                type: integer
-          example: []
-    ArInvoice:
-      type: object
-      properties:
-        customerTrxId:
-          type: integer
-          description: Customer transaction identifier
-          example: '500123'
-        trxNumber:
-          type: string
-          description: Transaction number
-          example: example_value
-        trxDate:
-          type: string
-          format: date
-          description: Transaction date
-          example: '2026-01-15'
-        customerId:
-          type: integer
-          description: Customer identifier
-          example: '500123'
-        customerName:
-          type: string
-          description: Customer name
-          example: example_value
-        billToSiteUseId:
-          type: integer
-          description: Bill-to site use identifier
-          example: '500123'
-        shipToSiteUseId:
-          type: integer
-          description: Ship-to site use identifier
-          example: '500123'
-        invoiceCurrencyCode:
-          type: string
-          description: Invoice currency (ISO 4217)
-          example: example_value
-        trxType:
-          type: string
-          description: Transaction type
-          example: example_value
-        amount:
-          type: number
-          format: double
-          description: Transaction amount
-          example: 42.5
-        amountDue:
-          type: number
-          format: double
-          description: Remaining amount due
-          example: 42.5
-        status:
-          type: string
-          description: Transaction status
-          example: example_value
-        termsId:
-          type: integer
-          description: Payment terms identifier
-          example: '500123'
-        lines:
-          type: array
-          items:
-            $ref: '#/components/schemas/ArInvoiceLine'
-          example: []
-        orgId:
-          type: integer
-          example: '500123'
-        creationDate:
-          type: string
-          format: date-time
-          example: '2026-01-15T10:30:00Z'
-        lastUpdateDate:
-          type: string
-          format: date-time
-          example: '2026-01-15T10:30:00Z'
     ArInvoiceLine:
       type: object
       properties:
@@ -496,15 +343,168 @@ components:
         orgId:
           type: integer
           example: '500123'
+    ArInvoice:
+      type: object
+      properties:
+        customerTrxId:
+          type: integer
+          description: Customer transaction identifier
+          example: '500123'
+        trxNumber:
+          type: string
+          description: Transaction number
+          example: example_value
+        trxDate:
+          type: string
+          format: date
+          description: Transaction date
+          example: '2026-01-15'
+        customerId:
+          type: integer
+          description: Customer identifier
+          example: '500123'
+        customerName:
+          type: string
+          description: Customer name
+          example: example_value
+        billToSiteUseId:
+          type: integer
+          description: Bill-to site use identifier
+          example: '500123'
+        shipToSiteUseId:
+          type: integer
+          description: Ship-to site use identifier
+          example: '500123'
+        invoiceCurrencyCode:
+          type: string
+          description: Invoice currency (ISO 4217)
+          example: example_value
+        trxType:
+          type: string
+          description: Transaction type
+          example: example_value
+        amount:
+          type: number
+          format: double
+          description: Transaction amount
+          example: 42.5
+        amountDue:
+          type: number
+          format: double
+          description: Remaining amount due
+          example: 42.5
+        status:
+          type: string
+          description: Transaction status
+          example: example_value
+        termsId:
+          type: integer
+          description: Payment terms identifier
+          example: '500123'
+        lines:
+          type: array
+          items:
+            $ref: '#/components/schemas/ArInvoiceLine'
+          example: []
+        orgId:
+          type: integer
+          example: '500123'
+        creationDate:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+        lastUpdateDate:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+    ArInvoiceCreate:
+      type: object
+      required:
+      - customerId
+      - trxDate
+      - invoiceCurrencyCode
+      - batchSourceName
+      properties:
+        customerId:
+          type: integer
+          example: '500123'
+        trxDate:
+          type: string
+          format: date
+          example: '2026-01-15'
+        invoiceCurrencyCode:
+          type: string
+          example: example_value
+        batchSourceName:
+          type: string
+          example: example_value
+        billToSiteUseId:
+          type: integer
+          example: '500123'
+        shipToSiteUseId:
+          type: integer
+          example: '500123'
+        termsId:
+          type: integer
+          example: '500123'
+        lines:
+          type: array
+          items:
+            type: object
+            properties:
+              lineNumber:
+                type: integer
+              lineType:
+                type: string
+              description:
+                type: string
+              quantity:
+                type: number
+                format: double
+              unitSellingPrice:
+                type: number
+                format: double
+              inventoryItemId:
+                type: integer
+          example: []
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            detail:
+              type: string
+          example: example_value
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      description: Maximum number of records to return
+      schema:
+        type: integer
+        default: 25
+        maximum: 500
+    Offset:
+      name: offset
+      in: query
+      description: Number of records to skip for pagination
+      schema:
+        type: integer
+        default: 0
   responses:
-    BadRequest:
-      description: Invalid request parameters
+    Unauthorized:
+      description: Authentication required or token expired
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication required or token expired
+    BadRequest:
+      description: Invalid request parameters
       content:
         application/json:
           schema:

@@ -88,36 +88,7 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  parameters:
-    Offset:
-      name: offset
-      in: query
-      description: Number of records to skip for pagination
-      schema:
-        type: integer
-        default: 0
-    Limit:
-      name: limit
-      in: query
-      description: Maximum number of records to return
-      schema:
-        type: integer
-        default: 25
-        maximum: 500
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: object
-          properties:
-            code:
-              type: string
-            message:
-              type: string
-            detail:
-              type: string
-          example: example_value
     BankAccount:
       type: object
       properties:
@@ -161,6 +132,35 @@ components:
           type: string
           description: Account status
           example: example_value
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            detail:
+              type: string
+          example: example_value
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      description: Maximum number of records to return
+      schema:
+        type: integer
+        default: 25
+        maximum: 500
+    Offset:
+      name: offset
+      in: query
+      description: Number of records to skip for pagination
+      schema:
+        type: integer
+        default: 0
   responses:
     Unauthorized:
       description: Authentication required or token expired

@@ -231,6 +231,22 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      description: Maximum number of records to return
+      schema:
+        type: integer
+        default: 25
+        maximum: 500
+    Offset:
+      name: offset
+      in: query
+      description: Number of records to skip for pagination
+      schema:
+        type: integer
+        default: 0
   schemas:
     Routing:
       type: object
@@ -272,19 +288,54 @@ components:
           type: string
           format: date-time
           example: '2026-01-15T10:30:00Z'
-    ErrorResponse:
+    RoutingOperation:
       type: object
       properties:
-        error:
-          type: object
-          properties:
-            code:
-              type: string
-            message:
-              type: string
-            detail:
-              type: string
+        operationSequenceId:
+          type: integer
+          description: Operation sequence identifier
+          example: '500123'
+        operationSeqNum:
+          type: integer
+          description: Operation sequence number
+          example: 10
+        operationDescription:
+          type: string
+          description: Operation description
           example: example_value
+        operationCode:
+          type: string
+          description: Standard operation code
+          example: example_value
+        departmentId:
+          type: integer
+          description: Department identifier
+          example: '500123'
+        departmentCode:
+          type: string
+          description: Department code
+          example: example_value
+        effectivityDate:
+          type: string
+          format: date
+          example: '2026-01-15'
+        disableDate:
+          type: string
+          format: date
+          example: '2026-01-15'
+        minimumTransferQuantity:
+          type: number
+          format: double
+          example: 42.5
+        countPointType:
+          type: integer
+          description: Count point type (1=Yes, 2=No, 3=Auto-charge)
+          example: 10
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/OperationResource'
+          example: []
     BomComponent:
       type: object
       properties:
@@ -340,86 +391,6 @@ components:
           type: integer
           description: Quantity related flag
           example: 10
-    RoutingOperation:
-      type: object
-      properties:
-        operationSequenceId:
-          type: integer
-          description: Operation sequence identifier
-          example: '500123'
-        operationSeqNum:
-          type: integer
-          description: Operation sequence number
-          example: 10
-        operationDescription:
-          type: string
-          description: Operation description
-          example: example_value
-        operationCode:
-          type: string
-          description: Standard operation code
-          example: example_value
-        departmentId:
-          type: integer
-          description: Department identifier
-          example: '500123'
-        departmentCode:
-          type: string
-          description: Department code
-          example: example_value
-        effectivityDate:
-          type: string
-          format: date
-          example: '2026-01-15'
-        disableDate:
-          type: string
-          format: date
-          example: '2026-01-15'
-        minimumTransferQuantity:
-          type: number
-          format: double
-          example: 42.5
-        countPointType:
-          type: integer
-          description: Count point type (1=Yes, 2=No, 3=Auto-charge)
-          example: 10
-        resources:
-          type: array
-          items:
-            $ref: '#/components/schemas/OperationResource'
-          example: []
-    OperationResource:
-      type: object
-      properties:
-        resourceSeqNum:
-          type: integer
-          description: Resource sequence number
-          example: 10
-        resourceId:
-          type: integer
-          description: Resource identifier
-          example: '500123'
-        resourceCode:
-          type: string
-          description: Resource code
-          example: example_value
-        usageRateOrAmount:
-          type: number
-          format: double
-          description: Resource usage rate or amount
-          example: 42.5
-        basisType:
-          type: integer
-          description: Basis type (1=Item, 2=Lot, 3=Resource Units, 4=Resource Value)
-          example: 10
-        scheduleFlag:
-          type: integer
-          description: Schedule flag
-          example: 10
-        autochargeType:
-          type: integer
-          description: Auto-charge type
-          example: 10
     BillOfMaterial:
       type: object
       properties:
@@ -468,22 +439,51 @@ components:
           type: string
           format: date-time
           example: '2026-01-15T10:30:00Z'
-  parameters:
-    Offset:
-      name: offset
-      in: query
-      description: Number of records to skip for pagination
-      schema:
-        type: integer
-        default: 0
-    Limit:
-      name: limit
-      in: query
-      description: Maximum number of records to return
-      schema:
-        type: integer
-        default: 25
-        maximum: 500
+    OperationResource:
+      type: object
+      properties:
+        resourceSeqNum:
+          type: integer
+          description: Resource sequence number
+          example: 10
+        resourceId:
+          type: integer
+          description: Resource identifier
+          example: '500123'
+        resourceCode:
+          type: string
+          description: Resource code
+          example: example_value
+        usageRateOrAmount:
+          type: number
+          format: double
+          description: Resource usage rate or amount
+          example: 42.5
+        basisType:
+          type: integer
+          description: Basis type (1=Item, 2=Lot, 3=Resource Units, 4=Resource Value)
+          example: 10
+        scheduleFlag:
+          type: integer
+          description: Schedule flag
+          example: 10
+        autochargeType:
+          type: integer
+          description: Auto-charge type
+          example: 10
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            detail:
+              type: string
+          example: example_value
   responses:
     NotFound:
       description: Resource not found
