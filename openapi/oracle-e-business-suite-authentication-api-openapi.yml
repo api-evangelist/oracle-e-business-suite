@@ -245,15 +245,28 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    InitializeResponse:
+    LoginResponse:
       type: object
       properties:
         response:
           type: object
           properties:
             data:
-              type: string
-              description: Initialization result message with resolved context values
+              type: object
+              properties:
+                accessToken:
+                  type: string
+                  description: Session access token for subsequent requests
+                accessTokenName:
+                  type: string
+                  description: Name of the access token cookie
+                ebsVersion:
+                  type: string
+                  description: Oracle E-Business Suite version
+                  example: 12.2.0
+                userName:
+                  type: string
+                  description: Authenticated username
           example: example_value
     LogoutResponse:
       type: object
@@ -264,6 +277,32 @@ components:
             data:
               type: string
               description: Logout confirmation message
+          example: example_value
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+              description: Error code
+            message:
+              type: string
+              description: Human-readable error message
+            detail:
+              type: string
+              description: Detailed error information
+          example: example_value
+    InitializeResponse:
+      type: object
+      properties:
+        response:
+          type: object
+          properties:
+            data:
+              type: string
+              description: Initialization result message with resolved context values
           example: example_value
     InitializeRequest:
       type: object
@@ -316,46 +355,15 @@ components:
                   description: Organization key
                   example: CM1
           example: example_value
-    LoginResponse:
-      type: object
-      properties:
-        response:
-          type: object
-          properties:
-            data:
-              type: object
-              properties:
-                accessToken:
-                  type: string
-                  description: Session access token for subsequent requests
-                accessTokenName:
-                  type: string
-                  description: Name of the access token cookie
-                ebsVersion:
-                  type: string
-                  description: Oracle E-Business Suite version
-                  example: 12.2.0
-                userName:
-                  type: string
-                  description: Authenticated username
-          example: example_value
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: object
-          properties:
-            code:
-              type: string
-              description: Error code
-            message:
-              type: string
-              description: Human-readable error message
-            detail:
-              type: string
-              description: Detailed error information
-          example: example_value
   parameters:
+    AcceptLanguage:
+      name: Accept-Language
+      in: header
+      description: NLS language context in RFC 5646 format. Controls the language for translated messages and data returned by the service.
+      schema:
+        type: string
+        default: en-US
+      example: en-GB,en-US;q=0.8,en;q=0.6
     ContentType:
       name: Content-Type
       in: header
@@ -366,14 +374,6 @@ components:
         - application/json
         - application/xml
         default: application/json
-    AcceptLanguage:
-      name: Accept-Language
-      in: header
-      description: NLS language context in RFC 5646 format. Controls the language for translated messages and data returned by the service.
-      schema:
-        type: string
-        default: en-US
-      example: en-GB,en-US;q=0.8,en;q=0.6
   securitySchemes:
     basicAuth:
       type: http

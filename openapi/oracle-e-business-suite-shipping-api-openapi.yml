@@ -125,6 +125,19 @@ components:
         type: integer
         default: 0
   schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            detail:
+              type: string
+          example: example_value
     Delivery:
       type: object
       properties:
@@ -206,19 +219,6 @@ components:
           type: string
           format: date-time
           example: '2026-01-15T10:30:00Z'
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: object
-          properties:
-            code:
-              type: string
-            message:
-              type: string
-            detail:
-              type: string
-          example: example_value
   responses:
     Unauthorized:
       description: Authentication required or token expired

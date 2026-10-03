@@ -557,128 +557,26 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required or token expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   schemas:
-    Phone:
-      type: object
-      properties:
-        phoneId:
-          type: integer
-          example: '500123'
-        phoneType:
-          type: string
-          description: Phone type
-          enum:
-          - W1
-          - H1
-          - M
-          - WF
-          - HF
-          example: W1
-        phoneNumber:
-          type: string
-          example: example_value
-        dateFrom:
-          type: string
-          format: date
-          example: '2026-01-15'
-        dateTo:
-          type: string
-          format: date
-          example: '2026-01-15'
-    EmployeeUpdate:
-      type: object
-      required:
-      - effectiveDate
-      properties:
-        effectiveDate:
-          type: string
-          format: date
-          description: Date-track effective date for the update
-          example: '2026-01-15'
-        dateTrackUpdateMode:
-          type: string
-          description: Date-track update mode
-          enum:
-          - CORRECTION
-          - UPDATE
-          - UPDATE_CHANGE_INSERT
-          - UPDATE_OVERRIDE
-          default: CORRECTION
-          example: CORRECTION
-        title:
-          type: string
-          example: Example Title
-        firstName:
-          type: string
-          example: example_value
-        middleNames:
-          type: string
-          example: example_value
-        lastName:
-          type: string
-          example: example_value
-        knownAs:
-          type: string
-          example: example_value
-        emailAddress:
-          type: string
-          format: email
-          example: user@example.com
-        maritalStatus:
-          type: string
-          example: example_value
-    Address:
-      type: object
-      properties:
-        addressId:
-          type: integer
-          description: Address identifier
-          example: '500123'
-        addressType:
-          type: string
-          description: Address type
-          example: example_value
-        addressLine1:
-          type: string
-          example: example_value
-        addressLine2:
-          type: string
-          example: example_value
-        addressLine3:
-          type: string
-          example: example_value
-        townOrCity:
-          type: string
-          example: example_value
-        region1:
-          type: string
-          description: County/province
-          example: example_value
-        region2:
-          type: string
-          description: State
-          example: example_value
-        postalCode:
-          type: string
-          example: example_value
-        country:
-          type: string
-          description: Country code
-          example: example_value
-        primaryFlag:
-          type: string
-          enum:
-          - Y
-          - N
-          example: Y
-        dateFrom:
-          type: string
-          format: date
-          example: '2026-01-15'
-        dateTo:
-          type: string
-          format: date
-          example: '2026-01-15'
     Assignment:
       type: object
       properties:
@@ -784,77 +682,46 @@ components:
           type: string
           format: date
           example: '2026-01-15'
-    EmployeeCreate:
+    ErrorResponse:
       type: object
-      required:
-      - firstName
-      - lastName
-      - hireDate
-      - businessGroupId
       properties:
-        title:
-          type: string
-          example: Example Title
-        firstName:
-          type: string
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            detail:
+              type: string
           example: example_value
-        middleNames:
+    Phone:
+      type: object
+      properties:
+        phoneId:
+          type: integer
+          example: '500123'
+        phoneType:
           type: string
-          example: example_value
-        lastName:
-          type: string
-          example: example_value
-        knownAs:
-          type: string
-          example: example_value
-        emailAddress:
-          type: string
-          format: email
-          example: user@example.com
-        sex:
-          type: string
+          description: Phone type
           enum:
+          - W1
+          - H1
           - M
-          - F
-          example: M
-        dateOfBirth:
+          - WF
+          - HF
+          example: W1
+        phoneNumber:
+          type: string
+          example: example_value
+        dateFrom:
           type: string
           format: date
           example: '2026-01-15'
-        nationalIdentifier:
-          type: string
-          example: example_value
-        nationality:
-          type: string
-          example: example_value
-        maritalStatus:
-          type: string
-          example: example_value
-        hireDate:
+        dateTo:
           type: string
           format: date
           example: '2026-01-15'
-        businessGroupId:
-          type: integer
-          example: '500123'
-        jobId:
-          type: integer
-          example: '500123'
-        positionId:
-          type: integer
-          example: '500123'
-        organizationId:
-          type: integer
-          example: '500123'
-        gradeId:
-          type: integer
-          example: '500123'
-        locationId:
-          type: integer
-          example: '500123'
-        payrollId:
-          type: integer
-          example: '500123'
     Employee:
       type: object
       properties:
@@ -964,19 +831,171 @@ components:
           type: string
           format: date-time
           example: '2026-01-15T10:30:00Z'
-    ErrorResponse:
+    EmployeeCreate:
+      type: object
+      required:
+      - firstName
+      - lastName
+      - hireDate
+      - businessGroupId
+      properties:
+        title:
+          type: string
+          example: Example Title
+        firstName:
+          type: string
+          example: example_value
+        middleNames:
+          type: string
+          example: example_value
+        lastName:
+          type: string
+          example: example_value
+        knownAs:
+          type: string
+          example: example_value
+        emailAddress:
+          type: string
+          format: email
+          example: user@example.com
+        sex:
+          type: string
+          enum:
+          - M
+          - F
+          example: M
+        dateOfBirth:
+          type: string
+          format: date
+          example: '2026-01-15'
+        nationalIdentifier:
+          type: string
+          example: example_value
+        nationality:
+          type: string
+          example: example_value
+        maritalStatus:
+          type: string
+          example: example_value
+        hireDate:
+          type: string
+          format: date
+          example: '2026-01-15'
+        businessGroupId:
+          type: integer
+          example: '500123'
+        jobId:
+          type: integer
+          example: '500123'
+        positionId:
+          type: integer
+          example: '500123'
+        organizationId:
+          type: integer
+          example: '500123'
+        gradeId:
+          type: integer
+          example: '500123'
+        locationId:
+          type: integer
+          example: '500123'
+        payrollId:
+          type: integer
+          example: '500123'
+    EmployeeUpdate:
+      type: object
+      required:
+      - effectiveDate
+      properties:
+        effectiveDate:
+          type: string
+          format: date
+          description: Date-track effective date for the update
+          example: '2026-01-15'
+        dateTrackUpdateMode:
+          type: string
+          description: Date-track update mode
+          enum:
+          - CORRECTION
+          - UPDATE
+          - UPDATE_CHANGE_INSERT
+          - UPDATE_OVERRIDE
+          default: CORRECTION
+          example: CORRECTION
+        title:
+          type: string
+          example: Example Title
+        firstName:
+          type: string
+          example: example_value
+        middleNames:
+          type: string
+          example: example_value
+        lastName:
+          type: string
+          example: example_value
+        knownAs:
+          type: string
+          example: example_value
+        emailAddress:
+          type: string
+          format: email
+          example: user@example.com
+        maritalStatus:
+          type: string
+          example: example_value
+    Address:
       type: object
       properties:
-        error:
-          type: object
-          properties:
-            code:
-              type: string
-            message:
-              type: string
-            detail:
-              type: string
+        addressId:
+          type: integer
+          description: Address identifier
+          example: '500123'
+        addressType:
+          type: string
+          description: Address type
           example: example_value
+        addressLine1:
+          type: string
+          example: example_value
+        addressLine2:
+          type: string
+          example: example_value
+        addressLine3:
+          type: string
+          example: example_value
+        townOrCity:
+          type: string
+          example: example_value
+        region1:
+          type: string
+          description: County/province
+          example: example_value
+        region2:
+          type: string
+          description: State
+          example: example_value
+        postalCode:
+          type: string
+          example: example_value
+        country:
+          type: string
+          description: Country code
+          example: example_value
+        primaryFlag:
+          type: string
+          enum:
+          - Y
+          - N
+          example: Y
+        dateFrom:
+          type: string
+          format: date
+          example: '2026-01-15'
+        dateTo:
+          type: string
+          format: date
+          example: '2026-01-15'
   parameters:
     Limit:
       name: limit
@@ -993,25 +1012,6 @@ components:
       schema:
         type: integer
         default: 0
-  responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication required or token expired
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Invalid request parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     basicAuth:
       type: http

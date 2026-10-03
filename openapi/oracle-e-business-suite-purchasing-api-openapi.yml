@@ -623,6 +623,31 @@ components:
           items:
             $ref: '#/components/schemas/PurchaseOrderShipment'
           example: []
+    PurchaseOrderUpdate:
+      type: object
+      properties:
+        description:
+          type: string
+          example: A sample description.
+        lines:
+          type: array
+          items:
+            type: object
+            properties:
+              poLineId:
+                type: integer
+              quantity:
+                type: number
+                format: double
+              unitPrice:
+                type: number
+                format: double
+              needByDate:
+                type: string
+                format: date
+              cancelFlag:
+                type: boolean
+          example: []
     Requisition:
       type: object
       properties:
@@ -669,6 +694,65 @@ components:
         orgId:
           type: integer
           example: '500123'
+    PurchaseOrderShipment:
+      type: object
+      properties:
+        lineLocationId:
+          type: integer
+          description: Line location (shipment) identifier
+          example: '500123'
+        shipmentNum:
+          type: integer
+          description: Shipment number
+          example: 10
+        quantity:
+          type: number
+          format: double
+          description: Shipment quantity
+          example: 42.5
+        quantityReceived:
+          type: number
+          format: double
+          description: Quantity received
+          example: 42.5
+        quantityBilled:
+          type: number
+          format: double
+          description: Quantity billed
+          example: 42.5
+        needByDate:
+          type: string
+          format: date
+          example: '2026-01-15'
+        promisedDate:
+          type: string
+          format: date
+          example: '2026-01-15'
+        shipToOrganizationId:
+          type: integer
+          description: Ship-to organization identifier
+          example: '500123'
+        shipToLocationId:
+          type: integer
+          description: Ship-to location identifier
+          example: '500123'
+        closedCode:
+          type: string
+          description: Shipment close status
+          example: example_value
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            detail:
+              type: string
+          example: example_value
     Supplier:
       type: object
       properties:
@@ -733,6 +817,109 @@ components:
           type: string
           format: date-time
           example: '2026-01-15T10:30:00Z'
+    PurchaseOrderCreate:
+      type: object
+      required:
+      - vendorId
+      - vendorSiteId
+      - currencyCode
+      - lines
+      properties:
+        vendorId:
+          type: integer
+          example: '500123'
+        vendorSiteId:
+          type: integer
+          example: '500123'
+        currencyCode:
+          type: string
+          example: example_value
+        typeLookupCode:
+          type: string
+          default: STANDARD
+          example: example_value
+        description:
+          type: string
+          example: A sample description.
+        buyerId:
+          type: integer
+          example: '500123'
+        shipToLocationId:
+          type: integer
+          example: '500123'
+        billToLocationId:
+          type: integer
+          example: '500123'
+        termsId:
+          type: integer
+          example: '500123'
+        lines:
+          type: array
+          items:
+            type: object
+            required:
+            - itemDescription
+            - quantity
+            - unitPrice
+            properties:
+              lineNum:
+                type: integer
+              itemId:
+                type: integer
+              itemDescription:
+                type: string
+              categoryId:
+                type: integer
+              quantity:
+                type: number
+                format: double
+              unitMeasLookupCode:
+                type: string
+              unitPrice:
+                type: number
+                format: double
+              needByDate:
+                type: string
+                format: date
+              shipToOrganizationId:
+                type: integer
+          example: []
+    RequisitionLine:
+      type: object
+      properties:
+        requisitionLineId:
+          type: integer
+          example: '500123'
+        lineNum:
+          type: integer
+          example: 10
+        itemId:
+          type: integer
+          example: '500123'
+        itemDescription:
+          type: string
+          example: example_value
+        categoryId:
+          type: integer
+          example: '500123'
+        quantity:
+          type: number
+          format: double
+          example: 42.5
+        unitMeasLookupCode:
+          type: string
+          example: example_value
+        unitPrice:
+          type: number
+          format: double
+          example: 42.5
+        needByDate:
+          type: string
+          format: date
+          example: '2026-01-15'
+        suggestedVendorId:
+          type: integer
+          example: '500123'
     PurchaseOrder:
       type: object
       properties:
@@ -845,73 +1032,6 @@ components:
           type: string
           format: date-time
           example: '2026-01-15T10:30:00Z'
-    PurchaseOrderCreate:
-      type: object
-      required:
-      - vendorId
-      - vendorSiteId
-      - currencyCode
-      - lines
-      properties:
-        vendorId:
-          type: integer
-          example: '500123'
-        vendorSiteId:
-          type: integer
-          example: '500123'
-        currencyCode:
-          type: string
-          example: example_value
-        typeLookupCode:
-          type: string
-          default: STANDARD
-          example: example_value
-        description:
-          type: string
-          example: A sample description.
-        buyerId:
-          type: integer
-          example: '500123'
-        shipToLocationId:
-          type: integer
-          example: '500123'
-        billToLocationId:
-          type: integer
-          example: '500123'
-        termsId:
-          type: integer
-          example: '500123'
-        lines:
-          type: array
-          items:
-            type: object
-            required:
-            - itemDescription
-            - quantity
-            - unitPrice
-            properties:
-              lineNum:
-                type: integer
-              itemId:
-                type: integer
-              itemDescription:
-                type: string
-              categoryId:
-                type: integer
-              quantity:
-                type: number
-                format: double
-              unitMeasLookupCode:
-                type: string
-              unitPrice:
-                type: number
-                format: double
-              needByDate:
-                type: string
-                format: date
-              shipToOrganizationId:
-                type: integer
-          example: []
     SupplierSite:
       type: object
       properties:
@@ -956,126 +1076,25 @@ components:
         orgId:
           type: integer
           example: '500123'
-    RequisitionLine:
-      type: object
-      properties:
-        requisitionLineId:
-          type: integer
-          example: '500123'
-        lineNum:
-          type: integer
-          example: 10
-        itemId:
-          type: integer
-          example: '500123'
-        itemDescription:
-          type: string
-          example: example_value
-        categoryId:
-          type: integer
-          example: '500123'
-        quantity:
-          type: number
-          format: double
-          example: 42.5
-        unitMeasLookupCode:
-          type: string
-          example: example_value
-        unitPrice:
-          type: number
-          format: double
-          example: 42.5
-        needByDate:
-          type: string
-          format: date
-          example: '2026-01-15'
-        suggestedVendorId:
-          type: integer
-          example: '500123'
-    PurchaseOrderUpdate:
-      type: object
-      properties:
-        description:
-          type: string
-          example: A sample description.
-        lines:
-          type: array
-          items:
-            type: object
-            properties:
-              poLineId:
-                type: integer
-              quantity:
-                type: number
-                format: double
-              unitPrice:
-                type: number
-                format: double
-              needByDate:
-                type: string
-                format: date
-              cancelFlag:
-                type: boolean
-          example: []
-    PurchaseOrderShipment:
-      type: object
-      properties:
-        lineLocationId:
-          type: integer
-          description: Line location (shipment) identifier
-          example: '500123'
-        shipmentNum:
-          type: integer
-          description: Shipment number
-          example: 10
-        quantity:
-          type: number
-          format: double
-          description: Shipment quantity
-          example: 42.5
-        quantityReceived:
-          type: number
-          format: double
-          description: Quantity received
-          example: 42.5
-        quantityBilled:
-          type: number
-          format: double
-          description: Quantity billed
-          example: 42.5
-        needByDate:
-          type: string
-          format: date
-          example: '2026-01-15'
-        promisedDate:
-          type: string
-          format: date
-          example: '2026-01-15'
-        shipToOrganizationId:
-          type: integer
-          description: Ship-to organization identifier
-          example: '500123'
-        shipToLocationId:
-          type: integer
-          description: Ship-to location identifier
-          example: '500123'
-        closedCode:
-          type: string
-          description: Shipment close status
-          example: example_value
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: object
-          properties:
-            code:
-              type: string
-            message:
-              type: string
-            detail:
-              type: string
-          example: example_value
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required or token expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   parameters:
     Limit:
       name: limit
@@ -1092,25 +1111,6 @@ components:
       schema:
         type: integer
         default: 0
-  responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication required or token expired
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Invalid request parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     basicAuth:
       type: http

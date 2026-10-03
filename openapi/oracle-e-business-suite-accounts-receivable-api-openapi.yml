@@ -265,6 +265,56 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    ArInvoiceCreate:
+      type: object
+      required:
+      - customerId
+      - trxDate
+      - invoiceCurrencyCode
+      - batchSourceName
+      properties:
+        customerId:
+          type: integer
+          example: '500123'
+        trxDate:
+          type: string
+          format: date
+          example: '2026-01-15'
+        invoiceCurrencyCode:
+          type: string
+          example: example_value
+        batchSourceName:
+          type: string
+          example: example_value
+        billToSiteUseId:
+          type: integer
+          example: '500123'
+        shipToSiteUseId:
+          type: integer
+          example: '500123'
+        termsId:
+          type: integer
+          example: '500123'
+        lines:
+          type: array
+          items:
+            type: object
+            properties:
+              lineNumber:
+                type: integer
+              lineType:
+                type: string
+              description:
+                type: string
+              quantity:
+                type: number
+                format: double
+              unitSellingPrice:
+                type: number
+                format: double
+              inventoryItemId:
+                type: integer
+          example: []
     ArInvoiceLine:
       type: object
       properties:
@@ -299,50 +349,19 @@ components:
         inventoryItemId:
           type: integer
           example: '500123'
-    ArReceipt:
+    ErrorResponse:
       type: object
       properties:
-        cashReceiptId:
-          type: integer
-          description: Cash receipt identifier
-          example: '500123'
-        receiptNumber:
-          type: string
-          description: Receipt number
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            detail:
+              type: string
           example: example_value
-        amount:
-          type: number
-          format: double
-          description: Receipt amount
-          example: 42.5
-        currencyCode:
-          type: string
-          description: Receipt currency code
-          example: example_value
-        receiptDate:
-          type: string
-          format: date
-          description: Receipt date
-          example: '2026-01-15'
-        customerId:
-          type: integer
-          description: Customer identifier
-          example: '500123'
-        customerName:
-          type: string
-          description: Customer name
-          example: example_value
-        receiptMethodId:
-          type: integer
-          description: Receipt method identifier
-          example: '500123'
-        status:
-          type: string
-          description: Receipt status
-          example: example_value
-        orgId:
-          type: integer
-          example: '500123'
     ArInvoice:
       type: object
       properties:
@@ -417,69 +436,63 @@ components:
           type: string
           format: date-time
           example: '2026-01-15T10:30:00Z'
-    ArInvoiceCreate:
+    ArReceipt:
       type: object
-      required:
-      - customerId
-      - trxDate
-      - invoiceCurrencyCode
-      - batchSourceName
       properties:
-        customerId:
+        cashReceiptId:
           type: integer
+          description: Cash receipt identifier
           example: '500123'
-        trxDate:
+        receiptNumber:
+          type: string
+          description: Receipt number
+          example: example_value
+        amount:
+          type: number
+          format: double
+          description: Receipt amount
+          example: 42.5
+        currencyCode:
+          type: string
+          description: Receipt currency code
+          example: example_value
+        receiptDate:
           type: string
           format: date
+          description: Receipt date
           example: '2026-01-15'
-        invoiceCurrencyCode:
+        customerId:
+          type: integer
+          description: Customer identifier
+          example: '500123'
+        customerName:
           type: string
+          description: Customer name
           example: example_value
-        batchSourceName:
+        receiptMethodId:
+          type: integer
+          description: Receipt method identifier
+          example: '500123'
+        status:
           type: string
+          description: Receipt status
           example: example_value
-        billToSiteUseId:
+        orgId:
           type: integer
           example: '500123'
-        shipToSiteUseId:
-          type: integer
-          example: '500123'
-        termsId:
-          type: integer
-          example: '500123'
-        lines:
-          type: array
-          items:
-            type: object
-            properties:
-              lineNumber:
-                type: integer
-              lineType:
-                type: string
-              description:
-                type: string
-              quantity:
-                type: number
-                format: double
-              unitSellingPrice:
-                type: number
-                format: double
-              inventoryItemId:
-                type: integer
-          example: []
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: object
-          properties:
-            code:
-              type: string
-            message:
-              type: string
-            detail:
-              type: string
-          example: example_value
+  responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required or token expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   parameters:
     Limit:
       name: limit
@@ -496,19 +509,6 @@ components:
       schema:
         type: integer
         default: 0
-  responses:
-    Unauthorized:
-      description: Authentication required or token expired
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Invalid request parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     basicAuth:
       type: http
