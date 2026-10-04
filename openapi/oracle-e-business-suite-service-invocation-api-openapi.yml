@@ -169,25 +169,6 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  parameters:
-    AcceptLanguage:
-      name: Accept-Language
-      in: header
-      description: NLS language context in RFC 5646 format. Controls the language for translated messages and data returned by the service.
-      schema:
-        type: string
-        default: en-US
-      example: en-GB,en-US;q=0.8,en;q=0.6
-    ContentType:
-      name: Content-Type
-      in: header
-      description: The format of the request body
-      schema:
-        type: string
-        enum:
-        - application/json
-        - application/xml
-        default: application/json
   schemas:
     ErrorResponse:
       type: object
@@ -204,15 +185,6 @@ components:
             detail:
               type: string
               description: Detailed error information
-          example: example_value
-    ServiceMethodResponse:
-      type: object
-      description: Dynamic response payload whose structure depends on the specific service and method invoked. Refer to the WADL for the deployed service.
-      properties:
-        OutputParameters:
-          type: object
-          description: Output parameters from the service method
-          additionalProperties: true
           example: example_value
     ServiceMethodRequest:
       type: object
@@ -243,6 +215,34 @@ components:
           description: Input parameters specific to the service method. Structure varies by service - consult the WADL.
           additionalProperties: true
           example: example_value
+    ServiceMethodResponse:
+      type: object
+      description: Dynamic response payload whose structure depends on the specific service and method invoked. Refer to the WADL for the deployed service.
+      properties:
+        OutputParameters:
+          type: object
+          description: Output parameters from the service method
+          additionalProperties: true
+          example: example_value
+  parameters:
+    AcceptLanguage:
+      name: Accept-Language
+      in: header
+      description: NLS language context in RFC 5646 format. Controls the language for translated messages and data returned by the service.
+      schema:
+        type: string
+        default: en-US
+      example: en-GB,en-US;q=0.8,en;q=0.6
+    ContentType:
+      name: Content-Type
+      in: header
+      description: The format of the request body
+      schema:
+        type: string
+        enum:
+        - application/json
+        - application/xml
+        default: application/json
   securitySchemes:
     basicAuth:
       type: http

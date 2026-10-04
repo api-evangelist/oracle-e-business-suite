@@ -469,26 +469,84 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Invalid request parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication required or token expired
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            detail:
+              type: string
+          example: example_value
+    WipOperation:
+      type: object
+      properties:
+        wipEntityId:
+          type: integer
+          description: WIP entity identifier
+          example: '500123'
+        operationSeqNum:
+          type: integer
+          description: Operation sequence number
+          example: 10
+        organizationId:
+          type: integer
+          description: Organization identifier
+          example: '500123'
+        departmentId:
+          type: integer
+          description: Department identifier
+          example: '500123'
+        departmentCode:
+          type: string
+          example: example_value
+        operationDescription:
+          type: string
+          description: Operation description
+          example: example_value
+        scheduledQuantity:
+          type: number
+          format: double
+          example: 42.5
+        quantityInQueue:
+          type: number
+          format: double
+          description: Quantity in queue
+          example: 42.5
+        quantityRunning:
+          type: number
+          format: double
+          description: Quantity running
+          example: 42.5
+        quantityCompleted:
+          type: number
+          format: double
+          description: Quantity completed
+          example: 42.5
+        quantityScrapped:
+          type: number
+          format: double
+          description: Quantity scrapped
+          example: 42.5
+        firstUnitStartDate:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+        lastUnitCompletionDate:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+        countPointType:
+          type: integer
+          example: 10
+        backflushFlag:
+          type: integer
+          example: 10
     DiscreteJobCreate:
       type: object
       required:
@@ -544,6 +602,97 @@ components:
           type: integer
           default: 2
           example: 10
+    CompletionTransaction:
+      type: object
+      required:
+      - wipEntityId
+      - organizationId
+      - transactionQuantity
+      properties:
+        wipEntityId:
+          type: integer
+          description: WIP entity identifier
+          example: '500123'
+        organizationId:
+          type: integer
+          description: Organization identifier
+          example: '500123'
+        transactionQuantity:
+          type: number
+          format: double
+          description: Completion quantity
+          example: 42.5
+        transactionUom:
+          type: string
+          description: Transaction unit of measure
+          example: example_value
+        subinventoryCode:
+          type: string
+          description: Completion subinventory
+          example: example_value
+        locatorId:
+          type: integer
+          description: Completion locator
+          example: '500123'
+        transactionDate:
+          type: string
+          format: date-time
+          description: Transaction date
+          example: '2026-01-15T10:30:00Z'
+    MaterialTransaction:
+      type: object
+      required:
+      - wipEntityId
+      - organizationId
+      - inventoryItemId
+      - transactionQuantity
+      - transactionType
+      properties:
+        wipEntityId:
+          type: integer
+          description: WIP entity identifier
+          example: '500123'
+        organizationId:
+          type: integer
+          description: Organization identifier
+          example: '500123'
+        operationSeqNum:
+          type: integer
+          description: Operation sequence number
+          example: 10
+        inventoryItemId:
+          type: integer
+          description: Inventory item identifier
+          example: '500123'
+        transactionQuantity:
+          type: number
+          format: double
+          description: Transaction quantity (positive=issue, negative=return)
+          example: 42.5
+        transactionUom:
+          type: string
+          description: Transaction unit of measure
+          example: example_value
+        transactionType:
+          type: string
+          description: Transaction type
+          enum:
+          - WIP_ISSUE
+          - WIP_RETURN
+          example: WIP_ISSUE
+        subinventoryCode:
+          type: string
+          description: Source/destination subinventory
+          example: example_value
+        locatorId:
+          type: integer
+          description: Locator identifier
+          example: '500123'
+        transactionDate:
+          type: string
+          format: date-time
+          description: Transaction date
+          example: '2026-01-15T10:30:00Z'
     DiscreteJob:
       type: object
       properties:
@@ -648,182 +797,26 @@ components:
           type: string
           format: date-time
           example: '2026-01-15T10:30:00Z'
-    MaterialTransaction:
-      type: object
-      required:
-      - wipEntityId
-      - organizationId
-      - inventoryItemId
-      - transactionQuantity
-      - transactionType
-      properties:
-        wipEntityId:
-          type: integer
-          description: WIP entity identifier
-          example: '500123'
-        organizationId:
-          type: integer
-          description: Organization identifier
-          example: '500123'
-        operationSeqNum:
-          type: integer
-          description: Operation sequence number
-          example: 10
-        inventoryItemId:
-          type: integer
-          description: Inventory item identifier
-          example: '500123'
-        transactionQuantity:
-          type: number
-          format: double
-          description: Transaction quantity (positive=issue, negative=return)
-          example: 42.5
-        transactionUom:
-          type: string
-          description: Transaction unit of measure
-          example: example_value
-        transactionType:
-          type: string
-          description: Transaction type
-          enum:
-          - WIP_ISSUE
-          - WIP_RETURN
-          example: WIP_ISSUE
-        subinventoryCode:
-          type: string
-          description: Source/destination subinventory
-          example: example_value
-        locatorId:
-          type: integer
-          description: Locator identifier
-          example: '500123'
-        transactionDate:
-          type: string
-          format: date-time
-          description: Transaction date
-          example: '2026-01-15T10:30:00Z'
-    WipOperation:
-      type: object
-      properties:
-        wipEntityId:
-          type: integer
-          description: WIP entity identifier
-          example: '500123'
-        operationSeqNum:
-          type: integer
-          description: Operation sequence number
-          example: 10
-        organizationId:
-          type: integer
-          description: Organization identifier
-          example: '500123'
-        departmentId:
-          type: integer
-          description: Department identifier
-          example: '500123'
-        departmentCode:
-          type: string
-          example: example_value
-        operationDescription:
-          type: string
-          description: Operation description
-          example: example_value
-        scheduledQuantity:
-          type: number
-          format: double
-          example: 42.5
-        quantityInQueue:
-          type: number
-          format: double
-          description: Quantity in queue
-          example: 42.5
-        quantityRunning:
-          type: number
-          format: double
-          description: Quantity running
-          example: 42.5
-        quantityCompleted:
-          type: number
-          format: double
-          description: Quantity completed
-          example: 42.5
-        quantityScrapped:
-          type: number
-          format: double
-          description: Quantity scrapped
-          example: 42.5
-        firstUnitStartDate:
-          type: string
-          format: date-time
-          example: '2026-01-15T10:30:00Z'
-        lastUnitCompletionDate:
-          type: string
-          format: date-time
-          example: '2026-01-15T10:30:00Z'
-        countPointType:
-          type: integer
-          example: 10
-        backflushFlag:
-          type: integer
-          example: 10
-    CompletionTransaction:
-      type: object
-      required:
-      - wipEntityId
-      - organizationId
-      - transactionQuantity
-      properties:
-        wipEntityId:
-          type: integer
-          description: WIP entity identifier
-          example: '500123'
-        organizationId:
-          type: integer
-          description: Organization identifier
-          example: '500123'
-        transactionQuantity:
-          type: number
-          format: double
-          description: Completion quantity
-          example: 42.5
-        transactionUom:
-          type: string
-          description: Transaction unit of measure
-          example: example_value
-        subinventoryCode:
-          type: string
-          description: Completion subinventory
-          example: example_value
-        locatorId:
-          type: integer
-          description: Completion locator
-          example: '500123'
-        transactionDate:
-          type: string
-          format: date-time
-          description: Transaction date
-          example: '2026-01-15T10:30:00Z'
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: object
-          properties:
-            code:
-              type: string
-            message:
-              type: string
-            detail:
-              type: string
-          example: example_value
+  responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required or token expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   parameters:
-    Offset:
-      name: offset
-      in: query
-      description: Number of records to skip for pagination
-      schema:
-        type: integer
-        default: 0
     Limit:
       name: limit
       in: query
@@ -832,6 +825,13 @@ components:
         type: integer
         default: 25
         maximum: 500
+    Offset:
+      name: offset
+      in: query
+      description: Number of records to skip for pagination
+      schema:
+        type: integer
+        default: 0
   securitySchemes:
     basicAuth:
       type: http

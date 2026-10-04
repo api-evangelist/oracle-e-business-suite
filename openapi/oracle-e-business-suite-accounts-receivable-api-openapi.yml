@@ -265,6 +265,53 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    ArInvoiceLine:
+      type: object
+      properties:
+        customerTrxLineId:
+          type: integer
+          example: '500123'
+        lineNumber:
+          type: integer
+          example: 10
+        lineType:
+          type: string
+          enum:
+          - LINE
+          - TAX
+          - FREIGHT
+          example: LINE
+        description:
+          type: string
+          example: A sample description.
+        quantity:
+          type: number
+          format: double
+          example: 42.5
+        unitSellingPrice:
+          type: number
+          format: double
+          example: 42.5
+        amount:
+          type: number
+          format: double
+          example: 42.5
+        inventoryItemId:
+          type: integer
+          example: '500123'
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            detail:
+              type: string
+          example: example_value
     ArInvoiceCreate:
       type: object
       required:
@@ -315,53 +362,6 @@ components:
               inventoryItemId:
                 type: integer
           example: []
-    ArInvoiceLine:
-      type: object
-      properties:
-        customerTrxLineId:
-          type: integer
-          example: '500123'
-        lineNumber:
-          type: integer
-          example: 10
-        lineType:
-          type: string
-          enum:
-          - LINE
-          - TAX
-          - FREIGHT
-          example: LINE
-        description:
-          type: string
-          example: A sample description.
-        quantity:
-          type: number
-          format: double
-          example: 42.5
-        unitSellingPrice:
-          type: number
-          format: double
-          example: 42.5
-        amount:
-          type: number
-          format: double
-          example: 42.5
-        inventoryItemId:
-          type: integer
-          example: '500123'
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: object
-          properties:
-            code:
-              type: string
-            message:
-              type: string
-            detail:
-              type: string
-          example: example_value
     ArInvoice:
       type: object
       properties:

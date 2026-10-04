@@ -558,332 +558,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    PurchaseOrderLine:
-      type: object
-      properties:
-        poLineId:
-          type: integer
-          description: Purchase order line identifier
-          example: '500123'
-        lineNum:
-          type: integer
-          description: Line number
-          example: 10
-        lineType:
-          type: string
-          description: Line type
-          example: example_value
-        itemId:
-          type: integer
-          description: Inventory item identifier
-          example: '500123'
-        itemDescription:
-          type: string
-          description: Item description
-          example: example_value
-        categoryId:
-          type: integer
-          description: Item category identifier
-          example: '500123'
-        quantity:
-          type: number
-          format: double
-          description: Ordered quantity
-          example: 42.5
-        unitMeasLookupCode:
-          type: string
-          description: Unit of measure
-          example: example_value
-        unitPrice:
-          type: number
-          format: double
-          description: Unit price
-          example: 42.5
-        amount:
-          type: number
-          format: double
-          description: Line amount
-          example: 42.5
-        needByDate:
-          type: string
-          format: date
-          description: Need-by date
-          example: '2026-01-15'
-        promisedDate:
-          type: string
-          format: date
-          description: Promised date
-          example: '2026-01-15'
-        closedCode:
-          type: string
-          description: Line close status
-          example: example_value
-        shipments:
-          type: array
-          items:
-            $ref: '#/components/schemas/PurchaseOrderShipment'
-          example: []
-    PurchaseOrderUpdate:
-      type: object
-      properties:
-        description:
-          type: string
-          example: A sample description.
-        lines:
-          type: array
-          items:
-            type: object
-            properties:
-              poLineId:
-                type: integer
-              quantity:
-                type: number
-                format: double
-              unitPrice:
-                type: number
-                format: double
-              needByDate:
-                type: string
-                format: date
-              cancelFlag:
-                type: boolean
-          example: []
-    Requisition:
-      type: object
-      properties:
-        requisitionHeaderId:
-          type: integer
-          description: Requisition header identifier
-          example: '500123'
-        segment1:
-          type: string
-          description: Requisition number
-          example: example_value
-        typeLookupCode:
-          type: string
-          description: Requisition type
-          enum:
-          - PURCHASE
-          - INTERNAL
-          example: PURCHASE
-        authorizationStatus:
-          type: string
-          description: Authorization status
-          example: example_value
-        preparerId:
-          type: integer
-          description: Preparer identifier
-          example: '500123'
-        description:
-          type: string
-          description: Requisition description
-          example: A sample description.
-        totalAmount:
-          type: number
-          format: double
-          example: 42.5
-        creationDate:
-          type: string
-          format: date-time
-          example: '2026-01-15T10:30:00Z'
-        lines:
-          type: array
-          items:
-            $ref: '#/components/schemas/RequisitionLine'
-          example: []
-        orgId:
-          type: integer
-          example: '500123'
-    PurchaseOrderShipment:
-      type: object
-      properties:
-        lineLocationId:
-          type: integer
-          description: Line location (shipment) identifier
-          example: '500123'
-        shipmentNum:
-          type: integer
-          description: Shipment number
-          example: 10
-        quantity:
-          type: number
-          format: double
-          description: Shipment quantity
-          example: 42.5
-        quantityReceived:
-          type: number
-          format: double
-          description: Quantity received
-          example: 42.5
-        quantityBilled:
-          type: number
-          format: double
-          description: Quantity billed
-          example: 42.5
-        needByDate:
-          type: string
-          format: date
-          example: '2026-01-15'
-        promisedDate:
-          type: string
-          format: date
-          example: '2026-01-15'
-        shipToOrganizationId:
-          type: integer
-          description: Ship-to organization identifier
-          example: '500123'
-        shipToLocationId:
-          type: integer
-          description: Ship-to location identifier
-          example: '500123'
-        closedCode:
-          type: string
-          description: Shipment close status
-          example: example_value
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: object
-          properties:
-            code:
-              type: string
-            message:
-              type: string
-            detail:
-              type: string
-          example: example_value
-    Supplier:
-      type: object
-      properties:
-        vendorId:
-          type: integer
-          description: Vendor identifier
-          example: '500123'
-        vendorName:
-          type: string
-          description: Vendor name
-          example: example_value
-        segment1:
-          type: string
-          description: Vendor number
-          example: example_value
-        vendorType:
-          type: string
-          description: Vendor type lookup code
-          example: example_value
-        taxPayerId:
-          type: string
-          description: Tax payer identification number
-          example: '500123'
-        standardIndustryClass:
-          type: string
-          description: Standard industry classification
-          example: example_value
-        paymentCurrencyCode:
-          type: string
-          description: Default payment currency
-          example: example_value
-        paymentMethodCode:
-          type: string
-          description: Default payment method
-          example: example_value
-        termsId:
-          type: integer
-          description: Default payment terms identifier
-          example: '500123'
-        enabled:
-          type: boolean
-          description: Whether the vendor is active
-          example: true
-        startDateActive:
-          type: string
-          format: date
-          example: '2026-01-15'
-        endDateActive:
-          type: string
-          format: date
-          example: '2026-01-15'
-        sites:
-          type: array
-          items:
-            $ref: '#/components/schemas/SupplierSite'
-          example: []
-        creationDate:
-          type: string
-          format: date-time
-          example: '2026-01-15T10:30:00Z'
-        lastUpdateDate:
-          type: string
-          format: date-time
-          example: '2026-01-15T10:30:00Z'
-    PurchaseOrderCreate:
-      type: object
-      required:
-      - vendorId
-      - vendorSiteId
-      - currencyCode
-      - lines
-      properties:
-        vendorId:
-          type: integer
-          example: '500123'
-        vendorSiteId:
-          type: integer
-          example: '500123'
-        currencyCode:
-          type: string
-          example: example_value
-        typeLookupCode:
-          type: string
-          default: STANDARD
-          example: example_value
-        description:
-          type: string
-          example: A sample description.
-        buyerId:
-          type: integer
-          example: '500123'
-        shipToLocationId:
-          type: integer
-          example: '500123'
-        billToLocationId:
-          type: integer
-          example: '500123'
-        termsId:
-          type: integer
-          example: '500123'
-        lines:
-          type: array
-          items:
-            type: object
-            required:
-            - itemDescription
-            - quantity
-            - unitPrice
-            properties:
-              lineNum:
-                type: integer
-              itemId:
-                type: integer
-              itemDescription:
-                type: string
-              categoryId:
-                type: integer
-              quantity:
-                type: number
-                format: double
-              unitMeasLookupCode:
-                type: string
-              unitPrice:
-                type: number
-                format: double
-              needByDate:
-                type: string
-                format: date
-              shipToOrganizationId:
-                type: integer
-          example: []
     RequisitionLine:
       type: object
       properties:
@@ -920,6 +594,19 @@ components:
         suggestedVendorId:
           type: integer
           example: '500123'
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            detail:
+              type: string
+          example: example_value
     PurchaseOrder:
       type: object
       properties:
@@ -1032,6 +719,77 @@ components:
           type: string
           format: date-time
           example: '2026-01-15T10:30:00Z'
+    PurchaseOrderShipment:
+      type: object
+      properties:
+        lineLocationId:
+          type: integer
+          description: Line location (shipment) identifier
+          example: '500123'
+        shipmentNum:
+          type: integer
+          description: Shipment number
+          example: 10
+        quantity:
+          type: number
+          format: double
+          description: Shipment quantity
+          example: 42.5
+        quantityReceived:
+          type: number
+          format: double
+          description: Quantity received
+          example: 42.5
+        quantityBilled:
+          type: number
+          format: double
+          description: Quantity billed
+          example: 42.5
+        needByDate:
+          type: string
+          format: date
+          example: '2026-01-15'
+        promisedDate:
+          type: string
+          format: date
+          example: '2026-01-15'
+        shipToOrganizationId:
+          type: integer
+          description: Ship-to organization identifier
+          example: '500123'
+        shipToLocationId:
+          type: integer
+          description: Ship-to location identifier
+          example: '500123'
+        closedCode:
+          type: string
+          description: Shipment close status
+          example: example_value
+    PurchaseOrderUpdate:
+      type: object
+      properties:
+        description:
+          type: string
+          example: A sample description.
+        lines:
+          type: array
+          items:
+            type: object
+            properties:
+              poLineId:
+                type: integer
+              quantity:
+                type: number
+                format: double
+              unitPrice:
+                type: number
+                format: double
+              needByDate:
+                type: string
+                format: date
+              cancelFlag:
+                type: boolean
+          example: []
     SupplierSite:
       type: object
       properties:
@@ -1076,13 +834,249 @@ components:
         orgId:
           type: integer
           example: '500123'
+    Requisition:
+      type: object
+      properties:
+        requisitionHeaderId:
+          type: integer
+          description: Requisition header identifier
+          example: '500123'
+        segment1:
+          type: string
+          description: Requisition number
+          example: example_value
+        typeLookupCode:
+          type: string
+          description: Requisition type
+          enum:
+          - PURCHASE
+          - INTERNAL
+          example: PURCHASE
+        authorizationStatus:
+          type: string
+          description: Authorization status
+          example: example_value
+        preparerId:
+          type: integer
+          description: Preparer identifier
+          example: '500123'
+        description:
+          type: string
+          description: Requisition description
+          example: A sample description.
+        totalAmount:
+          type: number
+          format: double
+          example: 42.5
+        creationDate:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+        lines:
+          type: array
+          items:
+            $ref: '#/components/schemas/RequisitionLine'
+          example: []
+        orgId:
+          type: integer
+          example: '500123'
+    PurchaseOrderCreate:
+      type: object
+      required:
+      - vendorId
+      - vendorSiteId
+      - currencyCode
+      - lines
+      properties:
+        vendorId:
+          type: integer
+          example: '500123'
+        vendorSiteId:
+          type: integer
+          example: '500123'
+        currencyCode:
+          type: string
+          example: example_value
+        typeLookupCode:
+          type: string
+          default: STANDARD
+          example: example_value
+        description:
+          type: string
+          example: A sample description.
+        buyerId:
+          type: integer
+          example: '500123'
+        shipToLocationId:
+          type: integer
+          example: '500123'
+        billToLocationId:
+          type: integer
+          example: '500123'
+        termsId:
+          type: integer
+          example: '500123'
+        lines:
+          type: array
+          items:
+            type: object
+            required:
+            - itemDescription
+            - quantity
+            - unitPrice
+            properties:
+              lineNum:
+                type: integer
+              itemId:
+                type: integer
+              itemDescription:
+                type: string
+              categoryId:
+                type: integer
+              quantity:
+                type: number
+                format: double
+              unitMeasLookupCode:
+                type: string
+              unitPrice:
+                type: number
+                format: double
+              needByDate:
+                type: string
+                format: date
+              shipToOrganizationId:
+                type: integer
+          example: []
+    PurchaseOrderLine:
+      type: object
+      properties:
+        poLineId:
+          type: integer
+          description: Purchase order line identifier
+          example: '500123'
+        lineNum:
+          type: integer
+          description: Line number
+          example: 10
+        lineType:
+          type: string
+          description: Line type
+          example: example_value
+        itemId:
+          type: integer
+          description: Inventory item identifier
+          example: '500123'
+        itemDescription:
+          type: string
+          description: Item description
+          example: example_value
+        categoryId:
+          type: integer
+          description: Item category identifier
+          example: '500123'
+        quantity:
+          type: number
+          format: double
+          description: Ordered quantity
+          example: 42.5
+        unitMeasLookupCode:
+          type: string
+          description: Unit of measure
+          example: example_value
+        unitPrice:
+          type: number
+          format: double
+          description: Unit price
+          example: 42.5
+        amount:
+          type: number
+          format: double
+          description: Line amount
+          example: 42.5
+        needByDate:
+          type: string
+          format: date
+          description: Need-by date
+          example: '2026-01-15'
+        promisedDate:
+          type: string
+          format: date
+          description: Promised date
+          example: '2026-01-15'
+        closedCode:
+          type: string
+          description: Line close status
+          example: example_value
+        shipments:
+          type: array
+          items:
+            $ref: '#/components/schemas/PurchaseOrderShipment'
+          example: []
+    Supplier:
+      type: object
+      properties:
+        vendorId:
+          type: integer
+          description: Vendor identifier
+          example: '500123'
+        vendorName:
+          type: string
+          description: Vendor name
+          example: example_value
+        segment1:
+          type: string
+          description: Vendor number
+          example: example_value
+        vendorType:
+          type: string
+          description: Vendor type lookup code
+          example: example_value
+        taxPayerId:
+          type: string
+          description: Tax payer identification number
+          example: '500123'
+        standardIndustryClass:
+          type: string
+          description: Standard industry classification
+          example: example_value
+        paymentCurrencyCode:
+          type: string
+          description: Default payment currency
+          example: example_value
+        paymentMethodCode:
+          type: string
+          description: Default payment method
+          example: example_value
+        termsId:
+          type: integer
+          description: Default payment terms identifier
+          example: '500123'
+        enabled:
+          type: boolean
+          description: Whether the vendor is active
+          example: true
+        startDateActive:
+          type: string
+          format: date
+          example: '2026-01-15'
+        endDateActive:
+          type: string
+          format: date
+          example: '2026-01-15'
+        sites:
+          type: array
+          items:
+            $ref: '#/components/schemas/SupplierSite'
+          example: []
+        creationDate:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+        lastUpdateDate:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
   responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
     BadRequest:
       description: Invalid request parameters
       content:
@@ -1091,6 +1085,12 @@ components:
             $ref: '#/components/schemas/ErrorResponse'
     Unauthorized:
       description: Authentication required or token expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:

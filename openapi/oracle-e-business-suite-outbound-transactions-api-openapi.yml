@@ -185,6 +185,19 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            detail:
+              type: string
+          example: example_value
     OutboundTransactionExtract:
       type: object
       required:
@@ -221,19 +234,6 @@ components:
           format: date
           description: Extract documents to this date
           example: '2026-01-15'
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: object
-          properties:
-            code:
-              type: string
-            message:
-              type: string
-            detail:
-              type: string
-          example: example_value
     OutboundTransaction:
       type: object
       properties:

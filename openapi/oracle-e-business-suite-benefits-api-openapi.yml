@@ -98,6 +98,19 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            detail:
+              type: string
+          example: example_value
     BenefitEnrollment:
       type: object
       properties:
@@ -150,19 +163,6 @@ components:
           format: double
           description: Benefit coverage amount
           example: 42.5
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: object
-          properties:
-            code:
-              type: string
-            message:
-              type: string
-            detail:
-              type: string
-          example: example_value
   parameters:
     Limit:
       name: limit

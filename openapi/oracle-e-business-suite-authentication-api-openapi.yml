@@ -245,6 +245,32 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+              description: Error code
+            message:
+              type: string
+              description: Human-readable error message
+            detail:
+              type: string
+              description: Detailed error information
+          example: example_value
+    LogoutResponse:
+      type: object
+      properties:
+        response:
+          type: object
+          properties:
+            data:
+              type: string
+              description: Logout confirmation message
+          example: example_value
     LoginResponse:
       type: object
       properties:
@@ -267,32 +293,6 @@ components:
                 userName:
                   type: string
                   description: Authenticated username
-          example: example_value
-    LogoutResponse:
-      type: object
-      properties:
-        response:
-          type: object
-          properties:
-            data:
-              type: string
-              description: Logout confirmation message
-          example: example_value
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: object
-          properties:
-            code:
-              type: string
-              description: Error code
-            message:
-              type: string
-              description: Human-readable error message
-            detail:
-              type: string
-              description: Detailed error information
           example: example_value
     InitializeResponse:
       type: object
