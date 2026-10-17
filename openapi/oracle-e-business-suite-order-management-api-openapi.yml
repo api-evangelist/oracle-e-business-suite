@@ -211,71 +211,36 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    Offset:
+      name: offset
+      in: query
+      description: Number of records to skip for pagination
+      schema:
+        type: integer
+        default: 0
+    Limit:
+      name: limit
+      in: query
+      description: Maximum number of records to return
+      schema:
+        type: integer
+        default: 25
+        maximum: 500
+  responses:
+    Unauthorized:
+      description: Authentication required or token expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: object
-          properties:
-            code:
-              type: string
-            message:
-              type: string
-            detail:
-              type: string
-          example: example_value
-    SalesOrderCreate:
-      type: object
-      required:
-      - soldToOrgId
-      - orderTypeId
-      - lines
-      properties:
-        soldToOrgId:
-          type: integer
-          example: '500123'
-        orderTypeId:
-          type: integer
-          example: '500123'
-        orderedDate:
-          type: string
-          format: date
-          example: '2026-01-15'
-        transactionalCurrCode:
-          type: string
-          example: example_value
-        shipToOrgId:
-          type: integer
-          example: '500123'
-        invoiceToOrgId:
-          type: integer
-          example: '500123'
-        salesrepId:
-          type: integer
-          example: '500123'
-        lines:
-          type: array
-          items:
-            type: object
-            required:
-            - inventoryItemId
-            - orderedQuantity
-            properties:
-              inventoryItemId:
-                type: integer
-              orderedQuantity:
-                type: number
-                format: double
-              orderQuantityUom:
-                type: string
-              unitSellingPrice:
-                type: number
-                format: double
-              scheduleShipDate:
-                type: string
-                format: date
-          example: []
     SalesOrder:
       type: object
       properties:
@@ -360,6 +325,57 @@ components:
           type: string
           format: date-time
           example: '2026-01-15T10:30:00Z'
+    SalesOrderCreate:
+      type: object
+      required:
+      - soldToOrgId
+      - orderTypeId
+      - lines
+      properties:
+        soldToOrgId:
+          type: integer
+          example: '500123'
+        orderTypeId:
+          type: integer
+          example: '500123'
+        orderedDate:
+          type: string
+          format: date
+          example: '2026-01-15'
+        transactionalCurrCode:
+          type: string
+          example: example_value
+        shipToOrgId:
+          type: integer
+          example: '500123'
+        invoiceToOrgId:
+          type: integer
+          example: '500123'
+        salesrepId:
+          type: integer
+          example: '500123'
+        lines:
+          type: array
+          items:
+            type: object
+            required:
+            - inventoryItemId
+            - orderedQuantity
+            properties:
+              inventoryItemId:
+                type: integer
+              orderedQuantity:
+                type: number
+                format: double
+              orderQuantityUom:
+                type: string
+              unitSellingPrice:
+                type: number
+                format: double
+              scheduleShipDate:
+                type: string
+                format: date
+          example: []
     SalesOrderLine:
       type: object
       properties:
@@ -420,35 +436,19 @@ components:
           type: number
           format: double
           example: 42.5
-  responses:
-    BadRequest:
-      description: Invalid request parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication required or token expired
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-  parameters:
-    Limit:
-      name: limit
-      in: query
-      description: Maximum number of records to return
-      schema:
-        type: integer
-        default: 25
-        maximum: 500
-    Offset:
-      name: offset
-      in: query
-      description: Number of records to skip for pagination
-      schema:
-        type: integer
-        default: 0
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            detail:
+              type: string
+          example: example_value
   securitySchemes:
     basicAuth:
       type: http

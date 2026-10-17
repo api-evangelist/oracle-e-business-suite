@@ -177,60 +177,30 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    Offset:
+      name: offset
+      in: query
+      description: Number of records to skip for pagination
+      schema:
+        type: integer
+        default: 0
+    Limit:
+      name: limit
+      in: query
+      description: Maximum number of records to return
+      schema:
+        type: integer
+        default: 25
+        maximum: 500
+  responses:
+    Unauthorized:
+      description: Authentication required or token expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: object
-          properties:
-            code:
-              type: string
-            message:
-              type: string
-            detail:
-              type: string
-          example: example_value
-    OnhandQuantity:
-      type: object
-      properties:
-        inventoryItemId:
-          type: integer
-          description: Inventory item identifier
-          example: '500123'
-        organizationId:
-          type: integer
-          description: Organization identifier
-          example: '500123'
-        subinventoryCode:
-          type: string
-          description: Subinventory code
-          example: example_value
-        locatorId:
-          type: integer
-          description: Locator identifier
-          example: '500123'
-        lotNumber:
-          type: string
-          description: Lot number
-          example: example_value
-        serialNumber:
-          type: string
-          description: Serial number
-          example: example_value
-        transactionQuantity:
-          type: number
-          format: double
-          description: On-hand quantity
-          example: 42.5
-        transactionUomCode:
-          type: string
-          description: Unit of measure code
-          example: example_value
-        lastUpdateDate:
-          type: string
-          format: date-time
-          example: '2026-01-15T10:30:00Z'
     InventoryItem:
       type: object
       properties:
@@ -315,29 +285,59 @@ components:
           type: string
           format: date-time
           example: '2026-01-15T10:30:00Z'
-  parameters:
-    Limit:
-      name: limit
-      in: query
-      description: Maximum number of records to return
-      schema:
-        type: integer
-        default: 25
-        maximum: 500
-    Offset:
-      name: offset
-      in: query
-      description: Number of records to skip for pagination
-      schema:
-        type: integer
-        default: 0
-  responses:
-    Unauthorized:
-      description: Authentication required or token expired
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
+    OnhandQuantity:
+      type: object
+      properties:
+        inventoryItemId:
+          type: integer
+          description: Inventory item identifier
+          example: '500123'
+        organizationId:
+          type: integer
+          description: Organization identifier
+          example: '500123'
+        subinventoryCode:
+          type: string
+          description: Subinventory code
+          example: example_value
+        locatorId:
+          type: integer
+          description: Locator identifier
+          example: '500123'
+        lotNumber:
+          type: string
+          description: Lot number
+          example: example_value
+        serialNumber:
+          type: string
+          description: Serial number
+          example: example_value
+        transactionQuantity:
+          type: number
+          format: double
+          description: On-hand quantity
+          example: 42.5
+        transactionUomCode:
+          type: string
+          description: Unit of measure code
+          example: example_value
+        lastUpdateDate:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            detail:
+              type: string
+          example: example_value
   securitySchemes:
     basicAuth:
       type: http

@@ -191,6 +191,66 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    JournalEntryCreate:
+      type: object
+      required:
+      - ledgerId
+      - periodName
+      - journalName
+      - journalCategory
+      - journalSource
+      - currencyCode
+      - lines
+      properties:
+        ledgerId:
+          type: integer
+          example: '500123'
+        periodName:
+          type: string
+          example: example_value
+        journalName:
+          type: string
+          example: example_value
+        journalCategory:
+          type: string
+          example: example_value
+        journalSource:
+          type: string
+          example: example_value
+        currencyCode:
+          type: string
+          example: example_value
+        description:
+          type: string
+          example: A sample description.
+        effectiveDate:
+          type: string
+          format: date
+          example: '2026-01-15'
+        lines:
+          type: array
+          items:
+            type: object
+            required:
+            - codeCombinatonId
+            properties:
+              codeCombinatonId:
+                type: integer
+              accountedDr:
+                type: number
+                format: double
+              accountedCr:
+                type: number
+                format: double
+              enteredDr:
+                type: number
+                format: double
+              enteredCr:
+                type: number
+                format: double
+              description:
+                type: string
+          example: []
     ErrorResponse:
       type: object
       properties:
@@ -204,6 +264,41 @@ components:
             detail:
               type: string
           example: example_value
+    JournalLine:
+      type: object
+      properties:
+        jeLineNum:
+          type: integer
+          description: Journal line number
+          example: 10
+        codeCombinatonId:
+          type: integer
+          description: Chart of accounts code combination identifier
+          example: '500123'
+        accountedDr:
+          type: number
+          format: double
+          description: Debit amount in functional currency
+          example: 42.5
+        accountedCr:
+          type: number
+          format: double
+          description: Credit amount in functional currency
+          example: 42.5
+        enteredDr:
+          type: number
+          format: double
+          description: Debit amount in entered currency
+          example: 42.5
+        enteredCr:
+          type: number
+          format: double
+          description: Credit amount in entered currency
+          example: 42.5
+        description:
+          type: string
+          description: Line description
+          example: A sample description.
     JournalEntry:
       type: object
       properties:
@@ -275,115 +370,14 @@ components:
           type: string
           format: date-time
           example: '2026-01-15T10:30:00Z'
-    JournalLine:
-      type: object
-      properties:
-        jeLineNum:
-          type: integer
-          description: Journal line number
-          example: 10
-        codeCombinatonId:
-          type: integer
-          description: Chart of accounts code combination identifier
-          example: '500123'
-        accountedDr:
-          type: number
-          format: double
-          description: Debit amount in functional currency
-          example: 42.5
-        accountedCr:
-          type: number
-          format: double
-          description: Credit amount in functional currency
-          example: 42.5
-        enteredDr:
-          type: number
-          format: double
-          description: Debit amount in entered currency
-          example: 42.5
-        enteredCr:
-          type: number
-          format: double
-          description: Credit amount in entered currency
-          example: 42.5
-        description:
-          type: string
-          description: Line description
-          example: A sample description.
-    JournalEntryCreate:
-      type: object
-      required:
-      - ledgerId
-      - periodName
-      - journalName
-      - journalCategory
-      - journalSource
-      - currencyCode
-      - lines
-      properties:
-        ledgerId:
-          type: integer
-          example: '500123'
-        periodName:
-          type: string
-          example: example_value
-        journalName:
-          type: string
-          example: example_value
-        journalCategory:
-          type: string
-          example: example_value
-        journalSource:
-          type: string
-          example: example_value
-        currencyCode:
-          type: string
-          example: example_value
-        description:
-          type: string
-          example: A sample description.
-        effectiveDate:
-          type: string
-          format: date
-          example: '2026-01-15'
-        lines:
-          type: array
-          items:
-            type: object
-            required:
-            - codeCombinatonId
-            properties:
-              codeCombinatonId:
-                type: integer
-              accountedDr:
-                type: number
-                format: double
-              accountedCr:
-                type: number
-                format: double
-              enteredDr:
-                type: number
-                format: double
-              enteredCr:
-                type: number
-                format: double
-              description:
-                type: string
-          example: []
-  responses:
-    BadRequest:
-      description: Invalid request parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication required or token expired
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   parameters:
+    Offset:
+      name: offset
+      in: query
+      description: Number of records to skip for pagination
+      schema:
+        type: integer
+        default: 0
     Limit:
       name: limit
       in: query
@@ -392,13 +386,19 @@ components:
         type: integer
         default: 25
         maximum: 500
-    Offset:
-      name: offset
-      in: query
-      description: Number of records to skip for pagination
-      schema:
-        type: integer
-        default: 0
+  responses:
+    Unauthorized:
+      description: Authentication required or token expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     basicAuth:
       type: http

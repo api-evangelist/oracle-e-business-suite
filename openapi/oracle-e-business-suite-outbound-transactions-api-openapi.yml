@@ -184,56 +184,36 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    Offset:
+      name: offset
+      in: query
+      description: Number of records to skip for pagination
+      schema:
+        type: integer
+        default: 0
+    Limit:
+      name: limit
+      in: query
+      description: Maximum number of records to return
+      schema:
+        type: integer
+        default: 25
+        maximum: 500
+  responses:
+    Unauthorized:
+      description: Authentication required or token expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: object
-          properties:
-            code:
-              type: string
-            message:
-              type: string
-            detail:
-              type: string
-          example: example_value
-    OutboundTransactionExtract:
-      type: object
-      required:
-      - transactionType
-      - tradingPartnerId
-      properties:
-        transactionType:
-          type: string
-          description: Outbound transaction type
-          enum:
-          - POO
-          - POCO
-          - INO
-          - CDMO
-          - PYO
-          - SPSO
-          - SSSO
-          - ADVO
-          - MVSTO
-          example: POO
-        tradingPartnerId:
-          type: integer
-          example: '500123'
-        tradingPartnerSiteId:
-          type: integer
-          example: '500123'
-        dateFrom:
-          type: string
-          format: date
-          description: Extract documents from this date
-          example: '2026-01-15'
-        dateTo:
-          type: string
-          format: date
-          description: Extract documents to this date
-          example: '2026-01-15'
     OutboundTransaction:
       type: object
       properties:
@@ -313,35 +293,55 @@ components:
           type: string
           format: date-time
           example: '2026-01-15T10:30:00Z'
-  responses:
-    BadRequest:
-      description: Invalid request parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication required or token expired
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-  parameters:
-    Limit:
-      name: limit
-      in: query
-      description: Maximum number of records to return
-      schema:
-        type: integer
-        default: 25
-        maximum: 500
-    Offset:
-      name: offset
-      in: query
-      description: Number of records to skip for pagination
-      schema:
-        type: integer
-        default: 0
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            detail:
+              type: string
+          example: example_value
+    OutboundTransactionExtract:
+      type: object
+      required:
+      - transactionType
+      - tradingPartnerId
+      properties:
+        transactionType:
+          type: string
+          description: Outbound transaction type
+          enum:
+          - POO
+          - POCO
+          - INO
+          - CDMO
+          - PYO
+          - SPSO
+          - SSSO
+          - ADVO
+          - MVSTO
+          example: POO
+        tradingPartnerId:
+          type: integer
+          example: '500123'
+        tradingPartnerSiteId:
+          type: integer
+          example: '500123'
+        dateFrom:
+          type: string
+          format: date
+          description: Extract documents from this date
+          example: '2026-01-15'
+        dateTo:
+          type: string
+          format: date
+          description: Extract documents to this date
+          example: '2026-01-15'
   securitySchemes:
     basicAuth:
       type: http
